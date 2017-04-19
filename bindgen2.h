@@ -3,6 +3,7 @@
 # 1 "<command-line>"
 # 1 "bindgen.h"
 
+
 # 1 "C:\\Octave\\Octave-4.2.1\\include\\octave-4.2.1\\octave/oct.h" 1
 # 26 "C:\\Octave\\Octave-4.2.1\\include\\octave-4.2.1\\octave/oct.h"
 # 1 "C:\\Octave\\Octave-4.2.1\\include\\octave-4.2.1\\octave/octave-config.h" 1
@@ -107,11 +108,11 @@ extern "C" {
 
 
 
-void __attribute__((__cdecl__)) __debugbreak(void);
-extern __inline__ __attribute__((__always_inline__,__gnu_inline__)) void __attribute__((__cdecl__)) __debugbreak(void)
-{
-  __asm__ __volatile__("int {$}3":);
-}
+// void __attribute__((__cdecl__)) __debugbreak(void);
+// extern __inline__ __attribute__((__always_inline__,__gnu_inline__)) void __attribute__((__cdecl__)) __debugbreak(void)
+// {
+//   __asm__ __volatile__("int {$}3":);
+// }
 
 
 
@@ -54523,10 +54524,10 @@ namespace std
 typedef std::complex<double> Complex;
 typedef std::complex<float> FloatComplex;
 # 100 "C:\\Octave\\Octave-4.2.1\\include\\octave-4.2.1\\octave/oct-cmplx.h"
-template <typename T> inline bool operator > (const std::complex<T>& a, const std::complex<T>& b) { volatile const T ax = std::abs (a); volatile const T bx = std::abs (b); if (ax == bx) { volatile const T ay = std::arg (a); volatile const T by = std::arg (b); if (ay == static_cast<T> (-M_PI)) { if (by != static_cast<T> (-M_PI)) return static_cast<T> (M_PI) > by; } else if (by == static_cast<T> (-M_PI)) { return ay > static_cast<T> (M_PI); } return ay > by; } else return ax > bx; } template <typename T> inline bool operator > (const std::complex<T>& a, T b) { volatile const T ax = std::abs (a); volatile const T bx = std::abs (b); if (ax == bx) { volatile const T ay = std::arg (a); if (ay == static_cast<T> (-M_PI)) return static_cast<T> (M_PI) > 0; return ay > 0; } else return ax > bx; } template <typename T> inline bool operator > (T a, const std::complex<T>& b) { volatile const T ax = std::abs (a); volatile const T bx = std::abs (b); if (ax == bx) { volatile const T by = std::arg (b); if (by == static_cast<T> (-M_PI)) return 0 > static_cast<T> (M_PI); return 0 > by; } else return ax > bx; }
-template <typename T> inline bool operator < (const std::complex<T>& a, const std::complex<T>& b) { volatile const T ax = std::abs (a); volatile const T bx = std::abs (b); if (ax == bx) { volatile const T ay = std::arg (a); volatile const T by = std::arg (b); if (ay == static_cast<T> (-M_PI)) { if (by != static_cast<T> (-M_PI)) return static_cast<T> (M_PI) < by; } else if (by == static_cast<T> (-M_PI)) { return ay < static_cast<T> (M_PI); } return ay < by; } else return ax < bx; } template <typename T> inline bool operator < (const std::complex<T>& a, T b) { volatile const T ax = std::abs (a); volatile const T bx = std::abs (b); if (ax == bx) { volatile const T ay = std::arg (a); if (ay == static_cast<T> (-M_PI)) return static_cast<T> (M_PI) < 0; return ay < 0; } else return ax < bx; } template <typename T> inline bool operator < (T a, const std::complex<T>& b) { volatile const T ax = std::abs (a); volatile const T bx = std::abs (b); if (ax == bx) { volatile const T by = std::arg (b); if (by == static_cast<T> (-M_PI)) return 0 < static_cast<T> (M_PI); return 0 < by; } else return ax < bx; }
-template <typename T> inline bool operator <= (const std::complex<T>& a, const std::complex<T>& b) { volatile const T ax = std::abs (a); volatile const T bx = std::abs (b); if (ax == bx) { volatile const T ay = std::arg (a); volatile const T by = std::arg (b); if (ay == static_cast<T> (-M_PI)) { if (by != static_cast<T> (-M_PI)) return static_cast<T> (M_PI) <= by; } else if (by == static_cast<T> (-M_PI)) { return ay <= static_cast<T> (M_PI); } return ay <= by; } else return ax < bx; } template <typename T> inline bool operator <= (const std::complex<T>& a, T b) { volatile const T ax = std::abs (a); volatile const T bx = std::abs (b); if (ax == bx) { volatile const T ay = std::arg (a); if (ay == static_cast<T> (-M_PI)) return static_cast<T> (M_PI) <= 0; return ay <= 0; } else return ax < bx; } template <typename T> inline bool operator <= (T a, const std::complex<T>& b) { volatile const T ax = std::abs (a); volatile const T bx = std::abs (b); if (ax == bx) { volatile const T by = std::arg (b); if (by == static_cast<T> (-M_PI)) return 0 <= static_cast<T> (M_PI); return 0 <= by; } else return ax < bx; }
-template <typename T> inline bool operator >= (const std::complex<T>& a, const std::complex<T>& b) { volatile const T ax = std::abs (a); volatile const T bx = std::abs (b); if (ax == bx) { volatile const T ay = std::arg (a); volatile const T by = std::arg (b); if (ay == static_cast<T> (-M_PI)) { if (by != static_cast<T> (-M_PI)) return static_cast<T> (M_PI) >= by; } else if (by == static_cast<T> (-M_PI)) { return ay >= static_cast<T> (M_PI); } return ay >= by; } else return ax > bx; } template <typename T> inline bool operator >= (const std::complex<T>& a, T b) { volatile const T ax = std::abs (a); volatile const T bx = std::abs (b); if (ax == bx) { volatile const T ay = std::arg (a); if (ay == static_cast<T> (-M_PI)) return static_cast<T> (M_PI) >= 0; return ay >= 0; } else return ax > bx; } template <typename T> inline bool operator >= (T a, const std::complex<T>& b) { volatile const T ax = std::abs (a); volatile const T bx = std::abs (b); if (ax == bx) { volatile const T by = std::arg (b); if (by == static_cast<T> (-M_PI)) return 0 >= static_cast<T> (M_PI); return 0 >= by; } else return ax > bx; }
+template <typename T> inline bool operator > (const std::complex<T>& a, const std::complex<T>& b) { volatile const T ax = std::abs (a); volatile const T bx = std::abs (b); if (ax == bx) { volatile const T ay = std::arg (a); volatile const T by = std::arg (b); if (ay == static_cast<T> (-3.14159265358979323846)) { if (by != static_cast<T> (-3.14159265358979323846)) return static_cast<T> (3.14159265358979323846) > by; } else if (by == static_cast<T> (-3.14159265358979323846)) { return ay > static_cast<T> (3.14159265358979323846); } return ay > by; } else return ax > bx; } template <typename T> inline bool operator > (const std::complex<T>& a, T b) { volatile const T ax = std::abs (a); volatile const T bx = std::abs (b); if (ax == bx) { volatile const T ay = std::arg (a); if (ay == static_cast<T> (-3.14159265358979323846)) return static_cast<T> (3.14159265358979323846) > 0; return ay > 0; } else return ax > bx; } template <typename T> inline bool operator > (T a, const std::complex<T>& b) { volatile const T ax = std::abs (a); volatile const T bx = std::abs (b); if (ax == bx) { volatile const T by = std::arg (b); if (by == static_cast<T> (-3.14159265358979323846)) return 0 > static_cast<T> (3.14159265358979323846); return 0 > by; } else return ax > bx; }
+template <typename T> inline bool operator < (const std::complex<T>& a, const std::complex<T>& b) { volatile const T ax = std::abs (a); volatile const T bx = std::abs (b); if (ax == bx) { volatile const T ay = std::arg (a); volatile const T by = std::arg (b); if (ay == static_cast<T> (-3.14159265358979323846)) { if (by != static_cast<T> (-3.14159265358979323846)) return static_cast<T> (3.14159265358979323846) < by; } else if (by == static_cast<T> (-3.14159265358979323846)) { return ay < static_cast<T> (3.14159265358979323846); } return ay < by; } else return ax < bx; } template <typename T> inline bool operator < (const std::complex<T>& a, T b) { volatile const T ax = std::abs (a); volatile const T bx = std::abs (b); if (ax == bx) { volatile const T ay = std::arg (a); if (ay == static_cast<T> (-3.14159265358979323846)) return static_cast<T> (3.14159265358979323846) < 0; return ay < 0; } else return ax < bx; } template <typename T> inline bool operator < (T a, const std::complex<T>& b) { volatile const T ax = std::abs (a); volatile const T bx = std::abs (b); if (ax == bx) { volatile const T by = std::arg (b); if (by == static_cast<T> (-3.14159265358979323846)) return 0 < static_cast<T> (3.14159265358979323846); return 0 < by; } else return ax < bx; }
+template <typename T> inline bool operator <= (const std::complex<T>& a, const std::complex<T>& b) { volatile const T ax = std::abs (a); volatile const T bx = std::abs (b); if (ax == bx) { volatile const T ay = std::arg (a); volatile const T by = std::arg (b); if (ay == static_cast<T> (-3.14159265358979323846)) { if (by != static_cast<T> (-3.14159265358979323846)) return static_cast<T> (3.14159265358979323846) <= by; } else if (by == static_cast<T> (-3.14159265358979323846)) { return ay <= static_cast<T> (3.14159265358979323846); } return ay <= by; } else return ax < bx; } template <typename T> inline bool operator <= (const std::complex<T>& a, T b) { volatile const T ax = std::abs (a); volatile const T bx = std::abs (b); if (ax == bx) { volatile const T ay = std::arg (a); if (ay == static_cast<T> (-3.14159265358979323846)) return static_cast<T> (3.14159265358979323846) <= 0; return ay <= 0; } else return ax < bx; } template <typename T> inline bool operator <= (T a, const std::complex<T>& b) { volatile const T ax = std::abs (a); volatile const T bx = std::abs (b); if (ax == bx) { volatile const T by = std::arg (b); if (by == static_cast<T> (-3.14159265358979323846)) return 0 <= static_cast<T> (3.14159265358979323846); return 0 <= by; } else return ax < bx; }
+template <typename T> inline bool operator >= (const std::complex<T>& a, const std::complex<T>& b) { volatile const T ax = std::abs (a); volatile const T bx = std::abs (b); if (ax == bx) { volatile const T ay = std::arg (a); volatile const T by = std::arg (b); if (ay == static_cast<T> (-3.14159265358979323846)) { if (by != static_cast<T> (-3.14159265358979323846)) return static_cast<T> (3.14159265358979323846) >= by; } else if (by == static_cast<T> (-3.14159265358979323846)) { return ay >= static_cast<T> (3.14159265358979323846); } return ay >= by; } else return ax > bx; } template <typename T> inline bool operator >= (const std::complex<T>& a, T b) { volatile const T ax = std::abs (a); volatile const T bx = std::abs (b); if (ax == bx) { volatile const T ay = std::arg (a); if (ay == static_cast<T> (-3.14159265358979323846)) return static_cast<T> (3.14159265358979323846) >= 0; return ay >= 0; } else return ax > bx; } template <typename T> inline bool operator >= (T a, const std::complex<T>& b) { volatile const T ax = std::abs (a); volatile const T bx = std::abs (b); if (ax == bx) { volatile const T by = std::arg (b); if (by == static_cast<T> (-3.14159265358979323846)) return 0 >= static_cast<T> (3.14159265358979323846); return 0 >= by; } else return ax > bx; }
 # 37 "C:\\Octave\\Octave-4.2.1\\include\\octave-4.2.1\\octave/lo-utils.h" 2
 
 
@@ -56517,8 +56518,8 @@ namespace octave
 
 
 
-    inline double arg (double x) { return signbit (x) ? M_PI : 0; }
-    inline float arg (float x) { return signbit (x) ? M_PI : 0; }
+    inline double arg (double x) { return signbit (x) ? 3.14159265358979323846 : 0; }
+    inline float arg (float x) { return signbit (x) ? 3.14159265358979323846 : 0; }
 
     template <typename T>
     T
@@ -88387,4 +88388,4 @@ extern void clear_symbol (const std::string& nm);
 
 extern void maybe_missing_function_hook (const std::string& name);
 # 42 "C:\\Octave\\Octave-4.2.1\\include\\octave-4.2.1\\octave/oct.h" 2
-# 2 "bindgen.h" 2
+# 3 "bindgen.h" 2

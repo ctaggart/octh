@@ -1,0 +1,12 @@
+[package]
+name = "octh"
+version = "0.1.0"
+authors = ["Cameron Taggart <cameron.taggart@gmail.com>"]
+build = "build.rs"
+description = "A bindgen generated Rust wrapper around oct.h for creating Oct-Files for GNU Octave"
+keywords = ["Octave", "oct"]
+license = "GPL"
+homepage = "https://github.com/ctaggart/octh"
+repository = "https://github.com/ctaggart/octh"
+
+[lib]
