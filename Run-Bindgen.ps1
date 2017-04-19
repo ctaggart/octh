@@ -7,10 +7,12 @@ $env:RUST_BACKTRACE = 1
 
 # bindgen --verbose --output=src/lib.rs bindgen.h -- `
 # -x c++ `
-# -std=gnu++11
+# -std=gnu++11 `
 # -IC:\Octave\Octave-4.2.1\include\octave-4.2.1\octave `
 # -IC:\Octave\Octave-4.2.1\include `
 # -IC:\Octave\Octave-4.2.1\lib\gcc\x86_64-w64-mingw32\4.9.4\include\c++ `
 # -IC:\Octave\Octave-4.2.1\lib\gcc\x86_64-w64-mingw32\4.9.4\include\c++\x86_64-w64-mingw32
 
-bindgen --verbose --output=src/lib.rs bindgen2.h
+bindgen --verbose --output=src/lib.rs bindgen2.h -- `
+-x c++ `
+-ferror-limit=0
