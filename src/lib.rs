@@ -4312,7 +4312,7 @@ fn __bindgen_test_layout_std_basic_string_instantiation_9751() {
                std_basic_string<u16, std_allocator> ) ));
 }
 pub type std_size_type = size_type;
-pub type std_size_type = size_type;
+// pub type std_size_type = size_type;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct std_tuple_size {
@@ -14170,7 +14170,7 @@ fn bindgen_test_layout_octave_dynamic_library() {
                 "Alignment of field: " , stringify ! ( octave_dynamic_library
                 ) , "::" , stringify ! ( rep ) ));
 }
-pub type octave_execution_exception = octave_exit_exception;
+// pub type octave_execution_exception = octave_exit_exception;
 #[repr(i32)]
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
 pub enum octave_exception {
@@ -63375,7 +63375,7 @@ fn __bindgen_test_layout_std_iterator_instantiation_70737() {
                std_iterator ) ));
 }
 pub type size_type = usize;
-pub type size_type = usize;
+// pub type size_type = usize;
 #[repr(C)]
 #[derive(Debug, Copy)]
 pub struct _bindgen_ty_40 {
@@ -63393,7 +63393,7 @@ fn __bindgen_test_layout_std_iterator_instantiation_74798() {
                "Alignment of template specialization: " , stringify ! (
                std_iterator ) ));
 }
-pub type size_type = usize;
+// pub type size_type = usize;
 pub type iterator = std__Bit_iterator;
 #[test]
 fn __bindgen_test_layout_std_mersenne_twister_engine_instantiation_74895() {
@@ -63625,8 +63625,8 @@ fn __bindgen_test_layout_Array_instantiation_76124() {
 }
 pub type char_type = ::std::os::raw::c_char;
 pub type int_type = ::std::os::raw::c_int;
-pub type char_type = u16;
-pub type int_type = wint_t;
+// pub type char_type = u16;
+// pub type int_type = wint_t;
 #[test]
 fn __bindgen_test_layout_MDiagArray2_instantiation_77395() {
     assert_eq!(::std::mem::size_of::<MDiagArray2<f64>>() , 48usize , concat !
