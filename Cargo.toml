@@ -10,3 +10,6 @@ homepage = "https://github.com/ctaggart/octh"
 repository = "https://github.com/ctaggart/octh"
 
 [lib]
+
+[build-dependencies]
+bindgen = "*"
