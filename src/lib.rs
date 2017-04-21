@@ -2659,54 +2659,6 @@ pub mod root {
         pub count: root::octave_refcount_count_type<T>,
     }
     pub type octave_refcount_count_type<T> = T;
-    //! Vector representing the dimensions (size) of an Array.
-/*!
-  A dim_vector is used to represent dimensions of an Array.  It is used
-  on its constructor to specify its size, or when reshaping it.
-
-  @code{.cc}
-  // Matrix with 10 rows and 20 columns.
-  Matrix m Matrix (dim_vector (10, 20));
-
-  // Change its size to 5 rows and 40 columns.
-  Matrix m2 = m.reshape (dim_vector (5, 40));
-
-  // Five dimensional Array of length 10, 20, 3, 8, 7 on each dimension.
-  NDArray a (dim_vector (10, 20, 3, 8, 7));
-
-  // Uninitialized array of same size as other.
-  NDArray b (a.dims ());
-  @endcode
-
-  The main thing to understand about this class, is that methods such as
-  ndims() and numel(), return the value for an Array of these dimensions,
-  not the actual number of elements in the dim_vector.
-
-  @code{.cc}
-  dim_vector d (10, 5, 3);
-  octave_idx_type n = d.numel (); // returns 150
-  octave_idx_type nd = d.ndims (); // returns 3
-  @endcode
-
-  ## Implementation details ##
-
-  This implementation is more tricky than Array, but the big plus is that
-  dim_vector requires only one allocation instead of two.  It is (slightly)
-  patterned after GCC's basic_string implementation.  rep is a pointer to an
-  array of memory, comprising count, length, and the data:
-
-  @verbatim
-          <count>
-          <ndims>
-  rep --> <dims[0]>
-          <dims[1]>
-          ...
-  @endverbatim
-
-  The inlines count(), ndims() recover this data from the rep.  Note
-  that rep points to the beginning of dims to grant faster access
-  (reinterpret_cast is assumed to be an inexpensive operation).
-*/
     #[repr(C)]
     #[derive(Debug)]
     pub struct dim_vector {
@@ -2744,15 +2696,6 @@ pub mod root {
          -> ::std::os::raw::c_int;
     }
     extern "C" {
-        /*!
-     The following function will throw a std::bad_alloc ()
-     exception if the requested size is larger than can be indexed by
-     octave_idx_type.  This may be smaller than the actual amount of
-     memory that can be safely allocated on a system.  However, if we
-     don't fail here, we can end up with a mysterious crash inside a
-     function that is iterating over an array using octave_idx_type
-     indices.
-  */
         #[link_name = "_ZNK10dim_vector10safe_numelEv"]
         pub fn dim_vector_safe_numel(this: *const root::dim_vector)
          -> root::octave_idx_type;
@@ -2763,26 +2706,18 @@ pub mod root {
          -> root::dim_vector;
     }
     extern "C" {
-        //! This corresponds to cat().
         #[link_name = "_ZN10dim_vector6concatERKS_i"]
         pub fn dim_vector_concat(this: *mut root::dim_vector,
                                  dvb: *const root::dim_vector,
                                  dim: ::std::os::raw::c_int) -> bool;
     }
     extern "C" {
-        //! This corresponds to [,] (horzcat, dim = 0) and [;] (vertcat, dim = 1).
         #[link_name = "_ZN10dim_vector5hvcatERKS_i"]
         pub fn dim_vector_hvcat(this: *mut root::dim_vector,
                                 dvb: *const root::dim_vector,
                                 dim: ::std::os::raw::c_int) -> bool;
     }
     extern "C" {
-        /*!
-      Force certain dimensionality, preserving numel ().  Missing
-      dimensions are set to 1, redundant are folded into the trailing
-      one.  If n = 1, the result is 2d and the second dim is 1
-      (dim_vectors are always at least 2D).
-  */
         #[link_name = "_ZNK10dim_vector5redimEi"]
         pub fn dim_vector_redim(this: *const root::dim_vector,
                                 n: ::std::os::raw::c_int) -> root::dim_vector;
@@ -2845,85 +2780,6 @@ pub mod root {
     pub type octave_uint64 = root::octave_int<::std::os::raw::c_ulonglong>;
     #[repr(C)]
     pub struct Array__bindgen_vtable(::std::os::raw::c_void);
-    //! N Dimensional Array with copy-on-write semantics.
-/*!
-    The Array class is at the root of Octave.  It provides a container
-    with an arbitrary number of dimensions.  The operator () provides
-    access to individual elements via subscript and linear indexing.
-    Indexing starts at 0.  Arrays are column-major order as in Fortran.
-
-    @code{.cc}
-    // 3 D Array with 10 rows, 20 columns, and 5 pages, filled with 7.0
-    Array<double> A Array<double (dim_vector (10, 20, 5), 7.0);
-
-    // set value for row 0, column 10, and page 3
-    A(0, 10, 3) = 2.5;
-
-    // get value for row 1, column 2, and page 0
-    double v = A(1, 2, 0);
-
-    // get value for 25th element (row 4, column 3, page 1)
-    double v = A(24);
-    @endcode
-
-    ## Notes on STL compatibility
-
-    ### size() and length()
-
-    To access the total number of elements in an Array, use numel()
-    which is short for number of elements and is equivalent to the
-    Octave function with same name.
-
-    @code{.cc}
-    Array<int> A (dim_vector (10, 20, 4), 1);
-
-    octave_idx_type n = A.numel (); // returns 800 (10x20x4)
-
-    octave_idx_type nr = A.size (0); // returns 10 (number of rows/dimension 0)
-    octave_idx_type nc = A.size (1); // returns 20 (number of columns)
-    octave_idx_type nc = A.size (2); // returns 4 (size of dimension 3)
-    octave_idx_type l6 = A.size (6); // returns 1 (implicit singleton dimension)
-
-    // Alternatively, get a dim_vector which represents the dimensions.
-    dim_vector dims = A.dims ();
-    @endcode
-
-    The methods size() and length() as they exist in the STL cause
-    confusion in the context of a N dimensional array.
-
-    The size() of an array is the length of all dimensions.  In Octave,
-    the size() function returns a row vector with the length of each
-    dimension, or the size of a specific dimension.  Only the latter is
-    present in liboctave.
-
-    Since there is more than 1 dimension, length() would not make sense
-    without expliciting which dimension.  If the function existed, which
-    length should it return?  Octave length() function returns the length
-    of the longest dimension which is an odd definition, only useful for
-    vectors and square matrices.  The alternatives numel(), rows(),
-    columns(), and size(d) are more explict and recommended.
-
-    ### size_type
-
-    Array::size_type is `octave_idx_type` which is a typedef for `int`
-    or `long int`, depending whether Octave was configured for 64-bit
-    indexing.
-
-    This is a signed integer which may cause problems when mixed with
-    STL containers.  The reason is that Octave interacts with Fortran
-    routines, providing an interface many Fortran numeric libraries.
-
-    ## Subclasses
-
-    The following subclasses specializations, will be of most use:
-      - Matrix: Array<double> with only 2 dimensions
-      - ComplexMatrix: Array<std::complex<double>> with only 2 dimensions
-      - boolNDArray: N dimensional Array<bool>
-      - ColumnVector: Array<double> with 1 column
-      - string_vector: Array<std::string> with 1 column
-      - Cell: Array<octave_value>, equivalent to an Octave cell.
-
-*/
     #[repr(C)]
     #[derive(Debug)]
     pub struct Array<T> {
@@ -2933,7 +2789,6 @@ pub mod root {
         pub slice_data: *mut T,
         pub slice_len: root::octave_idx_type,
     }
-    //! The real representation of all arrays.
     #[repr(C)]
     #[derive(Debug)]
     pub struct Array_ArrayRep<T> {
@@ -2943,8 +2798,6 @@ pub mod root {
     }
     pub type Array_element_type<T> = T;
     pub type Array_value_type<T> = T;
-    //! Used for operator(), and returned by numel() and size()
-  //! (beware: signed integer)
     pub type Array_size_type = root::octave_idx_type;
     pub type Array_crefT = root::ref_param;
     pub type Array_compare_fcn_type =
@@ -4346,7 +4199,6 @@ pub mod root {
     pub struct octave_int_arith {
         pub _address: u8,
     }
-    //! Template for N-dimensional array classes with like-type math operators.
     #[repr(C)]
     #[derive(Debug)]
     pub struct MArray<T> {
@@ -19037,7 +18889,6 @@ pub mod root {
         pub d1: root::octave_idx_type,
         pub d2: root::octave_idx_type,
     }
-    //! Template for two dimensional diagonal array with math operators.
     #[repr(C)]
     #[derive(Debug)]
     pub struct MDiagArray2<T> {
