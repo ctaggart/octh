@@ -1,7 +1,7 @@
 extern crate bindgen;
 
 fn bindgen() {
-    let bindings = bindgen::Builder::default()
+    let mut builder = bindgen::Builder::default()
         .no_unstable_rust()
         .header("bindgen.h")
         .clang_arg("-v")
@@ -12,14 +12,30 @@ fn bindgen() {
         .clang_arg("-nobuiltininc")
         .clang_arg("-IC:/Octave/Octave-4.2.1/include/octave-4.2.1/octave")
         .enable_cxx_namespaces()
-        // .opaque_type(".*")
+        // .opaque_type(".*") // Should have a set of used template params for every item id
         .whitelisted_type("octave_.*")
-        .generate_comments(false)
-        .generate()
+        .generate_comments(false);
+
+        let opaque_types = [
+            "std::basic_streambuf___streambuf_type",
+            "std::basic_istream_sentry_traits_type",
+            "std::basic_streambuf" // std::basic_streambuf<_CharT>
+        ];
+        for &ty in opaque_types.iter() {
+            builder = builder.opaque_type(ty);
+        }
+
+        // let blacklist = [
+        //     "_CType"
+        // ];
+        // for &ty in blacklist.iter() {
+        //     builder = builder.hide_type(ty);
+        // }
+
+    let bindings = builder.generate()
         .expect("Unable to generate bindings");
 
-    bindings
-        .write_to_file("src/lib.rs")
+    bindings.write_to_file("src/lib.rs")
         .expect("Couldn't write bindings!");
 }
 
