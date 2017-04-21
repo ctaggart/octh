@@ -14,6 +14,7 @@ fn bindgen() {
         .enable_cxx_namespaces()
         // .opaque_type(".*")
         .whitelisted_type("octave_.*")
+        .generate_comments(false)
         .generate()
         .expect("Unable to generate bindings");
 
