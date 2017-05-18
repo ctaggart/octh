@@ -3517,7 +3517,9 @@ pub mod root {
         pub type ctype_byname_mask = u8;
         #[repr(C)]
         #[derive(Debug, Copy, Clone)]
-        pub struct codecvt_base([u8; 0]);
+        pub struct codecvt_base {
+            _unused: [u8; 0],
+        }
         #[repr(C)]
         #[derive(Debug, Copy, Clone)]
         pub struct codecvt {
@@ -3567,7 +3569,9 @@ pub mod root {
         pub type collate_byname_string_type = u8;
         #[repr(C)]
         #[derive(Debug, Copy, Clone)]
-        pub struct time_base([u8; 0]);
+        pub struct time_base {
+            _unused: [u8; 0],
+        }
         #[repr(C)]
         #[derive(Debug, Copy, Clone)]
         pub struct time_get {
@@ -3590,7 +3594,9 @@ pub mod root {
         }
         #[repr(C)]
         #[derive(Debug, Copy, Clone)]
-        pub struct money_base([u8; 0]);
+        pub struct money_base {
+            _unused: [u8; 0],
+        }
         #[repr(C)]
         #[derive(Debug, Copy, Clone)]
         pub struct money_get {
@@ -3603,7 +3609,9 @@ pub mod root {
         }
         #[repr(C)]
         #[derive(Debug, Copy, Clone)]
-        pub struct messages_base([u8; 0]);
+        pub struct messages_base {
+            _unused: [u8; 0],
+        }
         #[repr(C)]
         #[derive(Debug, Copy, Clone)]
         pub struct messages {
@@ -5119,7 +5127,9 @@ pub mod root {
         }
         #[repr(C)]
         #[derive(Debug, Copy, Clone)]
-        pub struct _No_tuple_element([u8; 0]);
+        pub struct _No_tuple_element {
+            _unused: [u8; 0],
+        }
         #[repr(C)]
         #[derive(Debug, Copy, Clone)]
         pub struct _Maybe_wrap_member_pointer {
@@ -5173,7 +5183,9 @@ pub mod root {
         }
         #[repr(C)]
         #[derive(Debug, Copy, Clone)]
-        pub struct _Undefined_class([u8; 0]);
+        pub struct _Undefined_class {
+            _unused: [u8; 0],
+        }
         #[repr(C)]
         #[derive(Debug, Copy)]
         pub struct _Nocopy_types {
@@ -5937,12 +5949,16 @@ pub mod root {
     }
     #[repr(C)]
     #[derive(Debug, Copy, Clone)]
-    pub struct threadmbcinfostruct([u8; 0]);
+    pub struct threadmbcinfostruct {
+        _unused: [u8; 0],
+    }
     pub type pthreadlocinfo = u64;
     pub type pthreadmbcinfo = u64;
     #[repr(C)]
     #[derive(Debug, Copy, Clone)]
-    pub struct __lc_time_data([u8; 0]);
+    pub struct __lc_time_data {
+        _unused: [u8; 0],
+    }
     #[repr(C)]
     #[derive(Debug, Copy)]
     pub struct localeinfo_struct {
@@ -8329,7 +8345,9 @@ pub mod root {
         }
         #[repr(C)]
         #[derive(Debug, Copy, Clone)]
-        pub struct __class_type_info([u8; 0]);
+        pub struct __class_type_info {
+            _unused: [u8; 0],
+        }
     }
     pub type __gthread_key_t = u32;
     #[repr(C)]
@@ -53239,7 +53257,9 @@ pub mod root {
     }
     #[repr(C)]
     #[derive(Debug, Copy, Clone)]
-    pub struct mxArray([u8; 0]);
+    pub struct mxArray {
+        _unused: [u8; 0],
+    }
     #[repr(C)]
     #[derive(Debug, Copy)]
     pub struct octave_map {
@@ -53775,7 +53795,9 @@ pub mod root {
     }
     #[repr(C)]
     #[derive(Debug, Copy, Clone)]
-    pub struct octave_stream([u8; 0]);
+    pub struct octave_stream {
+        _unused: [u8; 0],
+    }
     #[repr(C)]
     #[derive(Debug, Copy)]
     pub struct octave_function {
@@ -53786,13 +53808,19 @@ pub mod root {
     }
     #[repr(C)]
     #[derive(Debug, Copy, Clone)]
-    pub struct octave_user_function([u8; 0]);
+    pub struct octave_user_function {
+        _unused: [u8; 0],
+    }
     #[repr(C)]
     #[derive(Debug, Copy, Clone)]
-    pub struct octave_fcn_handle([u8; 0]);
+    pub struct octave_fcn_handle {
+        _unused: [u8; 0],
+    }
     #[repr(C)]
     #[derive(Debug, Copy, Clone)]
-    pub struct octave_fcn_inline([u8; 0]);
+    pub struct octave_fcn_inline {
+        _unused: [u8; 0],
+    }
     #[repr(C)]
     #[derive(Debug, Copy)]
     pub struct octave_value_list {
@@ -53936,7 +53964,9 @@ pub mod root {
     }
     #[repr(C)]
     #[derive(Debug, Copy, Clone)]
-    pub struct octave_lvalue([u8; 0]);
+    pub struct octave_lvalue {
+        _unused: [u8; 0],
+    }
     #[repr(C)]
     pub struct action_container__bindgen_vtable(::std::os::raw::c_void);
     #[repr(C)]
@@ -56916,13 +56946,19 @@ pub mod root {
     }
     #[repr(C)]
     #[derive(Debug, Copy, Clone)]
-    pub struct octave_user_script([u8; 0]);
+    pub struct octave_user_script {
+        _unused: [u8; 0],
+    }
     #[repr(C)]
     #[derive(Debug, Copy, Clone)]
-    pub struct octave_user_code([u8; 0]);
+    pub struct octave_user_code {
+        _unused: [u8; 0],
+    }
     #[repr(C)]
     #[derive(Debug, Copy, Clone)]
-    pub struct tree_walker([u8; 0]);
+    pub struct tree_walker {
+        _unused: [u8; 0],
+    }
     pub const builtin_type_t_btyp_num_types: root::builtin_type_t =
         builtin_type_t::btyp_unknown;
     #[repr(u32)]
@@ -57668,7 +57704,9 @@ pub mod root {
     }
     #[repr(C)]
     #[derive(Debug, Copy, Clone)]
-    pub struct tree_argument_list([u8; 0]);
+    pub struct tree_argument_list {
+        _unused: [u8; 0],
+    }
     #[repr(C)]
     #[derive(Debug, Copy)]
     pub struct workspace_element {
@@ -58238,7 +58276,9 @@ pub mod root {
     }
     #[repr(C)]
     #[derive(Debug, Copy, Clone)]
-    pub struct jit_type([u8; 0]);
+    pub struct jit_type {
+        _unused: [u8; 0],
+    }
     #[repr(C)]
     #[derive(Debug, Copy)]
     pub struct octave_builtin {
@@ -59370,7 +59410,9 @@ pub mod root {
     }
     #[repr(C)]
     #[derive(Debug, Copy, Clone)]
-    pub struct tree_identifier([u8; 0]);
+    pub struct tree_identifier {
+        _unused: [u8; 0],
+    }
     extern "C" {
         #[link_name = "_Z19clear_mex_functionsv"]
         pub fn clear_mex_functions();
@@ -59945,5 +59987,4 @@ pub mod root {
     pub type int_type = u32;
     // pub type char_type = u16;
     // pub type int_type = u16;
-    // pub type u32 = u32;
 }
