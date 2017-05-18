@@ -12,4 +12,5 @@ repository = "https://github.com/ctaggart/octh"
 [lib]
 
 [build-dependencies]
-bindgen = "*"
+# bindgen = "*"
+bindgen = { git = "https://github.com/servo/rust-bindgen" }
