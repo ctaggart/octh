@@ -59612,6 +59612,9 @@ pub mod root {
         #[link_name = "_Z27maybe_missing_function_hookRKSs"]
         pub fn maybe_missing_function_hook(name: *const root::std::string);
     }
+    extern "C" {
+        pub fn octave_value_list_create() -> root::octave_value_list;
+    }
     pub type __builtin_va_list = u64;
     #[repr(C)]
     #[derive(Debug, Copy)]

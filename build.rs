@@ -1,10 +1,21 @@
 extern crate bindgen;
+extern crate gcc;
+
+// a helper library for octh with c exports
+fn libocthc() {
+    // https://github.com/servo/rust-bindgen/blob/master/bindgen-integration/build.rs
+    gcc::Config::new()
+        .cpp(true)
+        .file("src/octhc.cc")
+        .include("C:/Octave/Octave-4.2.1/include/octave-4.2.1/octave")
+        .flag("-std=c++11")
+        .compile("libocthc.a");
+}
 
 fn bindgen() {
     let mut builder = bindgen::Builder::default()
         .no_unstable_rust()
-        .header("bindgen.h")
-        // .header("_mingw_mac.h")
+        .header("src/octhc.h")
         .clang_arg("-v")
         .clang_arg("-x")
         .clang_arg("c++")
@@ -49,5 +60,6 @@ fn bindgen() {
 }
 
 fn main() {
+    libocthc();
     // bindgen();
 }
