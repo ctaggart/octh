@@ -7,13 +7,53 @@ pub mod root {
     pub mod std {
         #[allow(unused_imports)]
         use self::super::super::root;
+        pub type string = [u64; 4usize];
+        #[repr(C)]
+        #[derive(Copy, Clone)]
+        pub struct list<_Tp, _Alloc> {
+            pub _phantom_0: ::std::marker::PhantomData<::std::cell::UnsafeCell<_Tp>>,
+            pub _phantom_1: ::std::marker::PhantomData<::std::cell::UnsafeCell<_Alloc>>,
+        }
+        pub type list__Alloc_value_type = [u8; 0usize];
+        pub type list__Base = root::std::_List_base;
+        pub type list__Tp_alloc_type = root::std::list__Base;
+        pub type list__Tp_alloc_traits = root::std::list__Base;
+        pub type list__Node_alloc_type = root::std::list__Base;
+        pub type list__Node_alloc_traits = root::std::list__Base;
+        pub type list_value_type = _Tp;
+        pub type list_pointer = root::std::list__Tp_alloc_traits;
+        pub type list_const_pointer = root::std::list__Tp_alloc_traits;
+        pub type list_reference = root::std::list__Tp_alloc_traits;
+        pub type list_const_reference = root::std::list__Tp_alloc_traits;
+        pub type list_iterator = root::std::_List_iterator;
+        pub type list_const_iterator = root::std::_List_const_iterator;
+        pub type list_const_reverse_iterator = root::std::reverse_iterator;
+        pub type list_reverse_iterator = root::std::reverse_iterator;
+        pub type list_size_type = usize;
+        pub type list_difference_type = isize;
+        pub type list_allocator_type = _Alloc;
+        pub type list__Node = root::std::_List_node;
+        #[repr(C)]
+        #[derive(Copy, Clone)]
+        pub struct stack<_Tp, _Sequence> {
+            pub _phantom_0: ::std::marker::PhantomData<::std::cell::UnsafeCell<_Tp>>,
+            pub _phantom_1: ::std::marker::PhantomData<::std::cell::UnsafeCell<_Sequence>>,
+        }
+        pub type stack__Sequence_value_type = [u8; 0usize];
+        pub type stack__Uses = u8;
+        pub type stack_value_type = [u8; 0usize];
+        pub type stack_reference = [u8; 0usize];
+        pub type stack_const_reference = [u8; 0usize];
+        pub type stack_size_type = [u8; 0usize];
+        pub type stack_container_type = _Sequence;
     }
     pub mod __gnu_cxx {
         #[allow(unused_imports)]
         use self::super::super::root;
     }
     pub type octave_idx_type = ::std::os::raw::c_int;
-    pub type octave_jmp_buf = root::jmp_buf;
+    pub type time_t = u64;
+    pub type octave_jmp_buf = [u64; 25usize];
     extern "C" {
         pub fn octave_save_current_context(arg1: *mut ::std::os::raw::c_void);
     }
@@ -30,19 +70,17 @@ pub mod root {
         #[repr(C)]
         pub struct execution_exception__bindgen_vtable(::std::os::raw::c_void);
         #[repr(C)]
-        #[derive(Debug)]
         pub struct execution_exception {
             pub vtable_: *const execution_exception__bindgen_vtable,
             pub m_stack_trace: root::std::string,
         }
         #[repr(C)]
-        #[derive(Debug)]
         pub struct exit_exception {
             pub m_exit_status: ::std::os::raw::c_int,
             pub m_safe_to_return: bool,
         }
         #[repr(C)]
-        #[derive(Debug, Copy)]
+        #[derive(Copy)]
         pub struct interrupt_exception {
             pub _address: u8,
         }
@@ -50,7 +88,7 @@ pub mod root {
             fn clone(&self) -> Self { *self }
         }
         #[repr(C)]
-        #[derive(Debug, Copy, Clone)]
+        #[derive(Copy, Clone)]
         pub struct numeric_limits<T> {
             pub _address: u8,
             pub _phantom_0: ::std::marker::PhantomData<::std::cell::UnsafeCell<T>>,
@@ -319,7 +357,6 @@ pub mod root {
             #[repr(C)]
             pub struct aepbalance__bindgen_vtable(::std::os::raw::c_void);
             #[repr(C)]
-            #[derive(Debug)]
             pub struct aepbalance<MT> {
                 pub vtable_: *const aepbalance__bindgen_vtable,
                 pub balanced_mat: MT,
@@ -331,7 +368,6 @@ pub mod root {
             }
             pub type aepbalance_VT = [u8; 0usize];
             #[repr(C)]
-            #[derive(Debug)]
             pub struct gepbalance<T> {
                 pub balanced_mat: T,
                 pub balanced_mat2: T,
@@ -341,7 +377,7 @@ pub mod root {
             }
             pub type gepbalance_RT = [u8; 0usize];
             #[repr(C)]
-            #[derive(Debug, Copy, Clone)]
+            #[derive(Copy, Clone)]
             pub struct chol<T> {
                 pub chol_mat: T,
                 pub xrcond: root::octave::math::chol_COND_T,
@@ -351,21 +387,18 @@ pub mod root {
             pub type chol_VT = [u8; 0usize];
             pub type chol_COND_T = [u8; 0usize];
             #[repr(C)]
-            #[derive(Debug)]
             pub struct hess<T> {
                 pub hess_mat: T,
                 pub unitary_hess_mat: T,
                 pub _phantom_0: ::std::marker::PhantomData<::std::cell::UnsafeCell<T>>,
             }
             #[repr(C)]
-            #[derive(Debug)]
             pub struct schur<T> {
                 pub schur_mat: T,
                 pub unitary_mat: T,
                 pub _phantom_0: ::std::marker::PhantomData<::std::cell::UnsafeCell<T>>,
             }
             #[repr(C)]
-            #[derive(Debug)]
             pub struct svd<T> {
                 pub m_type: root::octave::math::svd_Type,
                 pub m_driver: root::octave::math::svd_Driver,
@@ -392,12 +425,11 @@ pub mod root {
             #[repr(C)]
             pub struct lu__bindgen_vtable(::std::os::raw::c_void);
             #[repr(C)]
-            #[derive(Debug)]
             pub struct lu<T> {
                 pub vtable_: *const lu__bindgen_vtable,
                 pub a_fact: T,
                 pub l_fact: T,
-                pub ipvt: root::Array,
+                pub ipvt: [u64; 5usize],
                 pub _phantom_0: ::std::marker::PhantomData<::std::cell::UnsafeCell<T>>,
             }
             pub type lu_VT = [u8; 0usize];
@@ -405,7 +437,6 @@ pub mod root {
             #[repr(C)]
             pub struct qr__bindgen_vtable(::std::os::raw::c_void);
             #[repr(C)]
-            #[derive(Debug)]
             pub struct qr<T> {
                 pub vtable_: *const qr__bindgen_vtable,
                 pub q: T,
@@ -427,7 +458,6 @@ pub mod root {
             }
         }
         #[repr(C)]
-        #[derive(Debug)]
         pub struct index_exception {
             pub _base: root::octave::execution_exception,
             pub index: root::std::string,
@@ -550,7 +580,6 @@ pub mod root {
             #[repr(C)]
             pub struct base_tm__bindgen_vtable(::std::os::raw::c_void);
             #[repr(C)]
-            #[derive(Debug)]
             pub struct base_tm {
                 pub vtable_: *const base_tm__bindgen_vtable,
                 pub m_usec: ::std::os::raw::c_int,
@@ -725,7 +754,6 @@ pub mod root {
                 }
             }
             #[repr(C)]
-            #[derive(Debug)]
             pub struct time {
                 pub ot_unix_time: root::time_t,
                 pub ot_usec: ::std::os::raw::c_long,
@@ -770,23 +798,20 @@ pub mod root {
                 }
             }
             #[repr(C)]
-            #[derive(Debug)]
             pub struct localtime {
                 pub _base: root::octave::sys::base_tm,
             }
             #[repr(C)]
-            #[derive(Debug)]
             pub struct gmtime {
                 pub _base: root::octave::sys::base_tm,
             }
             #[repr(C)]
-            #[derive(Debug)]
             pub struct strptime {
                 pub _base: root::octave::sys::base_tm,
                 pub nchars: ::std::os::raw::c_int,
             }
             #[repr(C)]
-            #[derive(Debug, Copy)]
+            #[derive(Copy)]
             pub struct cpu_time {
                 pub m_usr_sec: root::time_t,
                 pub m_sys_sec: root::time_t,
@@ -805,7 +830,7 @@ pub mod root {
                 pub unsafe fn stamp(&mut self) { cpu_time_stamp(self) }
             }
             #[repr(C)]
-            #[derive(Debug, Copy)]
+            #[derive(Copy)]
             pub struct resource_usage {
                 pub m_cpu: root::octave::sys::cpu_time,
                 pub m_maxrss: ::std::os::raw::c_long,
@@ -837,7 +862,7 @@ pub mod root {
             }
         }
         #[repr(C)]
-        #[derive(Debug, Copy)]
+        #[derive(Copy)]
         pub struct mach_info {
             pub native_float_fmt: root::octave::mach_info_float_format,
             pub big_chief: bool,
@@ -929,31 +954,27 @@ pub mod root {
         #[repr(C)]
         pub struct unwind_protect__bindgen_vtable(::std::os::raw::c_void);
         #[repr(C)]
-        #[derive(Debug)]
         pub struct unwind_protect {
             pub vtable_: *const unwind_protect__bindgen_vtable,
-            pub lifo: root::std::stack,
+            pub lifo: [u64; 10usize],
         }
         #[repr(C)]
-        #[derive(Debug)]
         pub struct unwind_protect_safe {
             pub _base: root::octave::unwind_protect,
         }
         #[repr(C)]
         pub struct base_list__bindgen_vtable(::std::os::raw::c_void);
         #[repr(C)]
-        #[derive(Debug)]
         pub struct base_list<elt_type> {
             pub vtable_: *const base_list__bindgen_vtable,
-            pub lst: root::std::list,
+            pub lst: u8,
             pub _phantom_0: ::std::marker::PhantomData<::std::cell::UnsafeCell<elt_type>>,
         }
-        pub type base_list_iterator = root::std::list;
-        pub type base_list_const_iterator = root::std::list;
-        pub type base_list_reverse_iterator = root::std::list;
-        pub type base_list_const_reverse_iterator = root::std::list;
+        pub type base_list_iterator = u8;
+        pub type base_list_const_iterator = u8;
+        pub type base_list_reverse_iterator = u8;
+        pub type base_list_const_reverse_iterator = u8;
         #[repr(C)]
-        #[derive(Debug)]
         pub struct regexp {
             pub pattern: root::std::string,
             pub options: root::octave::regexp_opts,
@@ -961,11 +982,10 @@ pub mod root {
             pub m: root::std::string,
             pub named_pats: root::string_vector,
             pub nnames: ::std::os::raw::c_int,
-            pub named_idx: root::Array,
+            pub named_idx: [u64; 5usize],
             pub who: root::std::string,
         }
         #[repr(C)]
-        #[derive(Debug)]
         pub struct regexp_opts {
             pub x_case_insensitive: bool,
             pub x_dotexceptnewline: bool,
@@ -975,13 +995,12 @@ pub mod root {
             pub x_once: bool,
         }
         #[repr(C)]
-        #[derive(Debug)]
         pub struct regexp_match_data {
             pub _base: root::octave::base_list<root::octave::regexp_match_element>,
             pub named_pats: root::string_vector,
         }
         #[repr(C)]
-        #[derive(Debug, Copy)]
+        #[derive(Copy)]
         pub struct regexp_match_element {
             pub x_match_string: root::std::string,
             pub x_named_tokens: root::string_vector,
@@ -1010,7 +1029,7 @@ pub mod root {
             #[link_name = "_ZN6octave6regexp8is_matchERK13string_vector"]
             pub fn regexp_is_match1(this: *mut root::octave::regexp,
                                     buffer: *const root::string_vector)
-             -> root::Array;
+             -> [u64; 5usize];
         }
         extern "C" {
             #[link_name =
@@ -1034,7 +1053,7 @@ pub mod root {
             #[inline]
             pub unsafe fn is_match1(&mut self,
                                     buffer: *const root::string_vector)
-             -> root::Array {
+             -> [u64; 5usize] {
                 regexp_is_match1(self, buffer)
             }
             #[inline]
@@ -1045,7 +1064,6 @@ pub mod root {
             }
         }
         #[repr(C)]
-        #[derive(Debug)]
         pub struct dynamic_library {
             pub rep: *mut root::octave::dynamic_library_dynlib_rep,
         }
@@ -1059,7 +1077,6 @@ pub mod root {
         #[repr(C)]
         pub struct dynamic_library_dynlib_rep__bindgen_vtable(::std::os::raw::c_void);
         #[repr(C)]
-        #[derive(Debug)]
         pub struct dynamic_library_dynlib_rep {
             pub vtable_: *const dynamic_library_dynlib_rep__bindgen_vtable,
             pub count: root::octave_refcount<::std::os::raw::c_int>,
@@ -1213,14 +1230,110 @@ pub mod root {
         pub fn octave_rethrow_exception();
     }
     #[repr(C)]
-    #[derive(Debug, Copy, Clone)]
+    #[derive(Copy, Clone)]
     pub struct octave_refcount<T> {
         pub count: root::octave_refcount_count_type,
         pub _phantom_0: ::std::marker::PhantomData<::std::cell::UnsafeCell<T>>,
     }
     pub type octave_refcount_count_type = T;
     #[repr(C)]
-    #[derive(Debug, Copy, Clone)]
+    #[derive(Copy)]
+    pub struct dim_vector {
+        pub _bindgen_opaque_blob: u64,
+    }
+    extern "C" {
+        #[link_name = "_ZN10dim_vector19chop_all_singletonsEv"]
+        pub fn dim_vector_chop_all_singletons(this: *mut root::dim_vector);
+    }
+    extern "C" {
+        #[link_name = "_ZN10dim_vector7dim_maxEv"]
+        pub fn dim_vector_dim_max() -> root::octave_idx_type;
+    }
+    extern "C" {
+        #[link_name = "_ZNK10dim_vector3strB5cxx11Ec"]
+        pub fn dim_vector_str(this: *const root::dim_vector,
+                              sep: ::std::os::raw::c_char)
+         -> root::std::string;
+    }
+    extern "C" {
+        #[link_name = "_ZNK10dim_vector8num_onesEv"]
+        pub fn dim_vector_num_ones(this: *const root::dim_vector)
+         -> ::std::os::raw::c_int;
+    }
+    extern "C" {
+        #[link_name = "_ZNK10dim_vector10safe_numelEv"]
+        pub fn dim_vector_safe_numel(this: *const root::dim_vector)
+         -> root::octave_idx_type;
+    }
+    extern "C" {
+        #[link_name = "_ZNK10dim_vector7squeezeEv"]
+        pub fn dim_vector_squeeze(this: *const root::dim_vector)
+         -> root::dim_vector;
+    }
+    extern "C" {
+        #[link_name = "_ZN10dim_vector6concatERKS_i"]
+        pub fn dim_vector_concat(this: *mut root::dim_vector,
+                                 dvb: *const root::dim_vector,
+                                 dim: ::std::os::raw::c_int) -> bool;
+    }
+    extern "C" {
+        #[link_name = "_ZN10dim_vector5hvcatERKS_i"]
+        pub fn dim_vector_hvcat(this: *mut root::dim_vector,
+                                dvb: *const root::dim_vector,
+                                dim: ::std::os::raw::c_int) -> bool;
+    }
+    extern "C" {
+        #[link_name = "_ZNK10dim_vector5redimEi"]
+        pub fn dim_vector_redim(this: *const root::dim_vector,
+                                n: ::std::os::raw::c_int) -> root::dim_vector;
+    }
+    impl Clone for dim_vector {
+        fn clone(&self) -> Self { *self }
+    }
+    impl dim_vector {
+        #[inline]
+        pub unsafe fn chop_all_singletons(&mut self) {
+            dim_vector_chop_all_singletons(self)
+        }
+        #[inline]
+        pub unsafe fn dim_max() -> root::octave_idx_type {
+            dim_vector_dim_max()
+        }
+        #[inline]
+        pub unsafe fn str(&self, sep: ::std::os::raw::c_char)
+         -> root::std::string {
+            dim_vector_str(self, sep)
+        }
+        #[inline]
+        pub unsafe fn num_ones(&self) -> ::std::os::raw::c_int {
+            dim_vector_num_ones(self)
+        }
+        #[inline]
+        pub unsafe fn safe_numel(&self) -> root::octave_idx_type {
+            dim_vector_safe_numel(self)
+        }
+        #[inline]
+        pub unsafe fn squeeze(&self) -> root::dim_vector {
+            dim_vector_squeeze(self)
+        }
+        #[inline]
+        pub unsafe fn concat(&mut self, dvb: *const root::dim_vector,
+                             dim: ::std::os::raw::c_int) -> bool {
+            dim_vector_concat(self, dvb, dim)
+        }
+        #[inline]
+        pub unsafe fn hvcat(&mut self, dvb: *const root::dim_vector,
+                            dim: ::std::os::raw::c_int) -> bool {
+            dim_vector_hvcat(self, dvb, dim)
+        }
+        #[inline]
+        pub unsafe fn redim(&self, n: ::std::os::raw::c_int)
+         -> root::dim_vector {
+            dim_vector_redim(self, n)
+        }
+    }
+    #[repr(C)]
+    #[derive(Copy, Clone)]
     pub struct octave_int<T> {
         pub ival: T,
         pub _phantom_0: ::std::marker::PhantomData<::std::cell::UnsafeCell<T>>,
@@ -1234,6 +1347,26 @@ pub mod root {
     pub type octave_uint16 = root::octave_int<::std::os::raw::c_ushort>;
     pub type octave_uint32 = root::octave_int<::std::os::raw::c_uint>;
     pub type octave_uint64 = root::octave_int<::std::os::raw::c_ulong>;
+    #[repr(C)]
+    #[derive(Copy, Clone)]
+    pub struct Array<T> {
+        pub _phantom_0: ::std::marker::PhantomData<::std::cell::UnsafeCell<T>>,
+    }
+    #[repr(C)]
+    #[derive(Copy, Clone)]
+    pub struct Array_ArrayRep {
+        pub data: *mut T,
+        pub len: root::octave_idx_type,
+        pub count: root::octave_refcount<::std::os::raw::c_int>,
+    }
+    pub type Array_element_type = T;
+    pub type Array_value_type = T;
+    pub type Array_size_type = root::octave_idx_type;
+    pub type Array_crefT = root::ref_param;
+    pub type Array_compare_fcn_type =
+        ::std::option::Option<unsafe extern "C" fn(arg1: root::ref_param,
+                                                   arg2: root::ref_param)
+                                  -> bool>;
     extern "C" {
         pub fn octave_qsort(base: *mut ::std::os::raw::c_void, n: usize,
                             size: usize,
@@ -1255,6 +1388,8 @@ pub mod root {
                                   s2: *const ::std::os::raw::c_char, n: usize)
          -> ::std::os::raw::c_int;
     }
+    pub type Complex = [u64; 2usize];
+    pub type FloatComplex = [u32; 2usize];
     extern "C" {
         #[link_name =
               "_Z13octave_putenvRKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEES6_"]
@@ -1316,7 +1451,6 @@ pub mod root {
                                           cval: *const root::FloatComplex);
     }
     #[repr(C)]
-    #[derive(Debug)]
     pub struct octave_sort<T> {
         pub compare: root::octave_sort_compare_fcn_type,
         pub ms: *mut root::octave_sort_MergeState,
@@ -1327,7 +1461,7 @@ pub mod root {
                                                    arg2: root::ref_param)
                                   -> bool>;
     #[repr(C)]
-    #[derive(Debug, Copy, Clone)]
+    #[derive(Copy, Clone)]
     pub struct octave_sort_s_slice {
         pub base: root::octave_idx_type,
         pub len: root::octave_idx_type,
@@ -1342,7 +1476,6 @@ pub mod root {
         pub pending: [root::octave_sort_s_slice; 85usize],
     }
     #[repr(C)]
-    #[derive(Debug)]
     pub struct octave_local_buffer<T> {
         pub data: *mut T,
         pub _phantom_0: ::std::marker::PhantomData<::std::cell::UnsafeCell<T>>,
@@ -1350,7 +1483,6 @@ pub mod root {
     #[repr(C)]
     pub struct octave_chunk_buffer__bindgen_vtable(::std::os::raw::c_void);
     #[repr(C)]
-    #[derive(Debug)]
     pub struct octave_chunk_buffer {
         pub vtable_: *const octave_chunk_buffer__bindgen_vtable,
         pub cnk: *mut ::std::os::raw::c_char,
@@ -1405,12 +1537,12 @@ pub mod root {
         pub fn octave_ieee_init();
     }
     #[repr(C)]
-    #[derive(Debug, Copy)]
+    #[derive(Copy)]
     pub struct octave_int_cmp_op {
         pub _address: u8,
     }
     #[repr(C)]
-    #[derive(Debug, Copy, Clone)]
+    #[derive(Copy, Clone)]
     pub struct octave_int_cmp_op_prom<T1, T2> {
         pub _address: u8,
         pub _phantom_0: ::std::marker::PhantomData<::std::cell::UnsafeCell<T1>>,
@@ -1418,7 +1550,7 @@ pub mod root {
     }
     pub type octave_int_cmp_op_prom_type = u8;
     #[repr(C)]
-    #[derive(Debug, Copy)]
+    #[derive(Copy)]
     pub struct octave_int_cmp_op_lt {
         pub _address: u8,
     }
@@ -1428,7 +1560,7 @@ pub mod root {
         fn clone(&self) -> Self { *self }
     }
     #[repr(C)]
-    #[derive(Debug, Copy)]
+    #[derive(Copy)]
     pub struct octave_int_cmp_op_le {
         pub _address: u8,
     }
@@ -1438,7 +1570,7 @@ pub mod root {
         fn clone(&self) -> Self { *self }
     }
     #[repr(C)]
-    #[derive(Debug, Copy)]
+    #[derive(Copy)]
     pub struct octave_int_cmp_op_gt {
         pub _address: u8,
     }
@@ -1448,7 +1580,7 @@ pub mod root {
         fn clone(&self) -> Self { *self }
     }
     #[repr(C)]
-    #[derive(Debug, Copy)]
+    #[derive(Copy)]
     pub struct octave_int_cmp_op_ge {
         pub _address: u8,
     }
@@ -1458,7 +1590,7 @@ pub mod root {
         fn clone(&self) -> Self { *self }
     }
     #[repr(C)]
-    #[derive(Debug, Copy)]
+    #[derive(Copy)]
     pub struct octave_int_cmp_op_eq {
         pub _address: u8,
     }
@@ -1468,7 +1600,7 @@ pub mod root {
         fn clone(&self) -> Self { *self }
     }
     #[repr(C)]
-    #[derive(Debug, Copy)]
+    #[derive(Copy)]
     pub struct octave_int_cmp_op_ne {
         pub _address: u8,
     }
@@ -1478,7 +1610,7 @@ pub mod root {
         fn clone(&self) -> Self { *self }
     }
     #[repr(C)]
-    #[derive(Debug, Copy)]
+    #[derive(Copy)]
     pub struct octave_int_cmp_op_ct {
         pub _address: u8,
     }
@@ -1488,7 +1620,7 @@ pub mod root {
         fn clone(&self) -> Self { *self }
     }
     #[repr(C)]
-    #[derive(Debug, Copy)]
+    #[derive(Copy)]
     pub struct octave_int_cmp_op_cf {
         pub _address: u8,
     }
@@ -1503,13 +1635,13 @@ pub mod root {
     pub type octave_int_cmp_op_uiop_utype = u8;
     pub type octave_int_cmp_op_uiop_stype = u8;
     #[repr(C)]
-    #[derive(Debug, Copy, Clone)]
+    #[derive(Copy, Clone)]
     pub struct octave_int_base<T> {
         pub _address: u8,
         pub _phantom_0: ::std::marker::PhantomData<::std::cell::UnsafeCell<T>>,
     }
     #[repr(C)]
-    #[derive(Debug, Copy, Clone)]
+    #[derive(Copy, Clone)]
     pub struct octave_int_arith<T> {
         pub _address: u8,
         pub _phantom_0: ::std::marker::PhantomData<::std::cell::UnsafeCell<T>>,
@@ -1520,7 +1652,6 @@ pub mod root {
     pub type octave_gmtime = root::octave::sys::gmtime;
     pub type octave_strptime = root::octave::sys::strptime;
     #[repr(C)]
-    #[derive(Debug)]
     pub struct octave_map {
         pub xkeys: root::octave_fields,
         pub xvals: root::std::vector,
@@ -1557,14 +1688,14 @@ pub mod root {
     extern "C" {
         #[link_name = "_ZNK10octave_map11orderfieldsER5ArrayIiE"]
         pub fn octave_map_orderfields1(this: *const root::octave_map,
-                                       perm: *mut root::Array)
+                                       perm: *mut [u64; 5usize])
          -> root::octave_map;
     }
     extern "C" {
         #[link_name = "_ZNK10octave_map11orderfieldsERKS_R5ArrayIiE"]
         pub fn octave_map_orderfields2(this: *const root::octave_map,
                                        other: *const root::octave_map,
-                                       perm: *mut root::Array)
+                                       perm: *mut [u64; 5usize])
          -> root::octave_map;
     }
     extern "C" {
@@ -1596,7 +1727,7 @@ pub mod root {
     extern "C" {
         #[link_name = "_ZNK10octave_map9checkelemERK5ArrayIiE"]
         pub fn octave_map_checkelem2(this: *const root::octave_map,
-                                     ra_idx: *const root::Array)
+                                     ra_idx: *const [u64; 5usize])
          -> root::octave_scalar_map;
     }
     extern "C" {
@@ -1607,7 +1738,7 @@ pub mod root {
     extern "C" {
         #[link_name = "_ZNK10octave_map7permuteERK5ArrayIiEb"]
         pub fn octave_map_permute(this: *const root::octave_map,
-                                  vec: *const root::Array, inv: bool)
+                                  vec: *const [u64; 5usize], inv: bool)
          -> root::octave_map;
     }
     extern "C" {
@@ -1655,9 +1786,8 @@ pub mod root {
     }
     extern "C" {
         #[link_name = "_ZNK10octave_map5indexERK5ArrayI10idx_vectorEb"]
-        pub fn octave_map_index2(this: *const root::octave_map,
-                                 ia: *const root::Array, resize_ok: bool)
-         -> root::octave_map;
+        pub fn octave_map_index2(this: *const root::octave_map, ia: *const u8,
+                                 resize_ok: bool) -> root::octave_map;
     }
     extern "C" {
         #[link_name = "_ZNK10octave_map5indexERK17octave_value_listb"]
@@ -1691,8 +1821,7 @@ pub mod root {
     }
     extern "C" {
         #[link_name = "_ZN10octave_map6assignERK5ArrayI10idx_vectorERKS_"]
-        pub fn octave_map_assign2(this: *mut root::octave_map,
-                                  ia: *const root::Array,
+        pub fn octave_map_assign2(this: *mut root::octave_map, ia: *const u8,
                                   rhs: *const root::octave_map);
     }
     extern "C" {
@@ -1724,7 +1853,7 @@ pub mod root {
         #[link_name =
               "_ZN10octave_map15delete_elementsERK5ArrayI10idx_vectorE"]
         pub fn octave_map_delete_elements2(this: *mut root::octave_map,
-                                           ia: *const root::Array);
+                                           ia: *const u8);
     }
     extern "C" {
         #[link_name =
@@ -1737,7 +1866,7 @@ pub mod root {
         #[link_name = "_ZN10octave_map6concatERKS_RK5ArrayIiE"]
         pub fn octave_map_concat(this: *mut root::octave_map,
                                  rb: *const root::octave_map,
-                                 ra_idx: *const root::Array)
+                                 ra_idx: *const [u64; 5usize])
          -> root::octave_map;
     }
     extern "C" {
@@ -1780,13 +1909,13 @@ pub mod root {
             octave_map_orderfields(self)
         }
         #[inline]
-        pub unsafe fn orderfields1(&self, perm: *mut root::Array)
+        pub unsafe fn orderfields1(&self, perm: *mut [u64; 5usize])
          -> root::octave_map {
             octave_map_orderfields1(self, perm)
         }
         #[inline]
         pub unsafe fn orderfields2(&self, other: *const root::octave_map,
-                                   perm: *mut root::Array)
+                                   perm: *mut [u64; 5usize])
          -> root::octave_map {
             octave_map_orderfields2(self, other, perm)
         }
@@ -1812,7 +1941,7 @@ pub mod root {
             octave_map_checkelem1(self, i, j)
         }
         #[inline]
-        pub unsafe fn checkelem2(&self, ra_idx: *const root::Array)
+        pub unsafe fn checkelem2(&self, ra_idx: *const [u64; 5usize])
          -> root::octave_scalar_map {
             octave_map_checkelem2(self, ra_idx)
         }
@@ -1821,7 +1950,7 @@ pub mod root {
             octave_map_squeeze(self)
         }
         #[inline]
-        pub unsafe fn permute(&self, vec: *const root::Array, inv: bool)
+        pub unsafe fn permute(&self, vec: *const [u64; 5usize], inv: bool)
          -> root::octave_map {
             octave_map_permute(self, vec, inv)
         }
@@ -1865,7 +1994,7 @@ pub mod root {
             octave_map_index1(self, i, j, resize_ok)
         }
         #[inline]
-        pub unsafe fn index2(&self, ia: *const root::Array, resize_ok: bool)
+        pub unsafe fn index2(&self, ia: *const u8, resize_ok: bool)
          -> root::octave_map {
             octave_map_index2(self, ia, resize_ok)
         }
@@ -1896,7 +2025,7 @@ pub mod root {
             octave_map_assign1(self, i, j, rhs)
         }
         #[inline]
-        pub unsafe fn assign2(&mut self, ia: *const root::Array,
+        pub unsafe fn assign2(&mut self, ia: *const u8,
                               rhs: *const root::octave_map) {
             octave_map_assign2(self, ia, rhs)
         }
@@ -1921,7 +2050,7 @@ pub mod root {
             octave_map_delete_elements1(self, dim, i)
         }
         #[inline]
-        pub unsafe fn delete_elements2(&mut self, ia: *const root::Array) {
+        pub unsafe fn delete_elements2(&mut self, ia: *const u8) {
             octave_map_delete_elements2(self, ia)
         }
         #[inline]
@@ -1931,7 +2060,8 @@ pub mod root {
         }
         #[inline]
         pub unsafe fn concat(&mut self, rb: *const root::octave_map,
-                             ra_idx: *const root::Array) -> root::octave_map {
+                             ra_idx: *const [u64; 5usize])
+         -> root::octave_map {
             octave_map_concat(self, rb, ra_idx)
         }
         #[inline]
@@ -1953,7 +2083,6 @@ pub mod root {
         }
     }
     #[repr(C)]
-    #[derive(Debug)]
     pub struct octave_scalar_map {
         pub xkeys: root::octave_fields,
         pub xvals: root::std::vector,
@@ -1993,7 +2122,7 @@ pub mod root {
         #[link_name = "_ZNK17octave_scalar_map11orderfieldsER5ArrayIiE"]
         pub fn octave_scalar_map_orderfields1(this:
                                                   *const root::octave_scalar_map,
-                                              perm: *mut root::Array)
+                                              perm: *mut [u64; 5usize])
          -> root::octave_scalar_map;
     }
     extern "C" {
@@ -2002,7 +2131,7 @@ pub mod root {
                                                   *const root::octave_scalar_map,
                                               other:
                                                   *const root::octave_scalar_map,
-                                              perm: *mut root::Array)
+                                              perm: *mut [u64; 5usize])
          -> root::octave_scalar_map;
     }
     extern "C" {
@@ -2040,14 +2169,14 @@ pub mod root {
             octave_scalar_map_orderfields(self)
         }
         #[inline]
-        pub unsafe fn orderfields1(&self, perm: *mut root::Array)
+        pub unsafe fn orderfields1(&self, perm: *mut [u64; 5usize])
          -> root::octave_scalar_map {
             octave_scalar_map_orderfields1(self, perm)
         }
         #[inline]
         pub unsafe fn orderfields2(&self,
                                    other: *const root::octave_scalar_map,
-                                   perm: *mut root::Array)
+                                   perm: *mut [u64; 5usize])
          -> root::octave_scalar_map {
             octave_scalar_map_orderfields2(self, other, perm)
         }
@@ -2068,7 +2197,6 @@ pub mod root {
         _unused: [u8; 0],
     }
     #[repr(C)]
-    #[derive(Debug)]
     pub struct octave_function {
         pub _base: root::octave_base_value,
         pub relative: bool,
@@ -2106,9 +2234,8 @@ pub mod root {
         _unused: [u8; 0],
     }
     #[repr(C)]
-    #[derive(Debug)]
     pub struct octave_value_list {
-        pub data: root::Array,
+        pub data: [u64; 5usize],
         pub names: root::string_vector,
     }
     extern "C" {
@@ -2185,7 +2312,7 @@ pub mod root {
         pub fn octave_value_list_octave_value_list(this:
                                                        *mut root::octave_value_list,
                                                    arg1:
-                                                       *const root::std::list);
+                                                       *const [u64; 3usize]);
     }
     impl octave_value_list {
         #[inline]
@@ -2240,7 +2367,7 @@ pub mod root {
             octave_value_list_make_storable_values(self)
         }
         #[inline]
-        pub unsafe fn new(arg1: *const root::std::list) -> Self {
+        pub unsafe fn new(arg1: *const [u64; 3usize]) -> Self {
             let mut __bindgen_tmp = ::std::mem::uninitialized();
             octave_value_list_octave_value_list(&mut __bindgen_tmp, arg1);
             __bindgen_tmp
@@ -2256,7 +2383,6 @@ pub mod root {
     #[repr(C)]
     pub struct octave_value__bindgen_vtable(::std::os::raw::c_void);
     #[repr(C)]
-    #[derive(Debug)]
     pub struct octave_value {
         pub vtable_: *const octave_value__bindgen_vtable,
         pub rep: *mut root::octave_base_value,
@@ -2423,7 +2549,7 @@ pub mod root {
               "_ZN12octave_value7subsrefERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERKNS0_4listI17octave_value_listSaIS9_EEEi"]
         pub fn octave_value_subsref(this: *mut root::octave_value,
                                     type_: *const root::std::string,
-                                    idx: *const root::std::list,
+                                    idx: *const [u64; 3usize],
                                     nargout: ::std::os::raw::c_int)
          -> root::octave_value_list;
     }
@@ -2432,9 +2558,9 @@ pub mod root {
               "_ZN12octave_value7subsrefERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERKNS0_4listI17octave_value_listSaIS9_EEEiPKNS8_I13octave_lvalueSaISE_EEE"]
         pub fn octave_value_subsref1(this: *mut root::octave_value,
                                      type_: *const root::std::string,
-                                     idx: *const root::std::list,
+                                     idx: *const [u64; 3usize],
                                      nargout: ::std::os::raw::c_int,
-                                     lvalue_list: *const root::std::list)
+                                     lvalue_list: *const u8)
          -> root::octave_value_list;
     }
     extern "C" {
@@ -2442,7 +2568,7 @@ pub mod root {
               "_ZN12octave_value12next_subsrefERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERKNS0_4listI17octave_value_listSaIS9_EEEm"]
         pub fn octave_value_next_subsref(this: *mut root::octave_value,
                                          type_: *const root::std::string,
-                                         idx: *const root::std::list,
+                                         idx: *const [u64; 3usize],
                                          skip: usize) -> root::octave_value;
     }
     extern "C" {
@@ -2451,7 +2577,7 @@ pub mod root {
         pub fn octave_value_next_subsref1(this: *mut root::octave_value,
                                           nargout: ::std::os::raw::c_int,
                                           type_: *const root::std::string,
-                                          idx: *const root::std::list,
+                                          idx: *const [u64; 3usize],
                                           skip: usize)
          -> root::octave_value_list;
     }
@@ -2461,9 +2587,8 @@ pub mod root {
         pub fn octave_value_next_subsref2(this: *mut root::octave_value,
                                           nargout: ::std::os::raw::c_int,
                                           type_: *const root::std::string,
-                                          idx: *const root::std::list,
-                                          lvalue_list: *const root::std::list,
-                                          skip: usize)
+                                          idx: *const [u64; 3usize],
+                                          lvalue_list: *const u8, skip: usize)
          -> root::octave_value_list;
     }
     extern "C" {
@@ -2472,7 +2597,7 @@ pub mod root {
         pub fn octave_value_next_subsref3(this: *mut root::octave_value,
                                           auto_add: bool,
                                           type_: *const root::std::string,
-                                          idx: *const root::std::list,
+                                          idx: *const [u64; 3usize],
                                           skip: usize) -> root::octave_value;
     }
     extern "C" {
@@ -2491,8 +2616,7 @@ pub mod root {
                                                nargout: ::std::os::raw::c_int,
                                                idx:
                                                    *const root::octave_value_list,
-                                               lvalue_list:
-                                                   *const root::std::list)
+                                               lvalue_list: *const u8)
          -> root::octave_value_list;
     }
     extern "C" {
@@ -2500,7 +2624,7 @@ pub mod root {
               "_ZN12octave_value8subsasgnERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERKNS0_4listI17octave_value_listSaIS9_EEERKS_"]
         pub fn octave_value_subsasgn(this: *mut root::octave_value,
                                      type_: *const root::std::string,
-                                     idx: *const root::std::list,
+                                     idx: *const [u64; 3usize],
                                      rhs: *const root::octave_value)
          -> root::octave_value;
     }
@@ -2509,7 +2633,7 @@ pub mod root {
               "_ZN12octave_value14undef_subsasgnERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERKNS0_4listI17octave_value_listSaIS9_EEERKS_"]
         pub fn octave_value_undef_subsasgn(this: *mut root::octave_value,
                                            type_: *const root::std::string,
-                                           idx: *const root::std::list,
+                                           idx: *const [u64; 3usize],
                                            rhs: *const root::octave_value)
          -> root::octave_value;
     }
@@ -2519,7 +2643,7 @@ pub mod root {
         pub fn octave_value_assign(this: *mut root::octave_value,
                                    op: root::octave_value_assign_op,
                                    type_: *const root::std::string,
-                                   idx: *const root::std::list,
+                                   idx: *const [u64; 3usize],
                                    rhs: *const root::octave_value)
          -> *mut root::octave_value;
     }
@@ -2675,7 +2799,7 @@ pub mod root {
                                              req_int: bool,
                                              frc_str_conv: bool,
                                              frc_vec_conv: bool)
-         -> root::Array;
+         -> [u64; 5usize];
     }
     extern "C" {
         #[link_name = "_ZNK12octave_value28octave_idx_type_vector_valueEbbb"]
@@ -2684,13 +2808,13 @@ pub mod root {
                                                          req_int: bool,
                                                          frc_str_conv: bool,
                                                          frc_vec_conv: bool)
-         -> root::Array;
+         -> [u64; 5usize];
     }
     extern "C" {
         #[link_name = "_ZNK12octave_value12vector_valueEbb"]
         pub fn octave_value_vector_value(this: *const root::octave_value,
                                          frc_str_conv: bool,
-                                         frc_vec_conv: bool) -> root::Array;
+                                         frc_vec_conv: bool) -> [u64; 5usize];
     }
     extern "C" {
         #[link_name = "_ZNK12octave_value20complex_vector_valueEbb"]
@@ -2698,7 +2822,7 @@ pub mod root {
                                                      *const root::octave_value,
                                                  frc_str_conv: bool,
                                                  frc_vec_conv: bool)
-         -> root::Array;
+         -> [u64; 5usize];
     }
     extern "C" {
         #[link_name = "_ZNK12octave_value18float_vector_valueEbb"]
@@ -2706,7 +2830,7 @@ pub mod root {
                                                    *const root::octave_value,
                                                frc_str_conv: bool,
                                                frc_vec_conv: bool)
-         -> root::Array;
+         -> [u64; 5usize];
     }
     extern "C" {
         #[link_name = "_ZNK12octave_value26float_complex_vector_valueEbb"]
@@ -2714,7 +2838,7 @@ pub mod root {
                                                            *const root::octave_value,
                                                        frc_str_conv: bool,
                                                        frc_vec_conv: bool)
-         -> root::Array;
+         -> [u64; 5usize];
     }
     extern "C" {
         #[link_name = "_ZNK12octave_value12xshort_valueEPKcz"]
@@ -3148,7 +3272,7 @@ pub mod root {
         pub fn octave_value_xcellstr_value(this: *const root::octave_value,
                                            fmt:
                                                *const ::std::os::raw::c_char, ...)
-         -> root::Array;
+         -> [u64; 5usize];
     }
     extern "C" {
         #[link_name = "_ZNK12octave_value12xrange_valueEPKcz"]
@@ -3241,7 +3365,7 @@ pub mod root {
         pub fn octave_value_xint_vector_value(this: *const root::octave_value,
                                               fmt:
                                                   *const ::std::os::raw::c_char, ...)
-         -> root::Array;
+         -> [u64; 5usize];
     }
     extern "C" {
         #[link_name =
@@ -3250,14 +3374,14 @@ pub mod root {
                                                               *const root::octave_value,
                                                           fmt:
                                                               *const ::std::os::raw::c_char, ...)
-         -> root::Array;
+         -> [u64; 5usize];
     }
     extern "C" {
         #[link_name = "_ZNK12octave_value13xvector_valueEPKcz"]
         pub fn octave_value_xvector_value(this: *const root::octave_value,
                                           fmt:
                                               *const ::std::os::raw::c_char, ...)
-         -> root::Array;
+         -> [u64; 5usize];
     }
     extern "C" {
         #[link_name = "_ZNK12octave_value21xcomplex_vector_valueEPKcz"]
@@ -3265,7 +3389,7 @@ pub mod root {
                                                       *const root::octave_value,
                                                   fmt:
                                                       *const ::std::os::raw::c_char, ...)
-         -> root::Array;
+         -> [u64; 5usize];
     }
     extern "C" {
         #[link_name = "_ZNK12octave_value19xfloat_vector_valueEPKcz"]
@@ -3273,7 +3397,7 @@ pub mod root {
                                                     *const root::octave_value,
                                                 fmt:
                                                     *const ::std::os::raw::c_char, ...)
-         -> root::Array;
+         -> [u64; 5usize];
     }
     extern "C" {
         #[link_name = "_ZNK12octave_value27xfloat_complex_vector_valueEPKcz"]
@@ -3281,7 +3405,7 @@ pub mod root {
                                                             *const root::octave_value,
                                                         fmt:
                                                             *const ::std::os::raw::c_char, ...)
-         -> root::Array;
+         -> [u64; 5usize];
     }
     extern "C" {
         #[link_name = "_ZNK12octave_value15xfunction_valueEPKcz"]
@@ -3362,8 +3486,7 @@ pub mod root {
                                                        root::octave_value_unary_op,
                                                    type_:
                                                        *const root::std::string,
-                                                   idx:
-                                                       *const root::std::list)
+                                                   idx: *const [u64; 3usize])
          -> *mut root::octave_value;
     }
     extern "C" {
@@ -3443,7 +3566,7 @@ pub mod root {
     extern "C" {
         #[link_name = "_ZN12octave_valueC1ERK5ArrayIS_Eb"]
         pub fn octave_value_octave_value11(this: *mut root::octave_value,
-                                           a: *const root::Array,
+                                           a: *const [u64; 5usize],
                                            is_cs_list: bool);
     }
     extern "C" {
@@ -3477,12 +3600,12 @@ pub mod root {
     extern "C" {
         #[link_name = "_ZN12octave_valueC1ERK5ArrayIdE"]
         pub fn octave_value_octave_value17(this: *mut root::octave_value,
-                                           m: *const root::Array);
+                                           m: *const [u64; 5usize]);
     }
     extern "C" {
         #[link_name = "_ZN12octave_valueC1ERK5ArrayIfE"]
         pub fn octave_value_octave_value18(this: *mut root::octave_value,
-                                           m: *const root::Array);
+                                           m: *const [u64; 5usize]);
     }
     extern "C" {
         #[link_name = "_ZN12octave_valueC1ERK10DiagMatrix"]
@@ -3571,12 +3694,12 @@ pub mod root {
     extern "C" {
         #[link_name = "_ZN12octave_valueC1ERK5ArrayISt7complexIdEE"]
         pub fn octave_value_octave_value35(this: *mut root::octave_value,
-                                           m: *const root::Array);
+                                           m: *const [u64; 5usize]);
     }
     extern "C" {
         #[link_name = "_ZN12octave_valueC1ERK5ArrayISt7complexIfEE"]
         pub fn octave_value_octave_value36(this: *mut root::octave_value,
-                                           m: *const root::Array);
+                                           m: *const [u64; 5usize]);
     }
     extern "C" {
         #[link_name = "_ZN12octave_valueC1ERK17ComplexDiagMatrix"]
@@ -3636,7 +3759,7 @@ pub mod root {
     extern "C" {
         #[link_name = "_ZN12octave_valueC1ERK5ArrayIbE"]
         pub fn octave_value_octave_value47(this: *mut root::octave_value,
-                                           bnda: *const root::Array);
+                                           bnda: *const [u64; 5usize]);
     }
     extern "C" {
         #[link_name = "_ZN12octave_valueC1Ecc"]
@@ -3678,7 +3801,7 @@ pub mod root {
     extern "C" {
         #[link_name = "_ZN12octave_valueC1ERK5ArrayIcEc"]
         pub fn octave_value_octave_value54(this: *mut root::octave_value,
-                                           chnda: *const root::Array,
+                                           chnda: *const [u64; 5usize],
                                            type_: ::std::os::raw::c_char);
     }
     extern "C" {
@@ -3698,7 +3821,7 @@ pub mod root {
     extern "C" {
         #[link_name = "_ZN12octave_valueC1ERK5ArrayIcEbc"]
         pub fn octave_value_octave_value57(this: *mut root::octave_value,
-                                           chnda: *const root::Array,
+                                           chnda: *const [u64; 5usize],
                                            is_string: bool,
                                            type_: ::std::os::raw::c_char);
     }
@@ -3790,7 +3913,7 @@ pub mod root {
     extern "C" {
         #[link_name = "_ZN12octave_valueC1ERK5ArrayI10octave_intIaEE"]
         pub fn octave_value_octave_value73(this: *mut root::octave_value,
-                                           inda: *const root::Array);
+                                           inda: *const [u64; 5usize]);
     }
     extern "C" {
         #[link_name = "_ZN12octave_valueC1ERK10intNDArrayI10octave_intIsEE"]
@@ -3800,7 +3923,7 @@ pub mod root {
     extern "C" {
         #[link_name = "_ZN12octave_valueC1ERK5ArrayI10octave_intIsEE"]
         pub fn octave_value_octave_value75(this: *mut root::octave_value,
-                                           inda: *const root::Array);
+                                           inda: *const [u64; 5usize]);
     }
     extern "C" {
         #[link_name = "_ZN12octave_valueC1ERK10intNDArrayI10octave_intIiEE"]
@@ -3810,7 +3933,7 @@ pub mod root {
     extern "C" {
         #[link_name = "_ZN12octave_valueC1ERK5ArrayI10octave_intIiEE"]
         pub fn octave_value_octave_value77(this: *mut root::octave_value,
-                                           inda: *const root::Array);
+                                           inda: *const [u64; 5usize]);
     }
     extern "C" {
         #[link_name = "_ZN12octave_valueC1ERK10intNDArrayI10octave_intIlEE"]
@@ -3820,7 +3943,7 @@ pub mod root {
     extern "C" {
         #[link_name = "_ZN12octave_valueC1ERK5ArrayI10octave_intIlEE"]
         pub fn octave_value_octave_value79(this: *mut root::octave_value,
-                                           inda: *const root::Array);
+                                           inda: *const [u64; 5usize]);
     }
     extern "C" {
         #[link_name = "_ZN12octave_valueC1ERK10intNDArrayI10octave_intIhEE"]
@@ -3830,7 +3953,7 @@ pub mod root {
     extern "C" {
         #[link_name = "_ZN12octave_valueC1ERK5ArrayI10octave_intIhEE"]
         pub fn octave_value_octave_value81(this: *mut root::octave_value,
-                                           inda: *const root::Array);
+                                           inda: *const [u64; 5usize]);
     }
     extern "C" {
         #[link_name = "_ZN12octave_valueC1ERK10intNDArrayI10octave_intItEE"]
@@ -3840,7 +3963,7 @@ pub mod root {
     extern "C" {
         #[link_name = "_ZN12octave_valueC1ERK5ArrayI10octave_intItEE"]
         pub fn octave_value_octave_value83(this: *mut root::octave_value,
-                                           inda: *const root::Array);
+                                           inda: *const [u64; 5usize]);
     }
     extern "C" {
         #[link_name = "_ZN12octave_valueC1ERK10intNDArrayI10octave_intIjEE"]
@@ -3850,7 +3973,7 @@ pub mod root {
     extern "C" {
         #[link_name = "_ZN12octave_valueC1ERK5ArrayI10octave_intIjEE"]
         pub fn octave_value_octave_value85(this: *mut root::octave_value,
-                                           inda: *const root::Array);
+                                           inda: *const [u64; 5usize]);
     }
     extern "C" {
         #[link_name = "_ZN12octave_valueC1ERK10intNDArrayI10octave_intImEE"]
@@ -3860,12 +3983,12 @@ pub mod root {
     extern "C" {
         #[link_name = "_ZN12octave_valueC1ERK5ArrayI10octave_intImEE"]
         pub fn octave_value_octave_value87(this: *mut root::octave_value,
-                                           inda: *const root::Array);
+                                           inda: *const [u64; 5usize]);
     }
     extern "C" {
         #[link_name = "_ZN12octave_valueC1ERK5ArrayIiEbb"]
         pub fn octave_value_octave_value88(this: *mut root::octave_value,
-                                           inda: *const root::Array,
+                                           inda: *const [u64; 5usize],
                                            zero_based: bool,
                                            cache_index: bool);
     }
@@ -3873,7 +3996,7 @@ pub mod root {
         #[link_name =
               "_ZN12octave_valueC1ERK5ArrayINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEE"]
         pub fn octave_value_octave_value89(this: *mut root::octave_value,
-                                           cellstr: *const root::Array);
+                                           cellstr: *const [u64; 5usize]);
     }
     extern "C" {
         #[link_name = "_ZN12octave_valueC1ERK10idx_vectorb"]
@@ -3908,7 +4031,7 @@ pub mod root {
         pub fn octave_value_octave_value95(this: *mut root::octave_value,
                                            m: *const root::octave_map,
                                            id: *const root::std::string,
-                                           plist: *const root::std::list);
+                                           plist: *const [u64; 3usize]);
     }
     extern "C" {
         #[link_name =
@@ -3916,7 +4039,7 @@ pub mod root {
         pub fn octave_value_octave_value96(this: *mut root::octave_value,
                                            m: *const root::octave_scalar_map,
                                            id: *const root::std::string,
-                                           plist: *const root::std::list);
+                                           plist: *const [u64; 3usize]);
     }
     extern "C" {
         #[link_name = "_ZN12octave_valueC1ERK17octave_value_listb"]
@@ -4011,45 +4134,45 @@ pub mod root {
         }
         #[inline]
         pub unsafe fn subsref(&mut self, type_: *const root::std::string,
-                              idx: *const root::std::list,
+                              idx: *const [u64; 3usize],
                               nargout: ::std::os::raw::c_int)
          -> root::octave_value_list {
             octave_value_subsref(self, type_, idx, nargout)
         }
         #[inline]
         pub unsafe fn subsref1(&mut self, type_: *const root::std::string,
-                               idx: *const root::std::list,
+                               idx: *const [u64; 3usize],
                                nargout: ::std::os::raw::c_int,
-                               lvalue_list: *const root::std::list)
+                               lvalue_list: *const u8)
          -> root::octave_value_list {
             octave_value_subsref1(self, type_, idx, nargout, lvalue_list)
         }
         #[inline]
         pub unsafe fn next_subsref(&mut self, type_: *const root::std::string,
-                                   idx: *const root::std::list, skip: usize)
+                                   idx: *const [u64; 3usize], skip: usize)
          -> root::octave_value {
             octave_value_next_subsref(self, type_, idx, skip)
         }
         #[inline]
         pub unsafe fn next_subsref1(&mut self, nargout: ::std::os::raw::c_int,
                                     type_: *const root::std::string,
-                                    idx: *const root::std::list, skip: usize)
+                                    idx: *const [u64; 3usize], skip: usize)
          -> root::octave_value_list {
             octave_value_next_subsref1(self, nargout, type_, idx, skip)
         }
         #[inline]
         pub unsafe fn next_subsref2(&mut self, nargout: ::std::os::raw::c_int,
                                     type_: *const root::std::string,
-                                    idx: *const root::std::list,
-                                    lvalue_list: *const root::std::list,
-                                    skip: usize) -> root::octave_value_list {
+                                    idx: *const [u64; 3usize],
+                                    lvalue_list: *const u8, skip: usize)
+         -> root::octave_value_list {
             octave_value_next_subsref2(self, nargout, type_, idx, lvalue_list,
                                        skip)
         }
         #[inline]
         pub unsafe fn next_subsref3(&mut self, auto_add: bool,
                                     type_: *const root::std::string,
-                                    idx: *const root::std::list, skip: usize)
+                                    idx: *const [u64; 3usize], skip: usize)
          -> root::octave_value {
             octave_value_next_subsref3(self, auto_add, type_, idx, skip)
         }
@@ -4064,13 +4187,13 @@ pub mod root {
         pub unsafe fn do_multi_index_op1(&mut self,
                                          nargout: ::std::os::raw::c_int,
                                          idx: *const root::octave_value_list,
-                                         lvalue_list: *const root::std::list)
+                                         lvalue_list: *const u8)
          -> root::octave_value_list {
             octave_value_do_multi_index_op1(self, nargout, idx, lvalue_list)
         }
         #[inline]
         pub unsafe fn subsasgn(&mut self, type_: *const root::std::string,
-                               idx: *const root::std::list,
+                               idx: *const [u64; 3usize],
                                rhs: *const root::octave_value)
          -> root::octave_value {
             octave_value_subsasgn(self, type_, idx, rhs)
@@ -4078,7 +4201,7 @@ pub mod root {
         #[inline]
         pub unsafe fn undef_subsasgn(&mut self,
                                      type_: *const root::std::string,
-                                     idx: *const root::std::list,
+                                     idx: *const [u64; 3usize],
                                      rhs: *const root::octave_value)
          -> root::octave_value {
             octave_value_undef_subsasgn(self, type_, idx, rhs)
@@ -4086,7 +4209,7 @@ pub mod root {
         #[inline]
         pub unsafe fn assign(&mut self, op: root::octave_value_assign_op,
                              type_: *const root::std::string,
-                             idx: *const root::std::list,
+                             idx: *const [u64; 3usize],
                              rhs: *const root::octave_value)
          -> *mut root::octave_value {
             octave_value_assign(self, op, type_, idx, rhs)
@@ -4216,7 +4339,7 @@ pub mod root {
         #[inline]
         pub unsafe fn int_vector_value(&self, req_int: bool,
                                        frc_str_conv: bool, frc_vec_conv: bool)
-         -> root::Array {
+         -> [u64; 5usize] {
             octave_value_int_vector_value(self, req_int, frc_str_conv,
                                           frc_vec_conv)
         }
@@ -4224,32 +4347,33 @@ pub mod root {
         pub unsafe fn octave_idx_type_vector_value(&self, req_int: bool,
                                                    frc_str_conv: bool,
                                                    frc_vec_conv: bool)
-         -> root::Array {
+         -> [u64; 5usize] {
             octave_value_octave_idx_type_vector_value(self, req_int,
                                                       frc_str_conv,
                                                       frc_vec_conv)
         }
         #[inline]
         pub unsafe fn vector_value(&self, frc_str_conv: bool,
-                                   frc_vec_conv: bool) -> root::Array {
+                                   frc_vec_conv: bool) -> [u64; 5usize] {
             octave_value_vector_value(self, frc_str_conv, frc_vec_conv)
         }
         #[inline]
         pub unsafe fn complex_vector_value(&self, frc_str_conv: bool,
                                            frc_vec_conv: bool)
-         -> root::Array {
+         -> [u64; 5usize] {
             octave_value_complex_vector_value(self, frc_str_conv,
                                               frc_vec_conv)
         }
         #[inline]
         pub unsafe fn float_vector_value(&self, frc_str_conv: bool,
-                                         frc_vec_conv: bool) -> root::Array {
+                                         frc_vec_conv: bool)
+         -> [u64; 5usize] {
             octave_value_float_vector_value(self, frc_str_conv, frc_vec_conv)
         }
         #[inline]
         pub unsafe fn float_complex_vector_value(&self, frc_str_conv: bool,
                                                  frc_vec_conv: bool)
-         -> root::Array {
+         -> [u64; 5usize] {
             octave_value_float_complex_vector_value(self, frc_str_conv,
                                                     frc_vec_conv)
         }
@@ -4271,7 +4395,7 @@ pub mod root {
         pub unsafe fn do_non_const_unary_op1(&mut self,
                                              op: root::octave_value_unary_op,
                                              type_: *const root::std::string,
-                                             idx: *const root::std::list)
+                                             idx: *const [u64; 3usize])
          -> *mut root::octave_value {
             octave_value_do_non_const_unary_op1(self, op, type_, idx)
         }
@@ -4357,7 +4481,8 @@ pub mod root {
             __bindgen_tmp
         }
         #[inline]
-        pub unsafe fn new11(a: *const root::Array, is_cs_list: bool) -> Self {
+        pub unsafe fn new11(a: *const [u64; 5usize], is_cs_list: bool)
+         -> Self {
             let mut __bindgen_tmp = ::std::mem::uninitialized();
             octave_value_octave_value11(&mut __bindgen_tmp, a, is_cs_list);
             __bindgen_tmp
@@ -4395,13 +4520,13 @@ pub mod root {
             __bindgen_tmp
         }
         #[inline]
-        pub unsafe fn new17(m: *const root::Array) -> Self {
+        pub unsafe fn new17(m: *const [u64; 5usize]) -> Self {
             let mut __bindgen_tmp = ::std::mem::uninitialized();
             octave_value_octave_value17(&mut __bindgen_tmp, m);
             __bindgen_tmp
         }
         #[inline]
-        pub unsafe fn new18(m: *const root::Array) -> Self {
+        pub unsafe fn new18(m: *const [u64; 5usize]) -> Self {
             let mut __bindgen_tmp = ::std::mem::uninitialized();
             octave_value_octave_value18(&mut __bindgen_tmp, m);
             __bindgen_tmp
@@ -4505,13 +4630,13 @@ pub mod root {
             __bindgen_tmp
         }
         #[inline]
-        pub unsafe fn new35(m: *const root::Array) -> Self {
+        pub unsafe fn new35(m: *const [u64; 5usize]) -> Self {
             let mut __bindgen_tmp = ::std::mem::uninitialized();
             octave_value_octave_value35(&mut __bindgen_tmp, m);
             __bindgen_tmp
         }
         #[inline]
-        pub unsafe fn new36(m: *const root::Array) -> Self {
+        pub unsafe fn new36(m: *const [u64; 5usize]) -> Self {
             let mut __bindgen_tmp = ::std::mem::uninitialized();
             octave_value_octave_value36(&mut __bindgen_tmp, m);
             __bindgen_tmp
@@ -4579,7 +4704,7 @@ pub mod root {
             __bindgen_tmp
         }
         #[inline]
-        pub unsafe fn new47(bnda: *const root::Array) -> Self {
+        pub unsafe fn new47(bnda: *const [u64; 5usize]) -> Self {
             let mut __bindgen_tmp = ::std::mem::uninitialized();
             octave_value_octave_value47(&mut __bindgen_tmp, bnda);
             __bindgen_tmp
@@ -4627,7 +4752,7 @@ pub mod root {
             __bindgen_tmp
         }
         #[inline]
-        pub unsafe fn new54(chnda: *const root::Array,
+        pub unsafe fn new54(chnda: *const [u64; 5usize],
                             type_: ::std::os::raw::c_char) -> Self {
             let mut __bindgen_tmp = ::std::mem::uninitialized();
             octave_value_octave_value54(&mut __bindgen_tmp, chnda, type_);
@@ -4650,7 +4775,7 @@ pub mod root {
             __bindgen_tmp
         }
         #[inline]
-        pub unsafe fn new57(chnda: *const root::Array, is_string: bool,
+        pub unsafe fn new57(chnda: *const [u64; 5usize], is_string: bool,
                             type_: ::std::os::raw::c_char) -> Self {
             let mut __bindgen_tmp = ::std::mem::uninitialized();
             octave_value_octave_value57(&mut __bindgen_tmp, chnda, is_string,
@@ -4754,7 +4879,7 @@ pub mod root {
             __bindgen_tmp
         }
         #[inline]
-        pub unsafe fn new73(inda: *const root::Array) -> Self {
+        pub unsafe fn new73(inda: *const [u64; 5usize]) -> Self {
             let mut __bindgen_tmp = ::std::mem::uninitialized();
             octave_value_octave_value73(&mut __bindgen_tmp, inda);
             __bindgen_tmp
@@ -4766,7 +4891,7 @@ pub mod root {
             __bindgen_tmp
         }
         #[inline]
-        pub unsafe fn new75(inda: *const root::Array) -> Self {
+        pub unsafe fn new75(inda: *const [u64; 5usize]) -> Self {
             let mut __bindgen_tmp = ::std::mem::uninitialized();
             octave_value_octave_value75(&mut __bindgen_tmp, inda);
             __bindgen_tmp
@@ -4778,7 +4903,7 @@ pub mod root {
             __bindgen_tmp
         }
         #[inline]
-        pub unsafe fn new77(inda: *const root::Array) -> Self {
+        pub unsafe fn new77(inda: *const [u64; 5usize]) -> Self {
             let mut __bindgen_tmp = ::std::mem::uninitialized();
             octave_value_octave_value77(&mut __bindgen_tmp, inda);
             __bindgen_tmp
@@ -4790,7 +4915,7 @@ pub mod root {
             __bindgen_tmp
         }
         #[inline]
-        pub unsafe fn new79(inda: *const root::Array) -> Self {
+        pub unsafe fn new79(inda: *const [u64; 5usize]) -> Self {
             let mut __bindgen_tmp = ::std::mem::uninitialized();
             octave_value_octave_value79(&mut __bindgen_tmp, inda);
             __bindgen_tmp
@@ -4802,7 +4927,7 @@ pub mod root {
             __bindgen_tmp
         }
         #[inline]
-        pub unsafe fn new81(inda: *const root::Array) -> Self {
+        pub unsafe fn new81(inda: *const [u64; 5usize]) -> Self {
             let mut __bindgen_tmp = ::std::mem::uninitialized();
             octave_value_octave_value81(&mut __bindgen_tmp, inda);
             __bindgen_tmp
@@ -4814,7 +4939,7 @@ pub mod root {
             __bindgen_tmp
         }
         #[inline]
-        pub unsafe fn new83(inda: *const root::Array) -> Self {
+        pub unsafe fn new83(inda: *const [u64; 5usize]) -> Self {
             let mut __bindgen_tmp = ::std::mem::uninitialized();
             octave_value_octave_value83(&mut __bindgen_tmp, inda);
             __bindgen_tmp
@@ -4826,7 +4951,7 @@ pub mod root {
             __bindgen_tmp
         }
         #[inline]
-        pub unsafe fn new85(inda: *const root::Array) -> Self {
+        pub unsafe fn new85(inda: *const [u64; 5usize]) -> Self {
             let mut __bindgen_tmp = ::std::mem::uninitialized();
             octave_value_octave_value85(&mut __bindgen_tmp, inda);
             __bindgen_tmp
@@ -4838,13 +4963,13 @@ pub mod root {
             __bindgen_tmp
         }
         #[inline]
-        pub unsafe fn new87(inda: *const root::Array) -> Self {
+        pub unsafe fn new87(inda: *const [u64; 5usize]) -> Self {
             let mut __bindgen_tmp = ::std::mem::uninitialized();
             octave_value_octave_value87(&mut __bindgen_tmp, inda);
             __bindgen_tmp
         }
         #[inline]
-        pub unsafe fn new88(inda: *const root::Array, zero_based: bool,
+        pub unsafe fn new88(inda: *const [u64; 5usize], zero_based: bool,
                             cache_index: bool) -> Self {
             let mut __bindgen_tmp = ::std::mem::uninitialized();
             octave_value_octave_value88(&mut __bindgen_tmp, inda, zero_based,
@@ -4852,7 +4977,7 @@ pub mod root {
             __bindgen_tmp
         }
         #[inline]
-        pub unsafe fn new89(cellstr: *const root::Array) -> Self {
+        pub unsafe fn new89(cellstr: *const [u64; 5usize]) -> Self {
             let mut __bindgen_tmp = ::std::mem::uninitialized();
             octave_value_octave_value89(&mut __bindgen_tmp, cellstr);
             __bindgen_tmp
@@ -4892,7 +5017,7 @@ pub mod root {
         #[inline]
         pub unsafe fn new95(m: *const root::octave_map,
                             id: *const root::std::string,
-                            plist: *const root::std::list) -> Self {
+                            plist: *const [u64; 3usize]) -> Self {
             let mut __bindgen_tmp = ::std::mem::uninitialized();
             octave_value_octave_value95(&mut __bindgen_tmp, m, id, plist);
             __bindgen_tmp
@@ -4900,7 +5025,7 @@ pub mod root {
         #[inline]
         pub unsafe fn new96(m: *const root::octave_scalar_map,
                             id: *const root::std::string,
-                            plist: *const root::std::list) -> Self {
+                            plist: *const [u64; 3usize]) -> Self {
             let mut __bindgen_tmp = ::std::mem::uninitialized();
             octave_value_octave_value96(&mut __bindgen_tmp, m, id, plist);
             __bindgen_tmp
@@ -4946,7 +5071,6 @@ pub mod root {
     #[repr(C)]
     pub struct octave_base_value__bindgen_vtable(::std::os::raw::c_void);
     #[repr(C)]
-    #[derive(Debug)]
     pub struct octave_base_value {
         pub vtable_: *const octave_base_value__bindgen_vtable,
         pub count: root::octave_refcount<::std::os::raw::c_int>,
@@ -4956,7 +5080,7 @@ pub mod root {
                                                        *const root::octave_base_value)
                                   -> *mut root::octave_base_value>;
     #[repr(C)]
-    #[derive(Debug, Copy)]
+    #[derive(Copy)]
     pub struct octave_base_value_type_conv_info {
         pub _fcn: root::octave_base_value_type_conv_fcn,
         pub _type_id: ::std::os::raw::c_int,
@@ -5061,7 +5185,7 @@ pub mod root {
                                                     *mut root::octave_base_value,
                                                 type_:
                                                     *const root::std::string,
-                                                idx: *const root::std::list,
+                                                idx: *const [u64; 3usize],
                                                 rhs:
                                                     *const root::octave_value)
          -> root::octave_value;
@@ -5109,7 +5233,7 @@ pub mod root {
         #[inline]
         pub unsafe fn numeric_assign(&mut self,
                                      type_: *const root::std::string,
-                                     idx: *const root::std::list,
+                                     idx: *const [u64; 3usize],
                                      rhs: *const root::octave_value)
          -> root::octave_value {
             octave_base_value_numeric_assign(self, type_, idx, rhs)
@@ -5223,7 +5347,7 @@ pub mod root {
               "_ZN17octave_base_value7subsrefERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERKNS0_4listI17octave_value_listSaIS9_EEE"]
         pub fn octave_base_value_subsref(this: *mut ::std::os::raw::c_void,
                                          type_: *const root::std::string,
-                                         idx: *const root::std::list)
+                                         idx: *const [u64; 3usize])
          -> root::octave_value;
     }
     extern "C" {
@@ -5231,7 +5355,7 @@ pub mod root {
               "_ZN17octave_base_value7subsrefERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERKNS0_4listI17octave_value_listSaIS9_EEEi"]
         pub fn octave_base_value_subsref1(this: *mut ::std::os::raw::c_void,
                                           type_: *const root::std::string,
-                                          idx: *const root::std::list,
+                                          idx: *const [u64; 3usize],
                                           nargout: ::std::os::raw::c_int)
          -> root::octave_value_list;
     }
@@ -5240,7 +5364,7 @@ pub mod root {
               "_ZN17octave_base_value7subsrefERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERKNS0_4listI17octave_value_listSaIS9_EEEb"]
         pub fn octave_base_value_subsref2(this: *mut ::std::os::raw::c_void,
                                           type_: *const root::std::string,
-                                          idx: *const root::std::list,
+                                          idx: *const [u64; 3usize],
                                           auto_add: bool)
          -> root::octave_value;
     }
@@ -5249,9 +5373,9 @@ pub mod root {
               "_ZN17octave_base_value7subsrefERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERKNS0_4listI17octave_value_listSaIS9_EEEiPKNS8_I13octave_lvalueSaISE_EEE"]
         pub fn octave_base_value_subsref3(this: *mut ::std::os::raw::c_void,
                                           type_: *const root::std::string,
-                                          idx: *const root::std::list,
+                                          idx: *const [u64; 3usize],
                                           nargout: ::std::os::raw::c_int,
-                                          lvalue_list: *const root::std::list)
+                                          lvalue_list: *const u8)
          -> root::octave_value_list;
     }
     extern "C" {
@@ -5284,8 +5408,7 @@ pub mod root {
                                                         ::std::os::raw::c_int,
                                                     idx:
                                                         *const root::octave_value_list,
-                                                    lvalue_list:
-                                                        *const root::std::list)
+                                                    lvalue_list: *const u8)
          -> root::octave_value_list;
     }
     extern "C" {
@@ -5293,7 +5416,7 @@ pub mod root {
               "_ZN17octave_base_value8subsasgnERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERKNS0_4listI17octave_value_listSaIS9_EEERK12octave_value"]
         pub fn octave_base_value_subsasgn(this: *mut ::std::os::raw::c_void,
                                           type_: *const root::std::string,
-                                          idx: *const root::std::list,
+                                          idx: *const [u64; 3usize],
                                           rhs: *const root::octave_value)
          -> root::octave_value;
     }
@@ -5304,7 +5427,7 @@ pub mod root {
                                                     *mut ::std::os::raw::c_void,
                                                 type_:
                                                     *const root::std::string,
-                                                idx: *const root::std::list,
+                                                idx: *const [u64; 3usize],
                                                 rhs:
                                                     *const root::octave_value)
          -> root::octave_value;
@@ -5340,8 +5463,8 @@ pub mod root {
     extern "C" {
         #[link_name = "_ZNK17octave_base_value7permuteERK5ArrayIiEb"]
         pub fn octave_base_value_permute(this: *mut ::std::os::raw::c_void,
-                                         vec: *const root::Array, arg1: bool)
-         -> root::octave_value;
+                                         vec: *const [u64; 5usize],
+                                         arg1: bool) -> root::octave_value;
     }
     extern "C" {
         #[link_name = "_ZNK17octave_base_value6resizeERK10dim_vectorb"]
@@ -5719,7 +5842,7 @@ pub mod root {
         #[link_name = "_ZNK17octave_base_value13cellstr_valueB5cxx11Ev"]
         pub fn octave_base_value_cellstr_value(this:
                                                    *mut ::std::os::raw::c_void)
-         -> root::Array;
+         -> [u64; 5usize];
     }
     extern "C" {
         #[link_name = "_ZNK17octave_base_value11range_valueEv"]
@@ -5753,7 +5876,7 @@ pub mod root {
               "_ZNK17octave_base_value22parent_class_name_listB5cxx11Ev"]
         pub fn octave_base_value_parent_class_name_list(this:
                                                             *mut ::std::os::raw::c_void)
-         -> root::std::list;
+         -> [u64; 3usize];
     }
     extern "C" {
         #[link_name = "_ZNK17octave_base_value18parent_class_namesEv"]
@@ -5966,7 +6089,7 @@ pub mod root {
     extern "C" {
         #[link_name = "_ZNK17octave_base_value4sortER5ArrayIiEi8sortmode"]
         pub fn octave_base_value_sort1(this: *mut ::std::os::raw::c_void,
-                                       sidx: *mut root::Array,
+                                       sidx: *mut [u64; 5usize],
                                        dim: root::octave_idx_type,
                                        mode: root::sortmode)
          -> root::octave_value;
@@ -5982,7 +6105,7 @@ pub mod root {
         pub fn octave_base_value_sort_rows_idx(this:
                                                    *mut ::std::os::raw::c_void,
                                                mode: root::sortmode)
-         -> root::Array;
+         -> [u64; 5usize];
     }
     extern "C" {
         #[link_name = "_ZNK17octave_base_value14is_sorted_rowsE8sortmode"]
@@ -6043,12 +6166,11 @@ pub mod root {
         pub fn octave_value_list_create() -> root::octave_value_list;
     }
     #[repr(C)]
-    #[derive(Debug)]
     pub struct octave_fields {
         pub rep: *mut root::octave_fields_fields_rep,
     }
     #[repr(C)]
-    #[derive(Debug, Copy)]
+    #[derive(Copy)]
     pub struct octave_fields_fields_rep {
         pub _base: root::std::map,
         pub count: root::octave_refcount<::std::os::raw::c_int>,
@@ -6088,7 +6210,7 @@ pub mod root {
     extern "C" {
         #[link_name = "_ZN13octave_fields11orderfieldsER5ArrayIiE"]
         pub fn octave_fields_orderfields(this: *mut root::octave_fields,
-                                         perm: *mut root::Array);
+                                         perm: *mut [u64; 5usize]);
     }
     extern "C" {
         #[link_name = "_ZNK13octave_fields17equal_up_to_orderERKS_Pi"]
@@ -6106,7 +6228,7 @@ pub mod root {
                                                     *const root::octave_fields,
                                                 other:
                                                     *const root::octave_fields,
-                                                perm: *mut root::Array)
+                                                perm: *mut [u64; 5usize])
          -> bool;
     }
     extern "C" {
@@ -6146,7 +6268,7 @@ pub mod root {
             octave_fields_rmfield(self, name)
         }
         #[inline]
-        pub unsafe fn orderfields(&mut self, perm: *mut root::Array) {
+        pub unsafe fn orderfields(&mut self, perm: *mut [u64; 5usize]) {
             octave_fields_orderfields(self, perm)
         }
         #[inline]
@@ -6159,7 +6281,7 @@ pub mod root {
         #[inline]
         pub unsafe fn equal_up_to_order1(&self,
                                          other: *const root::octave_fields,
-                                         perm: *mut root::Array) -> bool {
+                                         perm: *mut [u64; 5usize]) -> bool {
             octave_fields_equal_up_to_order1(self, other, perm)
         }
         #[inline]
@@ -6181,23 +6303,22 @@ pub mod root {
         }
     }
     #[repr(C)]
-    #[derive(Debug)]
     pub struct octave_value_typeinfo {
         pub num_types: ::std::os::raw::c_int,
-        pub types: root::Array,
-        pub vals: root::Array,
-        pub unary_class_ops: root::Array,
-        pub unary_ops: root::Array,
-        pub non_const_unary_ops: root::Array,
-        pub binary_class_ops: root::Array,
-        pub binary_ops: root::Array,
-        pub compound_binary_class_ops: root::Array,
-        pub compound_binary_ops: root::Array,
-        pub cat_ops: root::Array,
-        pub assign_ops: root::Array,
-        pub assignany_ops: root::Array,
-        pub pref_assign_conv: root::Array,
-        pub widening_ops: root::Array,
+        pub types: [u64; 5usize],
+        pub vals: [u64; 5usize],
+        pub unary_class_ops: [u64; 5usize],
+        pub unary_ops: [u64; 5usize],
+        pub non_const_unary_ops: [u64; 5usize],
+        pub binary_class_ops: [u64; 5usize],
+        pub binary_ops: [u64; 5usize],
+        pub compound_binary_class_ops: [u64; 5usize],
+        pub compound_binary_ops: [u64; 5usize],
+        pub cat_ops: [u64; 5usize],
+        pub assign_ops: [u64; 5usize],
+        pub assignany_ops: [u64; 5usize],
+        pub pref_assign_conv: [u64; 5usize],
+        pub widening_ops: [u64; 5usize],
     }
     pub type octave_value_typeinfo_unary_class_op_fcn =
         ::std::option::Option<unsafe extern "C" fn(arg1:
@@ -6227,7 +6348,8 @@ pub mod root {
                                                        *mut root::octave_base_value,
                                                    arg2:
                                                        *const root::octave_base_value,
-                                                   ra_idx: *const root::Array)
+                                                   ra_idx:
+                                                       *const [u64; 5usize])
                                   -> root::octave_value>;
     pub type octave_value_typeinfo_assign_op_fcn =
         ::std::option::Option<unsafe extern "C" fn(arg1:
@@ -6517,7 +6639,6 @@ pub mod root {
         }
     }
     #[repr(C)]
-    #[derive(Debug)]
     pub struct octave_builtin {
         pub _base: root::octave_function,
         pub f: root::octave_builtin_fcn,
@@ -6532,8 +6653,7 @@ pub mod root {
                                   -> root::octave_value_list>;
     extern "C" {
         #[link_name = "_ZN14octave_builtin16curr_lvalue_listB5cxx11E"]
-        pub static mut octave_builtin_curr_lvalue_list:
-                   *const root::std::list;
+        pub static mut octave_builtin_curr_lvalue_list: *const u8;
     }
     extern "C" {
         #[link_name = "_ZN14octave_builtin4t_idE"]
@@ -6587,7 +6707,7 @@ pub mod root {
               "_ZN14octave_builtin7subsrefERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERKNS0_4listI17octave_value_listSaIS9_EEEi"]
         pub fn octave_builtin_subsref(this: *mut ::std::os::raw::c_void,
                                       type_: *const root::std::string,
-                                      idx: *const root::std::list,
+                                      idx: *const [u64; 3usize],
                                       nargout: ::std::os::raw::c_int)
          -> root::octave_value_list;
     }
@@ -6596,9 +6716,9 @@ pub mod root {
               "_ZN14octave_builtin7subsrefERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERKNS0_4listI17octave_value_listSaIS9_EEEiPKNS8_I13octave_lvalueSaISE_EEE"]
         pub fn octave_builtin_subsref1(this: *mut ::std::os::raw::c_void,
                                        type_: *const root::std::string,
-                                       idx: *const root::std::list,
+                                       idx: *const [u64; 3usize],
                                        nargout: ::std::os::raw::c_int,
-                                       lvalue_list: *const root::std::list)
+                                       lvalue_list: *const u8)
          -> root::octave_value_list;
     }
     extern "C" {
@@ -6621,13 +6741,11 @@ pub mod root {
                                                      ::std::os::raw::c_int,
                                                  args:
                                                      *const root::octave_value_list,
-                                                 lvalue_list:
-                                                     *const root::std::list)
+                                                 lvalue_list: *const u8)
          -> root::octave_value_list;
     }
     pub type octave_shlib = root::octave::dynamic_library;
     #[repr(C)]
-    #[derive(Debug)]
     pub struct octave_dld_function {
         pub _base: root::octave_builtin,
         pub sh_lib: root::octave::dynamic_library,
@@ -6751,7 +6869,6 @@ pub mod root {
         pub fn octave_startup_message(html: bool) -> root::std::string;
     }
     #[repr(C)]
-    #[derive(Debug)]
     pub struct octave_auto_shlib {
         pub _base: root::octave::dynamic_library,
     }
@@ -6767,7 +6884,7 @@ pub mod root {
     #[repr(C)]
     pub struct octave_pager_buf__bindgen_vtable(::std::os::raw::c_void);
     #[repr(C)]
-    #[derive(Debug, Copy)]
+    #[derive(Copy)]
     pub struct octave_pager_buf {
         pub vtable_: *const octave_pager_buf__bindgen_vtable,
         pub _base: root::std::stringbuf,
@@ -6805,7 +6922,6 @@ pub mod root {
     #[repr(C)]
     pub struct octave_pager_stream__bindgen_vtable(::std::os::raw::c_void);
     #[repr(C)]
-    #[derive(Debug)]
     pub struct octave_pager_stream {
         pub vtable_: *const octave_pager_stream__bindgen_vtable,
         pub _base: root::std::ostream,
@@ -6868,7 +6984,7 @@ pub mod root {
     #[repr(C)]
     pub struct octave_diary_buf__bindgen_vtable(::std::os::raw::c_void);
     #[repr(C)]
-    #[derive(Debug, Copy)]
+    #[derive(Copy)]
     pub struct octave_diary_buf {
         pub vtable_: *const octave_diary_buf__bindgen_vtable,
         pub _base: root::std::stringbuf,
@@ -6884,7 +7000,6 @@ pub mod root {
     #[repr(C)]
     pub struct octave_diary_stream__bindgen_vtable(::std::os::raw::c_void);
     #[repr(C)]
-    #[derive(Debug)]
     pub struct octave_diary_stream {
         pub vtable_: *const octave_diary_stream__bindgen_vtable,
         pub _base: root::std::ostream,
