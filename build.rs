@@ -1,31 +1,34 @@
 extern crate bindgen;
 extern crate gcc;
 
-// a helper library for octh with c exports
-fn libocthc() {
-    // https://github.com/servo/rust-bindgen/blob/master/bindgen-integration/build.rs
-    gcc::Config::new()
-        .cpp(true)
-        .file("src/octhc.cc")
-        .include("C:/Octave/Octave-4.2.1/include/octave-4.2.1/octave")
-        .flag("-std=c++11")
-        .compile("libocthc.a");
-}
-
 fn bindgen() {
     let mut builder = bindgen::Builder::default()
-        .no_unstable_rust()
+        // .no_unstable_rust()
         .header("src/octhc.h")
         .clang_arg("-v")
         .clang_arg("-x")
         .clang_arg("c++")
         .clang_arg("-std=c++11")
-        .clang_arg("--target=x86_64-w64-mingw32")
-        .clang_arg("-nobuiltininc")
-        .clang_arg("-IC:/Octave/Octave-4.2.1/include/octave-4.2.1/octave")
+        // .clang_arg("--target=x86_64-w64-mingw32")
+        // .clang_arg("-nobuiltininc")
+        // .clang_arg("-IC:/Octave/Octave-4.2.1/include/octave-4.2.1/octave")
+        .clang_arg("-I/home/cameron/octave/libinterp/octave-value")
+        .clang_arg("-I/home/cameron/octave/libinterp/corefcn")
+        .clang_arg("-I/home/cameron/octave-build")
+        .clang_arg("-I/home/cameron/octave/liboctave/array")
+        .clang_arg("-I/home/cameron/octave/liboctave/operators")
+        .clang_arg("-I/home/cameron/octave/liboctave/cruft/misc")
+        .clang_arg("-I/home/cameron/octave/liboctave/util")
+        .clang_arg("-I/home/cameron/octave/liboctave/numeric")
+        .clang_arg("-I/home/cameron/octave-build/liboctave/operators")
+        .clang_arg("-I/home/cameron/octave-build/libinterp")
+        .clang_arg("-I/home/cameron/octave/liboctave/system")
+        // .clang_arg("-I/home/cameron/octave/libinterp/corefcn")
         .enable_cxx_namespaces()
-        .opaque_type(".*") // Should have a set of used template params for every item id
-        // .whitelisted_type("octave_.*")
+        // .opaque_type(".*") // Should have a set of used template params for every item id
+        .whitelisted_type("octave.*")
+        .whitelisted_function("octave.*")
+        .whitelist_recursively(false)
         .layout_tests(false)
         .generate_comments(false);
 
@@ -60,6 +63,5 @@ fn bindgen() {
 }
 
 fn main() {
-    libocthc();
-    // bindgen();
+    bindgen();
 }
