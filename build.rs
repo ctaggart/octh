@@ -4,11 +4,17 @@ extern crate gcc;
 // a helper library for octh with c exports
 fn libocthc() {
     // https://github.com/servo/rust-bindgen/blob/master/bindgen-integration/build.rs
+    // https://github.com/alexcrichton/gcc-rs/blob/master/src/lib.rs
     gcc::Config::new()
+        .compiler("C:/Octave/Octave-4.2.1/bin/gcc.exe")
+        .flag("--verbose")
         .cpp(true)
         .file("src/octhc.cc")
         .include("C:/Octave/Octave-4.2.1/include/octave-4.2.1/octave")
-        .flag("-std=c++11")
+        // .flag("-std=c++11")     
+        .flag("-std=gnu++11")
+        .flag("-nostdlib")
+        .flag("-nodefaultlibs")
         .compile("libocthc.a");
 }
 
@@ -20,6 +26,7 @@ fn bindgen() {
         .clang_arg("-x")
         .clang_arg("c++")
         .clang_arg("-std=c++11")
+        // .clang_arg("-std=gnu++11")
         .clang_arg("--target=x86_64-w64-mingw32")
         .clang_arg("-nobuiltininc")
         .clang_arg("-IC:/Octave/Octave-4.2.1/include/octave-4.2.1/octave")
