@@ -962,7 +962,6 @@ pub mod root {
             pub named_pats: root::string_vector,
         }
         #[repr(C)]
-        #[derive(Copy)]
         pub struct regexp_match_element {
             pub x_match_string: root::std::string,
             pub x_named_tokens: root::string_vector,
@@ -970,9 +969,6 @@ pub mod root {
             pub x_token_extents: root::Matrix,
             pub x_start: f64,
             pub x_end: f64,
-        }
-        impl Clone for regexp_match_element {
-            fn clone(&self) -> Self { *self }
         }
         extern "C" {
             #[link_name =
@@ -1607,6 +1603,141 @@ pub mod root {
     pub struct octave_int_arith<T> {
         pub _address: u8,
         pub _phantom_0: ::std::marker::PhantomData<::std::cell::UnsafeCell<T>>,
+    }
+    #[repr(C)]
+    #[derive(Copy)]
+    pub struct string_vector {
+        pub _bindgen_opaque_blob: [u64; 5usize],
+    }
+    extern "C" {
+        #[link_name = "_ZN13string_vector4sortEb"]
+        pub fn string_vector_sort(this: *mut root::string_vector,
+                                  make_uniq: bool)
+         -> *mut root::string_vector;
+    }
+    extern "C" {
+        #[link_name = "_ZN13string_vector4uniqEv"]
+        pub fn string_vector_uniq(this: *mut root::string_vector)
+         -> *mut root::string_vector;
+    }
+    extern "C" {
+        #[link_name =
+              "_ZN13string_vector6appendERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE"]
+        pub fn string_vector_append(this: *mut root::string_vector,
+                                    s: *const root::std::string)
+         -> *mut root::string_vector;
+    }
+    extern "C" {
+        #[link_name = "_ZN13string_vector6appendERKS_"]
+        pub fn string_vector_append1(this: *mut root::string_vector,
+                                     sv: *const root::string_vector)
+         -> *mut root::string_vector;
+    }
+    extern "C" {
+        #[link_name =
+              "_ZNK13string_vector4joinERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE"]
+        pub fn string_vector_join(this: *const root::string_vector,
+                                  sep: *const root::std::string)
+         -> root::std::string;
+    }
+    extern "C" {
+        #[link_name = "_ZNK13string_vector9c_str_vecEv"]
+        pub fn string_vector_c_str_vec(this: *const root::string_vector)
+         -> *mut *mut ::std::os::raw::c_char;
+    }
+    extern "C" {
+        #[link_name = "_ZNK13string_vector8std_listB5cxx11Ev"]
+        pub fn string_vector_std_list(this: *const root::string_vector)
+         -> [u64; 3usize];
+    }
+    extern "C" {
+        #[link_name = "_ZN13string_vector16delete_c_str_vecEPKPKc"]
+        pub fn string_vector_delete_c_str_vec(arg1:
+                                                  *const *const ::std::os::raw::c_char);
+    }
+    extern "C" {
+        #[link_name =
+              "_ZNK13string_vector15list_in_columnsERSoiRKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE"]
+        pub fn string_vector_list_in_columns(this: *const root::string_vector,
+                                             arg1: *mut root::std::ostream,
+                                             width: ::std::os::raw::c_int,
+                                             prefix: *const root::std::string)
+         -> *mut root::std::ostream;
+    }
+    extern "C" {
+        #[link_name = "_ZN13string_vectorC1EPKPKc"]
+        pub fn string_vector_string_vector(this: *mut root::string_vector,
+                                           s:
+                                               *const *const ::std::os::raw::c_char);
+    }
+    extern "C" {
+        #[link_name = "_ZN13string_vectorC1EPKPKci"]
+        pub fn string_vector_string_vector1(this: *mut root::string_vector,
+                                            s:
+                                                *const *const ::std::os::raw::c_char,
+                                            n: root::octave_idx_type);
+    }
+    impl Clone for string_vector {
+        fn clone(&self) -> Self { *self }
+    }
+    impl string_vector {
+        #[inline]
+        pub unsafe fn sort(&mut self, make_uniq: bool)
+         -> *mut root::string_vector {
+            string_vector_sort(self, make_uniq)
+        }
+        #[inline]
+        pub unsafe fn uniq(&mut self) -> *mut root::string_vector {
+            string_vector_uniq(self)
+        }
+        #[inline]
+        pub unsafe fn append(&mut self, s: *const root::std::string)
+         -> *mut root::string_vector {
+            string_vector_append(self, s)
+        }
+        #[inline]
+        pub unsafe fn append1(&mut self, sv: *const root::string_vector)
+         -> *mut root::string_vector {
+            string_vector_append1(self, sv)
+        }
+        #[inline]
+        pub unsafe fn join(&self, sep: *const root::std::string)
+         -> root::std::string {
+            string_vector_join(self, sep)
+        }
+        #[inline]
+        pub unsafe fn c_str_vec(&self) -> *mut *mut ::std::os::raw::c_char {
+            string_vector_c_str_vec(self)
+        }
+        #[inline]
+        pub unsafe fn std_list(&self) -> [u64; 3usize] {
+            string_vector_std_list(self)
+        }
+        #[inline]
+        pub unsafe fn delete_c_str_vec(arg1:
+                                           *const *const ::std::os::raw::c_char) {
+            string_vector_delete_c_str_vec(arg1)
+        }
+        #[inline]
+        pub unsafe fn list_in_columns(&self, arg1: *mut root::std::ostream,
+                                      width: ::std::os::raw::c_int,
+                                      prefix: *const root::std::string)
+         -> *mut root::std::ostream {
+            string_vector_list_in_columns(self, arg1, width, prefix)
+        }
+        #[inline]
+        pub unsafe fn new(s: *const *const ::std::os::raw::c_char) -> Self {
+            let mut __bindgen_tmp = ::std::mem::uninitialized();
+            string_vector_string_vector(&mut __bindgen_tmp, s);
+            __bindgen_tmp
+        }
+        #[inline]
+        pub unsafe fn new1(s: *const *const ::std::os::raw::c_char,
+                           n: root::octave_idx_type) -> Self {
+            let mut __bindgen_tmp = ::std::mem::uninitialized();
+            string_vector_string_vector1(&mut __bindgen_tmp, s, n);
+            __bindgen_tmp
+        }
     }
     pub type octave_time = root::octave::sys::time;
     pub type octave_base_tm = root::octave::sys::base_tm;
