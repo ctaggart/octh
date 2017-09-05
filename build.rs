@@ -35,15 +35,17 @@ fn bindgen() {
         // .whitelisted_type("std::basic_string")
         // .opaque_type("std::basic_string")
         // .opaque_type("std::union")
-        .whitelisted_type("std::string")
+        // .whitelisted_type("std::string")
         .opaque_type("std::string")
 
-        .whitelisted_type("Complex").opaque_type("Complex")
-        .whitelisted_type("FloatComplex").opaque_type("FloatComplex")
+        // .whitelisted_type("Complex")
+        .opaque_type("Complex")
+        // .whitelisted_type("FloatComplex")
+        .opaque_type("FloatComplex")
 
         // .hide_type("octave::lu")
 
-        .whitelisted_type("time_t")
+        // .whitelisted_type("time_t")
         .opaque_type("time_t")
         
         // .whitelisted_type("std::stack")
@@ -52,14 +54,14 @@ fn bindgen() {
         // .whitelisted_type("std::list")
         .opaque_type("std::list")
         
-        .whitelisted_type("Array")
+        // .whitelisted_type("Array")
         .opaque_type("Array")
         // .whitelisted_type("string_vector").opaque_type("string_vector")
 
-        .whitelisted_type("dim_vector")
+        // .whitelisted_type("dim_vector")
         .opaque_type("dim_vector")
 
-        .whitelisted_type("string_vector")
+        // .whitelisted_type("string_vector")
         .opaque_type("string_vector")
         // .whitelisted_type("string_vector")
 

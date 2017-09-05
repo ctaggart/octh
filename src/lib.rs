@@ -7,14 +7,12 @@ pub mod root {
     pub mod std {
         #[allow(unused_imports)]
         use self::super::super::root;
-        pub type string = [u64; 4usize];
     }
     pub mod __gnu_cxx {
         #[allow(unused_imports)]
         use self::super::super::root;
     }
     pub type octave_idx_type = ::std::os::raw::c_int;
-    pub type time_t = u64;
     pub type octave_jmp_buf = [u64; 25usize];
     extern "C" {
         pub fn octave_save_current_context(arg1: *mut ::std::os::raw::c_void);
@@ -962,6 +960,7 @@ pub mod root {
             pub named_pats: root::string_vector,
         }
         #[repr(C)]
+        #[derive(Copy)]
         pub struct regexp_match_element {
             pub x_match_string: root::std::string,
             pub x_named_tokens: root::string_vector,
@@ -969,6 +968,9 @@ pub mod root {
             pub x_token_extents: root::Matrix,
             pub x_start: f64,
             pub x_end: f64,
+        }
+        impl Clone for regexp_match_element {
+            fn clone(&self) -> Self { *self }
         }
         extern "C" {
             #[link_name =
@@ -1195,102 +1197,6 @@ pub mod root {
     }
     pub type octave_refcount_count_type = T;
     #[repr(C)]
-    #[derive(Copy)]
-    pub struct dim_vector {
-        pub _bindgen_opaque_blob: u64,
-    }
-    extern "C" {
-        #[link_name = "_ZN10dim_vector19chop_all_singletonsEv"]
-        pub fn dim_vector_chop_all_singletons(this: *mut root::dim_vector);
-    }
-    extern "C" {
-        #[link_name = "_ZN10dim_vector7dim_maxEv"]
-        pub fn dim_vector_dim_max() -> root::octave_idx_type;
-    }
-    extern "C" {
-        #[link_name = "_ZNK10dim_vector3strB5cxx11Ec"]
-        pub fn dim_vector_str(this: *const root::dim_vector,
-                              sep: ::std::os::raw::c_char)
-         -> root::std::string;
-    }
-    extern "C" {
-        #[link_name = "_ZNK10dim_vector8num_onesEv"]
-        pub fn dim_vector_num_ones(this: *const root::dim_vector)
-         -> ::std::os::raw::c_int;
-    }
-    extern "C" {
-        #[link_name = "_ZNK10dim_vector10safe_numelEv"]
-        pub fn dim_vector_safe_numel(this: *const root::dim_vector)
-         -> root::octave_idx_type;
-    }
-    extern "C" {
-        #[link_name = "_ZNK10dim_vector7squeezeEv"]
-        pub fn dim_vector_squeeze(this: *const root::dim_vector)
-         -> root::dim_vector;
-    }
-    extern "C" {
-        #[link_name = "_ZN10dim_vector6concatERKS_i"]
-        pub fn dim_vector_concat(this: *mut root::dim_vector,
-                                 dvb: *const root::dim_vector,
-                                 dim: ::std::os::raw::c_int) -> bool;
-    }
-    extern "C" {
-        #[link_name = "_ZN10dim_vector5hvcatERKS_i"]
-        pub fn dim_vector_hvcat(this: *mut root::dim_vector,
-                                dvb: *const root::dim_vector,
-                                dim: ::std::os::raw::c_int) -> bool;
-    }
-    extern "C" {
-        #[link_name = "_ZNK10dim_vector5redimEi"]
-        pub fn dim_vector_redim(this: *const root::dim_vector,
-                                n: ::std::os::raw::c_int) -> root::dim_vector;
-    }
-    impl Clone for dim_vector {
-        fn clone(&self) -> Self { *self }
-    }
-    impl dim_vector {
-        #[inline]
-        pub unsafe fn chop_all_singletons(&mut self) {
-            dim_vector_chop_all_singletons(self)
-        }
-        #[inline]
-        pub unsafe fn dim_max() -> root::octave_idx_type {
-            dim_vector_dim_max()
-        }
-        #[inline]
-        pub unsafe fn str(&self, sep: ::std::os::raw::c_char)
-         -> root::std::string {
-            dim_vector_str(self, sep)
-        }
-        #[inline]
-        pub unsafe fn num_ones(&self) -> ::std::os::raw::c_int {
-            dim_vector_num_ones(self)
-        }
-        #[inline]
-        pub unsafe fn safe_numel(&self) -> root::octave_idx_type {
-            dim_vector_safe_numel(self)
-        }
-        #[inline]
-        pub unsafe fn squeeze(&self) -> root::dim_vector {
-            dim_vector_squeeze(self)
-        }
-        #[inline]
-        pub unsafe fn concat(&mut self, dvb: *const root::dim_vector,
-                             dim: ::std::os::raw::c_int) -> bool {
-            dim_vector_concat(self, dvb, dim)
-        }
-        #[inline]
-        pub unsafe fn hvcat(&mut self, dvb: *const root::dim_vector,
-                            dim: ::std::os::raw::c_int) -> bool {
-            dim_vector_hvcat(self, dvb, dim)
-        }
-        #[inline]
-        pub unsafe fn redim(&self, n: ::std::os::raw::c_int)
-         -> root::dim_vector {
-            dim_vector_redim(self, n)
-        }
-    }
-    #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct octave_int<T> {
         pub ival: T,
@@ -1305,26 +1211,6 @@ pub mod root {
     pub type octave_uint16 = root::octave_int<::std::os::raw::c_ushort>;
     pub type octave_uint32 = root::octave_int<::std::os::raw::c_uint>;
     pub type octave_uint64 = root::octave_int<::std::os::raw::c_ulong>;
-    #[repr(C)]
-    #[derive(Copy, Clone)]
-    pub struct Array<T> {
-        pub _phantom_0: ::std::marker::PhantomData<::std::cell::UnsafeCell<T>>,
-    }
-    #[repr(C)]
-    #[derive(Copy, Clone)]
-    pub struct Array_ArrayRep {
-        pub data: *mut T,
-        pub len: root::octave_idx_type,
-        pub count: root::octave_refcount<::std::os::raw::c_int>,
-    }
-    pub type Array_element_type = T;
-    pub type Array_value_type = T;
-    pub type Array_size_type = root::octave_idx_type;
-    pub type Array_crefT = root::ref_param;
-    pub type Array_compare_fcn_type =
-        ::std::option::Option<unsafe extern "C" fn(arg1: root::ref_param,
-                                                   arg2: root::ref_param)
-                                  -> bool>;
     extern "C" {
         pub fn octave_qsort(base: *mut ::std::os::raw::c_void, n: usize,
                             size: usize,
@@ -1346,8 +1232,6 @@ pub mod root {
                                   s2: *const ::std::os::raw::c_char, n: usize)
          -> ::std::os::raw::c_int;
     }
-    pub type Complex = [u64; 2usize];
-    pub type FloatComplex = [u32; 2usize];
     extern "C" {
         #[link_name =
               "_Z13octave_putenvRKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEES6_"]
@@ -1603,141 +1487,6 @@ pub mod root {
     pub struct octave_int_arith<T> {
         pub _address: u8,
         pub _phantom_0: ::std::marker::PhantomData<::std::cell::UnsafeCell<T>>,
-    }
-    #[repr(C)]
-    #[derive(Copy)]
-    pub struct string_vector {
-        pub _bindgen_opaque_blob: [u64; 5usize],
-    }
-    extern "C" {
-        #[link_name = "_ZN13string_vector4sortEb"]
-        pub fn string_vector_sort(this: *mut root::string_vector,
-                                  make_uniq: bool)
-         -> *mut root::string_vector;
-    }
-    extern "C" {
-        #[link_name = "_ZN13string_vector4uniqEv"]
-        pub fn string_vector_uniq(this: *mut root::string_vector)
-         -> *mut root::string_vector;
-    }
-    extern "C" {
-        #[link_name =
-              "_ZN13string_vector6appendERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE"]
-        pub fn string_vector_append(this: *mut root::string_vector,
-                                    s: *const root::std::string)
-         -> *mut root::string_vector;
-    }
-    extern "C" {
-        #[link_name = "_ZN13string_vector6appendERKS_"]
-        pub fn string_vector_append1(this: *mut root::string_vector,
-                                     sv: *const root::string_vector)
-         -> *mut root::string_vector;
-    }
-    extern "C" {
-        #[link_name =
-              "_ZNK13string_vector4joinERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE"]
-        pub fn string_vector_join(this: *const root::string_vector,
-                                  sep: *const root::std::string)
-         -> root::std::string;
-    }
-    extern "C" {
-        #[link_name = "_ZNK13string_vector9c_str_vecEv"]
-        pub fn string_vector_c_str_vec(this: *const root::string_vector)
-         -> *mut *mut ::std::os::raw::c_char;
-    }
-    extern "C" {
-        #[link_name = "_ZNK13string_vector8std_listB5cxx11Ev"]
-        pub fn string_vector_std_list(this: *const root::string_vector)
-         -> [u64; 3usize];
-    }
-    extern "C" {
-        #[link_name = "_ZN13string_vector16delete_c_str_vecEPKPKc"]
-        pub fn string_vector_delete_c_str_vec(arg1:
-                                                  *const *const ::std::os::raw::c_char);
-    }
-    extern "C" {
-        #[link_name =
-              "_ZNK13string_vector15list_in_columnsERSoiRKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE"]
-        pub fn string_vector_list_in_columns(this: *const root::string_vector,
-                                             arg1: *mut root::std::ostream,
-                                             width: ::std::os::raw::c_int,
-                                             prefix: *const root::std::string)
-         -> *mut root::std::ostream;
-    }
-    extern "C" {
-        #[link_name = "_ZN13string_vectorC1EPKPKc"]
-        pub fn string_vector_string_vector(this: *mut root::string_vector,
-                                           s:
-                                               *const *const ::std::os::raw::c_char);
-    }
-    extern "C" {
-        #[link_name = "_ZN13string_vectorC1EPKPKci"]
-        pub fn string_vector_string_vector1(this: *mut root::string_vector,
-                                            s:
-                                                *const *const ::std::os::raw::c_char,
-                                            n: root::octave_idx_type);
-    }
-    impl Clone for string_vector {
-        fn clone(&self) -> Self { *self }
-    }
-    impl string_vector {
-        #[inline]
-        pub unsafe fn sort(&mut self, make_uniq: bool)
-         -> *mut root::string_vector {
-            string_vector_sort(self, make_uniq)
-        }
-        #[inline]
-        pub unsafe fn uniq(&mut self) -> *mut root::string_vector {
-            string_vector_uniq(self)
-        }
-        #[inline]
-        pub unsafe fn append(&mut self, s: *const root::std::string)
-         -> *mut root::string_vector {
-            string_vector_append(self, s)
-        }
-        #[inline]
-        pub unsafe fn append1(&mut self, sv: *const root::string_vector)
-         -> *mut root::string_vector {
-            string_vector_append1(self, sv)
-        }
-        #[inline]
-        pub unsafe fn join(&self, sep: *const root::std::string)
-         -> root::std::string {
-            string_vector_join(self, sep)
-        }
-        #[inline]
-        pub unsafe fn c_str_vec(&self) -> *mut *mut ::std::os::raw::c_char {
-            string_vector_c_str_vec(self)
-        }
-        #[inline]
-        pub unsafe fn std_list(&self) -> [u64; 3usize] {
-            string_vector_std_list(self)
-        }
-        #[inline]
-        pub unsafe fn delete_c_str_vec(arg1:
-                                           *const *const ::std::os::raw::c_char) {
-            string_vector_delete_c_str_vec(arg1)
-        }
-        #[inline]
-        pub unsafe fn list_in_columns(&self, arg1: *mut root::std::ostream,
-                                      width: ::std::os::raw::c_int,
-                                      prefix: *const root::std::string)
-         -> *mut root::std::ostream {
-            string_vector_list_in_columns(self, arg1, width, prefix)
-        }
-        #[inline]
-        pub unsafe fn new(s: *const *const ::std::os::raw::c_char) -> Self {
-            let mut __bindgen_tmp = ::std::mem::uninitialized();
-            string_vector_string_vector(&mut __bindgen_tmp, s);
-            __bindgen_tmp
-        }
-        #[inline]
-        pub unsafe fn new1(s: *const *const ::std::os::raw::c_char,
-                           n: root::octave_idx_type) -> Self {
-            let mut __bindgen_tmp = ::std::mem::uninitialized();
-            string_vector_string_vector1(&mut __bindgen_tmp, s, n);
-            __bindgen_tmp
-        }
     }
     pub type octave_time = root::octave::sys::time;
     pub type octave_base_tm = root::octave::sys::base_tm;
