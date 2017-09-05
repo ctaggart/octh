@@ -43,7 +43,7 @@ fn bindgen() {
 
         // .hide_type("octave::lu")
 
-        // .whitelisted_type("time_t")
+        .whitelisted_type("time_t")
         .opaque_type("time_t")
         
         // .whitelisted_type("std::stack")
@@ -58,14 +58,6 @@ fn bindgen() {
 
         .whitelisted_type("dim_vector")
         .opaque_type("dim_vector")
-
-        // .whitelisted_type("std::_List_base")
-        // .opaque_type("std::_List_base")
-
-        // .opaque_type("list__Base")
-        // .opaque_type("list_value_type")
-        // .opaque_type("list_iterator")
-        // .opaque_type("list_const_iterator")
 
         .derive_debug(false)
         // .derive_copy(false)

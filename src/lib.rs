@@ -14,6 +14,7 @@ pub mod root {
         use self::super::super::root;
     }
     pub type octave_idx_type = ::std::os::raw::c_int;
+    pub type time_t = u64;
     pub type octave_jmp_buf = [u64; 25usize];
     extern "C" {
         pub fn octave_save_current_context(arg1: *mut ::std::os::raw::c_void);
