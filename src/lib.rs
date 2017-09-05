@@ -1044,7 +1044,7 @@ pub mod root {
             pub count: root::octave_refcount<::std::os::raw::c_int>,
             pub file: root::std::string,
             pub tm_loaded: root::octave::sys::time,
-            pub fcn_names: root::std::map,
+            pub fcn_names: [u64; 6usize],
         }
         pub type dynamic_library_dynlib_rep_fcn_names_iterator = u8;
         pub type dynamic_library_dynlib_rep_fcn_names_const_iterator = u8;
@@ -1052,7 +1052,7 @@ pub mod root {
             #[link_name =
                   "_ZN6octave15dynamic_library10dynlib_rep9instancesB5cxx11E"]
             pub static mut dynamic_library_dynlib_rep_instances:
-                       root::std::map;
+                       [u64; 6usize];
         }
         extern "C" {
             #[link_name =
@@ -6134,7 +6134,7 @@ pub mod root {
     #[repr(C)]
     #[derive(Copy)]
     pub struct octave_fields_fields_rep {
-        pub _base: root::std::map,
+        pub _base: [u64; 6usize],
         pub count: root::octave_refcount<::std::os::raw::c_int>,
     }
     impl Clone for octave_fields_fields_rep {

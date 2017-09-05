@@ -59,6 +59,14 @@ fn bindgen() {
         .whitelisted_type("dim_vector")
         .opaque_type("dim_vector")
 
+        // .whitelisted_type("string_vector")
+        .opaque_type("string_vector")
+
+        // .whitelisted_type("Matrix")
+        // .opaque_type("Matrix")
+
+        .opaque_type("std::map")
+
         .derive_debug(false)
         // .derive_copy(false)
         .whitelist_recursively(false)
