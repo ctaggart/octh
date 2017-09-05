@@ -8,51 +8,12 @@ pub mod root {
         #[allow(unused_imports)]
         use self::super::super::root;
         pub type string = [u64; 4usize];
-        #[repr(C)]
-        #[derive(Copy, Clone)]
-        pub struct list<_Tp, _Alloc> {
-            pub _phantom_0: ::std::marker::PhantomData<::std::cell::UnsafeCell<_Tp>>,
-            pub _phantom_1: ::std::marker::PhantomData<::std::cell::UnsafeCell<_Alloc>>,
-        }
-        pub type list__Alloc_value_type = [u8; 0usize];
-        pub type list__Base = root::std::_List_base;
-        pub type list__Tp_alloc_type = root::std::list__Base;
-        pub type list__Tp_alloc_traits = root::std::list__Base;
-        pub type list__Node_alloc_type = root::std::list__Base;
-        pub type list__Node_alloc_traits = root::std::list__Base;
-        pub type list_value_type = _Tp;
-        pub type list_pointer = root::std::list__Tp_alloc_traits;
-        pub type list_const_pointer = root::std::list__Tp_alloc_traits;
-        pub type list_reference = root::std::list__Tp_alloc_traits;
-        pub type list_const_reference = root::std::list__Tp_alloc_traits;
-        pub type list_iterator = root::std::_List_iterator;
-        pub type list_const_iterator = root::std::_List_const_iterator;
-        pub type list_const_reverse_iterator = root::std::reverse_iterator;
-        pub type list_reverse_iterator = root::std::reverse_iterator;
-        pub type list_size_type = usize;
-        pub type list_difference_type = isize;
-        pub type list_allocator_type = _Alloc;
-        pub type list__Node = root::std::_List_node;
-        #[repr(C)]
-        #[derive(Copy, Clone)]
-        pub struct stack<_Tp, _Sequence> {
-            pub _phantom_0: ::std::marker::PhantomData<::std::cell::UnsafeCell<_Tp>>,
-            pub _phantom_1: ::std::marker::PhantomData<::std::cell::UnsafeCell<_Sequence>>,
-        }
-        pub type stack__Sequence_value_type = [u8; 0usize];
-        pub type stack__Uses = u8;
-        pub type stack_value_type = [u8; 0usize];
-        pub type stack_reference = [u8; 0usize];
-        pub type stack_const_reference = [u8; 0usize];
-        pub type stack_size_type = [u8; 0usize];
-        pub type stack_container_type = _Sequence;
     }
     pub mod __gnu_cxx {
         #[allow(unused_imports)]
         use self::super::super::root;
     }
     pub type octave_idx_type = ::std::os::raw::c_int;
-    pub type time_t = u64;
     pub type octave_jmp_buf = [u64; 25usize];
     extern "C" {
         pub fn octave_save_current_context(arg1: *mut ::std::os::raw::c_void);
