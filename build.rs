@@ -76,6 +76,9 @@ fn bindgen() {
         .layout_tests(false)
         .generate_comments(false);
 
+    builder.dump_preprocessed_input()
+        .expect("unable to dump input");
+
     let bindings = builder.generate()
         .expect("Unable to generate bindings");
 

@@ -28,6 +28,7 @@ clang-3.9 --std=c++11 -c __bindgen.ii
 
 # ~/rust-bindgen/target/debug/bindgen --help > bindgen-help.txt
 ~/rust-bindgen/target/debug/bindgen \
+    --output __bindgen.rs \
     --enable-cxx-namespaces \
     --no-recursive-whitelist \
     --no-layout-tests \
@@ -48,5 +49,8 @@ clang-3.9 --std=c++11 -c __bindgen.ii
     --opaque-type std::map \
     __bindgen.ii \
     -- -v -x c++ -std=c++11 \
-    2>/dev/null \
-    | grep "pub m_stack_trace: root::std::string"
+    2>/dev/null
+
+rustc __bindgen.rs \
+    2>&1 \
+    | grep 'error\[E0412\]: cannot find type `string` in module `root::std`'
