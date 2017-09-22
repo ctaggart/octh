@@ -30,27 +30,19 @@ clang-3.9 --std=c++11 -c __bindgen.ii
 ~/rust-bindgen/target/debug/bindgen \
     --output __bindgen.rs \
     --enable-cxx-namespaces \
-    --no-recursive-whitelist \
     --no-layout-tests \
     --no-doc-comments \
     --no-derive-debug \
+    --no-derive-copy \
     --whitelist-type octave.* \
     --whitelist-function octave.* \
-    --opaque-type octave_jmp_buf \
-    --opaque-type std::string \
-    --opaque-type Complex \
-    --opaque-type FloatComplex \
-    --opaque-type time_t \
-    --opaque-type std::stack \
-    --opaque-type std::list \
-    --opaque-type Array \
-    --opaque-type dim_vector \
-    --opaque-type string_vector \
-    --opaque-type std::map \
+    --use-core \
+    --raw-line "extern crate core;" \
+    --opaque-type std::.* \
     __bindgen.ii \
     -- -v -x c++ -std=c++11 \
     2>/dev/null
 
 rustc __bindgen.rs \
     2>&1 \
-    | grep 'error\[E0412\]: cannot find type `string` in module `root::std`'
+    | grep 'error\[E0412\]: cannot find type `i32` in module `std::os::raw`'
