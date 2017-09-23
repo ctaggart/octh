@@ -2,3 +2,6 @@
 target/
 Cargo.lock
 build.txt
+__bindgen.*
+bindgen-help.txt
+*.bk

@@ -26,7 +26,7 @@ clang-3.9 --std=c++11 -c __bindgen.ii
 #     2>&1 \
 #     | grep "<pattern in generated bindings or a panic string or ...>"
 
-# ~/rust-bindgen/target/debug/bindgen --help > bindgen-help.txt
+~/rust-bindgen/target/debug/bindgen --help > bindgen-help.txt
 ~/rust-bindgen/target/debug/bindgen \
     --output __bindgen.rs \
     --enable-cxx-namespaces \
@@ -46,3 +46,14 @@ clang-3.9 --std=c++11 -c __bindgen.ii
 rustc __bindgen.rs \
     2>&1 \
     | grep 'error\[E0412\]: cannot find type `i32` in module `std::os::raw`'
+
+# ~/rust-bindgen/target/debug/bindgen \
+#     --output __bindgen.rs \
+#     --enable-cxx-namespaces \
+#     --use-core \
+#     __bindgen.ii \
+#     -- -v -x c++ -std=c++11
+
+# https://github.com/rust-lang-nursery/rust-bindgen/issues/1025
+# time creduce ./bingen-bug-1025.sh __bindgen.ii
+# 15 1/2 hours, may be use release/bindgen next time

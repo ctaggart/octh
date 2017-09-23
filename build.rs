@@ -2,16 +2,19 @@ extern crate bindgen;
 extern crate gcc;
 
 fn bindgen() {
-    let mut builder = bindgen::Builder::default()
-        // .no_unstable_rust()
+    let builder = bindgen::Builder::default()
         .header("src/octhc.h")
         .clang_arg("-v")
         .clang_arg("-x")
         .clang_arg("c++")
         .clang_arg("-std=c++11")
+
+        // Windows
         // .clang_arg("--target=x86_64-w64-mingw32")
         // .clang_arg("-nobuiltininc")
         // .clang_arg("-IC:/Octave/Octave-4.2.1/include/octave-4.2.1/octave")
+
+        // Linux
         .clang_arg("-I/home/cameron/octave/libinterp/octave-value")
         .clang_arg("-I/home/cameron/octave/libinterp/corefcn")
         .clang_arg("-I/home/cameron/octave-build")
@@ -23,72 +26,26 @@ fn bindgen() {
         .clang_arg("-I/home/cameron/octave-build/liboctave/operators")
         .clang_arg("-I/home/cameron/octave-build/libinterp")
         .clang_arg("-I/home/cameron/octave/liboctave/system")
-        // .clang_arg("-I/home/cameron/octave/libinterp/corefcn")
+
         .enable_cxx_namespaces()
-        // .opaque_type(".*") // Should have a set of used template params for every item id
-        .whitelisted_type("octave.*")
-        // .whitelisted_type("jmp_buf")
-        // .whitelisted_type("__jmp_buf_tag")
-        .whitelisted_function("octave.*")
-        // .opaque_type("octave_jmp_buf")
-        // .whitelisted_type("std::string")
-        // .whitelisted_type("std::basic_string")
-        // .opaque_type("std::basic_string")
-        // .opaque_type("std::union")
-        // .whitelisted_type("std::string")
-        // .opaque_type("std::string")
+        .whitelist_type("octave.*")
+        .whitelist_function("octave.*")
 
-        // .whitelisted_type("Complex")
-        // .opaque_type("Complex")
-        // .whitelisted_type("FloatComplex")
-        // .opaque_type("FloatComplex")
-
-        // .hide_type("octave::lu")
-
-        // .whitelisted_type("time_t")
-        // .opaque_type("time_t")
-        
-        // .whitelisted_type("std::stack")
-        // .opaque_type("std::stack")
-        
-        // .whitelisted_type("std::list")
-        // .opaque_type("std::list")
-        
-        // .whitelisted_type("Array")
-        // .opaque_type("Array")
-        // .whitelisted_type("string_vector").opaque_type("string_vector")
-
-        // .whitelisted_type("dim_vector")
-        // .opaque_type("dim_vector")
-
-        // .whitelisted_type("string_vector")
-        // .opaque_type("string_vector")
-        // .whitelisted_type("string_vector")
-
-        // .whitelisted_type("Matrix")
-        // .opaque_type("Matrix")
-
-        // .opaque_type("std::map")
-
-        .derive_debug(false)
-        .derive_copy(false)
-        // .whitelist_recursively(false)
         .use_core()
         .raw_line(r#"extern crate core;"#)
         .opaque_type("std::.*")
-        .layout_tests(false)
-        .generate_comments(false);
+        .rustfmt_bindings(true);
 
-    builder.dump_preprocessed_input()
-        .expect("unable to dump input");
+    // creates a __bingen.ii file
+    // builder.dump_preprocessed_input()
+    //     .expect("unable to dump input");
 
     let bindings = builder.generate()
         .expect("Unable to generate bindings");
-
     bindings.write_to_file("src/lib.rs")
         .expect("Couldn't write bindings!");
 }
 
 fn main() {
-    bindgen();
+    // bindgen();
 }
