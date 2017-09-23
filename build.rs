@@ -1,65 +1,51 @@
 extern crate bindgen;
 extern crate gcc;
 
-// a helper library for octh with c exports
-fn libocthc() {
-    // https://github.com/servo/rust-bindgen/blob/master/bindgen-integration/build.rs
-    gcc::Config::new()
-        .cpp(true)
-        .file("src/octhc.cc")
-        .include("C:/Octave/Octave-4.2.1/include/octave-4.2.1/octave")
-        .flag("-std=c++11")
-        .compile("libocthc.a");
-}
-
 fn bindgen() {
-    let mut builder = bindgen::Builder::default()
-        .no_unstable_rust()
+    let builder = bindgen::Builder::default()
         .header("src/octhc.h")
         .clang_arg("-v")
         .clang_arg("-x")
         .clang_arg("c++")
         .clang_arg("-std=c++11")
-        .clang_arg("--target=x86_64-w64-mingw32")
-        .clang_arg("-nobuiltininc")
-        .clang_arg("-IC:/Octave/Octave-4.2.1/include/octave-4.2.1/octave")
+
+        // Windows
+        // .clang_arg("--target=x86_64-w64-mingw32")
+        // .clang_arg("-nobuiltininc")
+        // .clang_arg("-IC:/Octave/Octave-4.2.1/include/octave-4.2.1/octave")
+
+        // Linux
+        .clang_arg("-I/home/cameron/octave/libinterp/octave-value")
+        .clang_arg("-I/home/cameron/octave/libinterp/corefcn")
+        .clang_arg("-I/home/cameron/octave-build")
+        .clang_arg("-I/home/cameron/octave/liboctave/array")
+        .clang_arg("-I/home/cameron/octave/liboctave/operators")
+        .clang_arg("-I/home/cameron/octave/liboctave/cruft/misc")
+        .clang_arg("-I/home/cameron/octave/liboctave/util")
+        .clang_arg("-I/home/cameron/octave/liboctave/numeric")
+        .clang_arg("-I/home/cameron/octave-build/liboctave/operators")
+        .clang_arg("-I/home/cameron/octave-build/libinterp")
+        .clang_arg("-I/home/cameron/octave/liboctave/system")
+
         .enable_cxx_namespaces()
-        .opaque_type(".*") // Should have a set of used template params for every item id
-        // .whitelisted_type("octave_.*")
-        .layout_tests(false)
-        .generate_comments(false);
+        .whitelist_type("octave.*")
+        .whitelist_function("octave.*")
 
-        // let whitelist = [
-        //     "octave_value_list"
-        // ];
-        // for &ty in whitelist.iter() {
-        //     builder = builder.whitelisted_type(ty);
-        // }
+        .use_core()
+        .raw_line(r#"extern crate core;"#)
+        .opaque_type("std::.*")
+        .rustfmt_bindings(true);
 
-        // let opaque_types = [
-        //     "std::basic_streambuf___streambuf_type",
-        //     "std::basic_istream_sentry_traits_type",
-        //     "std::basic_streambuf" // std::basic_streambuf<_CharT>
-        // ];
-        // for &ty in opaque_types.iter() {
-        //     builder = builder.opaque_type(ty);
-        // }
-
-        // let blacklist = [
-        //     "_CType"
-        // ];
-        // for &ty in blacklist.iter() {
-        //     builder = builder.hide_type(ty);
-        // }
+    // creates a __bingen.ii file
+    // builder.dump_preprocessed_input()
+    //     .expect("unable to dump input");
 
     let bindings = builder.generate()
         .expect("Unable to generate bindings");
-
     bindings.write_to_file("src/lib.rs")
         .expect("Couldn't write bindings!");
 }
 
 fn main() {
-    libocthc();
     // bindgen();
 }
