@@ -25507,6 +25507,9 @@ pub mod root {
             __bindgen_tmp
         }
     }
+    extern "C" {
+        pub fn octave_value_list_new(list: *mut root::octave_value_list);
+    }
     #[repr(C)]
     #[derive(Debug)]
     pub struct octave_fields {
