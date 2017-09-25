@@ -26,7 +26,7 @@ clang-3.9 --std=c++11 -c __bindgen.ii
 #     2>&1 \
 #     | grep "<pattern in generated bindings or a panic string or ...>"
 
-~/rust-bindgen/target/debug/bindgen --help > bindgen-help.txt
+# ~/rust-bindgen/target/debug/bindgen --help > bindgen-help.txt
 ~/rust-bindgen/target/debug/bindgen \
     --output __bindgen.rs \
     --enable-cxx-namespaces \
