@@ -5,3 +5,5 @@ build.txt
 __bindgen*
 bindgen-help.txt
 *.bk
+*.rlib
+src/lib.rs

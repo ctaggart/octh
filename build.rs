@@ -33,12 +33,17 @@ fn bindgen() {
 
         .use_core()
         .raw_line(r#"extern crate core;"#)
-        .opaque_type("std::.*")
+        // .whitelist_type("std::string")
+        // .opaque_type("std::.*")
+        // .opaque_type("std::__cow_string")
+        // .opaque_type("std::sentry")
+        // .opaque_type("std::basic_ostream")
+        // .rustfmt_bindings(false);
         .rustfmt_bindings(true);
 
     // creates a __bingen.ii file
-    // builder.dump_preprocessed_input()
-    //     .expect("unable to dump input");
+    builder.dump_preprocessed_input()
+        .expect("unable to dump input");
 
     let bindings = builder.generate()
         .expect("Unable to generate bindings");
@@ -47,5 +52,5 @@ fn bindgen() {
 }
 
 fn main() {
-    // bindgen();
+    bindgen();
 }
