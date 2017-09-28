@@ -6,4 +6,3 @@ __bindgen*
 bindgen-help.txt
 *.bk
 *.rlib
-src/lib.rs

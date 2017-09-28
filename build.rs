@@ -1,9 +1,12 @@
 extern crate bindgen;
 extern crate gcc;
 
+use std::env;
+use std::path::PathBuf;
+
 fn bindgen() {
     let builder = bindgen::Builder::default()
-        .header("src/octhc.h")
+        .header("wrapper.h")
         .clang_arg("-v")
         .clang_arg("-x")
         .clang_arg("c++")
@@ -32,7 +35,7 @@ fn bindgen() {
         .whitelist_function("octave.*")
 
         .use_core()
-        .raw_line(r#"extern crate core;"#)
+        // .raw_line(r#"extern crate core;"#)
         // .whitelist_type("std::string")
         // .opaque_type("std::.*")
         // .opaque_type("std::__cow_string")
@@ -47,7 +50,9 @@ fn bindgen() {
 
     let bindings = builder.generate()
         .expect("Unable to generate bindings");
-    bindings.write_to_file("src/lib.rs")
+
+    let out_path = PathBuf::from(env::var("OUT_DIR").unwrap());
+    bindings.write_to_file(out_path.join("bindings.rs"))
         .expect("Couldn't write bindings!");
 }
 
