@@ -8,10 +8,11 @@ keywords = ["Octave", "oct"]
 license = "GPL"
 homepage = "https://github.com/ctaggart/octh"
 repository = "https://github.com/ctaggart/octh"
+edition = "2018"
 
 [lib]
+crate-type = ["dylib"]
 
 [build-dependencies]
-# bindgen = "*"
-bindgen = { git = "https://github.com/servo/rust-bindgen" }
-gcc = "*"
+bindgen = "*"
+cc = "*"
