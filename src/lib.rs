@@ -30520,6 +30520,9 @@ pub mod root {
         #[link_name = "\u{1}_Z12octave_sleepd"]
         pub fn octave_sleep(seconds: f64);
     }
+    extern "C" {
+        pub fn octave_value_list_create() -> root::octave_value_list;
+    }
     pub type __builtin_va_list = *mut ::std::os::raw::c_char;
     #[test]
     fn __bindgen_test_layout_Array_open0_octave_idx_type_close0_instantiation() {
