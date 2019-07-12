@@ -30522,7 +30522,7 @@ pub mod root {
         pub fn octave_sleep(seconds: f64);
     }
     extern "C" {
-        pub fn octave_value_list_create() -> root::octave_value_list;
+        pub fn octave_value_list_create(n: ::std::os::raw::c_int) -> root::octave_value_list;
     }
     pub type __builtin_va_list = *mut ::std::os::raw::c_char;
     #[test]
