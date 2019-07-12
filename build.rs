@@ -14,6 +14,7 @@ fn bindgen() {
         .whitelist_type("octave.*")
         .whitelist_function("octave.*")
         .use_core()
+        .raw_line("#![allow(warnings)]")
         // .raw_line("#![no_std]")
         .raw_line("extern crate core;")
         .opaque_type("std::.*");
@@ -41,11 +42,3 @@ fn main() {
     println!("cargo:rustc-link-lib=octave-7");
     println!("cargo:rustc-link-lib=octinterp-7");
 }
-
-// pacman -S mingw-w64-x86_64-gcc
-// rustup target add x86_64-pc-windows-gnu
-// rustup default x86_64-pc-windows-gnu
-// rustup component add rustfmt
-// $env:PATH="C:\Octave\Octave-5.1.0.0\mingw64\bin;$env:PATH"
-// $env:PATH="C:\msys64\mingw64\bin;$env:PATH"
-// cargo build
