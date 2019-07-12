@@ -4,14 +4,15 @@ version = "0.1.0"
 authors = ["Cameron Taggart <cameron.taggart@gmail.com>"]
 build = "build.rs"
 description = "A bindgen generated Rust wrapper around oct.h for creating Oct-Files for GNU Octave"
-keywords = ["Octave", "oct"]
+keywords = ["Octave"]
 license = "GPL"
 homepage = "https://github.com/ctaggart/octh"
 repository = "https://github.com/ctaggart/octh"
+edition = "2018"
 
 [lib]
+# crate-type = ["dylib"]
 
 [build-dependencies]
-# bindgen = "*"
-bindgen = { git = "https://github.com/servo/rust-bindgen" }
-gcc = "*"
+bindgen = "*"
+cc = "*"
