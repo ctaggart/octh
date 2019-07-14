@@ -80,7 +80,7 @@ pub mod root {
         pub type istream = [u64; 35usize];
         pub type ostream = [u64; 34usize];
         pub type stringbuf = [u64; 13usize];
-        pub type ofstream = [u64; 58usize];
+        pub type ofstream = [u64; 64usize];
         #[repr(C)]
         #[derive(Debug, Copy, Clone)]
         pub struct char_traits {
@@ -131,9 +131,7 @@ pub mod root {
         pub struct enable_shared_from_this {
             pub _address: u8,
         }
-        // https://github.com/ctaggart/octh/issues/15
         // pub use self::super::super::u32 as ios_base_openmode;
-        pub type ios_base_openmode = u32;
         #[repr(C)]
         #[derive(Debug, Copy, Clone)]
         pub struct complex {
@@ -253,120 +251,376 @@ pub mod root {
         #[allow(unused_imports)]
         use self::super::super::root;
     }
-    pub type __gnuc_va_list = root::__builtin_va_list;
-    pub type va_list = root::__gnuc_va_list;
-    pub type __time64_t = ::std::os::raw::c_longlong;
-    pub type time_t = root::__time64_t;
+    pub type __int8_t = ::std::os::raw::c_schar;
+    pub type __uint8_t = ::std::os::raw::c_uchar;
+    pub type __int16_t = ::std::os::raw::c_short;
+    pub type __uint16_t = ::std::os::raw::c_ushort;
+    pub type __int32_t = ::std::os::raw::c_int;
+    pub type __uint32_t = ::std::os::raw::c_uint;
+    pub type __int64_t = ::std::os::raw::c_long;
+    pub type __uint64_t = ::std::os::raw::c_ulong;
+    pub type __off_t = ::std::os::raw::c_long;
+    pub type __off64_t = ::std::os::raw::c_long;
+    pub type __time_t = ::std::os::raw::c_long;
     pub type octave_idx_type = i64;
     pub type octave_f77_int_type = i32;
+    pub type off_t = root::__off_t;
+    pub type time_t = root::__time_t;
+    pub type __gnuc_va_list = root::__builtin_va_list;
+    pub type FILE = root::_IO_FILE;
     #[repr(C)]
     #[derive(Debug, Copy, Clone)]
-    pub struct _iobuf {
-        pub _ptr: *mut ::std::os::raw::c_char,
-        pub _cnt: ::std::os::raw::c_int,
-        pub _base: *mut ::std::os::raw::c_char,
-        pub _flag: ::std::os::raw::c_int,
-        pub _file: ::std::os::raw::c_int,
-        pub _charbuf: ::std::os::raw::c_int,
-        pub _bufsiz: ::std::os::raw::c_int,
-        pub _tmpfname: *mut ::std::os::raw::c_char,
+    pub struct _IO_marker {
+        _unused: [u8; 0],
+    }
+    #[repr(C)]
+    #[derive(Debug, Copy, Clone)]
+    pub struct _IO_codecvt {
+        _unused: [u8; 0],
+    }
+    #[repr(C)]
+    #[derive(Debug, Copy, Clone)]
+    pub struct _IO_wide_data {
+        _unused: [u8; 0],
+    }
+    pub type _IO_lock_t = ::std::os::raw::c_void;
+    #[repr(C)]
+    #[derive(Debug, Copy, Clone)]
+    pub struct _IO_FILE {
+        pub _flags: ::std::os::raw::c_int,
+        pub _IO_read_ptr: *mut ::std::os::raw::c_char,
+        pub _IO_read_end: *mut ::std::os::raw::c_char,
+        pub _IO_read_base: *mut ::std::os::raw::c_char,
+        pub _IO_write_base: *mut ::std::os::raw::c_char,
+        pub _IO_write_ptr: *mut ::std::os::raw::c_char,
+        pub _IO_write_end: *mut ::std::os::raw::c_char,
+        pub _IO_buf_base: *mut ::std::os::raw::c_char,
+        pub _IO_buf_end: *mut ::std::os::raw::c_char,
+        pub _IO_save_base: *mut ::std::os::raw::c_char,
+        pub _IO_backup_base: *mut ::std::os::raw::c_char,
+        pub _IO_save_end: *mut ::std::os::raw::c_char,
+        pub _markers: *mut root::_IO_marker,
+        pub _chain: *mut root::_IO_FILE,
+        pub _fileno: ::std::os::raw::c_int,
+        pub _flags2: ::std::os::raw::c_int,
+        pub _old_offset: root::__off_t,
+        pub _cur_column: ::std::os::raw::c_ushort,
+        pub _vtable_offset: ::std::os::raw::c_schar,
+        pub _shortbuf: [::std::os::raw::c_char; 1usize],
+        pub _lock: *mut root::_IO_lock_t,
+        pub _offset: root::__off64_t,
+        pub _codecvt: *mut root::_IO_codecvt,
+        pub _wide_data: *mut root::_IO_wide_data,
+        pub _freeres_list: *mut root::_IO_FILE,
+        pub _freeres_buf: *mut ::std::os::raw::c_void,
+        pub __pad5: usize,
+        pub _mode: ::std::os::raw::c_int,
+        pub _unused2: [::std::os::raw::c_char; 20usize],
     }
     #[test]
-    fn bindgen_test_layout__iobuf() {
+    fn bindgen_test_layout__IO_FILE() {
         assert_eq!(
-            ::core::mem::size_of::<_iobuf>(),
-            48usize,
-            concat!("Size of: ", stringify!(_iobuf))
+            ::core::mem::size_of::<_IO_FILE>(),
+            216usize,
+            concat!("Size of: ", stringify!(_IO_FILE))
         );
         assert_eq!(
-            ::core::mem::align_of::<_iobuf>(),
+            ::core::mem::align_of::<_IO_FILE>(),
             8usize,
-            concat!("Alignment of ", stringify!(_iobuf))
+            concat!("Alignment of ", stringify!(_IO_FILE))
         );
         assert_eq!(
-            unsafe { &(*(::core::ptr::null::<_iobuf>()))._ptr as *const _ as usize },
+            unsafe { &(*(::core::ptr::null::<_IO_FILE>()))._flags as *const _ as usize },
             0usize,
             concat!(
                 "Offset of field: ",
-                stringify!(_iobuf),
+                stringify!(_IO_FILE),
                 "::",
-                stringify!(_ptr)
+                stringify!(_flags)
             )
         );
         assert_eq!(
-            unsafe { &(*(::core::ptr::null::<_iobuf>()))._cnt as *const _ as usize },
+            unsafe { &(*(::core::ptr::null::<_IO_FILE>()))._IO_read_ptr as *const _ as usize },
             8usize,
             concat!(
                 "Offset of field: ",
-                stringify!(_iobuf),
+                stringify!(_IO_FILE),
                 "::",
-                stringify!(_cnt)
+                stringify!(_IO_read_ptr)
             )
         );
         assert_eq!(
-            unsafe { &(*(::core::ptr::null::<_iobuf>()))._base as *const _ as usize },
+            unsafe { &(*(::core::ptr::null::<_IO_FILE>()))._IO_read_end as *const _ as usize },
             16usize,
             concat!(
                 "Offset of field: ",
-                stringify!(_iobuf),
+                stringify!(_IO_FILE),
                 "::",
-                stringify!(_base)
+                stringify!(_IO_read_end)
             )
         );
         assert_eq!(
-            unsafe { &(*(::core::ptr::null::<_iobuf>()))._flag as *const _ as usize },
+            unsafe { &(*(::core::ptr::null::<_IO_FILE>()))._IO_read_base as *const _ as usize },
             24usize,
             concat!(
                 "Offset of field: ",
-                stringify!(_iobuf),
+                stringify!(_IO_FILE),
                 "::",
-                stringify!(_flag)
+                stringify!(_IO_read_base)
             )
         );
         assert_eq!(
-            unsafe { &(*(::core::ptr::null::<_iobuf>()))._file as *const _ as usize },
-            28usize,
-            concat!(
-                "Offset of field: ",
-                stringify!(_iobuf),
-                "::",
-                stringify!(_file)
-            )
-        );
-        assert_eq!(
-            unsafe { &(*(::core::ptr::null::<_iobuf>()))._charbuf as *const _ as usize },
+            unsafe { &(*(::core::ptr::null::<_IO_FILE>()))._IO_write_base as *const _ as usize },
             32usize,
             concat!(
                 "Offset of field: ",
-                stringify!(_iobuf),
+                stringify!(_IO_FILE),
                 "::",
-                stringify!(_charbuf)
+                stringify!(_IO_write_base)
             )
         );
         assert_eq!(
-            unsafe { &(*(::core::ptr::null::<_iobuf>()))._bufsiz as *const _ as usize },
-            36usize,
-            concat!(
-                "Offset of field: ",
-                stringify!(_iobuf),
-                "::",
-                stringify!(_bufsiz)
-            )
-        );
-        assert_eq!(
-            unsafe { &(*(::core::ptr::null::<_iobuf>()))._tmpfname as *const _ as usize },
+            unsafe { &(*(::core::ptr::null::<_IO_FILE>()))._IO_write_ptr as *const _ as usize },
             40usize,
             concat!(
                 "Offset of field: ",
-                stringify!(_iobuf),
+                stringify!(_IO_FILE),
                 "::",
-                stringify!(_tmpfname)
+                stringify!(_IO_write_ptr)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::core::ptr::null::<_IO_FILE>()))._IO_write_end as *const _ as usize },
+            48usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(_IO_FILE),
+                "::",
+                stringify!(_IO_write_end)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::core::ptr::null::<_IO_FILE>()))._IO_buf_base as *const _ as usize },
+            56usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(_IO_FILE),
+                "::",
+                stringify!(_IO_buf_base)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::core::ptr::null::<_IO_FILE>()))._IO_buf_end as *const _ as usize },
+            64usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(_IO_FILE),
+                "::",
+                stringify!(_IO_buf_end)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::core::ptr::null::<_IO_FILE>()))._IO_save_base as *const _ as usize },
+            72usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(_IO_FILE),
+                "::",
+                stringify!(_IO_save_base)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::core::ptr::null::<_IO_FILE>()))._IO_backup_base as *const _ as usize },
+            80usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(_IO_FILE),
+                "::",
+                stringify!(_IO_backup_base)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::core::ptr::null::<_IO_FILE>()))._IO_save_end as *const _ as usize },
+            88usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(_IO_FILE),
+                "::",
+                stringify!(_IO_save_end)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::core::ptr::null::<_IO_FILE>()))._markers as *const _ as usize },
+            96usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(_IO_FILE),
+                "::",
+                stringify!(_markers)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::core::ptr::null::<_IO_FILE>()))._chain as *const _ as usize },
+            104usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(_IO_FILE),
+                "::",
+                stringify!(_chain)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::core::ptr::null::<_IO_FILE>()))._fileno as *const _ as usize },
+            112usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(_IO_FILE),
+                "::",
+                stringify!(_fileno)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::core::ptr::null::<_IO_FILE>()))._flags2 as *const _ as usize },
+            116usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(_IO_FILE),
+                "::",
+                stringify!(_flags2)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::core::ptr::null::<_IO_FILE>()))._old_offset as *const _ as usize },
+            120usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(_IO_FILE),
+                "::",
+                stringify!(_old_offset)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::core::ptr::null::<_IO_FILE>()))._cur_column as *const _ as usize },
+            128usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(_IO_FILE),
+                "::",
+                stringify!(_cur_column)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::core::ptr::null::<_IO_FILE>()))._vtable_offset as *const _ as usize },
+            130usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(_IO_FILE),
+                "::",
+                stringify!(_vtable_offset)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::core::ptr::null::<_IO_FILE>()))._shortbuf as *const _ as usize },
+            131usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(_IO_FILE),
+                "::",
+                stringify!(_shortbuf)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::core::ptr::null::<_IO_FILE>()))._lock as *const _ as usize },
+            136usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(_IO_FILE),
+                "::",
+                stringify!(_lock)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::core::ptr::null::<_IO_FILE>()))._offset as *const _ as usize },
+            144usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(_IO_FILE),
+                "::",
+                stringify!(_offset)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::core::ptr::null::<_IO_FILE>()))._codecvt as *const _ as usize },
+            152usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(_IO_FILE),
+                "::",
+                stringify!(_codecvt)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::core::ptr::null::<_IO_FILE>()))._wide_data as *const _ as usize },
+            160usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(_IO_FILE),
+                "::",
+                stringify!(_wide_data)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::core::ptr::null::<_IO_FILE>()))._freeres_list as *const _ as usize },
+            168usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(_IO_FILE),
+                "::",
+                stringify!(_freeres_list)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::core::ptr::null::<_IO_FILE>()))._freeres_buf as *const _ as usize },
+            176usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(_IO_FILE),
+                "::",
+                stringify!(_freeres_buf)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::core::ptr::null::<_IO_FILE>())).__pad5 as *const _ as usize },
+            184usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(_IO_FILE),
+                "::",
+                stringify!(__pad5)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::core::ptr::null::<_IO_FILE>()))._mode as *const _ as usize },
+            192usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(_IO_FILE),
+                "::",
+                stringify!(_mode)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::core::ptr::null::<_IO_FILE>()))._unused2 as *const _ as usize },
+            196usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(_IO_FILE),
+                "::",
+                stringify!(_unused2)
             )
         );
     }
-    pub type FILE = root::_iobuf;
-    pub type off32_t = ::std::os::raw::c_long;
-    pub type off_t = root::off32_t;
+    pub type va_list = root::__gnuc_va_list;
     pub mod octave {
         #[allow(unused_imports)]
         use self::super::super::root;
@@ -560,7 +814,7 @@ pub mod root {
             pub fn err_nan_to_character_conversion();
         }
         extern "C" {
-            #[link_name = "\u{1}_ZN6octave17err_nonconformantEPKcxx"]
+            #[link_name = "\u{1}_ZN6octave17err_nonconformantEPKcll"]
             pub fn err_nonconformant(
                 op: *const ::std::os::raw::c_char,
                 op1_len: root::octave_idx_type,
@@ -568,7 +822,7 @@ pub mod root {
             );
         }
         extern "C" {
-            #[link_name = "\u{1}_ZN6octave17err_nonconformantEPKcxxxx"]
+            #[link_name = "\u{1}_ZN6octave17err_nonconformantEPKcllll"]
             pub fn err_nonconformant1(
                 op: *const ::std::os::raw::c_char,
                 op1_nr: root::octave_idx_type,
@@ -586,7 +840,7 @@ pub mod root {
             );
         }
         extern "C" {
-            #[link_name = "\u{1}_ZN6octave22err_index_out_of_rangeEiixxRK10dim_vector"]
+            #[link_name = "\u{1}_ZN6octave22err_index_out_of_rangeEiillRK10dim_vector"]
             pub fn err_index_out_of_range(
                 nd: ::std::os::raw::c_int,
                 dim: ::std::os::raw::c_int,
@@ -596,7 +850,7 @@ pub mod root {
             );
         }
         extern "C" {
-            #[link_name = "\u{1}_ZN6octave22err_index_out_of_rangeEiixx"]
+            #[link_name = "\u{1}_ZN6octave22err_index_out_of_rangeEiill"]
             pub fn err_index_out_of_range1(
                 nd: ::std::os::raw::c_int,
                 dim: ::std::os::raw::c_int,
@@ -605,7 +859,7 @@ pub mod root {
             );
         }
         extern "C" {
-            #[link_name = "\u{1}_ZN6octave26err_del_index_out_of_rangeEbxx"]
+            #[link_name = "\u{1}_ZN6octave26err_del_index_out_of_rangeEbll"]
             pub fn err_del_index_out_of_range(
                 is1d: bool,
                 iext: root::octave_idx_type,
@@ -613,7 +867,7 @@ pub mod root {
             );
         }
         extern "C" {
-            #[link_name = "\u{1}_ZN6octave17err_invalid_indexEdxxRKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE"]
+            #[link_name = "\u{1}_ZN6octave17err_invalid_indexEdllRKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE"]
             pub fn err_invalid_index(
                 n: f64,
                 nd: root::octave_idx_type,
@@ -622,7 +876,7 @@ pub mod root {
             );
         }
         extern "C" {
-            #[link_name = "\u{1}_ZN6octave17err_invalid_indexExxxRKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE"]
+            #[link_name = "\u{1}_ZN6octave17err_invalid_indexElllRKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE"]
             pub fn err_invalid_index1(
                 n: root::octave_idx_type,
                 nd: root::octave_idx_type,
@@ -631,7 +885,7 @@ pub mod root {
             );
         }
         extern "C" {
-            #[link_name = "\u{1}_ZN6octave17err_invalid_indexERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEExxS7_"]
+            #[link_name = "\u{1}_ZN6octave17err_invalid_indexERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEllS7_"]
             pub fn err_invalid_index2(
                 idx: *const root::std::string,
                 nd: root::octave_idx_type,
@@ -1479,7 +1733,7 @@ pub mod root {
             fn bindgen_test_layout_cpu_time() {
                 assert_eq!(
                     ::core::mem::size_of::<cpu_time>(),
-                    24usize,
+                    32usize,
                     concat!("Size of: ", stringify!(cpu_time))
                 );
                 assert_eq!(
@@ -1523,7 +1777,7 @@ pub mod root {
                     unsafe {
                         &(*(::core::ptr::null::<cpu_time>())).m_sys_usec as *const _ as usize
                     },
-                    20usize,
+                    24usize,
                     concat!(
                         "Offset of field: ",
                         stringify!(cpu_time),
@@ -1565,7 +1819,7 @@ pub mod root {
             fn bindgen_test_layout_resource_usage() {
                 assert_eq!(
                     ::core::mem::size_of::<resource_usage>(),
-                    80usize,
+                    144usize,
                     concat!("Size of: ", stringify!(resource_usage))
                 );
                 assert_eq!(
@@ -1589,7 +1843,7 @@ pub mod root {
                     unsafe {
                         &(*(::core::ptr::null::<resource_usage>())).m_maxrss as *const _ as usize
                     },
-                    24usize,
+                    32usize,
                     concat!(
                         "Offset of field: ",
                         stringify!(resource_usage),
@@ -1601,7 +1855,7 @@ pub mod root {
                     unsafe {
                         &(*(::core::ptr::null::<resource_usage>())).m_ixrss as *const _ as usize
                     },
-                    28usize,
+                    40usize,
                     concat!(
                         "Offset of field: ",
                         stringify!(resource_usage),
@@ -1613,7 +1867,7 @@ pub mod root {
                     unsafe {
                         &(*(::core::ptr::null::<resource_usage>())).m_idrss as *const _ as usize
                     },
-                    32usize,
+                    48usize,
                     concat!(
                         "Offset of field: ",
                         stringify!(resource_usage),
@@ -1625,7 +1879,7 @@ pub mod root {
                     unsafe {
                         &(*(::core::ptr::null::<resource_usage>())).m_isrss as *const _ as usize
                     },
-                    36usize,
+                    56usize,
                     concat!(
                         "Offset of field: ",
                         stringify!(resource_usage),
@@ -1637,7 +1891,7 @@ pub mod root {
                     unsafe {
                         &(*(::core::ptr::null::<resource_usage>())).m_minflt as *const _ as usize
                     },
-                    40usize,
+                    64usize,
                     concat!(
                         "Offset of field: ",
                         stringify!(resource_usage),
@@ -1649,7 +1903,7 @@ pub mod root {
                     unsafe {
                         &(*(::core::ptr::null::<resource_usage>())).m_majflt as *const _ as usize
                     },
-                    44usize,
+                    72usize,
                     concat!(
                         "Offset of field: ",
                         stringify!(resource_usage),
@@ -1661,7 +1915,7 @@ pub mod root {
                     unsafe {
                         &(*(::core::ptr::null::<resource_usage>())).m_nswap as *const _ as usize
                     },
-                    48usize,
+                    80usize,
                     concat!(
                         "Offset of field: ",
                         stringify!(resource_usage),
@@ -1673,7 +1927,7 @@ pub mod root {
                     unsafe {
                         &(*(::core::ptr::null::<resource_usage>())).m_inblock as *const _ as usize
                     },
-                    52usize,
+                    88usize,
                     concat!(
                         "Offset of field: ",
                         stringify!(resource_usage),
@@ -1685,7 +1939,7 @@ pub mod root {
                     unsafe {
                         &(*(::core::ptr::null::<resource_usage>())).m_oublock as *const _ as usize
                     },
-                    56usize,
+                    96usize,
                     concat!(
                         "Offset of field: ",
                         stringify!(resource_usage),
@@ -1697,7 +1951,7 @@ pub mod root {
                     unsafe {
                         &(*(::core::ptr::null::<resource_usage>())).m_msgsnd as *const _ as usize
                     },
-                    60usize,
+                    104usize,
                     concat!(
                         "Offset of field: ",
                         stringify!(resource_usage),
@@ -1709,7 +1963,7 @@ pub mod root {
                     unsafe {
                         &(*(::core::ptr::null::<resource_usage>())).m_msgrcv as *const _ as usize
                     },
-                    64usize,
+                    112usize,
                     concat!(
                         "Offset of field: ",
                         stringify!(resource_usage),
@@ -1721,7 +1975,7 @@ pub mod root {
                     unsafe {
                         &(*(::core::ptr::null::<resource_usage>())).m_nsignals as *const _ as usize
                     },
-                    68usize,
+                    120usize,
                     concat!(
                         "Offset of field: ",
                         stringify!(resource_usage),
@@ -1733,7 +1987,7 @@ pub mod root {
                     unsafe {
                         &(*(::core::ptr::null::<resource_usage>())).m_nvcsw as *const _ as usize
                     },
-                    72usize,
+                    128usize,
                     concat!(
                         "Offset of field: ",
                         stringify!(resource_usage),
@@ -1745,7 +1999,7 @@ pub mod root {
                     unsafe {
                         &(*(::core::ptr::null::<resource_usage>())).m_nivcsw as *const _ as usize
                     },
-                    76usize,
+                    136usize,
                     concat!(
                         "Offset of field: ",
                         stringify!(resource_usage),
@@ -2004,7 +2258,7 @@ pub mod root {
             pub fn stream_flush(this: *mut root::octave::stream) -> ::std::os::raw::c_int;
         }
         extern "C" {
-            #[link_name = "\u{1}_ZN6octave6stream4getlExRbRKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE"]
+            #[link_name = "\u{1}_ZN6octave6stream4getlElRbRKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE"]
             pub fn stream_getl(
                 this: *mut root::octave::stream,
                 max_len: root::octave_idx_type,
@@ -2022,7 +2276,7 @@ pub mod root {
             ) -> root::std::string;
         }
         extern "C" {
-            #[link_name = "\u{1}_ZN6octave6stream4getsExRbRKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE"]
+            #[link_name = "\u{1}_ZN6octave6stream4getsElRbRKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE"]
             pub fn stream_gets(
                 this: *mut root::octave::stream,
                 max_len: root::octave_idx_type,
@@ -2090,7 +2344,7 @@ pub mod root {
             pub fn stream_close(this: *mut root::octave::stream);
         }
         extern "C" {
-            #[link_name = "\u{1}_ZN6octave6stream4readERK5ArrayIdExN13oct_data_conv9data_typeES6_xNS_9mach_info12float_formatERx"]
+            #[link_name = "\u{1}_ZN6octave6stream4readERK5ArrayIdElN13oct_data_conv9data_typeES6_lNS_9mach_info12float_formatERl"]
             pub fn stream_read(
                 this: *mut root::octave::stream,
                 size: *const root::Array<f64>,
@@ -2103,7 +2357,7 @@ pub mod root {
             ) -> root::octave_value;
         }
         extern "C" {
-            #[link_name = "\u{1}_ZN6octave6stream5writeERK12octave_valuexN13oct_data_conv9data_typeExNS_9mach_info12float_formatE"]
+            #[link_name = "\u{1}_ZN6octave6stream5writeERK12octave_valuelN13oct_data_conv9data_typeElNS_9mach_info12float_formatE"]
             pub fn stream_write(
                 this: *mut root::octave::stream,
                 data: *const root::octave_value,
@@ -2114,7 +2368,7 @@ pub mod root {
             ) -> root::octave_idx_type;
         }
         extern "C" {
-            #[link_name = "\u{1}_ZN6octave6stream11write_bytesEPKvy"]
+            #[link_name = "\u{1}_ZN6octave6stream11write_bytesEPKvm"]
             pub fn stream_write_bytes(
                 this: *mut root::octave::stream,
                 data: *const ::std::os::raw::c_void,
@@ -2122,11 +2376,11 @@ pub mod root {
             ) -> bool;
         }
         extern "C" {
-            #[link_name = "\u{1}_ZN6octave6stream10skip_bytesEy"]
+            #[link_name = "\u{1}_ZN6octave6stream10skip_bytesEm"]
             pub fn stream_skip_bytes(this: *mut root::octave::stream, n_elts: usize) -> bool;
         }
         extern "C" {
-            #[link_name = "\u{1}_ZN6octave6stream5scanfERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERK5ArrayIdERxS8_"]
+            #[link_name = "\u{1}_ZN6octave6stream5scanfERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERK5ArrayIdERlS8_"]
             pub fn stream_scanf(
                 this: *mut root::octave::stream,
                 fmt: *const root::std::string,
@@ -2136,7 +2390,7 @@ pub mod root {
             ) -> root::octave_value;
         }
         extern "C" {
-            #[link_name = "\u{1}_ZN6octave6stream5scanfERK12octave_valueRK5ArrayIdERxRKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE"]
+            #[link_name = "\u{1}_ZN6octave6stream5scanfERK12octave_valueRK5ArrayIdERlRKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE"]
             pub fn stream_scanf1(
                 this: *mut root::octave::stream,
                 fmt: *const root::octave_value,
@@ -2162,7 +2416,7 @@ pub mod root {
             ) -> root::octave_value_list;
         }
         extern "C" {
-            #[link_name = "\u{1}_ZN6octave6stream8textscanERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEExRK17octave_value_listS8_Rx"]
+            #[link_name = "\u{1}_ZN6octave6stream8textscanERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEElRK17octave_value_listS8_Rl"]
             pub fn stream_textscan(
                 this: *mut root::octave::stream,
                 fmt: *const root::std::string,
@@ -3250,7 +3504,7 @@ pub mod root {
             ) -> bool;
         }
         extern "C" {
-            #[link_name = "\u{1}_ZN6octave9type_info15register_cat_opEiiPF12octave_valueR17octave_base_valueRKS2_RK5ArrayIxEEb"]
+            #[link_name = "\u{1}_ZN6octave9type_info15register_cat_opEiiPF12octave_valueR17octave_base_valueRKS2_RK5ArrayIlEEb"]
             pub fn type_info_register_cat_op(
                 this: *mut root::octave::type_info,
                 arg1: ::std::os::raw::c_int,
@@ -4235,7 +4489,7 @@ pub mod root {
             ) -> [u64; 2usize];
         }
         extern "C" {
-            #[link_name = "\u{1}_ZNK6octave13symbol_record17symbol_record_rep4dumpEy"]
+            #[link_name = "\u{1}_ZNK6octave13symbol_record17symbol_record_rep4dumpEm"]
             pub fn symbol_record_symbol_record_rep_dump(
                 this: *const root::octave::symbol_record_symbol_record_rep,
                 context: root::octave::symbol_record_context_id,
@@ -5519,7 +5773,7 @@ pub mod root {
         fn bindgen_test_layout_output_system() {
             assert_eq!(
                 ::core::mem::size_of::<output_system>(),
-                1144usize,
+                1192usize,
                 concat!("Size of: ", stringify!(output_system))
             );
             assert_eq!(
@@ -5593,7 +5847,7 @@ pub mod root {
                     &(*(::core::ptr::null::<output_system>())).m_diary_file_name as *const _
                         as usize
                 },
-                1040usize,
+                1088usize,
                 concat!(
                     "Offset of field: ",
                     stringify!(output_system),
@@ -5603,7 +5857,7 @@ pub mod root {
             );
             assert_eq!(
                 unsafe { &(*(::core::ptr::null::<output_system>())).m_PAGER as *const _ as usize },
-                1072usize,
+                1120usize,
                 concat!(
                     "Offset of field: ",
                     stringify!(output_system),
@@ -5615,7 +5869,7 @@ pub mod root {
                 unsafe {
                     &(*(::core::ptr::null::<output_system>())).m_PAGER_FLAGS as *const _ as usize
                 },
-                1104usize,
+                1152usize,
                 concat!(
                     "Offset of field: ",
                     stringify!(output_system),
@@ -5628,7 +5882,7 @@ pub mod root {
                     &(*(::core::ptr::null::<output_system>())).m_page_output_immediately as *const _
                         as usize
                 },
-                1136usize,
+                1184usize,
                 concat!(
                     "Offset of field: ",
                     stringify!(output_system),
@@ -5641,7 +5895,7 @@ pub mod root {
                     &(*(::core::ptr::null::<output_system>())).m_page_screen_output as *const _
                         as usize
                 },
-                1137usize,
+                1185usize,
                 concat!(
                     "Offset of field: ",
                     stringify!(output_system),
@@ -5654,7 +5908,7 @@ pub mod root {
                     &(*(::core::ptr::null::<output_system>())).m_write_to_diary_file as *const _
                         as usize
                 },
-                1138usize,
+                1186usize,
                 concat!(
                     "Offset of field: ",
                     stringify!(output_system),
@@ -5667,7 +5921,7 @@ pub mod root {
                     &(*(::core::ptr::null::<output_system>())).m_really_flush_to_pager as *const _
                         as usize
                 },
-                1139usize,
+                1187usize,
                 concat!(
                     "Offset of field: ",
                     stringify!(output_system),
@@ -5680,7 +5934,7 @@ pub mod root {
                     &(*(::core::ptr::null::<output_system>())).m_flushing_output_to_pager
                         as *const _ as usize
                 },
-                1140usize,
+                1188usize,
                 concat!(
                     "Offset of field: ",
                     stringify!(output_system),
@@ -5938,7 +6192,7 @@ pub mod root {
             );
         }
         extern "C" {
-            #[link_name = "\u{1}_ZN6octave14get_dimensionsERK12octave_valueS2_PKcRxS5_"]
+            #[link_name = "\u{1}_ZN6octave14get_dimensionsERK12octave_valueS2_PKcRlS5_"]
             pub fn get_dimensions1(
                 a: *const root::octave_value,
                 b: *const root::octave_value,
@@ -5948,7 +6202,7 @@ pub mod root {
             );
         }
         extern "C" {
-            #[link_name = "\u{1}_ZN6octave14get_dimensionsERK12octave_valuePKcRxS5_"]
+            #[link_name = "\u{1}_ZN6octave14get_dimensionsERK12octave_valuePKcRlS5_"]
             pub fn get_dimensions2(
                 a: *const root::octave_value,
                 warn_for: *const ::std::os::raw::c_char,
@@ -5964,14 +6218,14 @@ pub mod root {
             ) -> root::octave_idx_type;
         }
         extern "C" {
-            #[link_name = "\u{1}_ZN6octave15identity_matrixExx"]
+            #[link_name = "\u{1}_ZN6octave15identity_matrixEll"]
             pub fn identity_matrix(
                 nr: root::octave_idx_type,
                 nc: root::octave_idx_type,
             ) -> root::Matrix;
         }
         extern "C" {
-            #[link_name = "\u{1}_ZN6octave21float_identity_matrixExx"]
+            #[link_name = "\u{1}_ZN6octave21float_identity_matrixEll"]
             pub fn float_identity_matrix(
                 nr: root::octave_idx_type,
                 nc: root::octave_idx_type,
@@ -5986,18 +6240,18 @@ pub mod root {
             ) -> usize;
         }
         extern "C" {
-            #[link_name = "\u{1}_ZN6octave7vformatERSoPKcPc"]
+            #[link_name = "\u{1}_ZN6octave7vformatERSoPKcP13__va_list_tag"]
             pub fn vformat(
                 os: *mut root::std::ostream,
                 fmt: *const ::std::os::raw::c_char,
-                args: root::va_list,
+                args: *mut root::__va_list_tag,
             ) -> usize;
         }
         extern "C" {
-            #[link_name = "\u{1}_ZN6octave9vasprintfB5cxx11EPKcPc"]
+            #[link_name = "\u{1}_ZN6octave9vasprintfB5cxx11EPKcP13__va_list_tag"]
             pub fn vasprintf(
                 fmt: *const ::std::os::raw::c_char,
-                args: root::va_list,
+                args: *mut root::__va_list_tag,
             ) -> root::std::string;
         }
         extern "C" {
@@ -6041,6 +6295,7 @@ pub mod root {
             _unused: [u8; 0],
         }
     }
+    // https://github.com/ctaggart/octh/issues/33
     // pub type octave_refcount = root::octave::refcount<T>;
     #[doc = "! Vector representing the dimensions (size) of an Array."]
     #[doc = "!"]
@@ -6401,7 +6656,7 @@ pub mod root {
         ) -> root::Range;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN10idx_vector13idx_range_repC1Exxx"]
+        #[link_name = "\u{1}_ZN10idx_vector13idx_range_repC1Elll"]
         pub fn idx_vector_idx_range_rep_idx_range_rep(
             this: *mut root::idx_vector_idx_range_rep,
             _start: root::octave_idx_type,
@@ -6476,7 +6731,7 @@ pub mod root {
         ) -> f64;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN10idx_vector14idx_scalar_repC1Ex"]
+        #[link_name = "\u{1}_ZN10idx_vector14idx_scalar_repC1El"]
         pub fn idx_vector_idx_scalar_rep_idx_scalar_rep(
             this: *mut root::idx_vector_idx_scalar_rep,
             i: root::octave_idx_type,
@@ -6585,14 +6840,14 @@ pub mod root {
         ) -> root::Array<f64>;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN10idx_vector14idx_vector_repC1ERK5ArrayIxE"]
+        #[link_name = "\u{1}_ZN10idx_vector14idx_vector_repC1ERK5ArrayIlE"]
         pub fn idx_vector_idx_vector_rep_idx_vector_rep(
             this: *mut root::idx_vector_idx_vector_rep,
             inda: *const root::Array<root::octave_idx_type>,
         );
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN10idx_vector14idx_vector_repC1ERK5ArrayIxExNS_6directE"]
+        #[link_name = "\u{1}_ZN10idx_vector14idx_vector_repC1ERK5ArrayIlElNS_6directE"]
         pub fn idx_vector_idx_vector_rep_idx_vector_rep1(
             this: *mut root::idx_vector_idx_vector_rep,
             inda: *const root::Array<root::octave_idx_type>,
@@ -6608,7 +6863,7 @@ pub mod root {
         );
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN10idx_vector14idx_vector_repC1ERK5ArrayIbEx"]
+        #[link_name = "\u{1}_ZN10idx_vector14idx_vector_repC1ERK5ArrayIbEl"]
         pub fn idx_vector_idx_vector_rep_idx_vector_rep3(
             this: *mut root::idx_vector_idx_vector_rep,
             arg1: *const root::Array<bool>,
@@ -6785,7 +7040,7 @@ pub mod root {
         );
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN10idx_vector12idx_mask_repC1ERK5ArrayIbEx"]
+        #[link_name = "\u{1}_ZN10idx_vector12idx_mask_repC1ERK5ArrayIbEl"]
         pub fn idx_vector_idx_mask_rep_idx_mask_rep1(
             this: *mut root::idx_vector_idx_mask_rep,
             arg1: *const root::Array<bool>,
@@ -6838,7 +7093,7 @@ pub mod root {
         );
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN10idx_vector12maybe_reduceExRKS_x"]
+        #[link_name = "\u{1}_ZN10idx_vector12maybe_reduceElRKS_l"]
         pub fn idx_vector_maybe_reduce(
             this: *mut root::idx_vector,
             n: root::octave_idx_type,
@@ -6847,7 +7102,7 @@ pub mod root {
         ) -> bool;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK10idx_vector13is_cont_rangeExRxS0_"]
+        #[link_name = "\u{1}_ZNK10idx_vector13is_cont_rangeElRlS0_"]
         pub fn idx_vector_is_cont_range(
             this: *const root::idx_vector,
             n: root::octave_idx_type,
@@ -6860,28 +7115,28 @@ pub mod root {
         pub fn idx_vector_increment(this: *const root::idx_vector) -> root::octave_idx_type;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK10idx_vector10complementEx"]
+        #[link_name = "\u{1}_ZNK10idx_vector10complementEl"]
         pub fn idx_vector_complement(
             this: *const root::idx_vector,
             n: root::octave_idx_type,
         ) -> root::idx_vector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK10idx_vector14is_permutationEx"]
+        #[link_name = "\u{1}_ZNK10idx_vector14is_permutationEl"]
         pub fn idx_vector_is_permutation(
             this: *const root::idx_vector,
             n: root::octave_idx_type,
         ) -> bool;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK10idx_vector19inverse_permutationEx"]
+        #[link_name = "\u{1}_ZNK10idx_vector19inverse_permutationEl"]
         pub fn idx_vector_inverse_permutation(
             this: *const root::idx_vector,
             n: root::octave_idx_type,
         ) -> root::idx_vector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK10idx_vector9copy_dataEPx"]
+        #[link_name = "\u{1}_ZNK10idx_vector9copy_dataEPl"]
         pub fn idx_vector_copy_data(
             this: *const root::idx_vector,
             data: *mut root::octave_idx_type,
@@ -6917,7 +7172,7 @@ pub mod root {
         pub fn idx_vector_isvector(this: *const root::idx_vector) -> bool;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN10idx_vector6freezeExPKcb"]
+        #[link_name = "\u{1}_ZN10idx_vector6freezeElPKcb"]
         pub fn idx_vector_freeze(
             this: *mut root::idx_vector,
             z_len: root::octave_idx_type,
@@ -7026,14 +7281,14 @@ pub mod root {
         ) -> root::Array<root::octave_idx_type>;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK10idx_vector13idx_colon_rep9checkelemEx"]
+        #[link_name = "\u{1}_ZNK10idx_vector13idx_colon_rep9checkelemEl"]
         pub fn idx_vector_idx_colon_rep_checkelem(
             this: *mut ::std::os::raw::c_void,
             i: root::octave_idx_type,
         ) -> root::octave_idx_type;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN10idx_vector13idx_colon_rep8sort_idxER5ArrayIxE"]
+        #[link_name = "\u{1}_ZN10idx_vector13idx_colon_rep8sort_idxER5ArrayIlE"]
         pub fn idx_vector_idx_colon_rep_sort_idx(
             this: *mut ::std::os::raw::c_void,
             arg1: *mut root::Array<root::octave_idx_type>,
@@ -7047,7 +7302,7 @@ pub mod root {
         ) -> *mut root::std::ostream;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK10idx_vector13idx_range_rep9checkelemEx"]
+        #[link_name = "\u{1}_ZNK10idx_vector13idx_range_rep9checkelemEl"]
         pub fn idx_vector_idx_range_rep_checkelem(
             this: *mut ::std::os::raw::c_void,
             i: root::octave_idx_type,
@@ -7061,7 +7316,7 @@ pub mod root {
         ) -> *mut root::idx_vector_idx_base_rep;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN10idx_vector13idx_range_rep8sort_idxER5ArrayIxE"]
+        #[link_name = "\u{1}_ZN10idx_vector13idx_range_rep8sort_idxER5ArrayIlE"]
         pub fn idx_vector_idx_range_rep_sort_idx(
             this: *mut ::std::os::raw::c_void,
             arg1: *mut root::Array<root::octave_idx_type>,
@@ -7081,14 +7336,14 @@ pub mod root {
         ) -> root::Array<root::octave_idx_type>;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK10idx_vector14idx_scalar_rep9checkelemEx"]
+        #[link_name = "\u{1}_ZNK10idx_vector14idx_scalar_rep9checkelemEl"]
         pub fn idx_vector_idx_scalar_rep_checkelem(
             this: *mut ::std::os::raw::c_void,
             i: root::octave_idx_type,
         ) -> root::octave_idx_type;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN10idx_vector14idx_scalar_rep8sort_idxER5ArrayIxE"]
+        #[link_name = "\u{1}_ZN10idx_vector14idx_scalar_rep8sort_idxER5ArrayIlE"]
         pub fn idx_vector_idx_scalar_rep_sort_idx(
             this: *mut ::std::os::raw::c_void,
             arg1: *mut root::Array<root::octave_idx_type>,
@@ -7114,7 +7369,7 @@ pub mod root {
         );
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK10idx_vector14idx_vector_rep9checkelemEx"]
+        #[link_name = "\u{1}_ZNK10idx_vector14idx_vector_rep9checkelemEl"]
         pub fn idx_vector_idx_vector_rep_checkelem(
             this: *mut ::std::os::raw::c_void,
             i: root::octave_idx_type,
@@ -7128,7 +7383,7 @@ pub mod root {
         ) -> *mut root::idx_vector_idx_base_rep;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN10idx_vector14idx_vector_rep8sort_idxER5ArrayIxE"]
+        #[link_name = "\u{1}_ZN10idx_vector14idx_vector_rep8sort_idxER5ArrayIlE"]
         pub fn idx_vector_idx_vector_rep_sort_idx(
             this: *mut ::std::os::raw::c_void,
             arg1: *mut root::Array<root::octave_idx_type>,
@@ -7154,21 +7409,21 @@ pub mod root {
         );
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK10idx_vector12idx_mask_rep5xelemEx"]
+        #[link_name = "\u{1}_ZNK10idx_vector12idx_mask_rep5xelemEl"]
         pub fn idx_vector_idx_mask_rep_xelem(
             this: *mut ::std::os::raw::c_void,
             i: root::octave_idx_type,
         ) -> root::octave_idx_type;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK10idx_vector12idx_mask_rep9checkelemEx"]
+        #[link_name = "\u{1}_ZNK10idx_vector12idx_mask_rep9checkelemEl"]
         pub fn idx_vector_idx_mask_rep_checkelem(
             this: *mut ::std::os::raw::c_void,
             i: root::octave_idx_type,
         ) -> root::octave_idx_type;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN10idx_vector12idx_mask_rep8sort_idxER5ArrayIxE"]
+        #[link_name = "\u{1}_ZN10idx_vector12idx_mask_rep8sort_idxER5ArrayIlE"]
         pub fn idx_vector_idx_mask_rep_sort_idx(
             this: *mut ::std::os::raw::c_void,
             arg1: *mut root::Array<root::octave_idx_type>,
@@ -7248,19 +7503,19 @@ pub mod root {
         pub fn octave_rethrow_exception();
     }
     extern "C" {
-        #[link_name = "\u{1}_Z12octave_fgetsB5cxx11P6_iobuf"]
+        #[link_name = "\u{1}_Z12octave_fgetsB5cxx11P8_IO_FILE"]
         pub fn octave_fgets(arg1: *mut root::FILE) -> root::std::string;
     }
     extern "C" {
-        #[link_name = "\u{1}_Z12octave_fgetlB5cxx11P6_iobuf"]
+        #[link_name = "\u{1}_Z12octave_fgetlB5cxx11P8_IO_FILE"]
         pub fn octave_fgetl(arg1: *mut root::FILE) -> root::std::string;
     }
     extern "C" {
-        #[link_name = "\u{1}_Z12octave_fgetsB5cxx11P6_iobufRb"]
+        #[link_name = "\u{1}_Z12octave_fgetsB5cxx11P8_IO_FILERb"]
         pub fn octave_fgets1(arg1: *mut root::FILE, eof: *mut bool) -> root::std::string;
     }
     extern "C" {
-        #[link_name = "\u{1}_Z12octave_fgetlB5cxx11P6_iobufRb"]
+        #[link_name = "\u{1}_Z12octave_fgetlB5cxx11P8_IO_FILERb"]
         pub fn octave_fgetl1(arg1: *mut root::FILE, eof: *mut bool) -> root::std::string;
     }
     extern "C" {
@@ -7870,7 +8125,7 @@ pub mod root {
         pub fn MatrixType_mark_as_unsymmetric(this: *mut root::MatrixType);
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN10MatrixType16mark_as_permutedExPKx"]
+        #[link_name = "\u{1}_ZN10MatrixType16mark_as_permutedElPKl"]
         pub fn MatrixType_mark_as_permuted(
             this: *mut root::MatrixType,
             np: root::octave_idx_type,
@@ -7921,7 +8176,7 @@ pub mod root {
         );
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN10MatrixTypeC1ENS_11matrix_typeExPKxb"]
+        #[link_name = "\u{1}_ZN10MatrixTypeC1ENS_11matrix_typeElPKlb"]
         pub fn MatrixType_MatrixType7(
             this: *mut root::MatrixType,
             t: root::MatrixType_matrix_type,
@@ -7931,7 +8186,7 @@ pub mod root {
         );
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN10MatrixTypeC1ENS_11matrix_typeExxb"]
+        #[link_name = "\u{1}_ZN10MatrixTypeC1ENS_11matrix_typeEllb"]
         pub fn MatrixType_MatrixType8(
             this: *mut root::MatrixType,
             t: root::MatrixType_matrix_type,
@@ -8132,7 +8387,7 @@ pub mod root {
         ) -> root::NDArray;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN11boolNDArray6concatERKS_RK5ArrayIxE"]
+        #[link_name = "\u{1}_ZN11boolNDArray6concatERKS_RK5ArrayIlE"]
         pub fn boolNDArray_concat(
             this: *mut root::boolNDArray,
             rb: *const root::boolNDArray,
@@ -8140,7 +8395,7 @@ pub mod root {
         ) -> root::boolNDArray;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN11boolNDArray6insertERKS_xx"]
+        #[link_name = "\u{1}_ZN11boolNDArray6insertERKS_ll"]
         pub fn boolNDArray_insert(
             this: *mut root::boolNDArray,
             a: *const root::boolNDArray,
@@ -8149,7 +8404,7 @@ pub mod root {
         ) -> *mut root::boolNDArray;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN11boolNDArray6insertERKS_RK5ArrayIxE"]
+        #[link_name = "\u{1}_ZN11boolNDArray6insertERKS_RK5ArrayIlE"]
         pub fn boolNDArray_insert1(
             this: *mut root::boolNDArray,
             a: *const root::boolNDArray,
@@ -8157,7 +8412,7 @@ pub mod root {
         ) -> *mut root::boolNDArray;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN11boolNDArray15increment_indexER5ArrayIxERK10dim_vectori"]
+        #[link_name = "\u{1}_ZN11boolNDArray15increment_indexER5ArrayIlERK10dim_vectori"]
         pub fn boolNDArray_increment_index(
             ra_idx: *mut root::Array<root::octave_idx_type>,
             dimensions: *const root::dim_vector,
@@ -8165,21 +8420,21 @@ pub mod root {
         );
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN11boolNDArray13compute_indexER5ArrayIxERK10dim_vector"]
+        #[link_name = "\u{1}_ZN11boolNDArray13compute_indexER5ArrayIlERK10dim_vector"]
         pub fn boolNDArray_compute_index(
             ra_idx: *mut root::Array<root::octave_idx_type>,
             dimensions: *const root::dim_vector,
         ) -> root::octave_idx_type;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK11boolNDArray4diagEx"]
+        #[link_name = "\u{1}_ZNK11boolNDArray4diagEl"]
         pub fn boolNDArray_diag(
             this: *const root::boolNDArray,
             k: root::octave_idx_type,
         ) -> root::boolNDArray;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK11boolNDArray4diagExx"]
+        #[link_name = "\u{1}_ZNK11boolNDArray4diagEll"]
         pub fn boolNDArray_diag1(
             this: *const root::boolNDArray,
             m: root::octave_idx_type,
@@ -8279,7 +8534,7 @@ pub mod root {
         );
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN10boolMatrix6insertERKS_xx"]
+        #[link_name = "\u{1}_ZN10boolMatrix6insertERKS_ll"]
         pub fn boolMatrix_insert(
             this: *mut root::boolMatrix,
             a: *const root::boolMatrix,
@@ -8288,7 +8543,7 @@ pub mod root {
         ) -> *mut root::boolMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK10boolMatrix4diagEx"]
+        #[link_name = "\u{1}_ZNK10boolMatrix4diagEl"]
         pub fn boolMatrix_diag(
             this: *const root::boolMatrix,
             k: root::octave_idx_type,
@@ -8390,7 +8645,7 @@ pub mod root {
         );
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN13string_vectorC1EPKPKcx"]
+        #[link_name = "\u{1}_ZN13string_vectorC1EPKPKcl"]
         pub fn string_vector_string_vector1(
             this: *mut root::string_vector,
             s: *const *const ::std::os::raw::c_char,
@@ -8492,7 +8747,7 @@ pub mod root {
         ) -> root::boolNDArray;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN11charNDArray6concatERKS_RK5ArrayIxE"]
+        #[link_name = "\u{1}_ZN11charNDArray6concatERKS_RK5ArrayIlE"]
         pub fn charNDArray_concat(
             this: *mut root::charNDArray,
             rb: *const root::charNDArray,
@@ -8500,7 +8755,7 @@ pub mod root {
         ) -> root::charNDArray;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN11charNDArray6concatERK7NDArrayRK5ArrayIxE"]
+        #[link_name = "\u{1}_ZN11charNDArray6concatERK7NDArrayRK5ArrayIlE"]
         pub fn charNDArray_concat1(
             this: *mut root::charNDArray,
             rb: *const root::NDArray,
@@ -8515,7 +8770,7 @@ pub mod root {
         ) -> root::charNDArray;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK11charNDArray3maxER5ArrayIxEi"]
+        #[link_name = "\u{1}_ZNK11charNDArray3maxER5ArrayIlEi"]
         pub fn charNDArray_max1(
             this: *const root::charNDArray,
             index: *mut root::Array<root::octave_idx_type>,
@@ -8530,7 +8785,7 @@ pub mod root {
         ) -> root::charNDArray;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK11charNDArray3minER5ArrayIxEi"]
+        #[link_name = "\u{1}_ZNK11charNDArray3minER5ArrayIlEi"]
         pub fn charNDArray_min1(
             this: *const root::charNDArray,
             index: *mut root::Array<root::octave_idx_type>,
@@ -8538,7 +8793,7 @@ pub mod root {
         ) -> root::charNDArray;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN11charNDArray6insertERKS_xx"]
+        #[link_name = "\u{1}_ZN11charNDArray6insertERKS_ll"]
         pub fn charNDArray_insert(
             this: *mut root::charNDArray,
             a: *const root::charNDArray,
@@ -8547,7 +8802,7 @@ pub mod root {
         ) -> *mut root::charNDArray;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN11charNDArray6insertERKS_RK5ArrayIxE"]
+        #[link_name = "\u{1}_ZN11charNDArray6insertERKS_RK5ArrayIlE"]
         pub fn charNDArray_insert1(
             this: *mut root::charNDArray,
             a: *const root::charNDArray,
@@ -8555,7 +8810,7 @@ pub mod root {
         ) -> *mut root::charNDArray;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN11charNDArray15increment_indexER5ArrayIxERK10dim_vectori"]
+        #[link_name = "\u{1}_ZN11charNDArray15increment_indexER5ArrayIlERK10dim_vectori"]
         pub fn charNDArray_increment_index(
             ra_idx: *mut root::Array<root::octave_idx_type>,
             dimensions: *const root::dim_vector,
@@ -8563,21 +8818,21 @@ pub mod root {
         );
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN11charNDArray13compute_indexER5ArrayIxERK10dim_vector"]
+        #[link_name = "\u{1}_ZN11charNDArray13compute_indexER5ArrayIlERK10dim_vector"]
         pub fn charNDArray_compute_index(
             ra_idx: *mut root::Array<root::octave_idx_type>,
             dimensions: *const root::dim_vector,
         ) -> root::octave_idx_type;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK11charNDArray4diagEx"]
+        #[link_name = "\u{1}_ZNK11charNDArray4diagEl"]
         pub fn charNDArray_diag(
             this: *const root::charNDArray,
             k: root::octave_idx_type,
         ) -> root::charNDArray;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK11charNDArray4diagExx"]
+        #[link_name = "\u{1}_ZNK11charNDArray4diagEll"]
         pub fn charNDArray_diag1(
             this: *const root::charNDArray,
             m: root::octave_idx_type,
@@ -8747,7 +9002,7 @@ pub mod root {
         );
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN10charMatrix6insertEPKcxx"]
+        #[link_name = "\u{1}_ZN10charMatrix6insertEPKcll"]
         pub fn charMatrix_insert(
             this: *mut root::charMatrix,
             s: *const ::std::os::raw::c_char,
@@ -8756,7 +9011,7 @@ pub mod root {
         ) -> *mut root::charMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN10charMatrix6insertERKS_xx"]
+        #[link_name = "\u{1}_ZN10charMatrix6insertERKS_ll"]
         pub fn charMatrix_insert1(
             this: *mut root::charMatrix,
             a: *const root::charMatrix,
@@ -8765,7 +9020,7 @@ pub mod root {
         ) -> *mut root::charMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK10charMatrix13row_as_stringB5cxx11Exb"]
+        #[link_name = "\u{1}_ZNK10charMatrix13row_as_stringB5cxx11Elb"]
         pub fn charMatrix_row_as_string(
             this: *const root::charMatrix,
             arg1: root::octave_idx_type,
@@ -8773,7 +9028,7 @@ pub mod root {
         ) -> root::std::string;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK10charMatrix7extractExxxx"]
+        #[link_name = "\u{1}_ZNK10charMatrix7extractEllll"]
         pub fn charMatrix_extract(
             this: *const root::charMatrix,
             r1: root::octave_idx_type,
@@ -8963,7 +9218,7 @@ pub mod root {
         ) -> root::NDArray;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN7NDArray6concatERKS_RK5ArrayIxE"]
+        #[link_name = "\u{1}_ZN7NDArray6concatERKS_RK5ArrayIlE"]
         pub fn NDArray_concat(
             this: *mut root::NDArray,
             rb: *const root::NDArray,
@@ -8971,7 +9226,7 @@ pub mod root {
         ) -> root::NDArray;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN7NDArray6concatERK14ComplexNDArrayRK5ArrayIxE"]
+        #[link_name = "\u{1}_ZN7NDArray6concatERK14ComplexNDArrayRK5ArrayIlE"]
         pub fn NDArray_concat1(
             this: *mut root::NDArray,
             rb: *const root::ComplexNDArray,
@@ -8979,7 +9234,7 @@ pub mod root {
         ) -> root::ComplexNDArray;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN7NDArray6concatERK11charNDArrayRK5ArrayIxE"]
+        #[link_name = "\u{1}_ZN7NDArray6concatERK11charNDArrayRK5ArrayIlE"]
         pub fn NDArray_concat2(
             this: *mut root::NDArray,
             rb: *const root::charNDArray,
@@ -8992,7 +9247,7 @@ pub mod root {
             -> root::NDArray;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK7NDArray3maxER5ArrayIxEi"]
+        #[link_name = "\u{1}_ZNK7NDArray3maxER5ArrayIlEi"]
         pub fn NDArray_max1(
             this: *const root::NDArray,
             index: *mut root::Array<root::octave_idx_type>,
@@ -9005,7 +9260,7 @@ pub mod root {
             -> root::NDArray;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK7NDArray3minER5ArrayIxEi"]
+        #[link_name = "\u{1}_ZNK7NDArray3minER5ArrayIlEi"]
         pub fn NDArray_min1(
             this: *const root::NDArray,
             index: *mut root::Array<root::octave_idx_type>,
@@ -9020,7 +9275,7 @@ pub mod root {
         ) -> root::NDArray;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK7NDArray6cummaxER5ArrayIxEi"]
+        #[link_name = "\u{1}_ZNK7NDArray6cummaxER5ArrayIlEi"]
         pub fn NDArray_cummax1(
             this: *const root::NDArray,
             index: *mut root::Array<root::octave_idx_type>,
@@ -9035,7 +9290,7 @@ pub mod root {
         ) -> root::NDArray;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK7NDArray6cumminER5ArrayIxEi"]
+        #[link_name = "\u{1}_ZNK7NDArray6cumminER5ArrayIlEi"]
         pub fn NDArray_cummin1(
             this: *const root::NDArray,
             index: *mut root::Array<root::octave_idx_type>,
@@ -9043,7 +9298,7 @@ pub mod root {
         ) -> root::NDArray;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK7NDArray4diffExi"]
+        #[link_name = "\u{1}_ZNK7NDArray4diffEli"]
         pub fn NDArray_diff(
             this: *const root::NDArray,
             order: root::octave_idx_type,
@@ -9051,7 +9306,7 @@ pub mod root {
         ) -> root::NDArray;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN7NDArray6insertERKS_xx"]
+        #[link_name = "\u{1}_ZN7NDArray6insertERKS_ll"]
         pub fn NDArray_insert(
             this: *mut root::NDArray,
             a: *const root::NDArray,
@@ -9060,7 +9315,7 @@ pub mod root {
         ) -> *mut root::NDArray;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN7NDArray6insertERKS_RK5ArrayIxE"]
+        #[link_name = "\u{1}_ZN7NDArray6insertERKS_RK5ArrayIlE"]
         pub fn NDArray_insert1(
             this: *mut root::NDArray,
             a: *const root::NDArray,
@@ -9114,7 +9369,7 @@ pub mod root {
         pub fn NDArray_ifourierNd(this: *const root::NDArray) -> root::ComplexNDArray;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN7NDArray15increment_indexER5ArrayIxERK10dim_vectori"]
+        #[link_name = "\u{1}_ZN7NDArray15increment_indexER5ArrayIlERK10dim_vectori"]
         pub fn NDArray_increment_index(
             ra_idx: *mut root::Array<root::octave_idx_type>,
             dimensions: *const root::dim_vector,
@@ -9122,18 +9377,18 @@ pub mod root {
         );
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN7NDArray13compute_indexER5ArrayIxERK10dim_vector"]
+        #[link_name = "\u{1}_ZN7NDArray13compute_indexER5ArrayIlERK10dim_vector"]
         pub fn NDArray_compute_index(
             ra_idx: *mut root::Array<root::octave_idx_type>,
             dimensions: *const root::dim_vector,
         ) -> root::octave_idx_type;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK7NDArray4diagEx"]
+        #[link_name = "\u{1}_ZNK7NDArray4diagEl"]
         pub fn NDArray_diag(this: *const root::NDArray, k: root::octave_idx_type) -> root::NDArray;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK7NDArray4diagExx"]
+        #[link_name = "\u{1}_ZNK7NDArray4diagEll"]
         pub fn NDArray_diag1(
             this: *const root::NDArray,
             m: root::octave_idx_type,
@@ -9141,7 +9396,7 @@ pub mod root {
         ) -> root::NDArray;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN7NDArrayC1ERK5ArrayIxEbb"]
+        #[link_name = "\u{1}_ZN7NDArrayC1ERK5ArrayIlEbb"]
         pub fn NDArray_NDArray(
             this: *mut root::NDArray,
             a: *const root::Array<root::octave_idx_type>,
@@ -9442,7 +9697,7 @@ pub mod root {
         pub fn Matrix_issymmetric(this: *const root::Matrix) -> bool;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN6Matrix6insertERKS_xx"]
+        #[link_name = "\u{1}_ZN6Matrix6insertERKS_ll"]
         pub fn Matrix_insert(
             this: *mut root::Matrix,
             a: *const root::Matrix,
@@ -9451,7 +9706,7 @@ pub mod root {
         ) -> *mut root::Matrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN6Matrix6insertERK9RowVectorxx"]
+        #[link_name = "\u{1}_ZN6Matrix6insertERK9RowVectorll"]
         pub fn Matrix_insert1(
             this: *mut root::Matrix,
             a: *const root::RowVector,
@@ -9460,7 +9715,7 @@ pub mod root {
         ) -> *mut root::Matrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN6Matrix6insertERK12ColumnVectorxx"]
+        #[link_name = "\u{1}_ZN6Matrix6insertERK12ColumnVectorll"]
         pub fn Matrix_insert2(
             this: *mut root::Matrix,
             a: *const root::ColumnVector,
@@ -9469,7 +9724,7 @@ pub mod root {
         ) -> *mut root::Matrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN6Matrix6insertERK10DiagMatrixxx"]
+        #[link_name = "\u{1}_ZN6Matrix6insertERK10DiagMatrixll"]
         pub fn Matrix_insert3(
             this: *mut root::Matrix,
             a: *const root::DiagMatrix,
@@ -9482,7 +9737,7 @@ pub mod root {
         pub fn Matrix_fill(this: *mut root::Matrix, val: f64) -> *mut root::Matrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN6Matrix4fillEdxxxx"]
+        #[link_name = "\u{1}_ZN6Matrix4fillEdllll"]
         pub fn Matrix_fill1(
             this: *mut root::Matrix,
             val: f64,
@@ -9536,7 +9791,7 @@ pub mod root {
             -> root::Matrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK6Matrix7extractExxxx"]
+        #[link_name = "\u{1}_ZNK6Matrix7extractEllll"]
         pub fn Matrix_extract(
             this: *const root::Matrix,
             r1: root::octave_idx_type,
@@ -9546,7 +9801,7 @@ pub mod root {
         ) -> root::Matrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK6Matrix9extract_nExxxx"]
+        #[link_name = "\u{1}_ZNK6Matrix9extract_nEllll"]
         pub fn Matrix_extract_n(
             this: *const root::Matrix,
             r1: root::octave_idx_type,
@@ -9556,11 +9811,11 @@ pub mod root {
         ) -> root::Matrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK6Matrix3rowEx"]
+        #[link_name = "\u{1}_ZNK6Matrix3rowEl"]
         pub fn Matrix_row(this: *const root::Matrix, i: root::octave_idx_type) -> root::RowVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK6Matrix6columnEx"]
+        #[link_name = "\u{1}_ZNK6Matrix6columnEl"]
         pub fn Matrix_column(
             this: *const root::Matrix,
             i: root::octave_idx_type,
@@ -9571,14 +9826,14 @@ pub mod root {
         pub fn Matrix_inverse(this: *const root::Matrix) -> root::Matrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK6Matrix7inverseERx"]
+        #[link_name = "\u{1}_ZNK6Matrix7inverseERl"]
         pub fn Matrix_inverse1(
             this: *const root::Matrix,
             info: *mut root::octave_idx_type,
         ) -> root::Matrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK6Matrix7inverseERxRdbb"]
+        #[link_name = "\u{1}_ZNK6Matrix7inverseERlRdbb"]
         pub fn Matrix_inverse2(
             this: *const root::Matrix,
             info: *mut root::octave_idx_type,
@@ -9595,7 +9850,7 @@ pub mod root {
         ) -> root::Matrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK6Matrix7inverseER10MatrixTypeRx"]
+        #[link_name = "\u{1}_ZNK6Matrix7inverseER10MatrixTypeRl"]
         pub fn Matrix_inverse4(
             this: *const root::Matrix,
             mattype: *mut root::MatrixType,
@@ -9603,7 +9858,7 @@ pub mod root {
         ) -> root::Matrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK6Matrix7inverseER10MatrixTypeRxRdbb"]
+        #[link_name = "\u{1}_ZNK6Matrix7inverseER10MatrixTypeRlRdbb"]
         pub fn Matrix_inverse5(
             this: *const root::Matrix,
             mattype: *mut root::MatrixType,
@@ -9638,14 +9893,14 @@ pub mod root {
         pub fn Matrix_determinant(this: *const root::Matrix) -> root::DET;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK6Matrix11determinantERx"]
+        #[link_name = "\u{1}_ZNK6Matrix11determinantERl"]
         pub fn Matrix_determinant1(
             this: *const root::Matrix,
             info: *mut root::octave_idx_type,
         ) -> root::DET;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK6Matrix11determinantERxRdb"]
+        #[link_name = "\u{1}_ZNK6Matrix11determinantERlRdb"]
         pub fn Matrix_determinant2(
             this: *const root::Matrix,
             info: *mut root::octave_idx_type,
@@ -9654,7 +9909,7 @@ pub mod root {
         ) -> root::DET;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK6Matrix11determinantER10MatrixTypeRxRdb"]
+        #[link_name = "\u{1}_ZNK6Matrix11determinantER10MatrixTypeRlRdb"]
         pub fn Matrix_determinant3(
             this: *const root::Matrix,
             mattype: *mut root::MatrixType,
@@ -9680,7 +9935,7 @@ pub mod root {
         ) -> root::Matrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK6Matrix5solveER10MatrixTypeRKS_Rx"]
+        #[link_name = "\u{1}_ZNK6Matrix5solveER10MatrixTypeRKS_Rl"]
         pub fn Matrix_solve1(
             this: *const root::Matrix,
             mattype: *mut root::MatrixType,
@@ -9689,7 +9944,7 @@ pub mod root {
         ) -> root::Matrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK6Matrix5solveER10MatrixTypeRKS_RxRd"]
+        #[link_name = "\u{1}_ZNK6Matrix5solveER10MatrixTypeRKS_RlRd"]
         pub fn Matrix_solve2(
             this: *const root::Matrix,
             mattype: *mut root::MatrixType,
@@ -9699,7 +9954,7 @@ pub mod root {
         ) -> root::Matrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK6Matrix5solveER10MatrixTypeRKS_RxRdPFvdEb15blas_trans_type"]
+        #[link_name = "\u{1}_ZNK6Matrix5solveER10MatrixTypeRKS_RlRdPFvdEb15blas_trans_type"]
         pub fn Matrix_solve3(
             this: *const root::Matrix,
             mattype: *mut root::MatrixType,
@@ -9720,7 +9975,7 @@ pub mod root {
         ) -> root::ComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK6Matrix5solveER10MatrixTypeRK13ComplexMatrixRx"]
+        #[link_name = "\u{1}_ZNK6Matrix5solveER10MatrixTypeRK13ComplexMatrixRl"]
         pub fn Matrix_solve5(
             this: *const root::Matrix,
             mattype: *mut root::MatrixType,
@@ -9729,7 +9984,7 @@ pub mod root {
         ) -> root::ComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK6Matrix5solveER10MatrixTypeRK13ComplexMatrixRxRd"]
+        #[link_name = "\u{1}_ZNK6Matrix5solveER10MatrixTypeRK13ComplexMatrixRlRd"]
         pub fn Matrix_solve6(
             this: *const root::Matrix,
             mattype: *mut root::MatrixType,
@@ -9739,7 +9994,7 @@ pub mod root {
         ) -> root::ComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK6Matrix5solveER10MatrixTypeRK13ComplexMatrixRxRdPFvdEb15blas_trans_type"]
+        #[link_name = "\u{1}_ZNK6Matrix5solveER10MatrixTypeRK13ComplexMatrixRlRdPFvdEb15blas_trans_type"]
         pub fn Matrix_solve7(
             this: *const root::Matrix,
             mattype: *mut root::MatrixType,
@@ -9760,7 +10015,7 @@ pub mod root {
         ) -> root::ColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK6Matrix5solveER10MatrixTypeRK12ColumnVectorRx"]
+        #[link_name = "\u{1}_ZNK6Matrix5solveER10MatrixTypeRK12ColumnVectorRl"]
         pub fn Matrix_solve9(
             this: *const root::Matrix,
             mattype: *mut root::MatrixType,
@@ -9769,7 +10024,7 @@ pub mod root {
         ) -> root::ColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK6Matrix5solveER10MatrixTypeRK12ColumnVectorRxRd"]
+        #[link_name = "\u{1}_ZNK6Matrix5solveER10MatrixTypeRK12ColumnVectorRlRd"]
         pub fn Matrix_solve10(
             this: *const root::Matrix,
             mattype: *mut root::MatrixType,
@@ -9779,7 +10034,7 @@ pub mod root {
         ) -> root::ColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK6Matrix5solveER10MatrixTypeRK12ColumnVectorRxRdPFvdE15blas_trans_type"]
+        #[link_name = "\u{1}_ZNK6Matrix5solveER10MatrixTypeRK12ColumnVectorRlRdPFvdE15blas_trans_type"]
         pub fn Matrix_solve11(
             this: *const root::Matrix,
             mattype: *mut root::MatrixType,
@@ -9799,7 +10054,7 @@ pub mod root {
         ) -> root::ComplexColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK6Matrix5solveER10MatrixTypeRK19ComplexColumnVectorRx"]
+        #[link_name = "\u{1}_ZNK6Matrix5solveER10MatrixTypeRK19ComplexColumnVectorRl"]
         pub fn Matrix_solve13(
             this: *const root::Matrix,
             mattype: *mut root::MatrixType,
@@ -9808,7 +10063,7 @@ pub mod root {
         ) -> root::ComplexColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK6Matrix5solveER10MatrixTypeRK19ComplexColumnVectorRxRd"]
+        #[link_name = "\u{1}_ZNK6Matrix5solveER10MatrixTypeRK19ComplexColumnVectorRlRd"]
         pub fn Matrix_solve14(
             this: *const root::Matrix,
             mattype: *mut root::MatrixType,
@@ -9818,7 +10073,7 @@ pub mod root {
         ) -> root::ComplexColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK6Matrix5solveER10MatrixTypeRK19ComplexColumnVectorRxRdPFvdE15blas_trans_type"]
+        #[link_name = "\u{1}_ZNK6Matrix5solveER10MatrixTypeRK19ComplexColumnVectorRlRdPFvdE15blas_trans_type"]
         pub fn Matrix_solve15(
             this: *const root::Matrix,
             mattype: *mut root::MatrixType,
@@ -9834,7 +10089,7 @@ pub mod root {
         pub fn Matrix_solve16(this: *const root::Matrix, b: *const root::Matrix) -> root::Matrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK6Matrix5solveERKS_Rx"]
+        #[link_name = "\u{1}_ZNK6Matrix5solveERKS_Rl"]
         pub fn Matrix_solve17(
             this: *const root::Matrix,
             b: *const root::Matrix,
@@ -9842,7 +10097,7 @@ pub mod root {
         ) -> root::Matrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK6Matrix5solveERKS_RxRd"]
+        #[link_name = "\u{1}_ZNK6Matrix5solveERKS_RlRd"]
         pub fn Matrix_solve18(
             this: *const root::Matrix,
             b: *const root::Matrix,
@@ -9851,7 +10106,7 @@ pub mod root {
         ) -> root::Matrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK6Matrix5solveERKS_RxRdPFvdE15blas_trans_type"]
+        #[link_name = "\u{1}_ZNK6Matrix5solveERKS_RlRdPFvdE15blas_trans_type"]
         pub fn Matrix_solve19(
             this: *const root::Matrix,
             b: *const root::Matrix,
@@ -9869,7 +10124,7 @@ pub mod root {
         ) -> root::ComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK6Matrix5solveERK13ComplexMatrixRx"]
+        #[link_name = "\u{1}_ZNK6Matrix5solveERK13ComplexMatrixRl"]
         pub fn Matrix_solve21(
             this: *const root::Matrix,
             b: *const root::ComplexMatrix,
@@ -9877,7 +10132,7 @@ pub mod root {
         ) -> root::ComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK6Matrix5solveERK13ComplexMatrixRxRd"]
+        #[link_name = "\u{1}_ZNK6Matrix5solveERK13ComplexMatrixRlRd"]
         pub fn Matrix_solve22(
             this: *const root::Matrix,
             b: *const root::ComplexMatrix,
@@ -9886,7 +10141,7 @@ pub mod root {
         ) -> root::ComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK6Matrix5solveERK13ComplexMatrixRxRdPFvdE15blas_trans_type"]
+        #[link_name = "\u{1}_ZNK6Matrix5solveERK13ComplexMatrixRlRdPFvdE15blas_trans_type"]
         pub fn Matrix_solve23(
             this: *const root::Matrix,
             b: *const root::ComplexMatrix,
@@ -9904,7 +10159,7 @@ pub mod root {
         ) -> root::ColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK6Matrix5solveERK12ColumnVectorRx"]
+        #[link_name = "\u{1}_ZNK6Matrix5solveERK12ColumnVectorRl"]
         pub fn Matrix_solve25(
             this: *const root::Matrix,
             b: *const root::ColumnVector,
@@ -9912,7 +10167,7 @@ pub mod root {
         ) -> root::ColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK6Matrix5solveERK12ColumnVectorRxRd"]
+        #[link_name = "\u{1}_ZNK6Matrix5solveERK12ColumnVectorRlRd"]
         pub fn Matrix_solve26(
             this: *const root::Matrix,
             b: *const root::ColumnVector,
@@ -9921,7 +10176,7 @@ pub mod root {
         ) -> root::ColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK6Matrix5solveERK12ColumnVectorRxRdPFvdE15blas_trans_type"]
+        #[link_name = "\u{1}_ZNK6Matrix5solveERK12ColumnVectorRlRdPFvdE15blas_trans_type"]
         pub fn Matrix_solve27(
             this: *const root::Matrix,
             b: *const root::ColumnVector,
@@ -9939,7 +10194,7 @@ pub mod root {
         ) -> root::ComplexColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK6Matrix5solveERK19ComplexColumnVectorRx"]
+        #[link_name = "\u{1}_ZNK6Matrix5solveERK19ComplexColumnVectorRl"]
         pub fn Matrix_solve29(
             this: *const root::Matrix,
             b: *const root::ComplexColumnVector,
@@ -9947,7 +10202,7 @@ pub mod root {
         ) -> root::ComplexColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK6Matrix5solveERK19ComplexColumnVectorRxRd"]
+        #[link_name = "\u{1}_ZNK6Matrix5solveERK19ComplexColumnVectorRlRd"]
         pub fn Matrix_solve30(
             this: *const root::Matrix,
             b: *const root::ComplexColumnVector,
@@ -9956,7 +10211,7 @@ pub mod root {
         ) -> root::ComplexColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK6Matrix5solveERK19ComplexColumnVectorRxRdPFvdE15blas_trans_type"]
+        #[link_name = "\u{1}_ZNK6Matrix5solveERK19ComplexColumnVectorRlRdPFvdE15blas_trans_type"]
         pub fn Matrix_solve31(
             this: *const root::Matrix,
             b: *const root::ComplexColumnVector,
@@ -9971,7 +10226,7 @@ pub mod root {
         pub fn Matrix_lssolve(this: *const root::Matrix, b: *const root::Matrix) -> root::Matrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK6Matrix7lssolveERKS_Rx"]
+        #[link_name = "\u{1}_ZNK6Matrix7lssolveERKS_Rl"]
         pub fn Matrix_lssolve1(
             this: *const root::Matrix,
             b: *const root::Matrix,
@@ -9979,7 +10234,7 @@ pub mod root {
         ) -> root::Matrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK6Matrix7lssolveERKS_RxS2_"]
+        #[link_name = "\u{1}_ZNK6Matrix7lssolveERKS_RlS2_"]
         pub fn Matrix_lssolve2(
             this: *const root::Matrix,
             b: *const root::Matrix,
@@ -9988,7 +10243,7 @@ pub mod root {
         ) -> root::Matrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK6Matrix7lssolveERKS_RxS2_Rd"]
+        #[link_name = "\u{1}_ZNK6Matrix7lssolveERKS_RlS2_Rd"]
         pub fn Matrix_lssolve3(
             this: *const root::Matrix,
             b: *const root::Matrix,
@@ -10005,7 +10260,7 @@ pub mod root {
         ) -> root::ComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK6Matrix7lssolveERK13ComplexMatrixRx"]
+        #[link_name = "\u{1}_ZNK6Matrix7lssolveERK13ComplexMatrixRl"]
         pub fn Matrix_lssolve5(
             this: *const root::Matrix,
             b: *const root::ComplexMatrix,
@@ -10013,7 +10268,7 @@ pub mod root {
         ) -> root::ComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK6Matrix7lssolveERK13ComplexMatrixRxS3_"]
+        #[link_name = "\u{1}_ZNK6Matrix7lssolveERK13ComplexMatrixRlS3_"]
         pub fn Matrix_lssolve6(
             this: *const root::Matrix,
             b: *const root::ComplexMatrix,
@@ -10022,7 +10277,7 @@ pub mod root {
         ) -> root::ComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK6Matrix7lssolveERK13ComplexMatrixRxS3_Rd"]
+        #[link_name = "\u{1}_ZNK6Matrix7lssolveERK13ComplexMatrixRlS3_Rd"]
         pub fn Matrix_lssolve7(
             this: *const root::Matrix,
             b: *const root::ComplexMatrix,
@@ -10039,7 +10294,7 @@ pub mod root {
         ) -> root::ColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK6Matrix7lssolveERK12ColumnVectorRx"]
+        #[link_name = "\u{1}_ZNK6Matrix7lssolveERK12ColumnVectorRl"]
         pub fn Matrix_lssolve9(
             this: *const root::Matrix,
             b: *const root::ColumnVector,
@@ -10047,7 +10302,7 @@ pub mod root {
         ) -> root::ColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK6Matrix7lssolveERK12ColumnVectorRxS3_"]
+        #[link_name = "\u{1}_ZNK6Matrix7lssolveERK12ColumnVectorRlS3_"]
         pub fn Matrix_lssolve10(
             this: *const root::Matrix,
             b: *const root::ColumnVector,
@@ -10056,7 +10311,7 @@ pub mod root {
         ) -> root::ColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK6Matrix7lssolveERK12ColumnVectorRxS3_Rd"]
+        #[link_name = "\u{1}_ZNK6Matrix7lssolveERK12ColumnVectorRlS3_Rd"]
         pub fn Matrix_lssolve11(
             this: *const root::Matrix,
             b: *const root::ColumnVector,
@@ -10073,7 +10328,7 @@ pub mod root {
         ) -> root::ComplexColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK6Matrix7lssolveERK19ComplexColumnVectorRx"]
+        #[link_name = "\u{1}_ZNK6Matrix7lssolveERK19ComplexColumnVectorRl"]
         pub fn Matrix_lssolve13(
             this: *const root::Matrix,
             b: *const root::ComplexColumnVector,
@@ -10081,7 +10336,7 @@ pub mod root {
         ) -> root::ComplexColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK6Matrix7lssolveERK19ComplexColumnVectorRxS3_"]
+        #[link_name = "\u{1}_ZNK6Matrix7lssolveERK19ComplexColumnVectorRlS3_"]
         pub fn Matrix_lssolve14(
             this: *const root::Matrix,
             b: *const root::ComplexColumnVector,
@@ -10090,7 +10345,7 @@ pub mod root {
         ) -> root::ComplexColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK6Matrix7lssolveERK19ComplexColumnVectorRxS3_Rd"]
+        #[link_name = "\u{1}_ZNK6Matrix7lssolveERK19ComplexColumnVectorRlS3_Rd"]
         pub fn Matrix_lssolve15(
             this: *const root::Matrix,
             b: *const root::ComplexColumnVector,
@@ -10142,11 +10397,11 @@ pub mod root {
         pub fn Matrix_abs(this: *const root::Matrix) -> root::Matrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK6Matrix4diagEx"]
+        #[link_name = "\u{1}_ZNK6Matrix4diagEl"]
         pub fn Matrix_diag(this: *const root::Matrix, k: root::octave_idx_type) -> root::Matrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK6Matrix4diagExx"]
+        #[link_name = "\u{1}_ZNK6Matrix4diagEll"]
         pub fn Matrix_diag1(
             this: *const root::Matrix,
             m: root::octave_idx_type,
@@ -10162,14 +10417,14 @@ pub mod root {
         pub fn Matrix_row_max(this: *const root::Matrix) -> root::ColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK6Matrix7row_minER5ArrayIxE"]
+        #[link_name = "\u{1}_ZNK6Matrix7row_minER5ArrayIlE"]
         pub fn Matrix_row_min1(
             this: *const root::Matrix,
             index: *mut root::Array<root::octave_idx_type>,
         ) -> root::ColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK6Matrix7row_maxER5ArrayIxE"]
+        #[link_name = "\u{1}_ZNK6Matrix7row_maxER5ArrayIlE"]
         pub fn Matrix_row_max1(
             this: *const root::Matrix,
             index: *mut root::Array<root::octave_idx_type>,
@@ -10184,14 +10439,14 @@ pub mod root {
         pub fn Matrix_column_max(this: *const root::Matrix) -> root::RowVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK6Matrix10column_minER5ArrayIxE"]
+        #[link_name = "\u{1}_ZNK6Matrix10column_minER5ArrayIlE"]
         pub fn Matrix_column_min1(
             this: *const root::Matrix,
             index: *mut root::Array<root::octave_idx_type>,
         ) -> root::RowVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK6Matrix10column_maxER5ArrayIxE"]
+        #[link_name = "\u{1}_ZNK6Matrix10column_maxER5ArrayIlE"]
         pub fn Matrix_column_max1(
             this: *const root::Matrix,
             index: *mut root::Array<root::octave_idx_type>,
@@ -11111,7 +11366,7 @@ pub mod root {
         ) -> root::ComplexNDArray;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN14ComplexNDArray6concatERKS_RK5ArrayIxE"]
+        #[link_name = "\u{1}_ZN14ComplexNDArray6concatERKS_RK5ArrayIlE"]
         pub fn ComplexNDArray_concat(
             this: *mut root::ComplexNDArray,
             rb: *const root::ComplexNDArray,
@@ -11119,7 +11374,7 @@ pub mod root {
         ) -> root::ComplexNDArray;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN14ComplexNDArray6concatERK7NDArrayRK5ArrayIxE"]
+        #[link_name = "\u{1}_ZN14ComplexNDArray6concatERK7NDArrayRK5ArrayIlE"]
         pub fn ComplexNDArray_concat1(
             this: *mut root::ComplexNDArray,
             rb: *const root::NDArray,
@@ -11134,7 +11389,7 @@ pub mod root {
         ) -> root::ComplexNDArray;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK14ComplexNDArray3maxER5ArrayIxEi"]
+        #[link_name = "\u{1}_ZNK14ComplexNDArray3maxER5ArrayIlEi"]
         pub fn ComplexNDArray_max1(
             this: *const root::ComplexNDArray,
             index: *mut root::Array<root::octave_idx_type>,
@@ -11149,7 +11404,7 @@ pub mod root {
         ) -> root::ComplexNDArray;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK14ComplexNDArray3minER5ArrayIxEi"]
+        #[link_name = "\u{1}_ZNK14ComplexNDArray3minER5ArrayIlEi"]
         pub fn ComplexNDArray_min1(
             this: *const root::ComplexNDArray,
             index: *mut root::Array<root::octave_idx_type>,
@@ -11164,7 +11419,7 @@ pub mod root {
         ) -> root::ComplexNDArray;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK14ComplexNDArray6cummaxER5ArrayIxEi"]
+        #[link_name = "\u{1}_ZNK14ComplexNDArray6cummaxER5ArrayIlEi"]
         pub fn ComplexNDArray_cummax1(
             this: *const root::ComplexNDArray,
             index: *mut root::Array<root::octave_idx_type>,
@@ -11179,7 +11434,7 @@ pub mod root {
         ) -> root::ComplexNDArray;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK14ComplexNDArray6cumminER5ArrayIxEi"]
+        #[link_name = "\u{1}_ZNK14ComplexNDArray6cumminER5ArrayIlEi"]
         pub fn ComplexNDArray_cummin1(
             this: *const root::ComplexNDArray,
             index: *mut root::Array<root::octave_idx_type>,
@@ -11187,7 +11442,7 @@ pub mod root {
         ) -> root::ComplexNDArray;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK14ComplexNDArray4diffExi"]
+        #[link_name = "\u{1}_ZNK14ComplexNDArray4diffEli"]
         pub fn ComplexNDArray_diff(
             this: *const root::ComplexNDArray,
             order: root::octave_idx_type,
@@ -11195,7 +11450,7 @@ pub mod root {
         ) -> root::ComplexNDArray;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN14ComplexNDArray6insertERK7NDArrayxx"]
+        #[link_name = "\u{1}_ZN14ComplexNDArray6insertERK7NDArrayll"]
         pub fn ComplexNDArray_insert(
             this: *mut root::ComplexNDArray,
             a: *const root::NDArray,
@@ -11204,7 +11459,7 @@ pub mod root {
         ) -> *mut root::ComplexNDArray;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN14ComplexNDArray6insertERKS_xx"]
+        #[link_name = "\u{1}_ZN14ComplexNDArray6insertERKS_ll"]
         pub fn ComplexNDArray_insert1(
             this: *mut root::ComplexNDArray,
             a: *const root::ComplexNDArray,
@@ -11213,7 +11468,7 @@ pub mod root {
         ) -> *mut root::ComplexNDArray;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN14ComplexNDArray6insertERKS_RK5ArrayIxE"]
+        #[link_name = "\u{1}_ZN14ComplexNDArray6insertERKS_RK5ArrayIlE"]
         pub fn ComplexNDArray_insert2(
             this: *mut root::ComplexNDArray,
             a: *const root::ComplexNDArray,
@@ -11269,7 +11524,7 @@ pub mod root {
             -> root::ComplexNDArray;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN14ComplexNDArray15increment_indexER5ArrayIxERK10dim_vectori"]
+        #[link_name = "\u{1}_ZN14ComplexNDArray15increment_indexER5ArrayIlERK10dim_vectori"]
         pub fn ComplexNDArray_increment_index(
             ra_idx: *mut root::Array<root::octave_idx_type>,
             dimensions: *const root::dim_vector,
@@ -11277,21 +11532,21 @@ pub mod root {
         );
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN14ComplexNDArray13compute_indexER5ArrayIxERK10dim_vector"]
+        #[link_name = "\u{1}_ZN14ComplexNDArray13compute_indexER5ArrayIlERK10dim_vector"]
         pub fn ComplexNDArray_compute_index(
             ra_idx: *mut root::Array<root::octave_idx_type>,
             dimensions: *const root::dim_vector,
         ) -> root::octave_idx_type;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK14ComplexNDArray4diagEx"]
+        #[link_name = "\u{1}_ZNK14ComplexNDArray4diagEl"]
         pub fn ComplexNDArray_diag(
             this: *const root::ComplexNDArray,
             k: root::octave_idx_type,
         ) -> root::ComplexNDArray;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK14ComplexNDArray4diagExx"]
+        #[link_name = "\u{1}_ZNK14ComplexNDArray4diagEll"]
         pub fn ComplexNDArray_diag1(
             this: *const root::ComplexNDArray,
             m: root::octave_idx_type,
@@ -11565,7 +11820,7 @@ pub mod root {
         pub fn ComplexMatrix_ishermitian(this: *const root::ComplexMatrix) -> bool;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN13ComplexMatrix6insertERK6Matrixxx"]
+        #[link_name = "\u{1}_ZN13ComplexMatrix6insertERK6Matrixll"]
         pub fn ComplexMatrix_insert(
             this: *mut root::ComplexMatrix,
             a: *const root::Matrix,
@@ -11574,7 +11829,7 @@ pub mod root {
         ) -> *mut root::ComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN13ComplexMatrix6insertERK9RowVectorxx"]
+        #[link_name = "\u{1}_ZN13ComplexMatrix6insertERK9RowVectorll"]
         pub fn ComplexMatrix_insert1(
             this: *mut root::ComplexMatrix,
             a: *const root::RowVector,
@@ -11583,7 +11838,7 @@ pub mod root {
         ) -> *mut root::ComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN13ComplexMatrix6insertERK12ColumnVectorxx"]
+        #[link_name = "\u{1}_ZN13ComplexMatrix6insertERK12ColumnVectorll"]
         pub fn ComplexMatrix_insert2(
             this: *mut root::ComplexMatrix,
             a: *const root::ColumnVector,
@@ -11592,7 +11847,7 @@ pub mod root {
         ) -> *mut root::ComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN13ComplexMatrix6insertERK10DiagMatrixxx"]
+        #[link_name = "\u{1}_ZN13ComplexMatrix6insertERK10DiagMatrixll"]
         pub fn ComplexMatrix_insert3(
             this: *mut root::ComplexMatrix,
             a: *const root::DiagMatrix,
@@ -11601,7 +11856,7 @@ pub mod root {
         ) -> *mut root::ComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN13ComplexMatrix6insertERKS_xx"]
+        #[link_name = "\u{1}_ZN13ComplexMatrix6insertERKS_ll"]
         pub fn ComplexMatrix_insert4(
             this: *mut root::ComplexMatrix,
             a: *const root::ComplexMatrix,
@@ -11610,7 +11865,7 @@ pub mod root {
         ) -> *mut root::ComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN13ComplexMatrix6insertERK16ComplexRowVectorxx"]
+        #[link_name = "\u{1}_ZN13ComplexMatrix6insertERK16ComplexRowVectorll"]
         pub fn ComplexMatrix_insert5(
             this: *mut root::ComplexMatrix,
             a: *const root::ComplexRowVector,
@@ -11619,7 +11874,7 @@ pub mod root {
         ) -> *mut root::ComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN13ComplexMatrix6insertERK19ComplexColumnVectorxx"]
+        #[link_name = "\u{1}_ZN13ComplexMatrix6insertERK19ComplexColumnVectorll"]
         pub fn ComplexMatrix_insert6(
             this: *mut root::ComplexMatrix,
             a: *const root::ComplexColumnVector,
@@ -11628,7 +11883,7 @@ pub mod root {
         ) -> *mut root::ComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN13ComplexMatrix6insertERK17ComplexDiagMatrixxx"]
+        #[link_name = "\u{1}_ZN13ComplexMatrix6insertERK17ComplexDiagMatrixll"]
         pub fn ComplexMatrix_insert7(
             this: *mut root::ComplexMatrix,
             a: *const root::ComplexDiagMatrix,
@@ -11651,7 +11906,7 @@ pub mod root {
         ) -> *mut root::ComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN13ComplexMatrix4fillEdxxxx"]
+        #[link_name = "\u{1}_ZN13ComplexMatrix4fillEdllll"]
         pub fn ComplexMatrix_fill2(
             this: *mut root::ComplexMatrix,
             val: f64,
@@ -11662,7 +11917,7 @@ pub mod root {
         ) -> *mut root::ComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN13ComplexMatrix4fillERKSt7complexIdExxxx"]
+        #[link_name = "\u{1}_ZN13ComplexMatrix4fillERKSt7complexIdEllll"]
         pub fn ComplexMatrix_fill3(
             this: *mut root::ComplexMatrix,
             val: *const root::Complex,
@@ -11785,7 +12040,7 @@ pub mod root {
         ) -> root::ComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK13ComplexMatrix7extractExxxx"]
+        #[link_name = "\u{1}_ZNK13ComplexMatrix7extractEllll"]
         pub fn ComplexMatrix_extract(
             this: *const root::ComplexMatrix,
             r1: root::octave_idx_type,
@@ -11795,7 +12050,7 @@ pub mod root {
         ) -> root::ComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK13ComplexMatrix9extract_nExxxx"]
+        #[link_name = "\u{1}_ZNK13ComplexMatrix9extract_nEllll"]
         pub fn ComplexMatrix_extract_n(
             this: *const root::ComplexMatrix,
             r1: root::octave_idx_type,
@@ -11805,14 +12060,14 @@ pub mod root {
         ) -> root::ComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK13ComplexMatrix3rowEx"]
+        #[link_name = "\u{1}_ZNK13ComplexMatrix3rowEl"]
         pub fn ComplexMatrix_row(
             this: *const root::ComplexMatrix,
             i: root::octave_idx_type,
         ) -> root::ComplexRowVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK13ComplexMatrix6columnEx"]
+        #[link_name = "\u{1}_ZNK13ComplexMatrix6columnEl"]
         pub fn ComplexMatrix_column(
             this: *const root::ComplexMatrix,
             i: root::octave_idx_type,
@@ -11823,14 +12078,14 @@ pub mod root {
         pub fn ComplexMatrix_inverse(this: *const root::ComplexMatrix) -> root::ComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK13ComplexMatrix7inverseERx"]
+        #[link_name = "\u{1}_ZNK13ComplexMatrix7inverseERl"]
         pub fn ComplexMatrix_inverse1(
             this: *const root::ComplexMatrix,
             info: *mut root::octave_idx_type,
         ) -> root::ComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK13ComplexMatrix7inverseERxRdbb"]
+        #[link_name = "\u{1}_ZNK13ComplexMatrix7inverseERlRdbb"]
         pub fn ComplexMatrix_inverse2(
             this: *const root::ComplexMatrix,
             info: *mut root::octave_idx_type,
@@ -11847,7 +12102,7 @@ pub mod root {
         ) -> root::ComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK13ComplexMatrix7inverseER10MatrixTypeRx"]
+        #[link_name = "\u{1}_ZNK13ComplexMatrix7inverseER10MatrixTypeRl"]
         pub fn ComplexMatrix_inverse4(
             this: *const root::ComplexMatrix,
             mattype: *mut root::MatrixType,
@@ -11855,7 +12110,7 @@ pub mod root {
         ) -> root::ComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK13ComplexMatrix7inverseER10MatrixTypeRxRdbb"]
+        #[link_name = "\u{1}_ZNK13ComplexMatrix7inverseER10MatrixTypeRlRdbb"]
         pub fn ComplexMatrix_inverse5(
             this: *const root::ComplexMatrix,
             mattype: *mut root::MatrixType,
@@ -11893,14 +12148,14 @@ pub mod root {
         pub fn ComplexMatrix_determinant(this: *const root::ComplexMatrix) -> root::ComplexDET;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK13ComplexMatrix11determinantERx"]
+        #[link_name = "\u{1}_ZNK13ComplexMatrix11determinantERl"]
         pub fn ComplexMatrix_determinant1(
             this: *const root::ComplexMatrix,
             info: *mut root::octave_idx_type,
         ) -> root::ComplexDET;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK13ComplexMatrix11determinantERxRdb"]
+        #[link_name = "\u{1}_ZNK13ComplexMatrix11determinantERlRdb"]
         pub fn ComplexMatrix_determinant2(
             this: *const root::ComplexMatrix,
             info: *mut root::octave_idx_type,
@@ -11909,7 +12164,7 @@ pub mod root {
         ) -> root::ComplexDET;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK13ComplexMatrix11determinantER10MatrixTypeRxRdb"]
+        #[link_name = "\u{1}_ZNK13ComplexMatrix11determinantER10MatrixTypeRlRdb"]
         pub fn ComplexMatrix_determinant3(
             this: *const root::ComplexMatrix,
             mattype: *mut root::MatrixType,
@@ -11938,7 +12193,7 @@ pub mod root {
         ) -> root::ComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK13ComplexMatrix5solveER10MatrixTypeRK6MatrixRx"]
+        #[link_name = "\u{1}_ZNK13ComplexMatrix5solveER10MatrixTypeRK6MatrixRl"]
         pub fn ComplexMatrix_solve1(
             this: *const root::ComplexMatrix,
             mattype: *mut root::MatrixType,
@@ -11947,7 +12202,7 @@ pub mod root {
         ) -> root::ComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK13ComplexMatrix5solveER10MatrixTypeRK6MatrixRxRd"]
+        #[link_name = "\u{1}_ZNK13ComplexMatrix5solveER10MatrixTypeRK6MatrixRlRd"]
         pub fn ComplexMatrix_solve2(
             this: *const root::ComplexMatrix,
             mattype: *mut root::MatrixType,
@@ -11957,7 +12212,7 @@ pub mod root {
         ) -> root::ComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK13ComplexMatrix5solveER10MatrixTypeRK6MatrixRxRdPFvdEb15blas_trans_type"]
+        #[link_name = "\u{1}_ZNK13ComplexMatrix5solveER10MatrixTypeRK6MatrixRlRdPFvdEb15blas_trans_type"]
         pub fn ComplexMatrix_solve3(
             this: *const root::ComplexMatrix,
             mattype: *mut root::MatrixType,
@@ -11978,7 +12233,7 @@ pub mod root {
         ) -> root::ComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK13ComplexMatrix5solveER10MatrixTypeRKS_Rx"]
+        #[link_name = "\u{1}_ZNK13ComplexMatrix5solveER10MatrixTypeRKS_Rl"]
         pub fn ComplexMatrix_solve5(
             this: *const root::ComplexMatrix,
             mattype: *mut root::MatrixType,
@@ -11987,7 +12242,7 @@ pub mod root {
         ) -> root::ComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK13ComplexMatrix5solveER10MatrixTypeRKS_RxRd"]
+        #[link_name = "\u{1}_ZNK13ComplexMatrix5solveER10MatrixTypeRKS_RlRd"]
         pub fn ComplexMatrix_solve6(
             this: *const root::ComplexMatrix,
             mattype: *mut root::MatrixType,
@@ -11997,7 +12252,7 @@ pub mod root {
         ) -> root::ComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK13ComplexMatrix5solveER10MatrixTypeRKS_RxRdPFvdEb15blas_trans_type"]
+        #[link_name = "\u{1}_ZNK13ComplexMatrix5solveER10MatrixTypeRKS_RlRdPFvdEb15blas_trans_type"]
         pub fn ComplexMatrix_solve7(
             this: *const root::ComplexMatrix,
             mattype: *mut root::MatrixType,
@@ -12018,7 +12273,7 @@ pub mod root {
         ) -> root::ComplexColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK13ComplexMatrix5solveER10MatrixTypeRK12ColumnVectorRx"]
+        #[link_name = "\u{1}_ZNK13ComplexMatrix5solveER10MatrixTypeRK12ColumnVectorRl"]
         pub fn ComplexMatrix_solve9(
             this: *const root::ComplexMatrix,
             mattype: *mut root::MatrixType,
@@ -12027,7 +12282,7 @@ pub mod root {
         ) -> root::ComplexColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK13ComplexMatrix5solveER10MatrixTypeRK12ColumnVectorRxRd"]
+        #[link_name = "\u{1}_ZNK13ComplexMatrix5solveER10MatrixTypeRK12ColumnVectorRlRd"]
         pub fn ComplexMatrix_solve10(
             this: *const root::ComplexMatrix,
             mattype: *mut root::MatrixType,
@@ -12037,7 +12292,7 @@ pub mod root {
         ) -> root::ComplexColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK13ComplexMatrix5solveER10MatrixTypeRK12ColumnVectorRxRdPFvdE15blas_trans_type"]
+        #[link_name = "\u{1}_ZNK13ComplexMatrix5solveER10MatrixTypeRK12ColumnVectorRlRdPFvdE15blas_trans_type"]
         pub fn ComplexMatrix_solve11(
             this: *const root::ComplexMatrix,
             mattype: *mut root::MatrixType,
@@ -12057,7 +12312,7 @@ pub mod root {
         ) -> root::ComplexColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK13ComplexMatrix5solveER10MatrixTypeRK19ComplexColumnVectorRx"]
+        #[link_name = "\u{1}_ZNK13ComplexMatrix5solveER10MatrixTypeRK19ComplexColumnVectorRl"]
         pub fn ComplexMatrix_solve13(
             this: *const root::ComplexMatrix,
             mattype: *mut root::MatrixType,
@@ -12066,7 +12321,7 @@ pub mod root {
         ) -> root::ComplexColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK13ComplexMatrix5solveER10MatrixTypeRK19ComplexColumnVectorRxRd"]
+        #[link_name = "\u{1}_ZNK13ComplexMatrix5solveER10MatrixTypeRK19ComplexColumnVectorRlRd"]
         pub fn ComplexMatrix_solve14(
             this: *const root::ComplexMatrix,
             mattype: *mut root::MatrixType,
@@ -12076,7 +12331,7 @@ pub mod root {
         ) -> root::ComplexColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK13ComplexMatrix5solveER10MatrixTypeRK19ComplexColumnVectorRxRdPFvdE15blas_trans_type"]
+        #[link_name = "\u{1}_ZNK13ComplexMatrix5solveER10MatrixTypeRK19ComplexColumnVectorRlRdPFvdE15blas_trans_type"]
         pub fn ComplexMatrix_solve15(
             this: *const root::ComplexMatrix,
             mattype: *mut root::MatrixType,
@@ -12095,7 +12350,7 @@ pub mod root {
         ) -> root::ComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK13ComplexMatrix5solveERK6MatrixRx"]
+        #[link_name = "\u{1}_ZNK13ComplexMatrix5solveERK6MatrixRl"]
         pub fn ComplexMatrix_solve17(
             this: *const root::ComplexMatrix,
             b: *const root::Matrix,
@@ -12103,7 +12358,7 @@ pub mod root {
         ) -> root::ComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK13ComplexMatrix5solveERK6MatrixRxRd"]
+        #[link_name = "\u{1}_ZNK13ComplexMatrix5solveERK6MatrixRlRd"]
         pub fn ComplexMatrix_solve18(
             this: *const root::ComplexMatrix,
             b: *const root::Matrix,
@@ -12112,7 +12367,7 @@ pub mod root {
         ) -> root::ComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK13ComplexMatrix5solveERK6MatrixRxRdPFvdE15blas_trans_type"]
+        #[link_name = "\u{1}_ZNK13ComplexMatrix5solveERK6MatrixRlRdPFvdE15blas_trans_type"]
         pub fn ComplexMatrix_solve19(
             this: *const root::ComplexMatrix,
             b: *const root::Matrix,
@@ -12130,7 +12385,7 @@ pub mod root {
         ) -> root::ComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK13ComplexMatrix5solveERKS_Rx"]
+        #[link_name = "\u{1}_ZNK13ComplexMatrix5solveERKS_Rl"]
         pub fn ComplexMatrix_solve21(
             this: *const root::ComplexMatrix,
             b: *const root::ComplexMatrix,
@@ -12138,7 +12393,7 @@ pub mod root {
         ) -> root::ComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK13ComplexMatrix5solveERKS_RxRd"]
+        #[link_name = "\u{1}_ZNK13ComplexMatrix5solveERKS_RlRd"]
         pub fn ComplexMatrix_solve22(
             this: *const root::ComplexMatrix,
             b: *const root::ComplexMatrix,
@@ -12147,7 +12402,7 @@ pub mod root {
         ) -> root::ComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK13ComplexMatrix5solveERKS_RxRdPFvdE15blas_trans_type"]
+        #[link_name = "\u{1}_ZNK13ComplexMatrix5solveERKS_RlRdPFvdE15blas_trans_type"]
         pub fn ComplexMatrix_solve23(
             this: *const root::ComplexMatrix,
             b: *const root::ComplexMatrix,
@@ -12165,7 +12420,7 @@ pub mod root {
         ) -> root::ComplexColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK13ComplexMatrix5solveERK12ColumnVectorRx"]
+        #[link_name = "\u{1}_ZNK13ComplexMatrix5solveERK12ColumnVectorRl"]
         pub fn ComplexMatrix_solve25(
             this: *const root::ComplexMatrix,
             b: *const root::ColumnVector,
@@ -12173,7 +12428,7 @@ pub mod root {
         ) -> root::ComplexColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK13ComplexMatrix5solveERK12ColumnVectorRxRd"]
+        #[link_name = "\u{1}_ZNK13ComplexMatrix5solveERK12ColumnVectorRlRd"]
         pub fn ComplexMatrix_solve26(
             this: *const root::ComplexMatrix,
             b: *const root::ColumnVector,
@@ -12182,7 +12437,7 @@ pub mod root {
         ) -> root::ComplexColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK13ComplexMatrix5solveERK12ColumnVectorRxRdPFvdE15blas_trans_type"]
+        #[link_name = "\u{1}_ZNK13ComplexMatrix5solveERK12ColumnVectorRlRdPFvdE15blas_trans_type"]
         pub fn ComplexMatrix_solve27(
             this: *const root::ComplexMatrix,
             b: *const root::ColumnVector,
@@ -12200,7 +12455,7 @@ pub mod root {
         ) -> root::ComplexColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK13ComplexMatrix5solveERK19ComplexColumnVectorRx"]
+        #[link_name = "\u{1}_ZNK13ComplexMatrix5solveERK19ComplexColumnVectorRl"]
         pub fn ComplexMatrix_solve29(
             this: *const root::ComplexMatrix,
             b: *const root::ComplexColumnVector,
@@ -12208,7 +12463,7 @@ pub mod root {
         ) -> root::ComplexColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK13ComplexMatrix5solveERK19ComplexColumnVectorRxRd"]
+        #[link_name = "\u{1}_ZNK13ComplexMatrix5solveERK19ComplexColumnVectorRlRd"]
         pub fn ComplexMatrix_solve30(
             this: *const root::ComplexMatrix,
             b: *const root::ComplexColumnVector,
@@ -12217,7 +12472,7 @@ pub mod root {
         ) -> root::ComplexColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK13ComplexMatrix5solveERK19ComplexColumnVectorRxRdPFvdE15blas_trans_type"]
+        #[link_name = "\u{1}_ZNK13ComplexMatrix5solveERK19ComplexColumnVectorRlRdPFvdE15blas_trans_type"]
         pub fn ComplexMatrix_solve31(
             this: *const root::ComplexMatrix,
             b: *const root::ComplexColumnVector,
@@ -12235,7 +12490,7 @@ pub mod root {
         ) -> root::ComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK13ComplexMatrix7lssolveERK6MatrixRx"]
+        #[link_name = "\u{1}_ZNK13ComplexMatrix7lssolveERK6MatrixRl"]
         pub fn ComplexMatrix_lssolve1(
             this: *const root::ComplexMatrix,
             b: *const root::Matrix,
@@ -12243,7 +12498,7 @@ pub mod root {
         ) -> root::ComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK13ComplexMatrix7lssolveERK6MatrixRxS3_"]
+        #[link_name = "\u{1}_ZNK13ComplexMatrix7lssolveERK6MatrixRlS3_"]
         pub fn ComplexMatrix_lssolve2(
             this: *const root::ComplexMatrix,
             b: *const root::Matrix,
@@ -12252,7 +12507,7 @@ pub mod root {
         ) -> root::ComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK13ComplexMatrix7lssolveERK6MatrixRxS3_Rd"]
+        #[link_name = "\u{1}_ZNK13ComplexMatrix7lssolveERK6MatrixRlS3_Rd"]
         pub fn ComplexMatrix_lssolve3(
             this: *const root::ComplexMatrix,
             b: *const root::Matrix,
@@ -12269,7 +12524,7 @@ pub mod root {
         ) -> root::ComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK13ComplexMatrix7lssolveERKS_Rx"]
+        #[link_name = "\u{1}_ZNK13ComplexMatrix7lssolveERKS_Rl"]
         pub fn ComplexMatrix_lssolve5(
             this: *const root::ComplexMatrix,
             b: *const root::ComplexMatrix,
@@ -12277,7 +12532,7 @@ pub mod root {
         ) -> root::ComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK13ComplexMatrix7lssolveERKS_RxS2_"]
+        #[link_name = "\u{1}_ZNK13ComplexMatrix7lssolveERKS_RlS2_"]
         pub fn ComplexMatrix_lssolve6(
             this: *const root::ComplexMatrix,
             b: *const root::ComplexMatrix,
@@ -12286,7 +12541,7 @@ pub mod root {
         ) -> root::ComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK13ComplexMatrix7lssolveERKS_RxS2_Rd"]
+        #[link_name = "\u{1}_ZNK13ComplexMatrix7lssolveERKS_RlS2_Rd"]
         pub fn ComplexMatrix_lssolve7(
             this: *const root::ComplexMatrix,
             b: *const root::ComplexMatrix,
@@ -12303,7 +12558,7 @@ pub mod root {
         ) -> root::ComplexColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK13ComplexMatrix7lssolveERK12ColumnVectorRx"]
+        #[link_name = "\u{1}_ZNK13ComplexMatrix7lssolveERK12ColumnVectorRl"]
         pub fn ComplexMatrix_lssolve9(
             this: *const root::ComplexMatrix,
             b: *const root::ColumnVector,
@@ -12311,7 +12566,7 @@ pub mod root {
         ) -> root::ComplexColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK13ComplexMatrix7lssolveERK12ColumnVectorRxS3_"]
+        #[link_name = "\u{1}_ZNK13ComplexMatrix7lssolveERK12ColumnVectorRlS3_"]
         pub fn ComplexMatrix_lssolve10(
             this: *const root::ComplexMatrix,
             b: *const root::ColumnVector,
@@ -12320,7 +12575,7 @@ pub mod root {
         ) -> root::ComplexColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK13ComplexMatrix7lssolveERK12ColumnVectorRxS3_Rd"]
+        #[link_name = "\u{1}_ZNK13ComplexMatrix7lssolveERK12ColumnVectorRlS3_Rd"]
         pub fn ComplexMatrix_lssolve11(
             this: *const root::ComplexMatrix,
             b: *const root::ColumnVector,
@@ -12337,7 +12592,7 @@ pub mod root {
         ) -> root::ComplexColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK13ComplexMatrix7lssolveERK19ComplexColumnVectorRx"]
+        #[link_name = "\u{1}_ZNK13ComplexMatrix7lssolveERK19ComplexColumnVectorRl"]
         pub fn ComplexMatrix_lssolve13(
             this: *const root::ComplexMatrix,
             b: *const root::ComplexColumnVector,
@@ -12345,7 +12600,7 @@ pub mod root {
         ) -> root::ComplexColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK13ComplexMatrix7lssolveERK19ComplexColumnVectorRxS3_"]
+        #[link_name = "\u{1}_ZNK13ComplexMatrix7lssolveERK19ComplexColumnVectorRlS3_"]
         pub fn ComplexMatrix_lssolve14(
             this: *const root::ComplexMatrix,
             b: *const root::ComplexColumnVector,
@@ -12354,7 +12609,7 @@ pub mod root {
         ) -> root::ComplexColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK13ComplexMatrix7lssolveERK19ComplexColumnVectorRxS3_Rd"]
+        #[link_name = "\u{1}_ZNK13ComplexMatrix7lssolveERK19ComplexColumnVectorRlS3_Rd"]
         pub fn ComplexMatrix_lssolve15(
             this: *const root::ComplexMatrix,
             b: *const root::ComplexColumnVector,
@@ -12417,14 +12672,14 @@ pub mod root {
         pub fn ComplexMatrix_abs(this: *const root::ComplexMatrix) -> root::Matrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK13ComplexMatrix4diagEx"]
+        #[link_name = "\u{1}_ZNK13ComplexMatrix4diagEl"]
         pub fn ComplexMatrix_diag(
             this: *const root::ComplexMatrix,
             k: root::octave_idx_type,
         ) -> root::ComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK13ComplexMatrix4diagExx"]
+        #[link_name = "\u{1}_ZNK13ComplexMatrix4diagEll"]
         pub fn ComplexMatrix_diag1(
             this: *const root::ComplexMatrix,
             m: root::octave_idx_type,
@@ -12432,14 +12687,14 @@ pub mod root {
         ) -> root::ComplexDiagMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK13ComplexMatrix16row_is_real_onlyEx"]
+        #[link_name = "\u{1}_ZNK13ComplexMatrix16row_is_real_onlyEl"]
         pub fn ComplexMatrix_row_is_real_only(
             this: *const root::ComplexMatrix,
             arg1: root::octave_idx_type,
         ) -> bool;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK13ComplexMatrix19column_is_real_onlyEx"]
+        #[link_name = "\u{1}_ZNK13ComplexMatrix19column_is_real_onlyEl"]
         pub fn ComplexMatrix_column_is_real_only(
             this: *const root::ComplexMatrix,
             arg1: root::octave_idx_type,
@@ -12456,14 +12711,14 @@ pub mod root {
             -> root::ComplexColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK13ComplexMatrix7row_minER5ArrayIxE"]
+        #[link_name = "\u{1}_ZNK13ComplexMatrix7row_minER5ArrayIlE"]
         pub fn ComplexMatrix_row_min1(
             this: *const root::ComplexMatrix,
             index: *mut root::Array<root::octave_idx_type>,
         ) -> root::ComplexColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK13ComplexMatrix7row_maxER5ArrayIxE"]
+        #[link_name = "\u{1}_ZNK13ComplexMatrix7row_maxER5ArrayIlE"]
         pub fn ComplexMatrix_row_max1(
             this: *const root::ComplexMatrix,
             index: *mut root::Array<root::octave_idx_type>,
@@ -12480,14 +12735,14 @@ pub mod root {
             -> root::ComplexRowVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK13ComplexMatrix10column_minER5ArrayIxE"]
+        #[link_name = "\u{1}_ZNK13ComplexMatrix10column_minER5ArrayIlE"]
         pub fn ComplexMatrix_column_min1(
             this: *const root::ComplexMatrix,
             index: *mut root::Array<root::octave_idx_type>,
         ) -> root::ComplexRowVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK13ComplexMatrix10column_maxER5ArrayIxE"]
+        #[link_name = "\u{1}_ZNK13ComplexMatrix10column_maxER5ArrayIlE"]
         pub fn ComplexMatrix_column_max1(
             this: *const root::ComplexMatrix,
             index: *mut root::Array<root::octave_idx_type>,
@@ -13633,7 +13888,7 @@ pub mod root {
         ) -> root::FloatNDArray;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN12FloatNDArray6concatERKS_RK5ArrayIxE"]
+        #[link_name = "\u{1}_ZN12FloatNDArray6concatERKS_RK5ArrayIlE"]
         pub fn FloatNDArray_concat(
             this: *mut root::FloatNDArray,
             rb: *const root::FloatNDArray,
@@ -13641,7 +13896,7 @@ pub mod root {
         ) -> root::FloatNDArray;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN12FloatNDArray6concatERK19FloatComplexNDArrayRK5ArrayIxE"]
+        #[link_name = "\u{1}_ZN12FloatNDArray6concatERK19FloatComplexNDArrayRK5ArrayIlE"]
         pub fn FloatNDArray_concat1(
             this: *mut root::FloatNDArray,
             rb: *const root::FloatComplexNDArray,
@@ -13649,7 +13904,7 @@ pub mod root {
         ) -> root::FloatComplexNDArray;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN12FloatNDArray6concatERK11charNDArrayRK5ArrayIxE"]
+        #[link_name = "\u{1}_ZN12FloatNDArray6concatERK11charNDArrayRK5ArrayIlE"]
         pub fn FloatNDArray_concat2(
             this: *mut root::FloatNDArray,
             rb: *const root::charNDArray,
@@ -13664,7 +13919,7 @@ pub mod root {
         ) -> root::FloatNDArray;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK12FloatNDArray3maxER5ArrayIxEi"]
+        #[link_name = "\u{1}_ZNK12FloatNDArray3maxER5ArrayIlEi"]
         pub fn FloatNDArray_max1(
             this: *const root::FloatNDArray,
             index: *mut root::Array<root::octave_idx_type>,
@@ -13679,7 +13934,7 @@ pub mod root {
         ) -> root::FloatNDArray;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK12FloatNDArray3minER5ArrayIxEi"]
+        #[link_name = "\u{1}_ZNK12FloatNDArray3minER5ArrayIlEi"]
         pub fn FloatNDArray_min1(
             this: *const root::FloatNDArray,
             index: *mut root::Array<root::octave_idx_type>,
@@ -13694,7 +13949,7 @@ pub mod root {
         ) -> root::FloatNDArray;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK12FloatNDArray6cummaxER5ArrayIxEi"]
+        #[link_name = "\u{1}_ZNK12FloatNDArray6cummaxER5ArrayIlEi"]
         pub fn FloatNDArray_cummax1(
             this: *const root::FloatNDArray,
             index: *mut root::Array<root::octave_idx_type>,
@@ -13709,7 +13964,7 @@ pub mod root {
         ) -> root::FloatNDArray;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK12FloatNDArray6cumminER5ArrayIxEi"]
+        #[link_name = "\u{1}_ZNK12FloatNDArray6cumminER5ArrayIlEi"]
         pub fn FloatNDArray_cummin1(
             this: *const root::FloatNDArray,
             index: *mut root::Array<root::octave_idx_type>,
@@ -13717,7 +13972,7 @@ pub mod root {
         ) -> root::FloatNDArray;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK12FloatNDArray4diffExi"]
+        #[link_name = "\u{1}_ZNK12FloatNDArray4diffEli"]
         pub fn FloatNDArray_diff(
             this: *const root::FloatNDArray,
             order: root::octave_idx_type,
@@ -13725,7 +13980,7 @@ pub mod root {
         ) -> root::FloatNDArray;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN12FloatNDArray6insertERKS_xx"]
+        #[link_name = "\u{1}_ZN12FloatNDArray6insertERKS_ll"]
         pub fn FloatNDArray_insert(
             this: *mut root::FloatNDArray,
             a: *const root::FloatNDArray,
@@ -13734,7 +13989,7 @@ pub mod root {
         ) -> *mut root::FloatNDArray;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN12FloatNDArray6insertERKS_RK5ArrayIxE"]
+        #[link_name = "\u{1}_ZN12FloatNDArray6insertERKS_RK5ArrayIlE"]
         pub fn FloatNDArray_insert1(
             this: *mut root::FloatNDArray,
             a: *const root::FloatNDArray,
@@ -13794,7 +14049,7 @@ pub mod root {
         ) -> root::FloatComplexNDArray;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN12FloatNDArray15increment_indexER5ArrayIxERK10dim_vectori"]
+        #[link_name = "\u{1}_ZN12FloatNDArray15increment_indexER5ArrayIlERK10dim_vectori"]
         pub fn FloatNDArray_increment_index(
             ra_idx: *mut root::Array<root::octave_idx_type>,
             dimensions: *const root::dim_vector,
@@ -13802,21 +14057,21 @@ pub mod root {
         );
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN12FloatNDArray13compute_indexER5ArrayIxERK10dim_vector"]
+        #[link_name = "\u{1}_ZN12FloatNDArray13compute_indexER5ArrayIlERK10dim_vector"]
         pub fn FloatNDArray_compute_index(
             ra_idx: *mut root::Array<root::octave_idx_type>,
             dimensions: *const root::dim_vector,
         ) -> root::octave_idx_type;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK12FloatNDArray4diagEx"]
+        #[link_name = "\u{1}_ZNK12FloatNDArray4diagEl"]
         pub fn FloatNDArray_diag(
             this: *const root::FloatNDArray,
             k: root::octave_idx_type,
         ) -> root::FloatNDArray;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK12FloatNDArray4diagExx"]
+        #[link_name = "\u{1}_ZNK12FloatNDArray4diagEll"]
         pub fn FloatNDArray_diag1(
             this: *const root::FloatNDArray,
             m: root::octave_idx_type,
@@ -14113,7 +14368,7 @@ pub mod root {
         pub fn FloatMatrix_issymmetric(this: *const root::FloatMatrix) -> bool;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN11FloatMatrix6insertERKS_xx"]
+        #[link_name = "\u{1}_ZN11FloatMatrix6insertERKS_ll"]
         pub fn FloatMatrix_insert(
             this: *mut root::FloatMatrix,
             a: *const root::FloatMatrix,
@@ -14122,7 +14377,7 @@ pub mod root {
         ) -> *mut root::FloatMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN11FloatMatrix6insertERK14FloatRowVectorxx"]
+        #[link_name = "\u{1}_ZN11FloatMatrix6insertERK14FloatRowVectorll"]
         pub fn FloatMatrix_insert1(
             this: *mut root::FloatMatrix,
             a: *const root::FloatRowVector,
@@ -14131,7 +14386,7 @@ pub mod root {
         ) -> *mut root::FloatMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN11FloatMatrix6insertERK17FloatColumnVectorxx"]
+        #[link_name = "\u{1}_ZN11FloatMatrix6insertERK17FloatColumnVectorll"]
         pub fn FloatMatrix_insert2(
             this: *mut root::FloatMatrix,
             a: *const root::FloatColumnVector,
@@ -14140,7 +14395,7 @@ pub mod root {
         ) -> *mut root::FloatMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN11FloatMatrix6insertERK15FloatDiagMatrixxx"]
+        #[link_name = "\u{1}_ZN11FloatMatrix6insertERK15FloatDiagMatrixll"]
         pub fn FloatMatrix_insert3(
             this: *mut root::FloatMatrix,
             a: *const root::FloatDiagMatrix,
@@ -14153,7 +14408,7 @@ pub mod root {
         pub fn FloatMatrix_fill(this: *mut root::FloatMatrix, val: f32) -> *mut root::FloatMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN11FloatMatrix4fillEfxxxx"]
+        #[link_name = "\u{1}_ZN11FloatMatrix4fillEfllll"]
         pub fn FloatMatrix_fill1(
             this: *mut root::FloatMatrix,
             val: f32,
@@ -14220,7 +14475,7 @@ pub mod root {
         ) -> root::FloatMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK11FloatMatrix7extractExxxx"]
+        #[link_name = "\u{1}_ZNK11FloatMatrix7extractEllll"]
         pub fn FloatMatrix_extract(
             this: *const root::FloatMatrix,
             r1: root::octave_idx_type,
@@ -14230,7 +14485,7 @@ pub mod root {
         ) -> root::FloatMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK11FloatMatrix9extract_nExxxx"]
+        #[link_name = "\u{1}_ZNK11FloatMatrix9extract_nEllll"]
         pub fn FloatMatrix_extract_n(
             this: *const root::FloatMatrix,
             r1: root::octave_idx_type,
@@ -14240,14 +14495,14 @@ pub mod root {
         ) -> root::FloatMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK11FloatMatrix3rowEx"]
+        #[link_name = "\u{1}_ZNK11FloatMatrix3rowEl"]
         pub fn FloatMatrix_row(
             this: *const root::FloatMatrix,
             i: root::octave_idx_type,
         ) -> root::FloatRowVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK11FloatMatrix6columnEx"]
+        #[link_name = "\u{1}_ZNK11FloatMatrix6columnEl"]
         pub fn FloatMatrix_column(
             this: *const root::FloatMatrix,
             i: root::octave_idx_type,
@@ -14258,14 +14513,14 @@ pub mod root {
         pub fn FloatMatrix_inverse(this: *const root::FloatMatrix) -> root::FloatMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK11FloatMatrix7inverseERx"]
+        #[link_name = "\u{1}_ZNK11FloatMatrix7inverseERl"]
         pub fn FloatMatrix_inverse1(
             this: *const root::FloatMatrix,
             info: *mut root::octave_idx_type,
         ) -> root::FloatMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK11FloatMatrix7inverseERxRfbb"]
+        #[link_name = "\u{1}_ZNK11FloatMatrix7inverseERlRfbb"]
         pub fn FloatMatrix_inverse2(
             this: *const root::FloatMatrix,
             info: *mut root::octave_idx_type,
@@ -14282,7 +14537,7 @@ pub mod root {
         ) -> root::FloatMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK11FloatMatrix7inverseER10MatrixTypeRx"]
+        #[link_name = "\u{1}_ZNK11FloatMatrix7inverseER10MatrixTypeRl"]
         pub fn FloatMatrix_inverse4(
             this: *const root::FloatMatrix,
             mattype: *mut root::MatrixType,
@@ -14290,7 +14545,7 @@ pub mod root {
         ) -> root::FloatMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK11FloatMatrix7inverseER10MatrixTypeRxRfbb"]
+        #[link_name = "\u{1}_ZNK11FloatMatrix7inverseER10MatrixTypeRlRfbb"]
         pub fn FloatMatrix_inverse5(
             this: *const root::FloatMatrix,
             mattype: *mut root::MatrixType,
@@ -14328,14 +14583,14 @@ pub mod root {
         pub fn FloatMatrix_determinant(this: *const root::FloatMatrix) -> root::FloatDET;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK11FloatMatrix11determinantERx"]
+        #[link_name = "\u{1}_ZNK11FloatMatrix11determinantERl"]
         pub fn FloatMatrix_determinant1(
             this: *const root::FloatMatrix,
             info: *mut root::octave_idx_type,
         ) -> root::FloatDET;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK11FloatMatrix11determinantERxRfb"]
+        #[link_name = "\u{1}_ZNK11FloatMatrix11determinantERlRfb"]
         pub fn FloatMatrix_determinant2(
             this: *const root::FloatMatrix,
             info: *mut root::octave_idx_type,
@@ -14344,7 +14599,7 @@ pub mod root {
         ) -> root::FloatDET;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK11FloatMatrix11determinantER10MatrixTypeRxRfb"]
+        #[link_name = "\u{1}_ZNK11FloatMatrix11determinantER10MatrixTypeRlRfb"]
         pub fn FloatMatrix_determinant3(
             this: *const root::FloatMatrix,
             mattype: *mut root::MatrixType,
@@ -14373,7 +14628,7 @@ pub mod root {
         ) -> root::FloatMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK11FloatMatrix5solveER10MatrixTypeRKS_Rx"]
+        #[link_name = "\u{1}_ZNK11FloatMatrix5solveER10MatrixTypeRKS_Rl"]
         pub fn FloatMatrix_solve1(
             this: *const root::FloatMatrix,
             mattype: *mut root::MatrixType,
@@ -14382,7 +14637,7 @@ pub mod root {
         ) -> root::FloatMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK11FloatMatrix5solveER10MatrixTypeRKS_RxRf"]
+        #[link_name = "\u{1}_ZNK11FloatMatrix5solveER10MatrixTypeRKS_RlRf"]
         pub fn FloatMatrix_solve2(
             this: *const root::FloatMatrix,
             mattype: *mut root::MatrixType,
@@ -14392,7 +14647,7 @@ pub mod root {
         ) -> root::FloatMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK11FloatMatrix5solveER10MatrixTypeRKS_RxRfPFvfEb15blas_trans_type"]
+        #[link_name = "\u{1}_ZNK11FloatMatrix5solveER10MatrixTypeRKS_RlRfPFvfEb15blas_trans_type"]
         pub fn FloatMatrix_solve3(
             this: *const root::FloatMatrix,
             mattype: *mut root::MatrixType,
@@ -14413,7 +14668,7 @@ pub mod root {
         ) -> root::FloatComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK11FloatMatrix5solveER10MatrixTypeRK18FloatComplexMatrixRx"]
+        #[link_name = "\u{1}_ZNK11FloatMatrix5solveER10MatrixTypeRK18FloatComplexMatrixRl"]
         pub fn FloatMatrix_solve5(
             this: *const root::FloatMatrix,
             mattype: *mut root::MatrixType,
@@ -14422,7 +14677,7 @@ pub mod root {
         ) -> root::FloatComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK11FloatMatrix5solveER10MatrixTypeRK18FloatComplexMatrixRxRf"]
+        #[link_name = "\u{1}_ZNK11FloatMatrix5solveER10MatrixTypeRK18FloatComplexMatrixRlRf"]
         pub fn FloatMatrix_solve6(
             this: *const root::FloatMatrix,
             mattype: *mut root::MatrixType,
@@ -14432,7 +14687,7 @@ pub mod root {
         ) -> root::FloatComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK11FloatMatrix5solveER10MatrixTypeRK18FloatComplexMatrixRxRfPFvfEb15blas_trans_type"]
+        #[link_name = "\u{1}_ZNK11FloatMatrix5solveER10MatrixTypeRK18FloatComplexMatrixRlRfPFvfEb15blas_trans_type"]
         pub fn FloatMatrix_solve7(
             this: *const root::FloatMatrix,
             mattype: *mut root::MatrixType,
@@ -14453,7 +14708,7 @@ pub mod root {
         ) -> root::FloatColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK11FloatMatrix5solveER10MatrixTypeRK17FloatColumnVectorRx"]
+        #[link_name = "\u{1}_ZNK11FloatMatrix5solveER10MatrixTypeRK17FloatColumnVectorRl"]
         pub fn FloatMatrix_solve9(
             this: *const root::FloatMatrix,
             mattype: *mut root::MatrixType,
@@ -14462,7 +14717,7 @@ pub mod root {
         ) -> root::FloatColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK11FloatMatrix5solveER10MatrixTypeRK17FloatColumnVectorRxRf"]
+        #[link_name = "\u{1}_ZNK11FloatMatrix5solveER10MatrixTypeRK17FloatColumnVectorRlRf"]
         pub fn FloatMatrix_solve10(
             this: *const root::FloatMatrix,
             mattype: *mut root::MatrixType,
@@ -14472,7 +14727,7 @@ pub mod root {
         ) -> root::FloatColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK11FloatMatrix5solveER10MatrixTypeRK17FloatColumnVectorRxRfPFvfE15blas_trans_type"]
+        #[link_name = "\u{1}_ZNK11FloatMatrix5solveER10MatrixTypeRK17FloatColumnVectorRlRfPFvfE15blas_trans_type"]
         pub fn FloatMatrix_solve11(
             this: *const root::FloatMatrix,
             mattype: *mut root::MatrixType,
@@ -14492,7 +14747,7 @@ pub mod root {
         ) -> root::FloatComplexColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK11FloatMatrix5solveER10MatrixTypeRK24FloatComplexColumnVectorRx"]
+        #[link_name = "\u{1}_ZNK11FloatMatrix5solveER10MatrixTypeRK24FloatComplexColumnVectorRl"]
         pub fn FloatMatrix_solve13(
             this: *const root::FloatMatrix,
             mattype: *mut root::MatrixType,
@@ -14501,7 +14756,7 @@ pub mod root {
         ) -> root::FloatComplexColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK11FloatMatrix5solveER10MatrixTypeRK24FloatComplexColumnVectorRxRf"]
+        #[link_name = "\u{1}_ZNK11FloatMatrix5solveER10MatrixTypeRK24FloatComplexColumnVectorRlRf"]
         pub fn FloatMatrix_solve14(
             this: *const root::FloatMatrix,
             mattype: *mut root::MatrixType,
@@ -14511,7 +14766,7 @@ pub mod root {
         ) -> root::FloatComplexColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK11FloatMatrix5solveER10MatrixTypeRK24FloatComplexColumnVectorRxRfPFvfE15blas_trans_type"]
+        #[link_name = "\u{1}_ZNK11FloatMatrix5solveER10MatrixTypeRK24FloatComplexColumnVectorRlRfPFvfE15blas_trans_type"]
         pub fn FloatMatrix_solve15(
             this: *const root::FloatMatrix,
             mattype: *mut root::MatrixType,
@@ -14530,7 +14785,7 @@ pub mod root {
         ) -> root::FloatMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK11FloatMatrix5solveERKS_Rx"]
+        #[link_name = "\u{1}_ZNK11FloatMatrix5solveERKS_Rl"]
         pub fn FloatMatrix_solve17(
             this: *const root::FloatMatrix,
             b: *const root::FloatMatrix,
@@ -14538,7 +14793,7 @@ pub mod root {
         ) -> root::FloatMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK11FloatMatrix5solveERKS_RxRf"]
+        #[link_name = "\u{1}_ZNK11FloatMatrix5solveERKS_RlRf"]
         pub fn FloatMatrix_solve18(
             this: *const root::FloatMatrix,
             b: *const root::FloatMatrix,
@@ -14547,7 +14802,7 @@ pub mod root {
         ) -> root::FloatMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK11FloatMatrix5solveERKS_RxRfPFvfE15blas_trans_type"]
+        #[link_name = "\u{1}_ZNK11FloatMatrix5solveERKS_RlRfPFvfE15blas_trans_type"]
         pub fn FloatMatrix_solve19(
             this: *const root::FloatMatrix,
             b: *const root::FloatMatrix,
@@ -14565,7 +14820,7 @@ pub mod root {
         ) -> root::FloatComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK11FloatMatrix5solveERK18FloatComplexMatrixRx"]
+        #[link_name = "\u{1}_ZNK11FloatMatrix5solveERK18FloatComplexMatrixRl"]
         pub fn FloatMatrix_solve21(
             this: *const root::FloatMatrix,
             b: *const root::FloatComplexMatrix,
@@ -14573,7 +14828,7 @@ pub mod root {
         ) -> root::FloatComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK11FloatMatrix5solveERK18FloatComplexMatrixRxRf"]
+        #[link_name = "\u{1}_ZNK11FloatMatrix5solveERK18FloatComplexMatrixRlRf"]
         pub fn FloatMatrix_solve22(
             this: *const root::FloatMatrix,
             b: *const root::FloatComplexMatrix,
@@ -14582,7 +14837,7 @@ pub mod root {
         ) -> root::FloatComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK11FloatMatrix5solveERK18FloatComplexMatrixRxRfPFvfE15blas_trans_type"]
+        #[link_name = "\u{1}_ZNK11FloatMatrix5solveERK18FloatComplexMatrixRlRfPFvfE15blas_trans_type"]
         pub fn FloatMatrix_solve23(
             this: *const root::FloatMatrix,
             b: *const root::FloatComplexMatrix,
@@ -14600,7 +14855,7 @@ pub mod root {
         ) -> root::FloatColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK11FloatMatrix5solveERK17FloatColumnVectorRx"]
+        #[link_name = "\u{1}_ZNK11FloatMatrix5solveERK17FloatColumnVectorRl"]
         pub fn FloatMatrix_solve25(
             this: *const root::FloatMatrix,
             b: *const root::FloatColumnVector,
@@ -14608,7 +14863,7 @@ pub mod root {
         ) -> root::FloatColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK11FloatMatrix5solveERK17FloatColumnVectorRxRf"]
+        #[link_name = "\u{1}_ZNK11FloatMatrix5solveERK17FloatColumnVectorRlRf"]
         pub fn FloatMatrix_solve26(
             this: *const root::FloatMatrix,
             b: *const root::FloatColumnVector,
@@ -14617,7 +14872,7 @@ pub mod root {
         ) -> root::FloatColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK11FloatMatrix5solveERK17FloatColumnVectorRxRfPFvfE15blas_trans_type"]
+        #[link_name = "\u{1}_ZNK11FloatMatrix5solveERK17FloatColumnVectorRlRfPFvfE15blas_trans_type"]
         pub fn FloatMatrix_solve27(
             this: *const root::FloatMatrix,
             b: *const root::FloatColumnVector,
@@ -14635,7 +14890,7 @@ pub mod root {
         ) -> root::FloatComplexColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK11FloatMatrix5solveERK24FloatComplexColumnVectorRx"]
+        #[link_name = "\u{1}_ZNK11FloatMatrix5solveERK24FloatComplexColumnVectorRl"]
         pub fn FloatMatrix_solve29(
             this: *const root::FloatMatrix,
             b: *const root::FloatComplexColumnVector,
@@ -14643,7 +14898,7 @@ pub mod root {
         ) -> root::FloatComplexColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK11FloatMatrix5solveERK24FloatComplexColumnVectorRxRf"]
+        #[link_name = "\u{1}_ZNK11FloatMatrix5solveERK24FloatComplexColumnVectorRlRf"]
         pub fn FloatMatrix_solve30(
             this: *const root::FloatMatrix,
             b: *const root::FloatComplexColumnVector,
@@ -14652,7 +14907,7 @@ pub mod root {
         ) -> root::FloatComplexColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK11FloatMatrix5solveERK24FloatComplexColumnVectorRxRfPFvfE15blas_trans_type"]
+        #[link_name = "\u{1}_ZNK11FloatMatrix5solveERK24FloatComplexColumnVectorRlRfPFvfE15blas_trans_type"]
         pub fn FloatMatrix_solve31(
             this: *const root::FloatMatrix,
             b: *const root::FloatComplexColumnVector,
@@ -14670,7 +14925,7 @@ pub mod root {
         ) -> root::FloatMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK11FloatMatrix7lssolveERKS_Rx"]
+        #[link_name = "\u{1}_ZNK11FloatMatrix7lssolveERKS_Rl"]
         pub fn FloatMatrix_lssolve1(
             this: *const root::FloatMatrix,
             b: *const root::FloatMatrix,
@@ -14678,7 +14933,7 @@ pub mod root {
         ) -> root::FloatMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK11FloatMatrix7lssolveERKS_RxS2_"]
+        #[link_name = "\u{1}_ZNK11FloatMatrix7lssolveERKS_RlS2_"]
         pub fn FloatMatrix_lssolve2(
             this: *const root::FloatMatrix,
             b: *const root::FloatMatrix,
@@ -14687,7 +14942,7 @@ pub mod root {
         ) -> root::FloatMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK11FloatMatrix7lssolveERKS_RxS2_Rf"]
+        #[link_name = "\u{1}_ZNK11FloatMatrix7lssolveERKS_RlS2_Rf"]
         pub fn FloatMatrix_lssolve3(
             this: *const root::FloatMatrix,
             b: *const root::FloatMatrix,
@@ -14704,7 +14959,7 @@ pub mod root {
         ) -> root::FloatComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK11FloatMatrix7lssolveERK18FloatComplexMatrixRx"]
+        #[link_name = "\u{1}_ZNK11FloatMatrix7lssolveERK18FloatComplexMatrixRl"]
         pub fn FloatMatrix_lssolve5(
             this: *const root::FloatMatrix,
             b: *const root::FloatComplexMatrix,
@@ -14712,7 +14967,7 @@ pub mod root {
         ) -> root::FloatComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK11FloatMatrix7lssolveERK18FloatComplexMatrixRxS3_"]
+        #[link_name = "\u{1}_ZNK11FloatMatrix7lssolveERK18FloatComplexMatrixRlS3_"]
         pub fn FloatMatrix_lssolve6(
             this: *const root::FloatMatrix,
             b: *const root::FloatComplexMatrix,
@@ -14721,7 +14976,7 @@ pub mod root {
         ) -> root::FloatComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK11FloatMatrix7lssolveERK18FloatComplexMatrixRxS3_Rf"]
+        #[link_name = "\u{1}_ZNK11FloatMatrix7lssolveERK18FloatComplexMatrixRlS3_Rf"]
         pub fn FloatMatrix_lssolve7(
             this: *const root::FloatMatrix,
             b: *const root::FloatComplexMatrix,
@@ -14738,7 +14993,7 @@ pub mod root {
         ) -> root::FloatColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK11FloatMatrix7lssolveERK17FloatColumnVectorRx"]
+        #[link_name = "\u{1}_ZNK11FloatMatrix7lssolveERK17FloatColumnVectorRl"]
         pub fn FloatMatrix_lssolve9(
             this: *const root::FloatMatrix,
             b: *const root::FloatColumnVector,
@@ -14746,7 +15001,7 @@ pub mod root {
         ) -> root::FloatColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK11FloatMatrix7lssolveERK17FloatColumnVectorRxS3_"]
+        #[link_name = "\u{1}_ZNK11FloatMatrix7lssolveERK17FloatColumnVectorRlS3_"]
         pub fn FloatMatrix_lssolve10(
             this: *const root::FloatMatrix,
             b: *const root::FloatColumnVector,
@@ -14755,7 +15010,7 @@ pub mod root {
         ) -> root::FloatColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK11FloatMatrix7lssolveERK17FloatColumnVectorRxS3_Rf"]
+        #[link_name = "\u{1}_ZNK11FloatMatrix7lssolveERK17FloatColumnVectorRlS3_Rf"]
         pub fn FloatMatrix_lssolve11(
             this: *const root::FloatMatrix,
             b: *const root::FloatColumnVector,
@@ -14772,7 +15027,7 @@ pub mod root {
         ) -> root::FloatComplexColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK11FloatMatrix7lssolveERK24FloatComplexColumnVectorRx"]
+        #[link_name = "\u{1}_ZNK11FloatMatrix7lssolveERK24FloatComplexColumnVectorRl"]
         pub fn FloatMatrix_lssolve13(
             this: *const root::FloatMatrix,
             b: *const root::FloatComplexColumnVector,
@@ -14780,7 +15035,7 @@ pub mod root {
         ) -> root::FloatComplexColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK11FloatMatrix7lssolveERK24FloatComplexColumnVectorRxS3_"]
+        #[link_name = "\u{1}_ZNK11FloatMatrix7lssolveERK24FloatComplexColumnVectorRlS3_"]
         pub fn FloatMatrix_lssolve14(
             this: *const root::FloatMatrix,
             b: *const root::FloatComplexColumnVector,
@@ -14789,7 +15044,7 @@ pub mod root {
         ) -> root::FloatComplexColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK11FloatMatrix7lssolveERK24FloatComplexColumnVectorRxS3_Rf"]
+        #[link_name = "\u{1}_ZNK11FloatMatrix7lssolveERK24FloatComplexColumnVectorRlS3_Rf"]
         pub fn FloatMatrix_lssolve15(
             this: *const root::FloatMatrix,
             b: *const root::FloatComplexColumnVector,
@@ -14838,14 +15093,14 @@ pub mod root {
         pub fn FloatMatrix_abs(this: *const root::FloatMatrix) -> root::FloatMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK11FloatMatrix4diagEx"]
+        #[link_name = "\u{1}_ZNK11FloatMatrix4diagEl"]
         pub fn FloatMatrix_diag(
             this: *const root::FloatMatrix,
             k: root::octave_idx_type,
         ) -> root::FloatMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK11FloatMatrix4diagExx"]
+        #[link_name = "\u{1}_ZNK11FloatMatrix4diagEll"]
         pub fn FloatMatrix_diag1(
             this: *const root::FloatMatrix,
             m: root::octave_idx_type,
@@ -14861,14 +15116,14 @@ pub mod root {
         pub fn FloatMatrix_row_max(this: *const root::FloatMatrix) -> root::FloatColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK11FloatMatrix7row_minER5ArrayIxE"]
+        #[link_name = "\u{1}_ZNK11FloatMatrix7row_minER5ArrayIlE"]
         pub fn FloatMatrix_row_min1(
             this: *const root::FloatMatrix,
             index: *mut root::Array<root::octave_idx_type>,
         ) -> root::FloatColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK11FloatMatrix7row_maxER5ArrayIxE"]
+        #[link_name = "\u{1}_ZNK11FloatMatrix7row_maxER5ArrayIlE"]
         pub fn FloatMatrix_row_max1(
             this: *const root::FloatMatrix,
             index: *mut root::Array<root::octave_idx_type>,
@@ -14883,14 +15138,14 @@ pub mod root {
         pub fn FloatMatrix_column_max(this: *const root::FloatMatrix) -> root::FloatRowVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK11FloatMatrix10column_minER5ArrayIxE"]
+        #[link_name = "\u{1}_ZNK11FloatMatrix10column_minER5ArrayIlE"]
         pub fn FloatMatrix_column_min1(
             this: *const root::FloatMatrix,
             index: *mut root::Array<root::octave_idx_type>,
         ) -> root::FloatRowVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK11FloatMatrix10column_maxER5ArrayIxE"]
+        #[link_name = "\u{1}_ZNK11FloatMatrix10column_maxER5ArrayIlE"]
         pub fn FloatMatrix_column_max1(
             this: *const root::FloatMatrix,
             index: *mut root::Array<root::octave_idx_type>,
@@ -15841,7 +16096,7 @@ pub mod root {
         ) -> root::FloatComplexNDArray;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN19FloatComplexNDArray6concatERKS_RK5ArrayIxE"]
+        #[link_name = "\u{1}_ZN19FloatComplexNDArray6concatERKS_RK5ArrayIlE"]
         pub fn FloatComplexNDArray_concat(
             this: *mut root::FloatComplexNDArray,
             rb: *const root::FloatComplexNDArray,
@@ -15849,7 +16104,7 @@ pub mod root {
         ) -> root::FloatComplexNDArray;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN19FloatComplexNDArray6concatERK12FloatNDArrayRK5ArrayIxE"]
+        #[link_name = "\u{1}_ZN19FloatComplexNDArray6concatERK12FloatNDArrayRK5ArrayIlE"]
         pub fn FloatComplexNDArray_concat1(
             this: *mut root::FloatComplexNDArray,
             rb: *const root::FloatNDArray,
@@ -15864,7 +16119,7 @@ pub mod root {
         ) -> root::FloatComplexNDArray;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK19FloatComplexNDArray3maxER5ArrayIxEi"]
+        #[link_name = "\u{1}_ZNK19FloatComplexNDArray3maxER5ArrayIlEi"]
         pub fn FloatComplexNDArray_max1(
             this: *const root::FloatComplexNDArray,
             index: *mut root::Array<root::octave_idx_type>,
@@ -15879,7 +16134,7 @@ pub mod root {
         ) -> root::FloatComplexNDArray;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK19FloatComplexNDArray3minER5ArrayIxEi"]
+        #[link_name = "\u{1}_ZNK19FloatComplexNDArray3minER5ArrayIlEi"]
         pub fn FloatComplexNDArray_min1(
             this: *const root::FloatComplexNDArray,
             index: *mut root::Array<root::octave_idx_type>,
@@ -15894,7 +16149,7 @@ pub mod root {
         ) -> root::FloatComplexNDArray;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK19FloatComplexNDArray6cummaxER5ArrayIxEi"]
+        #[link_name = "\u{1}_ZNK19FloatComplexNDArray6cummaxER5ArrayIlEi"]
         pub fn FloatComplexNDArray_cummax1(
             this: *const root::FloatComplexNDArray,
             index: *mut root::Array<root::octave_idx_type>,
@@ -15909,7 +16164,7 @@ pub mod root {
         ) -> root::FloatComplexNDArray;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK19FloatComplexNDArray6cumminER5ArrayIxEi"]
+        #[link_name = "\u{1}_ZNK19FloatComplexNDArray6cumminER5ArrayIlEi"]
         pub fn FloatComplexNDArray_cummin1(
             this: *const root::FloatComplexNDArray,
             index: *mut root::Array<root::octave_idx_type>,
@@ -15917,7 +16172,7 @@ pub mod root {
         ) -> root::FloatComplexNDArray;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK19FloatComplexNDArray4diffExi"]
+        #[link_name = "\u{1}_ZNK19FloatComplexNDArray4diffEli"]
         pub fn FloatComplexNDArray_diff(
             this: *const root::FloatComplexNDArray,
             order: root::octave_idx_type,
@@ -15925,7 +16180,7 @@ pub mod root {
         ) -> root::FloatComplexNDArray;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN19FloatComplexNDArray6insertERK7NDArrayxx"]
+        #[link_name = "\u{1}_ZN19FloatComplexNDArray6insertERK7NDArrayll"]
         pub fn FloatComplexNDArray_insert(
             this: *mut root::FloatComplexNDArray,
             a: *const root::NDArray,
@@ -15934,7 +16189,7 @@ pub mod root {
         ) -> *mut root::FloatComplexNDArray;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN19FloatComplexNDArray6insertERKS_xx"]
+        #[link_name = "\u{1}_ZN19FloatComplexNDArray6insertERKS_ll"]
         pub fn FloatComplexNDArray_insert1(
             this: *mut root::FloatComplexNDArray,
             a: *const root::FloatComplexNDArray,
@@ -15943,7 +16198,7 @@ pub mod root {
         ) -> *mut root::FloatComplexNDArray;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN19FloatComplexNDArray6insertERKS_RK5ArrayIxE"]
+        #[link_name = "\u{1}_ZN19FloatComplexNDArray6insertERKS_RK5ArrayIlE"]
         pub fn FloatComplexNDArray_insert2(
             this: *mut root::FloatComplexNDArray,
             a: *const root::FloatComplexNDArray,
@@ -16013,7 +16268,7 @@ pub mod root {
         ) -> root::FloatComplexNDArray;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN19FloatComplexNDArray15increment_indexER5ArrayIxERK10dim_vectori"]
+        #[link_name = "\u{1}_ZN19FloatComplexNDArray15increment_indexER5ArrayIlERK10dim_vectori"]
         pub fn FloatComplexNDArray_increment_index(
             ra_idx: *mut root::Array<root::octave_idx_type>,
             dimensions: *const root::dim_vector,
@@ -16021,21 +16276,21 @@ pub mod root {
         );
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN19FloatComplexNDArray13compute_indexER5ArrayIxERK10dim_vector"]
+        #[link_name = "\u{1}_ZN19FloatComplexNDArray13compute_indexER5ArrayIlERK10dim_vector"]
         pub fn FloatComplexNDArray_compute_index(
             ra_idx: *mut root::Array<root::octave_idx_type>,
             dimensions: *const root::dim_vector,
         ) -> root::octave_idx_type;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK19FloatComplexNDArray4diagEx"]
+        #[link_name = "\u{1}_ZNK19FloatComplexNDArray4diagEl"]
         pub fn FloatComplexNDArray_diag(
             this: *const root::FloatComplexNDArray,
             k: root::octave_idx_type,
         ) -> root::FloatComplexNDArray;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK19FloatComplexNDArray4diagExx"]
+        #[link_name = "\u{1}_ZNK19FloatComplexNDArray4diagEll"]
         pub fn FloatComplexNDArray_diag1(
             this: *const root::FloatComplexNDArray,
             m: root::octave_idx_type,
@@ -16313,7 +16568,7 @@ pub mod root {
         pub fn FloatComplexMatrix_ishermitian(this: *const root::FloatComplexMatrix) -> bool;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN18FloatComplexMatrix6insertERK11FloatMatrixxx"]
+        #[link_name = "\u{1}_ZN18FloatComplexMatrix6insertERK11FloatMatrixll"]
         pub fn FloatComplexMatrix_insert(
             this: *mut root::FloatComplexMatrix,
             a: *const root::FloatMatrix,
@@ -16322,7 +16577,7 @@ pub mod root {
         ) -> *mut root::FloatComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN18FloatComplexMatrix6insertERK14FloatRowVectorxx"]
+        #[link_name = "\u{1}_ZN18FloatComplexMatrix6insertERK14FloatRowVectorll"]
         pub fn FloatComplexMatrix_insert1(
             this: *mut root::FloatComplexMatrix,
             a: *const root::FloatRowVector,
@@ -16331,7 +16586,7 @@ pub mod root {
         ) -> *mut root::FloatComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN18FloatComplexMatrix6insertERK17FloatColumnVectorxx"]
+        #[link_name = "\u{1}_ZN18FloatComplexMatrix6insertERK17FloatColumnVectorll"]
         pub fn FloatComplexMatrix_insert2(
             this: *mut root::FloatComplexMatrix,
             a: *const root::FloatColumnVector,
@@ -16340,7 +16595,7 @@ pub mod root {
         ) -> *mut root::FloatComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN18FloatComplexMatrix6insertERK15FloatDiagMatrixxx"]
+        #[link_name = "\u{1}_ZN18FloatComplexMatrix6insertERK15FloatDiagMatrixll"]
         pub fn FloatComplexMatrix_insert3(
             this: *mut root::FloatComplexMatrix,
             a: *const root::FloatDiagMatrix,
@@ -16349,7 +16604,7 @@ pub mod root {
         ) -> *mut root::FloatComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN18FloatComplexMatrix6insertERKS_xx"]
+        #[link_name = "\u{1}_ZN18FloatComplexMatrix6insertERKS_ll"]
         pub fn FloatComplexMatrix_insert4(
             this: *mut root::FloatComplexMatrix,
             a: *const root::FloatComplexMatrix,
@@ -16358,7 +16613,7 @@ pub mod root {
         ) -> *mut root::FloatComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN18FloatComplexMatrix6insertERK21FloatComplexRowVectorxx"]
+        #[link_name = "\u{1}_ZN18FloatComplexMatrix6insertERK21FloatComplexRowVectorll"]
         pub fn FloatComplexMatrix_insert5(
             this: *mut root::FloatComplexMatrix,
             a: *const root::FloatComplexRowVector,
@@ -16367,7 +16622,7 @@ pub mod root {
         ) -> *mut root::FloatComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN18FloatComplexMatrix6insertERK24FloatComplexColumnVectorxx"]
+        #[link_name = "\u{1}_ZN18FloatComplexMatrix6insertERK24FloatComplexColumnVectorll"]
         pub fn FloatComplexMatrix_insert6(
             this: *mut root::FloatComplexMatrix,
             a: *const root::FloatComplexColumnVector,
@@ -16376,7 +16631,7 @@ pub mod root {
         ) -> *mut root::FloatComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN18FloatComplexMatrix6insertERK22FloatComplexDiagMatrixxx"]
+        #[link_name = "\u{1}_ZN18FloatComplexMatrix6insertERK22FloatComplexDiagMatrixll"]
         pub fn FloatComplexMatrix_insert7(
             this: *mut root::FloatComplexMatrix,
             a: *const root::FloatComplexDiagMatrix,
@@ -16399,7 +16654,7 @@ pub mod root {
         ) -> *mut root::FloatComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN18FloatComplexMatrix4fillEfxxxx"]
+        #[link_name = "\u{1}_ZN18FloatComplexMatrix4fillEfllll"]
         pub fn FloatComplexMatrix_fill2(
             this: *mut root::FloatComplexMatrix,
             val: f32,
@@ -16410,7 +16665,7 @@ pub mod root {
         ) -> *mut root::FloatComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN18FloatComplexMatrix4fillERKSt7complexIfExxxx"]
+        #[link_name = "\u{1}_ZN18FloatComplexMatrix4fillERKSt7complexIfEllll"]
         pub fn FloatComplexMatrix_fill3(
             this: *mut root::FloatComplexMatrix,
             val: *const root::FloatComplex,
@@ -16533,7 +16788,7 @@ pub mod root {
         ) -> root::FloatComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK18FloatComplexMatrix7extractExxxx"]
+        #[link_name = "\u{1}_ZNK18FloatComplexMatrix7extractEllll"]
         pub fn FloatComplexMatrix_extract(
             this: *const root::FloatComplexMatrix,
             r1: root::octave_idx_type,
@@ -16543,7 +16798,7 @@ pub mod root {
         ) -> root::FloatComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK18FloatComplexMatrix9extract_nExxxx"]
+        #[link_name = "\u{1}_ZNK18FloatComplexMatrix9extract_nEllll"]
         pub fn FloatComplexMatrix_extract_n(
             this: *const root::FloatComplexMatrix,
             r1: root::octave_idx_type,
@@ -16553,14 +16808,14 @@ pub mod root {
         ) -> root::FloatComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK18FloatComplexMatrix3rowEx"]
+        #[link_name = "\u{1}_ZNK18FloatComplexMatrix3rowEl"]
         pub fn FloatComplexMatrix_row(
             this: *const root::FloatComplexMatrix,
             i: root::octave_idx_type,
         ) -> root::FloatComplexRowVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK18FloatComplexMatrix6columnEx"]
+        #[link_name = "\u{1}_ZNK18FloatComplexMatrix6columnEl"]
         pub fn FloatComplexMatrix_column(
             this: *const root::FloatComplexMatrix,
             i: root::octave_idx_type,
@@ -16573,14 +16828,14 @@ pub mod root {
         ) -> root::FloatComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK18FloatComplexMatrix7inverseERx"]
+        #[link_name = "\u{1}_ZNK18FloatComplexMatrix7inverseERl"]
         pub fn FloatComplexMatrix_inverse1(
             this: *const root::FloatComplexMatrix,
             info: *mut root::octave_idx_type,
         ) -> root::FloatComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK18FloatComplexMatrix7inverseERxRfbb"]
+        #[link_name = "\u{1}_ZNK18FloatComplexMatrix7inverseERlRfbb"]
         pub fn FloatComplexMatrix_inverse2(
             this: *const root::FloatComplexMatrix,
             info: *mut root::octave_idx_type,
@@ -16597,7 +16852,7 @@ pub mod root {
         ) -> root::FloatComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK18FloatComplexMatrix7inverseER10MatrixTypeRx"]
+        #[link_name = "\u{1}_ZNK18FloatComplexMatrix7inverseER10MatrixTypeRl"]
         pub fn FloatComplexMatrix_inverse4(
             this: *const root::FloatComplexMatrix,
             mattype: *mut root::MatrixType,
@@ -16605,7 +16860,7 @@ pub mod root {
         ) -> root::FloatComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK18FloatComplexMatrix7inverseER10MatrixTypeRxRfbb"]
+        #[link_name = "\u{1}_ZNK18FloatComplexMatrix7inverseER10MatrixTypeRlRfbb"]
         pub fn FloatComplexMatrix_inverse5(
             this: *const root::FloatComplexMatrix,
             mattype: *mut root::MatrixType,
@@ -16653,14 +16908,14 @@ pub mod root {
         ) -> root::FloatComplexDET;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK18FloatComplexMatrix11determinantERx"]
+        #[link_name = "\u{1}_ZNK18FloatComplexMatrix11determinantERl"]
         pub fn FloatComplexMatrix_determinant1(
             this: *const root::FloatComplexMatrix,
             info: *mut root::octave_idx_type,
         ) -> root::FloatComplexDET;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK18FloatComplexMatrix11determinantERxRfb"]
+        #[link_name = "\u{1}_ZNK18FloatComplexMatrix11determinantERlRfb"]
         pub fn FloatComplexMatrix_determinant2(
             this: *const root::FloatComplexMatrix,
             info: *mut root::octave_idx_type,
@@ -16669,7 +16924,7 @@ pub mod root {
         ) -> root::FloatComplexDET;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK18FloatComplexMatrix11determinantER10MatrixTypeRxRfb"]
+        #[link_name = "\u{1}_ZNK18FloatComplexMatrix11determinantER10MatrixTypeRlRfb"]
         pub fn FloatComplexMatrix_determinant3(
             this: *const root::FloatComplexMatrix,
             mattype: *mut root::MatrixType,
@@ -16698,7 +16953,7 @@ pub mod root {
         ) -> root::FloatComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK18FloatComplexMatrix5solveER10MatrixTypeRK11FloatMatrixRx"]
+        #[link_name = "\u{1}_ZNK18FloatComplexMatrix5solveER10MatrixTypeRK11FloatMatrixRl"]
         pub fn FloatComplexMatrix_solve1(
             this: *const root::FloatComplexMatrix,
             mattype: *mut root::MatrixType,
@@ -16707,7 +16962,7 @@ pub mod root {
         ) -> root::FloatComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK18FloatComplexMatrix5solveER10MatrixTypeRK11FloatMatrixRxRf"]
+        #[link_name = "\u{1}_ZNK18FloatComplexMatrix5solveER10MatrixTypeRK11FloatMatrixRlRf"]
         pub fn FloatComplexMatrix_solve2(
             this: *const root::FloatComplexMatrix,
             mattype: *mut root::MatrixType,
@@ -16717,7 +16972,7 @@ pub mod root {
         ) -> root::FloatComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK18FloatComplexMatrix5solveER10MatrixTypeRK11FloatMatrixRxRfPFvfEb15blas_trans_type"]
+        #[link_name = "\u{1}_ZNK18FloatComplexMatrix5solveER10MatrixTypeRK11FloatMatrixRlRfPFvfEb15blas_trans_type"]
         pub fn FloatComplexMatrix_solve3(
             this: *const root::FloatComplexMatrix,
             mattype: *mut root::MatrixType,
@@ -16738,7 +16993,7 @@ pub mod root {
         ) -> root::FloatComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK18FloatComplexMatrix5solveER10MatrixTypeRKS_Rx"]
+        #[link_name = "\u{1}_ZNK18FloatComplexMatrix5solveER10MatrixTypeRKS_Rl"]
         pub fn FloatComplexMatrix_solve5(
             this: *const root::FloatComplexMatrix,
             mattype: *mut root::MatrixType,
@@ -16747,7 +17002,7 @@ pub mod root {
         ) -> root::FloatComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK18FloatComplexMatrix5solveER10MatrixTypeRKS_RxRf"]
+        #[link_name = "\u{1}_ZNK18FloatComplexMatrix5solveER10MatrixTypeRKS_RlRf"]
         pub fn FloatComplexMatrix_solve6(
             this: *const root::FloatComplexMatrix,
             mattype: *mut root::MatrixType,
@@ -16757,7 +17012,7 @@ pub mod root {
         ) -> root::FloatComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK18FloatComplexMatrix5solveER10MatrixTypeRKS_RxRfPFvfEb15blas_trans_type"]
+        #[link_name = "\u{1}_ZNK18FloatComplexMatrix5solveER10MatrixTypeRKS_RlRfPFvfEb15blas_trans_type"]
         pub fn FloatComplexMatrix_solve7(
             this: *const root::FloatComplexMatrix,
             mattype: *mut root::MatrixType,
@@ -16778,7 +17033,7 @@ pub mod root {
         ) -> root::FloatComplexColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK18FloatComplexMatrix5solveER10MatrixTypeRK17FloatColumnVectorRx"]
+        #[link_name = "\u{1}_ZNK18FloatComplexMatrix5solveER10MatrixTypeRK17FloatColumnVectorRl"]
         pub fn FloatComplexMatrix_solve9(
             this: *const root::FloatComplexMatrix,
             mattype: *mut root::MatrixType,
@@ -16787,7 +17042,7 @@ pub mod root {
         ) -> root::FloatComplexColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK18FloatComplexMatrix5solveER10MatrixTypeRK17FloatColumnVectorRxRf"]
+        #[link_name = "\u{1}_ZNK18FloatComplexMatrix5solveER10MatrixTypeRK17FloatColumnVectorRlRf"]
         pub fn FloatComplexMatrix_solve10(
             this: *const root::FloatComplexMatrix,
             mattype: *mut root::MatrixType,
@@ -16797,7 +17052,7 @@ pub mod root {
         ) -> root::FloatComplexColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK18FloatComplexMatrix5solveER10MatrixTypeRK17FloatColumnVectorRxRfPFvfE15blas_trans_type"]
+        #[link_name = "\u{1}_ZNK18FloatComplexMatrix5solveER10MatrixTypeRK17FloatColumnVectorRlRfPFvfE15blas_trans_type"]
         pub fn FloatComplexMatrix_solve11(
             this: *const root::FloatComplexMatrix,
             mattype: *mut root::MatrixType,
@@ -16817,7 +17072,7 @@ pub mod root {
         ) -> root::FloatComplexColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK18FloatComplexMatrix5solveER10MatrixTypeRK24FloatComplexColumnVectorRx"]
+        #[link_name = "\u{1}_ZNK18FloatComplexMatrix5solveER10MatrixTypeRK24FloatComplexColumnVectorRl"]
         pub fn FloatComplexMatrix_solve13(
             this: *const root::FloatComplexMatrix,
             mattype: *mut root::MatrixType,
@@ -16826,7 +17081,7 @@ pub mod root {
         ) -> root::FloatComplexColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK18FloatComplexMatrix5solveER10MatrixTypeRK24FloatComplexColumnVectorRxRf"]
+        #[link_name = "\u{1}_ZNK18FloatComplexMatrix5solveER10MatrixTypeRK24FloatComplexColumnVectorRlRf"]
         pub fn FloatComplexMatrix_solve14(
             this: *const root::FloatComplexMatrix,
             mattype: *mut root::MatrixType,
@@ -16836,7 +17091,7 @@ pub mod root {
         ) -> root::FloatComplexColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK18FloatComplexMatrix5solveER10MatrixTypeRK24FloatComplexColumnVectorRxRfPFvfE15blas_trans_type"]
+        #[link_name = "\u{1}_ZNK18FloatComplexMatrix5solveER10MatrixTypeRK24FloatComplexColumnVectorRlRfPFvfE15blas_trans_type"]
         pub fn FloatComplexMatrix_solve15(
             this: *const root::FloatComplexMatrix,
             mattype: *mut root::MatrixType,
@@ -16855,7 +17110,7 @@ pub mod root {
         ) -> root::FloatComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK18FloatComplexMatrix5solveERK11FloatMatrixRx"]
+        #[link_name = "\u{1}_ZNK18FloatComplexMatrix5solveERK11FloatMatrixRl"]
         pub fn FloatComplexMatrix_solve17(
             this: *const root::FloatComplexMatrix,
             b: *const root::FloatMatrix,
@@ -16863,7 +17118,7 @@ pub mod root {
         ) -> root::FloatComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK18FloatComplexMatrix5solveERK11FloatMatrixRxRf"]
+        #[link_name = "\u{1}_ZNK18FloatComplexMatrix5solveERK11FloatMatrixRlRf"]
         pub fn FloatComplexMatrix_solve18(
             this: *const root::FloatComplexMatrix,
             b: *const root::FloatMatrix,
@@ -16872,7 +17127,7 @@ pub mod root {
         ) -> root::FloatComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK18FloatComplexMatrix5solveERK11FloatMatrixRxRfPFvfE15blas_trans_type"]
+        #[link_name = "\u{1}_ZNK18FloatComplexMatrix5solveERK11FloatMatrixRlRfPFvfE15blas_trans_type"]
         pub fn FloatComplexMatrix_solve19(
             this: *const root::FloatComplexMatrix,
             b: *const root::FloatMatrix,
@@ -16890,7 +17145,7 @@ pub mod root {
         ) -> root::FloatComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK18FloatComplexMatrix5solveERKS_Rx"]
+        #[link_name = "\u{1}_ZNK18FloatComplexMatrix5solveERKS_Rl"]
         pub fn FloatComplexMatrix_solve21(
             this: *const root::FloatComplexMatrix,
             b: *const root::FloatComplexMatrix,
@@ -16898,7 +17153,7 @@ pub mod root {
         ) -> root::FloatComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK18FloatComplexMatrix5solveERKS_RxRf"]
+        #[link_name = "\u{1}_ZNK18FloatComplexMatrix5solveERKS_RlRf"]
         pub fn FloatComplexMatrix_solve22(
             this: *const root::FloatComplexMatrix,
             b: *const root::FloatComplexMatrix,
@@ -16907,7 +17162,7 @@ pub mod root {
         ) -> root::FloatComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK18FloatComplexMatrix5solveERKS_RxRfPFvfE15blas_trans_type"]
+        #[link_name = "\u{1}_ZNK18FloatComplexMatrix5solveERKS_RlRfPFvfE15blas_trans_type"]
         pub fn FloatComplexMatrix_solve23(
             this: *const root::FloatComplexMatrix,
             b: *const root::FloatComplexMatrix,
@@ -16925,7 +17180,7 @@ pub mod root {
         ) -> root::FloatComplexColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK18FloatComplexMatrix5solveERK17FloatColumnVectorRx"]
+        #[link_name = "\u{1}_ZNK18FloatComplexMatrix5solveERK17FloatColumnVectorRl"]
         pub fn FloatComplexMatrix_solve25(
             this: *const root::FloatComplexMatrix,
             b: *const root::FloatColumnVector,
@@ -16933,7 +17188,7 @@ pub mod root {
         ) -> root::FloatComplexColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK18FloatComplexMatrix5solveERK17FloatColumnVectorRxRf"]
+        #[link_name = "\u{1}_ZNK18FloatComplexMatrix5solveERK17FloatColumnVectorRlRf"]
         pub fn FloatComplexMatrix_solve26(
             this: *const root::FloatComplexMatrix,
             b: *const root::FloatColumnVector,
@@ -16942,7 +17197,7 @@ pub mod root {
         ) -> root::FloatComplexColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK18FloatComplexMatrix5solveERK17FloatColumnVectorRxRfPFvfE15blas_trans_type"]
+        #[link_name = "\u{1}_ZNK18FloatComplexMatrix5solveERK17FloatColumnVectorRlRfPFvfE15blas_trans_type"]
         pub fn FloatComplexMatrix_solve27(
             this: *const root::FloatComplexMatrix,
             b: *const root::FloatColumnVector,
@@ -16960,7 +17215,7 @@ pub mod root {
         ) -> root::FloatComplexColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK18FloatComplexMatrix5solveERK24FloatComplexColumnVectorRx"]
+        #[link_name = "\u{1}_ZNK18FloatComplexMatrix5solveERK24FloatComplexColumnVectorRl"]
         pub fn FloatComplexMatrix_solve29(
             this: *const root::FloatComplexMatrix,
             b: *const root::FloatComplexColumnVector,
@@ -16968,7 +17223,7 @@ pub mod root {
         ) -> root::FloatComplexColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK18FloatComplexMatrix5solveERK24FloatComplexColumnVectorRxRf"]
+        #[link_name = "\u{1}_ZNK18FloatComplexMatrix5solveERK24FloatComplexColumnVectorRlRf"]
         pub fn FloatComplexMatrix_solve30(
             this: *const root::FloatComplexMatrix,
             b: *const root::FloatComplexColumnVector,
@@ -16977,7 +17232,7 @@ pub mod root {
         ) -> root::FloatComplexColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK18FloatComplexMatrix5solveERK24FloatComplexColumnVectorRxRfPFvfE15blas_trans_type"]
+        #[link_name = "\u{1}_ZNK18FloatComplexMatrix5solveERK24FloatComplexColumnVectorRlRfPFvfE15blas_trans_type"]
         pub fn FloatComplexMatrix_solve31(
             this: *const root::FloatComplexMatrix,
             b: *const root::FloatComplexColumnVector,
@@ -16995,7 +17250,7 @@ pub mod root {
         ) -> root::FloatComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK18FloatComplexMatrix7lssolveERK11FloatMatrixRx"]
+        #[link_name = "\u{1}_ZNK18FloatComplexMatrix7lssolveERK11FloatMatrixRl"]
         pub fn FloatComplexMatrix_lssolve1(
             this: *const root::FloatComplexMatrix,
             b: *const root::FloatMatrix,
@@ -17003,7 +17258,7 @@ pub mod root {
         ) -> root::FloatComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK18FloatComplexMatrix7lssolveERK11FloatMatrixRxS3_"]
+        #[link_name = "\u{1}_ZNK18FloatComplexMatrix7lssolveERK11FloatMatrixRlS3_"]
         pub fn FloatComplexMatrix_lssolve2(
             this: *const root::FloatComplexMatrix,
             b: *const root::FloatMatrix,
@@ -17012,7 +17267,7 @@ pub mod root {
         ) -> root::FloatComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK18FloatComplexMatrix7lssolveERK11FloatMatrixRxS3_Rf"]
+        #[link_name = "\u{1}_ZNK18FloatComplexMatrix7lssolveERK11FloatMatrixRlS3_Rf"]
         pub fn FloatComplexMatrix_lssolve3(
             this: *const root::FloatComplexMatrix,
             b: *const root::FloatMatrix,
@@ -17029,7 +17284,7 @@ pub mod root {
         ) -> root::FloatComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK18FloatComplexMatrix7lssolveERKS_Rx"]
+        #[link_name = "\u{1}_ZNK18FloatComplexMatrix7lssolveERKS_Rl"]
         pub fn FloatComplexMatrix_lssolve5(
             this: *const root::FloatComplexMatrix,
             b: *const root::FloatComplexMatrix,
@@ -17037,7 +17292,7 @@ pub mod root {
         ) -> root::FloatComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK18FloatComplexMatrix7lssolveERKS_RxS2_"]
+        #[link_name = "\u{1}_ZNK18FloatComplexMatrix7lssolveERKS_RlS2_"]
         pub fn FloatComplexMatrix_lssolve6(
             this: *const root::FloatComplexMatrix,
             b: *const root::FloatComplexMatrix,
@@ -17046,7 +17301,7 @@ pub mod root {
         ) -> root::FloatComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK18FloatComplexMatrix7lssolveERKS_RxS2_Rf"]
+        #[link_name = "\u{1}_ZNK18FloatComplexMatrix7lssolveERKS_RlS2_Rf"]
         pub fn FloatComplexMatrix_lssolve7(
             this: *const root::FloatComplexMatrix,
             b: *const root::FloatComplexMatrix,
@@ -17063,7 +17318,7 @@ pub mod root {
         ) -> root::FloatComplexColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK18FloatComplexMatrix7lssolveERK17FloatColumnVectorRx"]
+        #[link_name = "\u{1}_ZNK18FloatComplexMatrix7lssolveERK17FloatColumnVectorRl"]
         pub fn FloatComplexMatrix_lssolve9(
             this: *const root::FloatComplexMatrix,
             b: *const root::FloatColumnVector,
@@ -17071,7 +17326,7 @@ pub mod root {
         ) -> root::FloatComplexColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK18FloatComplexMatrix7lssolveERK17FloatColumnVectorRxS3_"]
+        #[link_name = "\u{1}_ZNK18FloatComplexMatrix7lssolveERK17FloatColumnVectorRlS3_"]
         pub fn FloatComplexMatrix_lssolve10(
             this: *const root::FloatComplexMatrix,
             b: *const root::FloatColumnVector,
@@ -17080,7 +17335,7 @@ pub mod root {
         ) -> root::FloatComplexColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK18FloatComplexMatrix7lssolveERK17FloatColumnVectorRxS3_Rf"]
+        #[link_name = "\u{1}_ZNK18FloatComplexMatrix7lssolveERK17FloatColumnVectorRlS3_Rf"]
         pub fn FloatComplexMatrix_lssolve11(
             this: *const root::FloatComplexMatrix,
             b: *const root::FloatColumnVector,
@@ -17097,7 +17352,7 @@ pub mod root {
         ) -> root::FloatComplexColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK18FloatComplexMatrix7lssolveERK24FloatComplexColumnVectorRx"]
+        #[link_name = "\u{1}_ZNK18FloatComplexMatrix7lssolveERK24FloatComplexColumnVectorRl"]
         pub fn FloatComplexMatrix_lssolve13(
             this: *const root::FloatComplexMatrix,
             b: *const root::FloatComplexColumnVector,
@@ -17105,7 +17360,7 @@ pub mod root {
         ) -> root::FloatComplexColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK18FloatComplexMatrix7lssolveERK24FloatComplexColumnVectorRxS3_"]
+        #[link_name = "\u{1}_ZNK18FloatComplexMatrix7lssolveERK24FloatComplexColumnVectorRlS3_"]
         pub fn FloatComplexMatrix_lssolve14(
             this: *const root::FloatComplexMatrix,
             b: *const root::FloatComplexColumnVector,
@@ -17114,7 +17369,7 @@ pub mod root {
         ) -> root::FloatComplexColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK18FloatComplexMatrix7lssolveERK24FloatComplexColumnVectorRxS3_Rf"]
+        #[link_name = "\u{1}_ZNK18FloatComplexMatrix7lssolveERK24FloatComplexColumnVectorRlS3_Rf"]
         pub fn FloatComplexMatrix_lssolve15(
             this: *const root::FloatComplexMatrix,
             b: *const root::FloatComplexColumnVector,
@@ -17177,14 +17432,14 @@ pub mod root {
         pub fn FloatComplexMatrix_abs(this: *const root::FloatComplexMatrix) -> root::FloatMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK18FloatComplexMatrix4diagEx"]
+        #[link_name = "\u{1}_ZNK18FloatComplexMatrix4diagEl"]
         pub fn FloatComplexMatrix_diag(
             this: *const root::FloatComplexMatrix,
             k: root::octave_idx_type,
         ) -> root::FloatComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK18FloatComplexMatrix4diagExx"]
+        #[link_name = "\u{1}_ZNK18FloatComplexMatrix4diagEll"]
         pub fn FloatComplexMatrix_diag1(
             this: *const root::FloatComplexMatrix,
             m: root::octave_idx_type,
@@ -17192,14 +17447,14 @@ pub mod root {
         ) -> root::FloatComplexDiagMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK18FloatComplexMatrix16row_is_real_onlyEx"]
+        #[link_name = "\u{1}_ZNK18FloatComplexMatrix16row_is_real_onlyEl"]
         pub fn FloatComplexMatrix_row_is_real_only(
             this: *const root::FloatComplexMatrix,
             arg1: root::octave_idx_type,
         ) -> bool;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK18FloatComplexMatrix19column_is_real_onlyEx"]
+        #[link_name = "\u{1}_ZNK18FloatComplexMatrix19column_is_real_onlyEl"]
         pub fn FloatComplexMatrix_column_is_real_only(
             this: *const root::FloatComplexMatrix,
             arg1: root::octave_idx_type,
@@ -17218,14 +17473,14 @@ pub mod root {
         ) -> root::FloatComplexColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK18FloatComplexMatrix7row_minER5ArrayIxE"]
+        #[link_name = "\u{1}_ZNK18FloatComplexMatrix7row_minER5ArrayIlE"]
         pub fn FloatComplexMatrix_row_min1(
             this: *const root::FloatComplexMatrix,
             index: *mut root::Array<root::octave_idx_type>,
         ) -> root::FloatComplexColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK18FloatComplexMatrix7row_maxER5ArrayIxE"]
+        #[link_name = "\u{1}_ZNK18FloatComplexMatrix7row_maxER5ArrayIlE"]
         pub fn FloatComplexMatrix_row_max1(
             this: *const root::FloatComplexMatrix,
             index: *mut root::Array<root::octave_idx_type>,
@@ -17244,14 +17499,14 @@ pub mod root {
         ) -> root::FloatComplexRowVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK18FloatComplexMatrix10column_minER5ArrayIxE"]
+        #[link_name = "\u{1}_ZNK18FloatComplexMatrix10column_minER5ArrayIlE"]
         pub fn FloatComplexMatrix_column_min1(
             this: *const root::FloatComplexMatrix,
             index: *mut root::Array<root::octave_idx_type>,
         ) -> root::FloatComplexRowVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK18FloatComplexMatrix10column_maxER5ArrayIxE"]
+        #[link_name = "\u{1}_ZNK18FloatComplexMatrix10column_maxER5ArrayIlE"]
         pub fn FloatComplexMatrix_column_max1(
             this: *const root::FloatComplexMatrix,
             index: *mut root::Array<root::octave_idx_type>,
@@ -18333,7 +18588,7 @@ pub mod root {
         );
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN12ColumnVector6insertERKS_x"]
+        #[link_name = "\u{1}_ZN12ColumnVector6insertERKS_l"]
         pub fn ColumnVector_insert(
             this: *mut root::ColumnVector,
             a: *const root::ColumnVector,
@@ -18348,7 +18603,7 @@ pub mod root {
         ) -> *mut root::ColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN12ColumnVector4fillEdxx"]
+        #[link_name = "\u{1}_ZN12ColumnVector4fillEdll"]
         pub fn ColumnVector_fill1(
             this: *mut root::ColumnVector,
             val: f64,
@@ -18368,7 +18623,7 @@ pub mod root {
         pub fn ColumnVector_transpose(this: *const root::ColumnVector) -> root::RowVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK12ColumnVector7extractExx"]
+        #[link_name = "\u{1}_ZNK12ColumnVector7extractEll"]
         pub fn ColumnVector_extract(
             this: *const root::ColumnVector,
             r1: root::octave_idx_type,
@@ -18376,7 +18631,7 @@ pub mod root {
         ) -> root::ColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK12ColumnVector9extract_nExx"]
+        #[link_name = "\u{1}_ZNK12ColumnVector9extract_nEll"]
         pub fn ColumnVector_extract_n(
             this: *const root::ColumnVector,
             r1: root::octave_idx_type,
@@ -18473,7 +18728,7 @@ pub mod root {
         );
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN19ComplexColumnVector6insertERK12ColumnVectorx"]
+        #[link_name = "\u{1}_ZN19ComplexColumnVector6insertERK12ColumnVectorl"]
         pub fn ComplexColumnVector_insert(
             this: *mut root::ComplexColumnVector,
             a: *const root::ColumnVector,
@@ -18481,7 +18736,7 @@ pub mod root {
         ) -> *mut root::ComplexColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN19ComplexColumnVector6insertERKS_x"]
+        #[link_name = "\u{1}_ZN19ComplexColumnVector6insertERKS_l"]
         pub fn ComplexColumnVector_insert1(
             this: *mut root::ComplexColumnVector,
             a: *const root::ComplexColumnVector,
@@ -18503,7 +18758,7 @@ pub mod root {
         ) -> *mut root::ComplexColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN19ComplexColumnVector4fillEdxx"]
+        #[link_name = "\u{1}_ZN19ComplexColumnVector4fillEdll"]
         pub fn ComplexColumnVector_fill2(
             this: *mut root::ComplexColumnVector,
             val: f64,
@@ -18512,7 +18767,7 @@ pub mod root {
         ) -> *mut root::ComplexColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN19ComplexColumnVector4fillERKSt7complexIdExx"]
+        #[link_name = "\u{1}_ZN19ComplexColumnVector4fillERKSt7complexIdEll"]
         pub fn ComplexColumnVector_fill3(
             this: *mut root::ComplexColumnVector,
             val: *const root::Complex,
@@ -18547,7 +18802,7 @@ pub mod root {
         ) -> root::ComplexRowVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK19ComplexColumnVector7extractExx"]
+        #[link_name = "\u{1}_ZNK19ComplexColumnVector7extractEll"]
         pub fn ComplexColumnVector_extract(
             this: *const root::ComplexColumnVector,
             r1: root::octave_idx_type,
@@ -18555,7 +18810,7 @@ pub mod root {
         ) -> root::ComplexColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK19ComplexColumnVector9extract_nExx"]
+        #[link_name = "\u{1}_ZNK19ComplexColumnVector9extract_nEll"]
         pub fn ComplexColumnVector_extract_n(
             this: *const root::ComplexColumnVector,
             r1: root::octave_idx_type,
@@ -18702,7 +18957,7 @@ pub mod root {
         );
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN17FloatColumnVector6insertERKS_x"]
+        #[link_name = "\u{1}_ZN17FloatColumnVector6insertERKS_l"]
         pub fn FloatColumnVector_insert(
             this: *mut root::FloatColumnVector,
             a: *const root::FloatColumnVector,
@@ -18717,7 +18972,7 @@ pub mod root {
         ) -> *mut root::FloatColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN17FloatColumnVector4fillEfxx"]
+        #[link_name = "\u{1}_ZN17FloatColumnVector4fillEfll"]
         pub fn FloatColumnVector_fill1(
             this: *mut root::FloatColumnVector,
             val: f32,
@@ -18739,7 +18994,7 @@ pub mod root {
         ) -> root::FloatRowVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK17FloatColumnVector7extractExx"]
+        #[link_name = "\u{1}_ZNK17FloatColumnVector7extractEll"]
         pub fn FloatColumnVector_extract(
             this: *const root::FloatColumnVector,
             r1: root::octave_idx_type,
@@ -18747,7 +19002,7 @@ pub mod root {
         ) -> root::FloatColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK17FloatColumnVector9extract_nExx"]
+        #[link_name = "\u{1}_ZNK17FloatColumnVector9extract_nEll"]
         pub fn FloatColumnVector_extract_n(
             this: *const root::FloatColumnVector,
             r1: root::octave_idx_type,
@@ -18846,7 +19101,7 @@ pub mod root {
         );
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN24FloatComplexColumnVector6insertERK17FloatColumnVectorx"]
+        #[link_name = "\u{1}_ZN24FloatComplexColumnVector6insertERK17FloatColumnVectorl"]
         pub fn FloatComplexColumnVector_insert(
             this: *mut root::FloatComplexColumnVector,
             a: *const root::FloatColumnVector,
@@ -18854,7 +19109,7 @@ pub mod root {
         ) -> *mut root::FloatComplexColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN24FloatComplexColumnVector6insertERKS_x"]
+        #[link_name = "\u{1}_ZN24FloatComplexColumnVector6insertERKS_l"]
         pub fn FloatComplexColumnVector_insert1(
             this: *mut root::FloatComplexColumnVector,
             a: *const root::FloatComplexColumnVector,
@@ -18876,7 +19131,7 @@ pub mod root {
         ) -> *mut root::FloatComplexColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN24FloatComplexColumnVector4fillEfxx"]
+        #[link_name = "\u{1}_ZN24FloatComplexColumnVector4fillEfll"]
         pub fn FloatComplexColumnVector_fill2(
             this: *mut root::FloatComplexColumnVector,
             val: f32,
@@ -18885,7 +19140,7 @@ pub mod root {
         ) -> *mut root::FloatComplexColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN24FloatComplexColumnVector4fillERKSt7complexIfExx"]
+        #[link_name = "\u{1}_ZN24FloatComplexColumnVector4fillERKSt7complexIfEll"]
         pub fn FloatComplexColumnVector_fill3(
             this: *mut root::FloatComplexColumnVector,
             val: *const root::FloatComplex,
@@ -18920,7 +19175,7 @@ pub mod root {
         ) -> root::FloatComplexRowVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK24FloatComplexColumnVector7extractExx"]
+        #[link_name = "\u{1}_ZNK24FloatComplexColumnVector7extractEll"]
         pub fn FloatComplexColumnVector_extract(
             this: *const root::FloatComplexColumnVector,
             r1: root::octave_idx_type,
@@ -18928,7 +19183,7 @@ pub mod root {
         ) -> root::FloatComplexColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK24FloatComplexColumnVector9extract_nExx"]
+        #[link_name = "\u{1}_ZNK24FloatComplexColumnVector9extract_nEll"]
         pub fn FloatComplexColumnVector_extract_n(
             this: *const root::FloatComplexColumnVector,
             r1: root::octave_idx_type,
@@ -19082,7 +19337,7 @@ pub mod root {
         );
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN9RowVector6insertERKS_x"]
+        #[link_name = "\u{1}_ZN9RowVector6insertERKS_l"]
         pub fn RowVector_insert(
             this: *mut root::RowVector,
             a: *const root::RowVector,
@@ -19094,7 +19349,7 @@ pub mod root {
         pub fn RowVector_fill(this: *mut root::RowVector, val: f64) -> *mut root::RowVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN9RowVector4fillEdxx"]
+        #[link_name = "\u{1}_ZN9RowVector4fillEdll"]
         pub fn RowVector_fill1(
             this: *mut root::RowVector,
             val: f64,
@@ -19114,7 +19369,7 @@ pub mod root {
         pub fn RowVector_transpose(this: *const root::RowVector) -> root::ColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK9RowVector7extractExx"]
+        #[link_name = "\u{1}_ZNK9RowVector7extractEll"]
         pub fn RowVector_extract(
             this: *const root::RowVector,
             c1: root::octave_idx_type,
@@ -19122,7 +19377,7 @@ pub mod root {
         ) -> root::RowVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK9RowVector9extract_nExx"]
+        #[link_name = "\u{1}_ZNK9RowVector9extract_nEll"]
         pub fn RowVector_extract_n(
             this: *const root::RowVector,
             c1: root::octave_idx_type,
@@ -19211,7 +19466,7 @@ pub mod root {
         );
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN16ComplexRowVector6insertERK9RowVectorx"]
+        #[link_name = "\u{1}_ZN16ComplexRowVector6insertERK9RowVectorl"]
         pub fn ComplexRowVector_insert(
             this: *mut root::ComplexRowVector,
             a: *const root::RowVector,
@@ -19219,7 +19474,7 @@ pub mod root {
         ) -> *mut root::ComplexRowVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN16ComplexRowVector6insertERKS_x"]
+        #[link_name = "\u{1}_ZN16ComplexRowVector6insertERKS_l"]
         pub fn ComplexRowVector_insert1(
             this: *mut root::ComplexRowVector,
             a: *const root::ComplexRowVector,
@@ -19241,7 +19496,7 @@ pub mod root {
         ) -> *mut root::ComplexRowVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN16ComplexRowVector4fillEdxx"]
+        #[link_name = "\u{1}_ZN16ComplexRowVector4fillEdll"]
         pub fn ComplexRowVector_fill2(
             this: *mut root::ComplexRowVector,
             val: f64,
@@ -19250,7 +19505,7 @@ pub mod root {
         ) -> *mut root::ComplexRowVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN16ComplexRowVector4fillERKSt7complexIdExx"]
+        #[link_name = "\u{1}_ZN16ComplexRowVector4fillERKSt7complexIdEll"]
         pub fn ComplexRowVector_fill3(
             this: *mut root::ComplexRowVector,
             val: *const root::Complex,
@@ -19285,7 +19540,7 @@ pub mod root {
         ) -> root::ComplexColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK16ComplexRowVector7extractExx"]
+        #[link_name = "\u{1}_ZNK16ComplexRowVector7extractEll"]
         pub fn ComplexRowVector_extract(
             this: *const root::ComplexRowVector,
             c1: root::octave_idx_type,
@@ -19293,7 +19548,7 @@ pub mod root {
         ) -> root::ComplexRowVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK16ComplexRowVector9extract_nExx"]
+        #[link_name = "\u{1}_ZNK16ComplexRowVector9extract_nEll"]
         pub fn ComplexRowVector_extract_n(
             this: *const root::ComplexRowVector,
             c1: root::octave_idx_type,
@@ -19411,7 +19666,7 @@ pub mod root {
         );
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN14FloatRowVector6insertERKS_x"]
+        #[link_name = "\u{1}_ZN14FloatRowVector6insertERKS_l"]
         pub fn FloatRowVector_insert(
             this: *mut root::FloatRowVector,
             a: *const root::FloatRowVector,
@@ -19426,7 +19681,7 @@ pub mod root {
         ) -> *mut root::FloatRowVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN14FloatRowVector4fillEfxx"]
+        #[link_name = "\u{1}_ZN14FloatRowVector4fillEfll"]
         pub fn FloatRowVector_fill1(
             this: *mut root::FloatRowVector,
             val: f32,
@@ -19448,7 +19703,7 @@ pub mod root {
         ) -> root::FloatColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK14FloatRowVector7extractExx"]
+        #[link_name = "\u{1}_ZNK14FloatRowVector7extractEll"]
         pub fn FloatRowVector_extract(
             this: *const root::FloatRowVector,
             c1: root::octave_idx_type,
@@ -19456,7 +19711,7 @@ pub mod root {
         ) -> root::FloatRowVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK14FloatRowVector9extract_nExx"]
+        #[link_name = "\u{1}_ZNK14FloatRowVector9extract_nEll"]
         pub fn FloatRowVector_extract_n(
             this: *const root::FloatRowVector,
             c1: root::octave_idx_type,
@@ -19545,7 +19800,7 @@ pub mod root {
         );
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN21FloatComplexRowVector6insertERK14FloatRowVectorx"]
+        #[link_name = "\u{1}_ZN21FloatComplexRowVector6insertERK14FloatRowVectorl"]
         pub fn FloatComplexRowVector_insert(
             this: *mut root::FloatComplexRowVector,
             a: *const root::FloatRowVector,
@@ -19553,7 +19808,7 @@ pub mod root {
         ) -> *mut root::FloatComplexRowVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN21FloatComplexRowVector6insertERKS_x"]
+        #[link_name = "\u{1}_ZN21FloatComplexRowVector6insertERKS_l"]
         pub fn FloatComplexRowVector_insert1(
             this: *mut root::FloatComplexRowVector,
             a: *const root::FloatComplexRowVector,
@@ -19575,7 +19830,7 @@ pub mod root {
         ) -> *mut root::FloatComplexRowVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN21FloatComplexRowVector4fillEfxx"]
+        #[link_name = "\u{1}_ZN21FloatComplexRowVector4fillEfll"]
         pub fn FloatComplexRowVector_fill2(
             this: *mut root::FloatComplexRowVector,
             val: f32,
@@ -19584,7 +19839,7 @@ pub mod root {
         ) -> *mut root::FloatComplexRowVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN21FloatComplexRowVector4fillERKSt7complexIfExx"]
+        #[link_name = "\u{1}_ZN21FloatComplexRowVector4fillERKSt7complexIfEll"]
         pub fn FloatComplexRowVector_fill3(
             this: *mut root::FloatComplexRowVector,
             val: *const root::FloatComplex,
@@ -19619,7 +19874,7 @@ pub mod root {
         ) -> root::FloatComplexColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK21FloatComplexRowVector7extractExx"]
+        #[link_name = "\u{1}_ZNK21FloatComplexRowVector7extractEll"]
         pub fn FloatComplexRowVector_extract(
             this: *const root::FloatComplexRowVector,
             c1: root::octave_idx_type,
@@ -19627,7 +19882,7 @@ pub mod root {
         ) -> root::FloatComplexRowVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK21FloatComplexRowVector9extract_nExx"]
+        #[link_name = "\u{1}_ZNK21FloatComplexRowVector9extract_nEll"]
         pub fn FloatComplexRowVector_extract_n(
             this: *const root::FloatComplexRowVector,
             c1: root::octave_idx_type,
@@ -19760,7 +20015,7 @@ pub mod root {
         pub fn DiagMatrix_fill(this: *mut root::DiagMatrix, val: f64) -> *mut root::DiagMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN10DiagMatrix4fillEdxx"]
+        #[link_name = "\u{1}_ZN10DiagMatrix4fillEdll"]
         pub fn DiagMatrix_fill1(
             this: *mut root::DiagMatrix,
             val: f64,
@@ -19783,7 +20038,7 @@ pub mod root {
         ) -> *mut root::DiagMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN10DiagMatrix4fillERK12ColumnVectorx"]
+        #[link_name = "\u{1}_ZN10DiagMatrix4fillERK12ColumnVectorl"]
         pub fn DiagMatrix_fill4(
             this: *mut root::DiagMatrix,
             a: *const root::ColumnVector,
@@ -19791,7 +20046,7 @@ pub mod root {
         ) -> *mut root::DiagMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN10DiagMatrix4fillERK9RowVectorx"]
+        #[link_name = "\u{1}_ZN10DiagMatrix4fillERK9RowVectorl"]
         pub fn DiagMatrix_fill5(
             this: *mut root::DiagMatrix,
             a: *const root::RowVector,
@@ -19803,7 +20058,7 @@ pub mod root {
         pub fn DiagMatrix_abs(this: *const root::DiagMatrix) -> root::DiagMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK10DiagMatrix7extractExxxx"]
+        #[link_name = "\u{1}_ZNK10DiagMatrix7extractEllll"]
         pub fn DiagMatrix_extract(
             this: *const root::DiagMatrix,
             r1: root::octave_idx_type,
@@ -19813,7 +20068,7 @@ pub mod root {
         ) -> root::Matrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK10DiagMatrix3rowEx"]
+        #[link_name = "\u{1}_ZNK10DiagMatrix3rowEl"]
         pub fn DiagMatrix_row(
             this: *const root::DiagMatrix,
             i: root::octave_idx_type,
@@ -19827,7 +20082,7 @@ pub mod root {
         ) -> root::RowVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK10DiagMatrix6columnEx"]
+        #[link_name = "\u{1}_ZNK10DiagMatrix6columnEl"]
         pub fn DiagMatrix_column(
             this: *const root::DiagMatrix,
             i: root::octave_idx_type,
@@ -19845,7 +20100,7 @@ pub mod root {
         pub fn DiagMatrix_inverse(this: *const root::DiagMatrix) -> root::DiagMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK10DiagMatrix7inverseERx"]
+        #[link_name = "\u{1}_ZNK10DiagMatrix7inverseERl"]
         pub fn DiagMatrix_inverse1(
             this: *const root::DiagMatrix,
             info: *mut root::octave_idx_type,
@@ -19992,7 +20247,7 @@ pub mod root {
         ) -> *mut root::ComplexDiagMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN17ComplexDiagMatrix4fillEdxx"]
+        #[link_name = "\u{1}_ZN17ComplexDiagMatrix4fillEdll"]
         pub fn ComplexDiagMatrix_fill2(
             this: *mut root::ComplexDiagMatrix,
             val: f64,
@@ -20001,7 +20256,7 @@ pub mod root {
         ) -> *mut root::ComplexDiagMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN17ComplexDiagMatrix4fillERKSt7complexIdExx"]
+        #[link_name = "\u{1}_ZN17ComplexDiagMatrix4fillERKSt7complexIdEll"]
         pub fn ComplexDiagMatrix_fill3(
             this: *mut root::ComplexDiagMatrix,
             val: *const root::Complex,
@@ -20038,7 +20293,7 @@ pub mod root {
         ) -> *mut root::ComplexDiagMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN17ComplexDiagMatrix4fillERK12ColumnVectorx"]
+        #[link_name = "\u{1}_ZN17ComplexDiagMatrix4fillERK12ColumnVectorl"]
         pub fn ComplexDiagMatrix_fill8(
             this: *mut root::ComplexDiagMatrix,
             a: *const root::ColumnVector,
@@ -20046,7 +20301,7 @@ pub mod root {
         ) -> *mut root::ComplexDiagMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN17ComplexDiagMatrix4fillERK19ComplexColumnVectorx"]
+        #[link_name = "\u{1}_ZN17ComplexDiagMatrix4fillERK19ComplexColumnVectorl"]
         pub fn ComplexDiagMatrix_fill9(
             this: *mut root::ComplexDiagMatrix,
             a: *const root::ComplexColumnVector,
@@ -20054,7 +20309,7 @@ pub mod root {
         ) -> *mut root::ComplexDiagMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN17ComplexDiagMatrix4fillERK9RowVectorx"]
+        #[link_name = "\u{1}_ZN17ComplexDiagMatrix4fillERK9RowVectorl"]
         pub fn ComplexDiagMatrix_fill10(
             this: *mut root::ComplexDiagMatrix,
             a: *const root::RowVector,
@@ -20062,7 +20317,7 @@ pub mod root {
         ) -> *mut root::ComplexDiagMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN17ComplexDiagMatrix4fillERK16ComplexRowVectorx"]
+        #[link_name = "\u{1}_ZN17ComplexDiagMatrix4fillERK16ComplexRowVectorl"]
         pub fn ComplexDiagMatrix_fill11(
             this: *mut root::ComplexDiagMatrix,
             a: *const root::ComplexRowVector,
@@ -20074,7 +20329,7 @@ pub mod root {
         pub fn ComplexDiagMatrix_abs(this: *const root::ComplexDiagMatrix) -> root::DiagMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK17ComplexDiagMatrix7extractExxxx"]
+        #[link_name = "\u{1}_ZNK17ComplexDiagMatrix7extractEllll"]
         pub fn ComplexDiagMatrix_extract(
             this: *const root::ComplexDiagMatrix,
             r1: root::octave_idx_type,
@@ -20084,7 +20339,7 @@ pub mod root {
         ) -> root::ComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK17ComplexDiagMatrix3rowEx"]
+        #[link_name = "\u{1}_ZNK17ComplexDiagMatrix3rowEl"]
         pub fn ComplexDiagMatrix_row(
             this: *const root::ComplexDiagMatrix,
             i: root::octave_idx_type,
@@ -20098,7 +20353,7 @@ pub mod root {
         ) -> root::ComplexRowVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK17ComplexDiagMatrix6columnEx"]
+        #[link_name = "\u{1}_ZNK17ComplexDiagMatrix6columnEl"]
         pub fn ComplexDiagMatrix_column(
             this: *const root::ComplexDiagMatrix,
             i: root::octave_idx_type,
@@ -20112,7 +20367,7 @@ pub mod root {
         ) -> root::ComplexColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK17ComplexDiagMatrix7inverseERx"]
+        #[link_name = "\u{1}_ZNK17ComplexDiagMatrix7inverseERl"]
         pub fn ComplexDiagMatrix_inverse(
             this: *const root::ComplexDiagMatrix,
             info: *mut root::octave_idx_type,
@@ -20326,7 +20581,7 @@ pub mod root {
         ) -> *mut root::FloatDiagMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN15FloatDiagMatrix4fillEfxx"]
+        #[link_name = "\u{1}_ZN15FloatDiagMatrix4fillEfll"]
         pub fn FloatDiagMatrix_fill1(
             this: *mut root::FloatDiagMatrix,
             val: f32,
@@ -20349,7 +20604,7 @@ pub mod root {
         ) -> *mut root::FloatDiagMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN15FloatDiagMatrix4fillERK17FloatColumnVectorx"]
+        #[link_name = "\u{1}_ZN15FloatDiagMatrix4fillERK17FloatColumnVectorl"]
         pub fn FloatDiagMatrix_fill4(
             this: *mut root::FloatDiagMatrix,
             a: *const root::FloatColumnVector,
@@ -20357,7 +20612,7 @@ pub mod root {
         ) -> *mut root::FloatDiagMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN15FloatDiagMatrix4fillERK14FloatRowVectorx"]
+        #[link_name = "\u{1}_ZN15FloatDiagMatrix4fillERK14FloatRowVectorl"]
         pub fn FloatDiagMatrix_fill5(
             this: *mut root::FloatDiagMatrix,
             a: *const root::FloatRowVector,
@@ -20369,7 +20624,7 @@ pub mod root {
         pub fn FloatDiagMatrix_abs(this: *const root::FloatDiagMatrix) -> root::FloatDiagMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK15FloatDiagMatrix7extractExxxx"]
+        #[link_name = "\u{1}_ZNK15FloatDiagMatrix7extractEllll"]
         pub fn FloatDiagMatrix_extract(
             this: *const root::FloatDiagMatrix,
             r1: root::octave_idx_type,
@@ -20379,7 +20634,7 @@ pub mod root {
         ) -> root::FloatMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK15FloatDiagMatrix3rowEx"]
+        #[link_name = "\u{1}_ZNK15FloatDiagMatrix3rowEl"]
         pub fn FloatDiagMatrix_row(
             this: *const root::FloatDiagMatrix,
             i: root::octave_idx_type,
@@ -20393,7 +20648,7 @@ pub mod root {
         ) -> root::FloatRowVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK15FloatDiagMatrix6columnEx"]
+        #[link_name = "\u{1}_ZNK15FloatDiagMatrix6columnEl"]
         pub fn FloatDiagMatrix_column(
             this: *const root::FloatDiagMatrix,
             i: root::octave_idx_type,
@@ -20412,7 +20667,7 @@ pub mod root {
             -> root::FloatDiagMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK15FloatDiagMatrix7inverseERx"]
+        #[link_name = "\u{1}_ZNK15FloatDiagMatrix7inverseERl"]
         pub fn FloatDiagMatrix_inverse1(
             this: *const root::FloatDiagMatrix,
             info: *mut root::octave_idx_type,
@@ -20565,7 +20820,7 @@ pub mod root {
         ) -> *mut root::FloatComplexDiagMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN22FloatComplexDiagMatrix4fillEfxx"]
+        #[link_name = "\u{1}_ZN22FloatComplexDiagMatrix4fillEfll"]
         pub fn FloatComplexDiagMatrix_fill2(
             this: *mut root::FloatComplexDiagMatrix,
             val: f32,
@@ -20574,7 +20829,7 @@ pub mod root {
         ) -> *mut root::FloatComplexDiagMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN22FloatComplexDiagMatrix4fillERKSt7complexIfExx"]
+        #[link_name = "\u{1}_ZN22FloatComplexDiagMatrix4fillERKSt7complexIfEll"]
         pub fn FloatComplexDiagMatrix_fill3(
             this: *mut root::FloatComplexDiagMatrix,
             val: *const root::FloatComplex,
@@ -20611,7 +20866,7 @@ pub mod root {
         ) -> *mut root::FloatComplexDiagMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN22FloatComplexDiagMatrix4fillERK17FloatColumnVectorx"]
+        #[link_name = "\u{1}_ZN22FloatComplexDiagMatrix4fillERK17FloatColumnVectorl"]
         pub fn FloatComplexDiagMatrix_fill8(
             this: *mut root::FloatComplexDiagMatrix,
             a: *const root::FloatColumnVector,
@@ -20619,7 +20874,7 @@ pub mod root {
         ) -> *mut root::FloatComplexDiagMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN22FloatComplexDiagMatrix4fillERK24FloatComplexColumnVectorx"]
+        #[link_name = "\u{1}_ZN22FloatComplexDiagMatrix4fillERK24FloatComplexColumnVectorl"]
         pub fn FloatComplexDiagMatrix_fill9(
             this: *mut root::FloatComplexDiagMatrix,
             a: *const root::FloatComplexColumnVector,
@@ -20627,7 +20882,7 @@ pub mod root {
         ) -> *mut root::FloatComplexDiagMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN22FloatComplexDiagMatrix4fillERK14FloatRowVectorx"]
+        #[link_name = "\u{1}_ZN22FloatComplexDiagMatrix4fillERK14FloatRowVectorl"]
         pub fn FloatComplexDiagMatrix_fill10(
             this: *mut root::FloatComplexDiagMatrix,
             a: *const root::FloatRowVector,
@@ -20635,7 +20890,7 @@ pub mod root {
         ) -> *mut root::FloatComplexDiagMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN22FloatComplexDiagMatrix4fillERK21FloatComplexRowVectorx"]
+        #[link_name = "\u{1}_ZN22FloatComplexDiagMatrix4fillERK21FloatComplexRowVectorl"]
         pub fn FloatComplexDiagMatrix_fill11(
             this: *mut root::FloatComplexDiagMatrix,
             a: *const root::FloatComplexRowVector,
@@ -20649,7 +20904,7 @@ pub mod root {
         ) -> root::FloatDiagMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK22FloatComplexDiagMatrix7extractExxxx"]
+        #[link_name = "\u{1}_ZNK22FloatComplexDiagMatrix7extractEllll"]
         pub fn FloatComplexDiagMatrix_extract(
             this: *const root::FloatComplexDiagMatrix,
             r1: root::octave_idx_type,
@@ -20659,7 +20914,7 @@ pub mod root {
         ) -> root::FloatComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK22FloatComplexDiagMatrix3rowEx"]
+        #[link_name = "\u{1}_ZNK22FloatComplexDiagMatrix3rowEl"]
         pub fn FloatComplexDiagMatrix_row(
             this: *const root::FloatComplexDiagMatrix,
             i: root::octave_idx_type,
@@ -20673,7 +20928,7 @@ pub mod root {
         ) -> root::FloatComplexRowVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK22FloatComplexDiagMatrix6columnEx"]
+        #[link_name = "\u{1}_ZNK22FloatComplexDiagMatrix6columnEl"]
         pub fn FloatComplexDiagMatrix_column(
             this: *const root::FloatComplexDiagMatrix,
             i: root::octave_idx_type,
@@ -20687,7 +20942,7 @@ pub mod root {
         ) -> root::FloatComplexColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK22FloatComplexDiagMatrix7inverseERx"]
+        #[link_name = "\u{1}_ZNK22FloatComplexDiagMatrix7inverseERl"]
         pub fn FloatComplexDiagMatrix_inverse(
             this: *const root::FloatComplexDiagMatrix,
             info: *mut root::octave_idx_type,
@@ -20905,7 +21160,7 @@ pub mod root {
         );
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK10PermMatrix9checkelemExx"]
+        #[link_name = "\u{1}_ZNK10PermMatrix9checkelemEll"]
         pub fn PermMatrix_checkelem(
             this: *const root::PermMatrix,
             i: root::octave_idx_type,
@@ -20925,22 +21180,22 @@ pub mod root {
         pub fn PermMatrix_determinant(this: *const root::PermMatrix) -> root::octave_idx_type;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK10PermMatrix5powerEx"]
+        #[link_name = "\u{1}_ZNK10PermMatrix5powerEl"]
         pub fn PermMatrix_power(
             this: *const root::PermMatrix,
             n: root::octave_idx_type,
         ) -> root::PermMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN10PermMatrix3eyeEx"]
+        #[link_name = "\u{1}_ZN10PermMatrix3eyeEl"]
         pub fn PermMatrix_eye(n: root::octave_idx_type) -> root::PermMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN10PermMatrixC1Ex"]
+        #[link_name = "\u{1}_ZN10PermMatrixC1El"]
         pub fn PermMatrix_PermMatrix(this: *mut root::PermMatrix, n: root::octave_idx_type);
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN10PermMatrixC1ERK5ArrayIxEbb"]
+        #[link_name = "\u{1}_ZN10PermMatrixC1ERK5ArrayIlEbb"]
         pub fn PermMatrix_PermMatrix1(
             this: *mut root::PermMatrix,
             p: *const root::Array<root::octave_idx_type>,
@@ -20949,7 +21204,7 @@ pub mod root {
         );
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN10PermMatrixC1ERK10idx_vectorbx"]
+        #[link_name = "\u{1}_ZN10PermMatrixC1ERK10idx_vectorbl"]
         pub fn PermMatrix_PermMatrix2(
             this: *mut root::PermMatrix,
             idx: *const root::idx_vector,
@@ -21033,7 +21288,7 @@ pub mod root {
         );
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN16SparseBoolMatrix6insertERKS_xx"]
+        #[link_name = "\u{1}_ZN16SparseBoolMatrix6insertERKS_ll"]
         pub fn SparseBoolMatrix_insert(
             this: *mut root::SparseBoolMatrix,
             a: *const root::SparseBoolMatrix,
@@ -21042,7 +21297,7 @@ pub mod root {
         ) -> *mut root::SparseBoolMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN16SparseBoolMatrix6insertERKS_RK5ArrayIxE"]
+        #[link_name = "\u{1}_ZN16SparseBoolMatrix6insertERKS_RK5ArrayIlE"]
         pub fn SparseBoolMatrix_insert1(
             this: *mut root::SparseBoolMatrix,
             a: *const root::SparseBoolMatrix,
@@ -21050,7 +21305,7 @@ pub mod root {
         ) -> *mut root::SparseBoolMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN16SparseBoolMatrix6concatERKS_RK5ArrayIxE"]
+        #[link_name = "\u{1}_ZN16SparseBoolMatrix6concatERKS_RK5ArrayIlE"]
         pub fn SparseBoolMatrix_concat(
             this: *mut root::SparseBoolMatrix,
             rb: *const root::SparseBoolMatrix,
@@ -21058,7 +21313,7 @@ pub mod root {
         ) -> root::SparseBoolMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK16SparseBoolMatrix4diagEx"]
+        #[link_name = "\u{1}_ZNK16SparseBoolMatrix4diagEl"]
         pub fn SparseBoolMatrix_diag(
             this: *const root::SparseBoolMatrix,
             k: root::octave_idx_type,
@@ -21101,7 +21356,7 @@ pub mod root {
         ) -> root::SparseBoolMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK16SparseBoolMatrix7permuteERK5ArrayIxEb"]
+        #[link_name = "\u{1}_ZNK16SparseBoolMatrix7permuteERK5ArrayIlEb"]
         pub fn SparseBoolMatrix_permute(
             this: *const root::SparseBoolMatrix,
             vec: *const root::Array<root::octave_idx_type>,
@@ -21109,7 +21364,7 @@ pub mod root {
         ) -> root::SparseBoolMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK16SparseBoolMatrix8ipermuteERK5ArrayIxE"]
+        #[link_name = "\u{1}_ZNK16SparseBoolMatrix8ipermuteERK5ArrayIlE"]
         pub fn SparseBoolMatrix_ipermute(
             this: *const root::SparseBoolMatrix,
             vec: *const root::Array<root::octave_idx_type>,
@@ -21256,7 +21511,7 @@ pub mod root {
         ) -> root::SparseMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK12SparseMatrix3maxER5ArrayIxEi"]
+        #[link_name = "\u{1}_ZNK12SparseMatrix3maxER5ArrayIlEi"]
         pub fn SparseMatrix_max1(
             this: *const root::SparseMatrix,
             index: *mut root::Array<root::octave_idx_type>,
@@ -21271,7 +21526,7 @@ pub mod root {
         ) -> root::SparseMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK12SparseMatrix3minER5ArrayIxEi"]
+        #[link_name = "\u{1}_ZNK12SparseMatrix3minER5ArrayIlEi"]
         pub fn SparseMatrix_min1(
             this: *const root::SparseMatrix,
             index: *mut root::Array<root::octave_idx_type>,
@@ -21279,7 +21534,7 @@ pub mod root {
         ) -> root::SparseMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN12SparseMatrix6insertERKS_xx"]
+        #[link_name = "\u{1}_ZN12SparseMatrix6insertERKS_ll"]
         pub fn SparseMatrix_insert(
             this: *mut root::SparseMatrix,
             a: *const root::SparseMatrix,
@@ -21288,7 +21543,7 @@ pub mod root {
         ) -> *mut root::SparseMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN12SparseMatrix6insertERKS_RK5ArrayIxE"]
+        #[link_name = "\u{1}_ZN12SparseMatrix6insertERKS_RK5ArrayIlE"]
         pub fn SparseMatrix_insert1(
             this: *mut root::SparseMatrix,
             a: *const root::SparseMatrix,
@@ -21296,7 +21551,7 @@ pub mod root {
         ) -> *mut root::SparseMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN12SparseMatrix6concatERKS_RK5ArrayIxE"]
+        #[link_name = "\u{1}_ZN12SparseMatrix6concatERKS_RK5ArrayIlE"]
         pub fn SparseMatrix_concat(
             this: *mut root::SparseMatrix,
             rb: *const root::SparseMatrix,
@@ -21304,7 +21559,7 @@ pub mod root {
         ) -> root::SparseMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN12SparseMatrix6concatERK19SparseComplexMatrixRK5ArrayIxE"]
+        #[link_name = "\u{1}_ZN12SparseMatrix6concatERK19SparseComplexMatrixRK5ArrayIlE"]
         pub fn SparseMatrix_concat1(
             this: *mut root::SparseMatrix,
             rb: *const root::SparseComplexMatrix,
@@ -21312,14 +21567,14 @@ pub mod root {
         ) -> root::SparseComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK12SparseMatrix3rowEx"]
+        #[link_name = "\u{1}_ZNK12SparseMatrix3rowEl"]
         pub fn SparseMatrix_row(
             this: *const root::SparseMatrix,
             i: root::octave_idx_type,
         ) -> root::RowVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK12SparseMatrix6columnEx"]
+        #[link_name = "\u{1}_ZNK12SparseMatrix6columnEl"]
         pub fn SparseMatrix_column(
             this: *const root::SparseMatrix,
             i: root::octave_idx_type,
@@ -21337,7 +21592,7 @@ pub mod root {
         ) -> root::SparseMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK12SparseMatrix7inverseER10MatrixTypeRx"]
+        #[link_name = "\u{1}_ZNK12SparseMatrix7inverseER10MatrixTypeRl"]
         pub fn SparseMatrix_inverse2(
             this: *const root::SparseMatrix,
             mattype: *mut root::MatrixType,
@@ -21345,7 +21600,7 @@ pub mod root {
         ) -> root::SparseMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK12SparseMatrix7inverseER10MatrixTypeRxRdbb"]
+        #[link_name = "\u{1}_ZNK12SparseMatrix7inverseER10MatrixTypeRlRdbb"]
         pub fn SparseMatrix_inverse3(
             this: *const root::SparseMatrix,
             mattype: *mut root::MatrixType,
@@ -21360,14 +21615,14 @@ pub mod root {
         pub fn SparseMatrix_determinant(this: *const root::SparseMatrix) -> root::DET;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK12SparseMatrix11determinantERx"]
+        #[link_name = "\u{1}_ZNK12SparseMatrix11determinantERl"]
         pub fn SparseMatrix_determinant1(
             this: *const root::SparseMatrix,
             info: *mut root::octave_idx_type,
         ) -> root::DET;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK12SparseMatrix11determinantERxRdb"]
+        #[link_name = "\u{1}_ZNK12SparseMatrix11determinantERlRdb"]
         pub fn SparseMatrix_determinant2(
             this: *const root::SparseMatrix,
             info: *mut root::octave_idx_type,
@@ -21384,7 +21639,7 @@ pub mod root {
         ) -> root::Matrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK12SparseMatrix5solveER10MatrixTypeRK6MatrixRx"]
+        #[link_name = "\u{1}_ZNK12SparseMatrix5solveER10MatrixTypeRK6MatrixRl"]
         pub fn SparseMatrix_solve1(
             this: *const root::SparseMatrix,
             typ: *mut root::MatrixType,
@@ -21393,7 +21648,7 @@ pub mod root {
         ) -> root::Matrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK12SparseMatrix5solveER10MatrixTypeRK6MatrixRxRd"]
+        #[link_name = "\u{1}_ZNK12SparseMatrix5solveER10MatrixTypeRK6MatrixRlRd"]
         pub fn SparseMatrix_solve2(
             this: *const root::SparseMatrix,
             typ: *mut root::MatrixType,
@@ -21403,7 +21658,7 @@ pub mod root {
         ) -> root::Matrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK12SparseMatrix5solveER10MatrixTypeRK6MatrixRxRdPFvdEb"]
+        #[link_name = "\u{1}_ZNK12SparseMatrix5solveER10MatrixTypeRK6MatrixRlRdPFvdEb"]
         pub fn SparseMatrix_solve3(
             this: *const root::SparseMatrix,
             typ: *mut root::MatrixType,
@@ -21423,7 +21678,7 @@ pub mod root {
         ) -> root::ComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK12SparseMatrix5solveER10MatrixTypeRK13ComplexMatrixRx"]
+        #[link_name = "\u{1}_ZNK12SparseMatrix5solveER10MatrixTypeRK13ComplexMatrixRl"]
         pub fn SparseMatrix_solve5(
             this: *const root::SparseMatrix,
             typ: *mut root::MatrixType,
@@ -21432,7 +21687,7 @@ pub mod root {
         ) -> root::ComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK12SparseMatrix5solveER10MatrixTypeRK13ComplexMatrixRxRd"]
+        #[link_name = "\u{1}_ZNK12SparseMatrix5solveER10MatrixTypeRK13ComplexMatrixRlRd"]
         pub fn SparseMatrix_solve6(
             this: *const root::SparseMatrix,
             typ: *mut root::MatrixType,
@@ -21442,7 +21697,7 @@ pub mod root {
         ) -> root::ComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK12SparseMatrix5solveER10MatrixTypeRK13ComplexMatrixRxRdPFvdEb"]
+        #[link_name = "\u{1}_ZNK12SparseMatrix5solveER10MatrixTypeRK13ComplexMatrixRlRdPFvdEb"]
         pub fn SparseMatrix_solve7(
             this: *const root::SparseMatrix,
             typ: *mut root::MatrixType,
@@ -21462,7 +21717,7 @@ pub mod root {
         ) -> root::SparseMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK12SparseMatrix5solveER10MatrixTypeRKS_Rx"]
+        #[link_name = "\u{1}_ZNK12SparseMatrix5solveER10MatrixTypeRKS_Rl"]
         pub fn SparseMatrix_solve9(
             this: *const root::SparseMatrix,
             typ: *mut root::MatrixType,
@@ -21471,7 +21726,7 @@ pub mod root {
         ) -> root::SparseMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK12SparseMatrix5solveER10MatrixTypeRKS_RxRd"]
+        #[link_name = "\u{1}_ZNK12SparseMatrix5solveER10MatrixTypeRKS_RlRd"]
         pub fn SparseMatrix_solve10(
             this: *const root::SparseMatrix,
             typ: *mut root::MatrixType,
@@ -21481,7 +21736,7 @@ pub mod root {
         ) -> root::SparseMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK12SparseMatrix5solveER10MatrixTypeRKS_RxRdPFvdEb"]
+        #[link_name = "\u{1}_ZNK12SparseMatrix5solveER10MatrixTypeRKS_RlRdPFvdEb"]
         pub fn SparseMatrix_solve11(
             this: *const root::SparseMatrix,
             typ: *mut root::MatrixType,
@@ -21501,7 +21756,7 @@ pub mod root {
         ) -> root::SparseComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK12SparseMatrix5solveER10MatrixTypeRK19SparseComplexMatrixRx"]
+        #[link_name = "\u{1}_ZNK12SparseMatrix5solveER10MatrixTypeRK19SparseComplexMatrixRl"]
         pub fn SparseMatrix_solve13(
             this: *const root::SparseMatrix,
             typ: *mut root::MatrixType,
@@ -21510,7 +21765,7 @@ pub mod root {
         ) -> root::SparseComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK12SparseMatrix5solveER10MatrixTypeRK19SparseComplexMatrixRxRd"]
+        #[link_name = "\u{1}_ZNK12SparseMatrix5solveER10MatrixTypeRK19SparseComplexMatrixRlRd"]
         pub fn SparseMatrix_solve14(
             this: *const root::SparseMatrix,
             typ: *mut root::MatrixType,
@@ -21520,7 +21775,7 @@ pub mod root {
         ) -> root::SparseComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK12SparseMatrix5solveER10MatrixTypeRK19SparseComplexMatrixRxRdPFvdEb"]
+        #[link_name = "\u{1}_ZNK12SparseMatrix5solveER10MatrixTypeRK19SparseComplexMatrixRlRdPFvdEb"]
         pub fn SparseMatrix_solve15(
             this: *const root::SparseMatrix,
             typ: *mut root::MatrixType,
@@ -21540,7 +21795,7 @@ pub mod root {
         ) -> root::ColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK12SparseMatrix5solveER10MatrixTypeRK12ColumnVectorRx"]
+        #[link_name = "\u{1}_ZNK12SparseMatrix5solveER10MatrixTypeRK12ColumnVectorRl"]
         pub fn SparseMatrix_solve17(
             this: *const root::SparseMatrix,
             typ: *mut root::MatrixType,
@@ -21549,7 +21804,7 @@ pub mod root {
         ) -> root::ColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK12SparseMatrix5solveER10MatrixTypeRK12ColumnVectorRxRd"]
+        #[link_name = "\u{1}_ZNK12SparseMatrix5solveER10MatrixTypeRK12ColumnVectorRlRd"]
         pub fn SparseMatrix_solve18(
             this: *const root::SparseMatrix,
             typ: *mut root::MatrixType,
@@ -21559,7 +21814,7 @@ pub mod root {
         ) -> root::ColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK12SparseMatrix5solveER10MatrixTypeRK12ColumnVectorRxRdPFvdE"]
+        #[link_name = "\u{1}_ZNK12SparseMatrix5solveER10MatrixTypeRK12ColumnVectorRlRdPFvdE"]
         pub fn SparseMatrix_solve19(
             this: *const root::SparseMatrix,
             typ: *mut root::MatrixType,
@@ -21578,7 +21833,7 @@ pub mod root {
         ) -> root::ComplexColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK12SparseMatrix5solveER10MatrixTypeRK19ComplexColumnVectorRx"]
+        #[link_name = "\u{1}_ZNK12SparseMatrix5solveER10MatrixTypeRK19ComplexColumnVectorRl"]
         pub fn SparseMatrix_solve21(
             this: *const root::SparseMatrix,
             typ: *mut root::MatrixType,
@@ -21587,7 +21842,7 @@ pub mod root {
         ) -> root::ComplexColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK12SparseMatrix5solveER10MatrixTypeRK19ComplexColumnVectorRxRd"]
+        #[link_name = "\u{1}_ZNK12SparseMatrix5solveER10MatrixTypeRK19ComplexColumnVectorRlRd"]
         pub fn SparseMatrix_solve22(
             this: *const root::SparseMatrix,
             typ: *mut root::MatrixType,
@@ -21597,7 +21852,7 @@ pub mod root {
         ) -> root::ComplexColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK12SparseMatrix5solveER10MatrixTypeRK19ComplexColumnVectorRxRdPFvdE"]
+        #[link_name = "\u{1}_ZNK12SparseMatrix5solveER10MatrixTypeRK19ComplexColumnVectorRlRdPFvdE"]
         pub fn SparseMatrix_solve23(
             this: *const root::SparseMatrix,
             typ: *mut root::MatrixType,
@@ -21615,7 +21870,7 @@ pub mod root {
         ) -> root::Matrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK12SparseMatrix5solveERK6MatrixRx"]
+        #[link_name = "\u{1}_ZNK12SparseMatrix5solveERK6MatrixRl"]
         pub fn SparseMatrix_solve25(
             this: *const root::SparseMatrix,
             b: *const root::Matrix,
@@ -21623,7 +21878,7 @@ pub mod root {
         ) -> root::Matrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK12SparseMatrix5solveERK6MatrixRxRd"]
+        #[link_name = "\u{1}_ZNK12SparseMatrix5solveERK6MatrixRlRd"]
         pub fn SparseMatrix_solve26(
             this: *const root::SparseMatrix,
             b: *const root::Matrix,
@@ -21632,7 +21887,7 @@ pub mod root {
         ) -> root::Matrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK12SparseMatrix5solveERK6MatrixRxRdPFvdE"]
+        #[link_name = "\u{1}_ZNK12SparseMatrix5solveERK6MatrixRlRdPFvdE"]
         pub fn SparseMatrix_solve27(
             this: *const root::SparseMatrix,
             b: *const root::Matrix,
@@ -21649,7 +21904,7 @@ pub mod root {
         ) -> root::ComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK12SparseMatrix5solveERK13ComplexMatrixRx"]
+        #[link_name = "\u{1}_ZNK12SparseMatrix5solveERK13ComplexMatrixRl"]
         pub fn SparseMatrix_solve29(
             this: *const root::SparseMatrix,
             b: *const root::ComplexMatrix,
@@ -21657,7 +21912,7 @@ pub mod root {
         ) -> root::ComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK12SparseMatrix5solveERK13ComplexMatrixRxRd"]
+        #[link_name = "\u{1}_ZNK12SparseMatrix5solveERK13ComplexMatrixRlRd"]
         pub fn SparseMatrix_solve30(
             this: *const root::SparseMatrix,
             b: *const root::ComplexMatrix,
@@ -21666,7 +21921,7 @@ pub mod root {
         ) -> root::ComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK12SparseMatrix5solveERK13ComplexMatrixRxRdPFvdE"]
+        #[link_name = "\u{1}_ZNK12SparseMatrix5solveERK13ComplexMatrixRlRdPFvdE"]
         pub fn SparseMatrix_solve31(
             this: *const root::SparseMatrix,
             b: *const root::ComplexMatrix,
@@ -21683,7 +21938,7 @@ pub mod root {
         ) -> root::SparseMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK12SparseMatrix5solveERKS_Rx"]
+        #[link_name = "\u{1}_ZNK12SparseMatrix5solveERKS_Rl"]
         pub fn SparseMatrix_solve33(
             this: *const root::SparseMatrix,
             b: *const root::SparseMatrix,
@@ -21691,7 +21946,7 @@ pub mod root {
         ) -> root::SparseMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK12SparseMatrix5solveERKS_RxRd"]
+        #[link_name = "\u{1}_ZNK12SparseMatrix5solveERKS_RlRd"]
         pub fn SparseMatrix_solve34(
             this: *const root::SparseMatrix,
             b: *const root::SparseMatrix,
@@ -21700,7 +21955,7 @@ pub mod root {
         ) -> root::SparseMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK12SparseMatrix5solveERKS_RxRdPFvdE"]
+        #[link_name = "\u{1}_ZNK12SparseMatrix5solveERKS_RlRdPFvdE"]
         pub fn SparseMatrix_solve35(
             this: *const root::SparseMatrix,
             b: *const root::SparseMatrix,
@@ -21717,7 +21972,7 @@ pub mod root {
         ) -> root::SparseComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK12SparseMatrix5solveERK19SparseComplexMatrixRx"]
+        #[link_name = "\u{1}_ZNK12SparseMatrix5solveERK19SparseComplexMatrixRl"]
         pub fn SparseMatrix_solve37(
             this: *const root::SparseMatrix,
             b: *const root::SparseComplexMatrix,
@@ -21725,7 +21980,7 @@ pub mod root {
         ) -> root::SparseComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK12SparseMatrix5solveERK19SparseComplexMatrixRxRd"]
+        #[link_name = "\u{1}_ZNK12SparseMatrix5solveERK19SparseComplexMatrixRlRd"]
         pub fn SparseMatrix_solve38(
             this: *const root::SparseMatrix,
             b: *const root::SparseComplexMatrix,
@@ -21734,7 +21989,7 @@ pub mod root {
         ) -> root::SparseComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK12SparseMatrix5solveERK19SparseComplexMatrixRxRdPFvdE"]
+        #[link_name = "\u{1}_ZNK12SparseMatrix5solveERK19SparseComplexMatrixRlRdPFvdE"]
         pub fn SparseMatrix_solve39(
             this: *const root::SparseMatrix,
             b: *const root::SparseComplexMatrix,
@@ -21751,7 +22006,7 @@ pub mod root {
         ) -> root::ColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK12SparseMatrix5solveERK12ColumnVectorRx"]
+        #[link_name = "\u{1}_ZNK12SparseMatrix5solveERK12ColumnVectorRl"]
         pub fn SparseMatrix_solve41(
             this: *const root::SparseMatrix,
             b: *const root::ColumnVector,
@@ -21759,7 +22014,7 @@ pub mod root {
         ) -> root::ColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK12SparseMatrix5solveERK12ColumnVectorRxRd"]
+        #[link_name = "\u{1}_ZNK12SparseMatrix5solveERK12ColumnVectorRlRd"]
         pub fn SparseMatrix_solve42(
             this: *const root::SparseMatrix,
             b: *const root::ColumnVector,
@@ -21768,7 +22023,7 @@ pub mod root {
         ) -> root::ColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK12SparseMatrix5solveERK12ColumnVectorRxRdPFvdE"]
+        #[link_name = "\u{1}_ZNK12SparseMatrix5solveERK12ColumnVectorRlRdPFvdE"]
         pub fn SparseMatrix_solve43(
             this: *const root::SparseMatrix,
             b: *const root::ColumnVector,
@@ -21785,7 +22040,7 @@ pub mod root {
         ) -> root::ComplexColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK12SparseMatrix5solveERK19ComplexColumnVectorRx"]
+        #[link_name = "\u{1}_ZNK12SparseMatrix5solveERK19ComplexColumnVectorRl"]
         pub fn SparseMatrix_solve45(
             this: *const root::SparseMatrix,
             b: *const root::ComplexColumnVector,
@@ -21793,7 +22048,7 @@ pub mod root {
         ) -> root::ComplexColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK12SparseMatrix5solveERK19ComplexColumnVectorRxRd"]
+        #[link_name = "\u{1}_ZNK12SparseMatrix5solveERK19ComplexColumnVectorRlRd"]
         pub fn SparseMatrix_solve46(
             this: *const root::SparseMatrix,
             b: *const root::ComplexColumnVector,
@@ -21802,7 +22057,7 @@ pub mod root {
         ) -> root::ComplexColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK12SparseMatrix5solveERK19ComplexColumnVectorRxRdPFvdE"]
+        #[link_name = "\u{1}_ZNK12SparseMatrix5solveERK19ComplexColumnVectorRlRdPFvdE"]
         pub fn SparseMatrix_solve47(
             this: *const root::SparseMatrix,
             b: *const root::ComplexColumnVector,
@@ -21906,7 +22161,7 @@ pub mod root {
         pub fn SparseMatrix_abs(this: *const root::SparseMatrix) -> root::SparseMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK12SparseMatrix4diagEx"]
+        #[link_name = "\u{1}_ZNK12SparseMatrix4diagEl"]
         pub fn SparseMatrix_diag(
             this: *const root::SparseMatrix,
             k: root::octave_idx_type,
@@ -21928,7 +22183,7 @@ pub mod root {
         ) -> root::SparseMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK12SparseMatrix7permuteERK5ArrayIxEb"]
+        #[link_name = "\u{1}_ZNK12SparseMatrix7permuteERK5ArrayIlEb"]
         pub fn SparseMatrix_permute(
             this: *const root::SparseMatrix,
             vec: *const root::Array<root::octave_idx_type>,
@@ -21936,7 +22191,7 @@ pub mod root {
         ) -> root::SparseMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK12SparseMatrix8ipermuteERK5ArrayIxE"]
+        #[link_name = "\u{1}_ZNK12SparseMatrix8ipermuteERK5ArrayIlE"]
         pub fn SparseMatrix_ipermute(
             this: *const root::SparseMatrix,
             vec: *const root::Array<root::octave_idx_type>,
@@ -22635,7 +22890,7 @@ pub mod root {
         ) -> root::SparseComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK19SparseComplexMatrix3maxER5ArrayIxEi"]
+        #[link_name = "\u{1}_ZNK19SparseComplexMatrix3maxER5ArrayIlEi"]
         pub fn SparseComplexMatrix_max1(
             this: *const root::SparseComplexMatrix,
             index: *mut root::Array<root::octave_idx_type>,
@@ -22650,7 +22905,7 @@ pub mod root {
         ) -> root::SparseComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK19SparseComplexMatrix3minER5ArrayIxEi"]
+        #[link_name = "\u{1}_ZNK19SparseComplexMatrix3minER5ArrayIlEi"]
         pub fn SparseComplexMatrix_min1(
             this: *const root::SparseComplexMatrix,
             index: *mut root::Array<root::octave_idx_type>,
@@ -22658,7 +22913,7 @@ pub mod root {
         ) -> root::SparseComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN19SparseComplexMatrix6insertERKS_xx"]
+        #[link_name = "\u{1}_ZN19SparseComplexMatrix6insertERKS_ll"]
         pub fn SparseComplexMatrix_insert(
             this: *mut root::SparseComplexMatrix,
             a: *const root::SparseComplexMatrix,
@@ -22667,7 +22922,7 @@ pub mod root {
         ) -> *mut root::SparseComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN19SparseComplexMatrix6insertERK12SparseMatrixxx"]
+        #[link_name = "\u{1}_ZN19SparseComplexMatrix6insertERK12SparseMatrixll"]
         pub fn SparseComplexMatrix_insert1(
             this: *mut root::SparseComplexMatrix,
             a: *const root::SparseMatrix,
@@ -22676,7 +22931,7 @@ pub mod root {
         ) -> *mut root::SparseComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN19SparseComplexMatrix6insertERKS_RK5ArrayIxE"]
+        #[link_name = "\u{1}_ZN19SparseComplexMatrix6insertERKS_RK5ArrayIlE"]
         pub fn SparseComplexMatrix_insert2(
             this: *mut root::SparseComplexMatrix,
             a: *const root::SparseComplexMatrix,
@@ -22684,7 +22939,7 @@ pub mod root {
         ) -> *mut root::SparseComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN19SparseComplexMatrix6insertERK12SparseMatrixRK5ArrayIxE"]
+        #[link_name = "\u{1}_ZN19SparseComplexMatrix6insertERK12SparseMatrixRK5ArrayIlE"]
         pub fn SparseComplexMatrix_insert3(
             this: *mut root::SparseComplexMatrix,
             a: *const root::SparseMatrix,
@@ -22692,7 +22947,7 @@ pub mod root {
         ) -> *mut root::SparseComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN19SparseComplexMatrix6concatERKS_RK5ArrayIxE"]
+        #[link_name = "\u{1}_ZN19SparseComplexMatrix6concatERKS_RK5ArrayIlE"]
         pub fn SparseComplexMatrix_concat(
             this: *mut root::SparseComplexMatrix,
             rb: *const root::SparseComplexMatrix,
@@ -22700,7 +22955,7 @@ pub mod root {
         ) -> root::SparseComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN19SparseComplexMatrix6concatERK12SparseMatrixRK5ArrayIxE"]
+        #[link_name = "\u{1}_ZN19SparseComplexMatrix6concatERK12SparseMatrixRK5ArrayIlE"]
         pub fn SparseComplexMatrix_concat1(
             this: *mut root::SparseComplexMatrix,
             rb: *const root::SparseMatrix,
@@ -22720,14 +22975,14 @@ pub mod root {
         ) -> root::SparseComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK19SparseComplexMatrix3rowEx"]
+        #[link_name = "\u{1}_ZNK19SparseComplexMatrix3rowEl"]
         pub fn SparseComplexMatrix_row(
             this: *const root::SparseComplexMatrix,
             i: root::octave_idx_type,
         ) -> root::ComplexRowVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK19SparseComplexMatrix6columnEx"]
+        #[link_name = "\u{1}_ZNK19SparseComplexMatrix6columnEl"]
         pub fn SparseComplexMatrix_column(
             this: *const root::SparseComplexMatrix,
             i: root::octave_idx_type,
@@ -22747,7 +23002,7 @@ pub mod root {
         ) -> root::SparseComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK19SparseComplexMatrix7inverseER10MatrixTypeRx"]
+        #[link_name = "\u{1}_ZNK19SparseComplexMatrix7inverseER10MatrixTypeRl"]
         pub fn SparseComplexMatrix_inverse2(
             this: *const root::SparseComplexMatrix,
             mattype: *mut root::MatrixType,
@@ -22755,7 +23010,7 @@ pub mod root {
         ) -> root::SparseComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK19SparseComplexMatrix7inverseER10MatrixTypeRxRdbb"]
+        #[link_name = "\u{1}_ZNK19SparseComplexMatrix7inverseER10MatrixTypeRlRdbb"]
         pub fn SparseComplexMatrix_inverse3(
             this: *const root::SparseComplexMatrix,
             mattype: *mut root::MatrixType,
@@ -22772,14 +23027,14 @@ pub mod root {
         ) -> root::ComplexDET;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK19SparseComplexMatrix11determinantERx"]
+        #[link_name = "\u{1}_ZNK19SparseComplexMatrix11determinantERl"]
         pub fn SparseComplexMatrix_determinant1(
             this: *const root::SparseComplexMatrix,
             info: *mut root::octave_idx_type,
         ) -> root::ComplexDET;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK19SparseComplexMatrix11determinantERxRdb"]
+        #[link_name = "\u{1}_ZNK19SparseComplexMatrix11determinantERlRdb"]
         pub fn SparseComplexMatrix_determinant2(
             this: *const root::SparseComplexMatrix,
             info: *mut root::octave_idx_type,
@@ -22796,7 +23051,7 @@ pub mod root {
         ) -> root::ComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK19SparseComplexMatrix5solveER10MatrixTypeRK6MatrixRx"]
+        #[link_name = "\u{1}_ZNK19SparseComplexMatrix5solveER10MatrixTypeRK6MatrixRl"]
         pub fn SparseComplexMatrix_solve1(
             this: *const root::SparseComplexMatrix,
             mattype: *mut root::MatrixType,
@@ -22805,7 +23060,7 @@ pub mod root {
         ) -> root::ComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK19SparseComplexMatrix5solveER10MatrixTypeRK6MatrixRxRd"]
+        #[link_name = "\u{1}_ZNK19SparseComplexMatrix5solveER10MatrixTypeRK6MatrixRlRd"]
         pub fn SparseComplexMatrix_solve2(
             this: *const root::SparseComplexMatrix,
             mattype: *mut root::MatrixType,
@@ -22815,7 +23070,7 @@ pub mod root {
         ) -> root::ComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK19SparseComplexMatrix5solveER10MatrixTypeRK6MatrixRxRdPFvdEb"]
+        #[link_name = "\u{1}_ZNK19SparseComplexMatrix5solveER10MatrixTypeRK6MatrixRlRdPFvdEb"]
         pub fn SparseComplexMatrix_solve3(
             this: *const root::SparseComplexMatrix,
             mattype: *mut root::MatrixType,
@@ -22835,7 +23090,7 @@ pub mod root {
         ) -> root::ComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK19SparseComplexMatrix5solveER10MatrixTypeRK13ComplexMatrixRx"]
+        #[link_name = "\u{1}_ZNK19SparseComplexMatrix5solveER10MatrixTypeRK13ComplexMatrixRl"]
         pub fn SparseComplexMatrix_solve5(
             this: *const root::SparseComplexMatrix,
             mattype: *mut root::MatrixType,
@@ -22844,7 +23099,7 @@ pub mod root {
         ) -> root::ComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK19SparseComplexMatrix5solveER10MatrixTypeRK13ComplexMatrixRxRd"]
+        #[link_name = "\u{1}_ZNK19SparseComplexMatrix5solveER10MatrixTypeRK13ComplexMatrixRlRd"]
         pub fn SparseComplexMatrix_solve6(
             this: *const root::SparseComplexMatrix,
             mattype: *mut root::MatrixType,
@@ -22854,7 +23109,7 @@ pub mod root {
         ) -> root::ComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK19SparseComplexMatrix5solveER10MatrixTypeRK13ComplexMatrixRxRdPFvdEb"]
+        #[link_name = "\u{1}_ZNK19SparseComplexMatrix5solveER10MatrixTypeRK13ComplexMatrixRlRdPFvdEb"]
         pub fn SparseComplexMatrix_solve7(
             this: *const root::SparseComplexMatrix,
             mattype: *mut root::MatrixType,
@@ -22874,7 +23129,7 @@ pub mod root {
         ) -> root::SparseComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK19SparseComplexMatrix5solveER10MatrixTypeRK12SparseMatrixRx"]
+        #[link_name = "\u{1}_ZNK19SparseComplexMatrix5solveER10MatrixTypeRK12SparseMatrixRl"]
         pub fn SparseComplexMatrix_solve9(
             this: *const root::SparseComplexMatrix,
             mattype: *mut root::MatrixType,
@@ -22883,7 +23138,7 @@ pub mod root {
         ) -> root::SparseComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK19SparseComplexMatrix5solveER10MatrixTypeRK12SparseMatrixRxRd"]
+        #[link_name = "\u{1}_ZNK19SparseComplexMatrix5solveER10MatrixTypeRK12SparseMatrixRlRd"]
         pub fn SparseComplexMatrix_solve10(
             this: *const root::SparseComplexMatrix,
             mattype: *mut root::MatrixType,
@@ -22893,7 +23148,7 @@ pub mod root {
         ) -> root::SparseComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK19SparseComplexMatrix5solveER10MatrixTypeRK12SparseMatrixRxRdPFvdEb"]
+        #[link_name = "\u{1}_ZNK19SparseComplexMatrix5solveER10MatrixTypeRK12SparseMatrixRlRdPFvdEb"]
         pub fn SparseComplexMatrix_solve11(
             this: *const root::SparseComplexMatrix,
             mattype: *mut root::MatrixType,
@@ -22913,7 +23168,7 @@ pub mod root {
         ) -> root::SparseComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK19SparseComplexMatrix5solveER10MatrixTypeRKS_Rx"]
+        #[link_name = "\u{1}_ZNK19SparseComplexMatrix5solveER10MatrixTypeRKS_Rl"]
         pub fn SparseComplexMatrix_solve13(
             this: *const root::SparseComplexMatrix,
             mattype: *mut root::MatrixType,
@@ -22922,7 +23177,7 @@ pub mod root {
         ) -> root::SparseComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK19SparseComplexMatrix5solveER10MatrixTypeRKS_RxRd"]
+        #[link_name = "\u{1}_ZNK19SparseComplexMatrix5solveER10MatrixTypeRKS_RlRd"]
         pub fn SparseComplexMatrix_solve14(
             this: *const root::SparseComplexMatrix,
             mattype: *mut root::MatrixType,
@@ -22932,7 +23187,7 @@ pub mod root {
         ) -> root::SparseComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK19SparseComplexMatrix5solveER10MatrixTypeRKS_RxRdPFvdEb"]
+        #[link_name = "\u{1}_ZNK19SparseComplexMatrix5solveER10MatrixTypeRKS_RlRdPFvdEb"]
         pub fn SparseComplexMatrix_solve15(
             this: *const root::SparseComplexMatrix,
             mattype: *mut root::MatrixType,
@@ -22952,7 +23207,7 @@ pub mod root {
         ) -> root::ComplexColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK19SparseComplexMatrix5solveER10MatrixTypeRK12ColumnVectorRx"]
+        #[link_name = "\u{1}_ZNK19SparseComplexMatrix5solveER10MatrixTypeRK12ColumnVectorRl"]
         pub fn SparseComplexMatrix_solve17(
             this: *const root::SparseComplexMatrix,
             mattype: *mut root::MatrixType,
@@ -22961,7 +23216,7 @@ pub mod root {
         ) -> root::ComplexColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK19SparseComplexMatrix5solveER10MatrixTypeRK12ColumnVectorRxRd"]
+        #[link_name = "\u{1}_ZNK19SparseComplexMatrix5solveER10MatrixTypeRK12ColumnVectorRlRd"]
         pub fn SparseComplexMatrix_solve18(
             this: *const root::SparseComplexMatrix,
             mattype: *mut root::MatrixType,
@@ -22971,7 +23226,7 @@ pub mod root {
         ) -> root::ComplexColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK19SparseComplexMatrix5solveER10MatrixTypeRK12ColumnVectorRxRdPFvdE"]
+        #[link_name = "\u{1}_ZNK19SparseComplexMatrix5solveER10MatrixTypeRK12ColumnVectorRlRdPFvdE"]
         pub fn SparseComplexMatrix_solve19(
             this: *const root::SparseComplexMatrix,
             mattype: *mut root::MatrixType,
@@ -22990,7 +23245,7 @@ pub mod root {
         ) -> root::ComplexColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK19SparseComplexMatrix5solveER10MatrixTypeRK19ComplexColumnVectorRx"]
+        #[link_name = "\u{1}_ZNK19SparseComplexMatrix5solveER10MatrixTypeRK19ComplexColumnVectorRl"]
         pub fn SparseComplexMatrix_solve21(
             this: *const root::SparseComplexMatrix,
             mattype: *mut root::MatrixType,
@@ -22999,7 +23254,7 @@ pub mod root {
         ) -> root::ComplexColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK19SparseComplexMatrix5solveER10MatrixTypeRK19ComplexColumnVectorRxRd"]
+        #[link_name = "\u{1}_ZNK19SparseComplexMatrix5solveER10MatrixTypeRK19ComplexColumnVectorRlRd"]
         pub fn SparseComplexMatrix_solve22(
             this: *const root::SparseComplexMatrix,
             mattype: *mut root::MatrixType,
@@ -23009,7 +23264,7 @@ pub mod root {
         ) -> root::ComplexColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK19SparseComplexMatrix5solveER10MatrixTypeRK19ComplexColumnVectorRxRdPFvdE"]
+        #[link_name = "\u{1}_ZNK19SparseComplexMatrix5solveER10MatrixTypeRK19ComplexColumnVectorRlRdPFvdE"]
         pub fn SparseComplexMatrix_solve23(
             this: *const root::SparseComplexMatrix,
             mattype: *mut root::MatrixType,
@@ -23027,7 +23282,7 @@ pub mod root {
         ) -> root::ComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK19SparseComplexMatrix5solveERK6MatrixRx"]
+        #[link_name = "\u{1}_ZNK19SparseComplexMatrix5solveERK6MatrixRl"]
         pub fn SparseComplexMatrix_solve25(
             this: *const root::SparseComplexMatrix,
             b: *const root::Matrix,
@@ -23035,7 +23290,7 @@ pub mod root {
         ) -> root::ComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK19SparseComplexMatrix5solveERK6MatrixRxRd"]
+        #[link_name = "\u{1}_ZNK19SparseComplexMatrix5solveERK6MatrixRlRd"]
         pub fn SparseComplexMatrix_solve26(
             this: *const root::SparseComplexMatrix,
             b: *const root::Matrix,
@@ -23044,7 +23299,7 @@ pub mod root {
         ) -> root::ComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK19SparseComplexMatrix5solveERK6MatrixRxRdPFvdE"]
+        #[link_name = "\u{1}_ZNK19SparseComplexMatrix5solveERK6MatrixRlRdPFvdE"]
         pub fn SparseComplexMatrix_solve27(
             this: *const root::SparseComplexMatrix,
             b: *const root::Matrix,
@@ -23061,7 +23316,7 @@ pub mod root {
         ) -> root::ComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK19SparseComplexMatrix5solveERK13ComplexMatrixRx"]
+        #[link_name = "\u{1}_ZNK19SparseComplexMatrix5solveERK13ComplexMatrixRl"]
         pub fn SparseComplexMatrix_solve29(
             this: *const root::SparseComplexMatrix,
             b: *const root::ComplexMatrix,
@@ -23069,7 +23324,7 @@ pub mod root {
         ) -> root::ComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK19SparseComplexMatrix5solveERK13ComplexMatrixRxRd"]
+        #[link_name = "\u{1}_ZNK19SparseComplexMatrix5solveERK13ComplexMatrixRlRd"]
         pub fn SparseComplexMatrix_solve30(
             this: *const root::SparseComplexMatrix,
             b: *const root::ComplexMatrix,
@@ -23078,7 +23333,7 @@ pub mod root {
         ) -> root::ComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK19SparseComplexMatrix5solveERK13ComplexMatrixRxRdPFvdE"]
+        #[link_name = "\u{1}_ZNK19SparseComplexMatrix5solveERK13ComplexMatrixRlRdPFvdE"]
         pub fn SparseComplexMatrix_solve31(
             this: *const root::SparseComplexMatrix,
             b: *const root::ComplexMatrix,
@@ -23095,7 +23350,7 @@ pub mod root {
         ) -> root::SparseComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK19SparseComplexMatrix5solveERK12SparseMatrixRx"]
+        #[link_name = "\u{1}_ZNK19SparseComplexMatrix5solveERK12SparseMatrixRl"]
         pub fn SparseComplexMatrix_solve33(
             this: *const root::SparseComplexMatrix,
             b: *const root::SparseMatrix,
@@ -23103,7 +23358,7 @@ pub mod root {
         ) -> root::SparseComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK19SparseComplexMatrix5solveERK12SparseMatrixRxRd"]
+        #[link_name = "\u{1}_ZNK19SparseComplexMatrix5solveERK12SparseMatrixRlRd"]
         pub fn SparseComplexMatrix_solve34(
             this: *const root::SparseComplexMatrix,
             b: *const root::SparseMatrix,
@@ -23112,7 +23367,7 @@ pub mod root {
         ) -> root::SparseComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK19SparseComplexMatrix5solveERK12SparseMatrixRxRdPFvdE"]
+        #[link_name = "\u{1}_ZNK19SparseComplexMatrix5solveERK12SparseMatrixRlRdPFvdE"]
         pub fn SparseComplexMatrix_solve35(
             this: *const root::SparseComplexMatrix,
             b: *const root::SparseMatrix,
@@ -23129,7 +23384,7 @@ pub mod root {
         ) -> root::SparseComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK19SparseComplexMatrix5solveERKS_Rx"]
+        #[link_name = "\u{1}_ZNK19SparseComplexMatrix5solveERKS_Rl"]
         pub fn SparseComplexMatrix_solve37(
             this: *const root::SparseComplexMatrix,
             b: *const root::SparseComplexMatrix,
@@ -23137,7 +23392,7 @@ pub mod root {
         ) -> root::SparseComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK19SparseComplexMatrix5solveERKS_RxRd"]
+        #[link_name = "\u{1}_ZNK19SparseComplexMatrix5solveERKS_RlRd"]
         pub fn SparseComplexMatrix_solve38(
             this: *const root::SparseComplexMatrix,
             b: *const root::SparseComplexMatrix,
@@ -23146,7 +23401,7 @@ pub mod root {
         ) -> root::SparseComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK19SparseComplexMatrix5solveERKS_RxRdPFvdE"]
+        #[link_name = "\u{1}_ZNK19SparseComplexMatrix5solveERKS_RlRdPFvdE"]
         pub fn SparseComplexMatrix_solve39(
             this: *const root::SparseComplexMatrix,
             b: *const root::SparseComplexMatrix,
@@ -23163,7 +23418,7 @@ pub mod root {
         ) -> root::ComplexColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK19SparseComplexMatrix5solveERK12ColumnVectorRx"]
+        #[link_name = "\u{1}_ZNK19SparseComplexMatrix5solveERK12ColumnVectorRl"]
         pub fn SparseComplexMatrix_solve41(
             this: *const root::SparseComplexMatrix,
             b: *const root::ColumnVector,
@@ -23171,7 +23426,7 @@ pub mod root {
         ) -> root::ComplexColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK19SparseComplexMatrix5solveERK12ColumnVectorRxRd"]
+        #[link_name = "\u{1}_ZNK19SparseComplexMatrix5solveERK12ColumnVectorRlRd"]
         pub fn SparseComplexMatrix_solve42(
             this: *const root::SparseComplexMatrix,
             b: *const root::ColumnVector,
@@ -23180,7 +23435,7 @@ pub mod root {
         ) -> root::ComplexColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK19SparseComplexMatrix5solveERK12ColumnVectorRxRdPFvdE"]
+        #[link_name = "\u{1}_ZNK19SparseComplexMatrix5solveERK12ColumnVectorRlRdPFvdE"]
         pub fn SparseComplexMatrix_solve43(
             this: *const root::SparseComplexMatrix,
             b: *const root::ColumnVector,
@@ -23197,7 +23452,7 @@ pub mod root {
         ) -> root::ComplexColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK19SparseComplexMatrix5solveERK19ComplexColumnVectorRx"]
+        #[link_name = "\u{1}_ZNK19SparseComplexMatrix5solveERK19ComplexColumnVectorRl"]
         pub fn SparseComplexMatrix_solve45(
             this: *const root::SparseComplexMatrix,
             b: *const root::ComplexColumnVector,
@@ -23205,7 +23460,7 @@ pub mod root {
         ) -> root::ComplexColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK19SparseComplexMatrix5solveERK19ComplexColumnVectorRxRd"]
+        #[link_name = "\u{1}_ZNK19SparseComplexMatrix5solveERK19ComplexColumnVectorRlRd"]
         pub fn SparseComplexMatrix_solve46(
             this: *const root::SparseComplexMatrix,
             b: *const root::ComplexColumnVector,
@@ -23214,7 +23469,7 @@ pub mod root {
         ) -> root::ComplexColumnVector;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK19SparseComplexMatrix5solveERK19ComplexColumnVectorRxRdPFvdE"]
+        #[link_name = "\u{1}_ZNK19SparseComplexMatrix5solveERK19ComplexColumnVectorRlRdPFvdE"]
         pub fn SparseComplexMatrix_solve47(
             this: *const root::SparseComplexMatrix,
             b: *const root::ComplexColumnVector,
@@ -23237,7 +23492,7 @@ pub mod root {
         ) -> root::SparseComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK19SparseComplexMatrix7permuteERK5ArrayIxEb"]
+        #[link_name = "\u{1}_ZNK19SparseComplexMatrix7permuteERK5ArrayIlEb"]
         pub fn SparseComplexMatrix_permute(
             this: *const root::SparseComplexMatrix,
             vec: *const root::Array<root::octave_idx_type>,
@@ -23245,7 +23500,7 @@ pub mod root {
         ) -> root::SparseComplexMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK19SparseComplexMatrix8ipermuteERK5ArrayIxE"]
+        #[link_name = "\u{1}_ZNK19SparseComplexMatrix8ipermuteERK5ArrayIlE"]
         pub fn SparseComplexMatrix_ipermute(
             this: *const root::SparseComplexMatrix,
             vec: *const root::Array<root::octave_idx_type>,
@@ -23339,7 +23594,7 @@ pub mod root {
         ) -> root::SparseMatrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK19SparseComplexMatrix4diagEx"]
+        #[link_name = "\u{1}_ZNK19SparseComplexMatrix4diagEl"]
         pub fn SparseComplexMatrix_diag(
             this: *const root::SparseComplexMatrix,
             k: root::octave_idx_type,
@@ -24169,7 +24424,7 @@ pub mod root {
         pub fn Range_sort_internal(this: *mut root::Range, ascending: bool);
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN5Range13sort_internalER5ArrayIxEb"]
+        #[link_name = "\u{1}_ZN5Range13sort_internalER5ArrayIlEb"]
         pub fn Range_sort_internal1(
             this: *mut root::Range,
             sidx: *mut root::Array<root::octave_idx_type>,
@@ -24177,11 +24432,11 @@ pub mod root {
         );
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK5Range4diagEx"]
+        #[link_name = "\u{1}_ZNK5Range4diagEl"]
         pub fn Range_diag(this: *const root::Range, k: root::octave_idx_type) -> root::Matrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK5Range4sortEx8sortmode"]
+        #[link_name = "\u{1}_ZNK5Range4sortEl8sortmode"]
         pub fn Range_sort(
             this: *const root::Range,
             dim: root::octave_idx_type,
@@ -24189,7 +24444,7 @@ pub mod root {
         ) -> root::Range;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK5Range4sortER5ArrayIxEx8sortmode"]
+        #[link_name = "\u{1}_ZNK5Range4sortER5ArrayIlEl8sortmode"]
         pub fn Range_sort1(
             this: *const root::Range,
             sidx: *mut root::Array<root::octave_idx_type>,
@@ -24206,11 +24461,11 @@ pub mod root {
         pub fn Range_nnz(this: *const root::Range) -> root::octave_idx_type;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK5Range9checkelemEx"]
+        #[link_name = "\u{1}_ZNK5Range9checkelemEl"]
         pub fn Range_checkelem(this: *const root::Range, i: root::octave_idx_type) -> f64;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK5Range9checkelemExx"]
+        #[link_name = "\u{1}_ZNK5Range9checkelemEll"]
         pub fn Range_checkelem1(
             this: *const root::Range,
             i: root::octave_idx_type,
@@ -24218,7 +24473,7 @@ pub mod root {
         ) -> f64;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK5Range4elemEx"]
+        #[link_name = "\u{1}_ZNK5Range4elemEl"]
         pub fn Range_elem(this: *const root::Range, i: root::octave_idx_type) -> f64;
     }
     extern "C" {
@@ -25486,7 +25741,7 @@ pub mod root {
         ) -> bool;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN17octave_base_value9save_hdf5ExPKcb"]
+        #[link_name = "\u{1}_ZN17octave_base_value9save_hdf5ElPKcb"]
         pub fn octave_base_value_save_hdf5(
             this: *mut ::std::os::raw::c_void,
             loc_id: root::octave_hdf5_id,
@@ -25495,7 +25750,7 @@ pub mod root {
         ) -> bool;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN17octave_base_value9load_hdf5ExPKc"]
+        #[link_name = "\u{1}_ZN17octave_base_value9load_hdf5ElPKc"]
         pub fn octave_base_value_load_hdf5(
             this: *mut ::std::os::raw::c_void,
             loc_id: root::octave_hdf5_id,
@@ -25520,14 +25775,14 @@ pub mod root {
         ) -> *mut root::mxArray;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK17octave_base_value4diagEx"]
+        #[link_name = "\u{1}_ZNK17octave_base_value4diagEl"]
         pub fn octave_base_value_diag(
             this: *mut ::std::os::raw::c_void,
             k: root::octave_idx_type,
         ) -> root::octave_value;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK17octave_base_value4diagExx"]
+        #[link_name = "\u{1}_ZNK17octave_base_value4diagEll"]
         pub fn octave_base_value_diag1(
             this: *mut ::std::os::raw::c_void,
             m: root::octave_idx_type,
@@ -25535,7 +25790,7 @@ pub mod root {
         ) -> root::octave_value;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK17octave_base_value4sortEx8sortmode"]
+        #[link_name = "\u{1}_ZNK17octave_base_value4sortEl8sortmode"]
         pub fn octave_base_value_sort(
             this: *mut ::std::os::raw::c_void,
             dim: root::octave_idx_type,
@@ -25543,7 +25798,7 @@ pub mod root {
         ) -> root::octave_value;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK17octave_base_value4sortER5ArrayIxEx8sortmode"]
+        #[link_name = "\u{1}_ZNK17octave_base_value4sortER5ArrayIlEl8sortmode"]
         pub fn octave_base_value_sort1(
             this: *mut ::std::os::raw::c_void,
             sidx: *mut root::Array<root::octave_idx_type>,
@@ -25592,14 +25847,14 @@ pub mod root {
         ) -> root::octave_value;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK17octave_base_value17fast_elem_extractEx"]
+        #[link_name = "\u{1}_ZNK17octave_base_value17fast_elem_extractEl"]
         pub fn octave_base_value_fast_elem_extract(
             this: *mut ::std::os::raw::c_void,
             n: root::octave_idx_type,
         ) -> root::octave_value;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN17octave_base_value16fast_elem_insertExRK12octave_value"]
+        #[link_name = "\u{1}_ZN17octave_base_value16fast_elem_insertElRK12octave_value"]
         pub fn octave_base_value_fast_elem_insert(
             this: *mut ::std::os::raw::c_void,
             n: root::octave_idx_type,
@@ -25799,7 +26054,7 @@ pub mod root {
         ) -> root::octave_value_list;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN12octave_value12next_subsrefERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERKNS0_4listI17octave_value_listSaIS9_EEEy"]
+        #[link_name = "\u{1}_ZN12octave_value12next_subsrefERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERKNS0_4listI17octave_value_listSaIS9_EEEm"]
         pub fn octave_value_next_subsref(
             this: *mut root::octave_value,
             type_: *const root::std::string,
@@ -25808,7 +26063,7 @@ pub mod root {
         ) -> root::octave_value;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN12octave_value12next_subsrefEiRKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERKNS0_4listI17octave_value_listSaIS9_EEEy"]
+        #[link_name = "\u{1}_ZN12octave_value12next_subsrefEiRKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERKNS0_4listI17octave_value_listSaIS9_EEEm"]
         pub fn octave_value_next_subsref1(
             this: *mut root::octave_value,
             nargout: ::std::os::raw::c_int,
@@ -25818,7 +26073,7 @@ pub mod root {
         ) -> root::octave_value_list;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN12octave_value12next_subsrefEbRKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERKNS0_4listI17octave_value_listSaIS9_EEEy"]
+        #[link_name = "\u{1}_ZN12octave_value12next_subsrefEbRKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERKNS0_4listI17octave_value_listSaIS9_EEEm"]
         pub fn octave_value_next_subsref2(
             this: *mut root::octave_value,
             auto_add: bool,
@@ -27209,7 +27464,7 @@ pub mod root {
         );
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN12octave_valueC1ERK10octave_intIxE"]
+        #[link_name = "\u{1}_ZN12octave_valueC1ERK10octave_intIlE"]
         pub fn octave_value_octave_value64(
             this: *mut root::octave_value,
             i: *const root::octave_int64,
@@ -27237,7 +27492,7 @@ pub mod root {
         );
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN12octave_valueC1ERK10octave_intIyE"]
+        #[link_name = "\u{1}_ZN12octave_valueC1ERK10octave_intImE"]
         pub fn octave_value_octave_value68(
             this: *mut root::octave_value,
             i: *const root::octave_uint64,
@@ -27286,14 +27541,14 @@ pub mod root {
         );
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN12octave_valueC1ERK10intNDArrayI10octave_intIxEE"]
+        #[link_name = "\u{1}_ZN12octave_valueC1ERK10intNDArrayI10octave_intIlEE"]
         pub fn octave_value_octave_value75(
             this: *mut root::octave_value,
             inda: *const root::int64NDArray,
         );
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN12octave_valueC1ERK5ArrayI10octave_intIxEE"]
+        #[link_name = "\u{1}_ZN12octave_valueC1ERK5ArrayI10octave_intIlEE"]
         pub fn octave_value_octave_value76(
             this: *mut root::octave_value,
             inda: *const root::Array<root::octave_int64>,
@@ -27342,21 +27597,21 @@ pub mod root {
         );
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN12octave_valueC1ERK10intNDArrayI10octave_intIyEE"]
+        #[link_name = "\u{1}_ZN12octave_valueC1ERK10intNDArrayI10octave_intImEE"]
         pub fn octave_value_octave_value83(
             this: *mut root::octave_value,
             inda: *const root::uint64NDArray,
         );
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN12octave_valueC1ERK5ArrayI10octave_intIyEE"]
+        #[link_name = "\u{1}_ZN12octave_valueC1ERK5ArrayI10octave_intImEE"]
         pub fn octave_value_octave_value84(
             this: *mut root::octave_value,
             inda: *const root::Array<root::octave_uint64>,
         );
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN12octave_valueC1ERK5ArrayIxEbb"]
+        #[link_name = "\u{1}_ZN12octave_valueC1ERK5ArrayIlEbb"]
         pub fn octave_value_octave_value85(
             this: *mut root::octave_value,
             inda: *const root::Array<root::octave_idx_type>,
@@ -28509,11 +28764,11 @@ pub mod root {
         pub fn Cell_nnz(this: *const root::Cell) -> root::octave_idx_type;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK4Cell6columnEx"]
+        #[link_name = "\u{1}_ZNK4Cell6columnEl"]
         pub fn Cell_column(this: *const root::Cell, i: root::octave_idx_type) -> root::Cell;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN4Cell6concatERKS_RK5ArrayIxE"]
+        #[link_name = "\u{1}_ZN4Cell6concatERKS_RK5ArrayIlE"]
         pub fn Cell_concat(
             this: *mut root::Cell,
             rb: *const root::Cell,
@@ -28521,7 +28776,7 @@ pub mod root {
         ) -> root::Cell;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN4Cell6insertERKS_xx"]
+        #[link_name = "\u{1}_ZN4Cell6insertERKS_ll"]
         pub fn Cell_insert(
             this: *mut root::Cell,
             a: *const root::Cell,
@@ -28530,7 +28785,7 @@ pub mod root {
         ) -> *mut root::Cell;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN4Cell6insertERKS_RK5ArrayIxE"]
+        #[link_name = "\u{1}_ZN4Cell6insertERKS_RK5ArrayIlE"]
         pub fn Cell_insert1(
             this: *mut root::Cell,
             a: *const root::Cell,
@@ -28538,11 +28793,11 @@ pub mod root {
         ) -> *mut root::Cell;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK4Cell4diagEx"]
+        #[link_name = "\u{1}_ZNK4Cell4diagEl"]
         pub fn Cell_diag(this: *const root::Cell, k: root::octave_idx_type) -> root::Cell;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK4Cell4diagExx"]
+        #[link_name = "\u{1}_ZNK4Cell4diagEll"]
         pub fn Cell_diag1(
             this: *const root::Cell,
             m: root::octave_idx_type,
@@ -28749,7 +29004,7 @@ pub mod root {
         ) -> *mut root::octave_value_list;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK17octave_value_list6spliceExxRKS_"]
+        #[link_name = "\u{1}_ZNK17octave_value_list6spliceEllRKS_"]
         pub fn octave_value_list_splice(
             this: *const root::octave_value_list,
             offset: root::octave_idx_type,
@@ -28947,14 +29202,14 @@ pub mod root {
         ) -> root::octave_idx_type;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN13octave_fields11orderfieldsER5ArrayIxE"]
+        #[link_name = "\u{1}_ZN13octave_fields11orderfieldsER5ArrayIlE"]
         pub fn octave_fields_orderfields(
             this: *mut root::octave_fields,
             perm: *mut root::Array<root::octave_idx_type>,
         );
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK13octave_fields17equal_up_to_orderERKS_Px"]
+        #[link_name = "\u{1}_ZNK13octave_fields17equal_up_to_orderERKS_Pl"]
         pub fn octave_fields_equal_up_to_order(
             this: *const root::octave_fields,
             other: *const root::octave_fields,
@@ -28962,7 +29217,7 @@ pub mod root {
         ) -> bool;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK13octave_fields17equal_up_to_orderERKS_R5ArrayIxE"]
+        #[link_name = "\u{1}_ZNK13octave_fields17equal_up_to_orderERKS_R5ArrayIlE"]
         pub fn octave_fields_equal_up_to_order1(
             this: *const root::octave_fields,
             other: *const root::octave_fields,
@@ -29114,14 +29369,14 @@ pub mod root {
         ) -> root::octave_scalar_map;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK17octave_scalar_map11orderfieldsER5ArrayIxE"]
+        #[link_name = "\u{1}_ZNK17octave_scalar_map11orderfieldsER5ArrayIlE"]
         pub fn octave_scalar_map_orderfields1(
             this: *const root::octave_scalar_map,
             perm: *mut root::Array<root::octave_idx_type>,
         ) -> root::octave_scalar_map;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK17octave_scalar_map11orderfieldsERKS_R5ArrayIxE"]
+        #[link_name = "\u{1}_ZNK17octave_scalar_map11orderfieldsERKS_R5ArrayIlE"]
         pub fn octave_scalar_map_orderfields2(
             this: *const root::octave_scalar_map,
             other: *const root::octave_scalar_map,
@@ -29277,14 +29532,14 @@ pub mod root {
         pub fn octave_map_orderfields(this: *const root::octave_map) -> root::octave_map;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK10octave_map11orderfieldsER5ArrayIxE"]
+        #[link_name = "\u{1}_ZNK10octave_map11orderfieldsER5ArrayIlE"]
         pub fn octave_map_orderfields1(
             this: *const root::octave_map,
             perm: *mut root::Array<root::octave_idx_type>,
         ) -> root::octave_map;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK10octave_map11orderfieldsERKS_R5ArrayIxE"]
+        #[link_name = "\u{1}_ZNK10octave_map11orderfieldsERKS_R5ArrayIlE"]
         pub fn octave_map_orderfields2(
             this: *const root::octave_map,
             other: *const root::octave_map,
@@ -29306,14 +29561,14 @@ pub mod root {
         ) -> *mut root::Cell;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK10octave_map4elemEx"]
+        #[link_name = "\u{1}_ZNK10octave_map4elemEl"]
         pub fn octave_map_elem(
             this: *const root::octave_map,
             n: root::octave_idx_type,
         ) -> root::octave_scalar_map;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK10octave_map4elemExx"]
+        #[link_name = "\u{1}_ZNK10octave_map4elemEll"]
         pub fn octave_map_elem1(
             this: *const root::octave_map,
             i: root::octave_idx_type,
@@ -29321,7 +29576,7 @@ pub mod root {
         ) -> root::octave_scalar_map;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK10octave_map4elemERK5ArrayIxE"]
+        #[link_name = "\u{1}_ZNK10octave_map4elemERK5ArrayIlE"]
         pub fn octave_map_elem2(
             this: *const root::octave_map,
             ra_idx: *const root::Array<root::octave_idx_type>,
@@ -29359,7 +29614,7 @@ pub mod root {
         );
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN10octave_map3catEixPK17octave_scalar_map"]
+        #[link_name = "\u{1}_ZN10octave_map3catEilPK17octave_scalar_map"]
         pub fn octave_map_cat(
             dim: ::std::os::raw::c_int,
             n: root::octave_idx_type,
@@ -29367,7 +29622,7 @@ pub mod root {
         ) -> root::octave_map;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN10octave_map3catEixPKS_"]
+        #[link_name = "\u{1}_ZN10octave_map3catEilPKS_"]
         pub fn octave_map_cat1(
             dim: ::std::os::raw::c_int,
             n: root::octave_idx_type,
@@ -29408,14 +29663,14 @@ pub mod root {
         ) -> root::octave_map;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK10octave_map6columnEx"]
+        #[link_name = "\u{1}_ZNK10octave_map6columnEl"]
         pub fn octave_map_column(
             this: *const root::octave_map,
             k: root::octave_idx_type,
         ) -> root::octave_map;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK10octave_map4pageEx"]
+        #[link_name = "\u{1}_ZNK10octave_map4pageEl"]
         pub fn octave_map_page(
             this: *const root::octave_map,
             k: root::octave_idx_type,
@@ -29490,7 +29745,7 @@ pub mod root {
         );
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN10octave_map6concatERKS_RK5ArrayIxE"]
+        #[link_name = "\u{1}_ZN10octave_map6concatERKS_RK5ArrayIlE"]
         pub fn octave_map_concat(
             this: *mut root::octave_map,
             rb: *const root::octave_map,
@@ -29498,14 +29753,14 @@ pub mod root {
         ) -> root::octave_map;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK10octave_map17fast_elem_extractEx"]
+        #[link_name = "\u{1}_ZNK10octave_map17fast_elem_extractEl"]
         pub fn octave_map_fast_elem_extract(
             this: *const root::octave_map,
             n: root::octave_idx_type,
         ) -> root::octave_scalar_map;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN10octave_map16fast_elem_insertExRK17octave_scalar_map"]
+        #[link_name = "\u{1}_ZN10octave_map16fast_elem_insertElRK17octave_scalar_map"]
         pub fn octave_map_fast_elem_insert(
             this: *mut root::octave_map,
             n: root::octave_idx_type,
@@ -29822,7 +30077,7 @@ pub mod root {
             ) -> bool;
         }
         extern "C" {
-            #[link_name = "\u{1}_ZN21octave_value_typeinfo15register_cat_opEiiPF12octave_valueR17octave_base_valueRKS1_RK5ArrayIxEE"]
+            #[link_name = "\u{1}_ZN21octave_value_typeinfo15register_cat_opEiiPF12octave_valueR17octave_base_valueRKS1_RK5ArrayIlEE"]
             pub fn register_cat_op(
                 t1: ::std::os::raw::c_int,
                 t2: ::std::os::raw::c_int,
@@ -30503,18 +30758,18 @@ pub mod root {
     pub type octave_pager_buf = root::octave::pager_buf;
     pub type octave_pager_stream = root::octave::pager_stream;
     extern "C" {
-        #[link_name = "\u{1}_Z14octave_vformatRSoPKcPc"]
+        #[link_name = "\u{1}_Z14octave_vformatRSoPKcP13__va_list_tag"]
         pub fn octave_vformat(
             os: *mut root::std::ostream,
             fmt: *const ::std::os::raw::c_char,
-            args: root::va_list,
+            args: *mut root::__va_list_tag,
         ) -> usize;
     }
     extern "C" {
-        #[link_name = "\u{1}_Z16octave_vasprintfB5cxx11PKcPc"]
+        #[link_name = "\u{1}_Z16octave_vasprintfB5cxx11PKcP13__va_list_tag"]
         pub fn octave_vasprintf(
             fmt: *const ::std::os::raw::c_char,
-            args: root::va_list,
+            args: *mut root::__va_list_tag,
         ) -> root::std::string;
     }
     extern "C" {
@@ -30524,7 +30779,72 @@ pub mod root {
     extern "C" {
         pub fn octave_value_list_create(n: ::std::os::raw::c_int) -> root::octave_value_list;
     }
-    pub type __builtin_va_list = *mut ::std::os::raw::c_char;
+    pub type __builtin_va_list = [root::__va_list_tag; 1usize];
+    #[repr(C)]
+    #[derive(Debug, Copy, Clone)]
+    pub struct __va_list_tag {
+        pub gp_offset: ::std::os::raw::c_uint,
+        pub fp_offset: ::std::os::raw::c_uint,
+        pub overflow_arg_area: *mut ::std::os::raw::c_void,
+        pub reg_save_area: *mut ::std::os::raw::c_void,
+    }
+    #[test]
+    fn bindgen_test_layout___va_list_tag() {
+        assert_eq!(
+            ::core::mem::size_of::<__va_list_tag>(),
+            24usize,
+            concat!("Size of: ", stringify!(__va_list_tag))
+        );
+        assert_eq!(
+            ::core::mem::align_of::<__va_list_tag>(),
+            8usize,
+            concat!("Alignment of ", stringify!(__va_list_tag))
+        );
+        assert_eq!(
+            unsafe { &(*(::core::ptr::null::<__va_list_tag>())).gp_offset as *const _ as usize },
+            0usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(__va_list_tag),
+                "::",
+                stringify!(gp_offset)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::core::ptr::null::<__va_list_tag>())).fp_offset as *const _ as usize },
+            4usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(__va_list_tag),
+                "::",
+                stringify!(fp_offset)
+            )
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::core::ptr::null::<__va_list_tag>())).overflow_arg_area as *const _ as usize
+            },
+            8usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(__va_list_tag),
+                "::",
+                stringify!(overflow_arg_area)
+            )
+        );
+        assert_eq!(
+            unsafe {
+                &(*(::core::ptr::null::<__va_list_tag>())).reg_save_area as *const _ as usize
+            },
+            16usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(__va_list_tag),
+                "::",
+                stringify!(reg_save_area)
+            )
+        );
+    }
     #[test]
     fn __bindgen_test_layout_Array_open0_octave_idx_type_close0_instantiation() {
         assert_eq!(
@@ -33889,21 +34209,21 @@ pub mod root {
         );
     }
     #[test]
-    fn __bindgen_test_layout_octave_int_open0_long_long_close0_instantiation() {
+    fn __bindgen_test_layout_octave_int_open0_long_close0_instantiation() {
         assert_eq!(
-            ::core::mem::size_of::<root::octave_int<::std::os::raw::c_longlong>>(),
+            ::core::mem::size_of::<root::octave_int<::std::os::raw::c_long>>(),
             8usize,
             concat!(
                 "Size of template specialization: ",
-                stringify!(root::octave_int<::std::os::raw::c_longlong>)
+                stringify!(root::octave_int<::std::os::raw::c_long>)
             )
         );
         assert_eq!(
-            ::core::mem::align_of::<root::octave_int<::std::os::raw::c_longlong>>(),
+            ::core::mem::align_of::<root::octave_int<::std::os::raw::c_long>>(),
             8usize,
             concat!(
                 "Alignment of template specialization: ",
-                stringify!(root::octave_int<::std::os::raw::c_longlong>)
+                stringify!(root::octave_int<::std::os::raw::c_long>)
             )
         );
     }
@@ -33965,21 +34285,21 @@ pub mod root {
         );
     }
     #[test]
-    fn __bindgen_test_layout_octave_int_open0_unsigned_long_long_close0_instantiation() {
+    fn __bindgen_test_layout_octave_int_open0_unsigned_long_close0_instantiation() {
         assert_eq!(
-            ::core::mem::size_of::<root::octave_int<::std::os::raw::c_ulonglong>>(),
+            ::core::mem::size_of::<root::octave_int<::std::os::raw::c_ulong>>(),
             8usize,
             concat!(
                 "Size of template specialization: ",
-                stringify!(root::octave_int<::std::os::raw::c_ulonglong>)
+                stringify!(root::octave_int<::std::os::raw::c_ulong>)
             )
         );
         assert_eq!(
-            ::core::mem::align_of::<root::octave_int<::std::os::raw::c_ulonglong>>(),
+            ::core::mem::align_of::<root::octave_int<::std::os::raw::c_ulong>>(),
             8usize,
             concat!(
                 "Alignment of template specialization: ",
-                stringify!(root::octave_int<::std::os::raw::c_ulonglong>)
+                stringify!(root::octave_int<::std::os::raw::c_ulong>)
             )
         );
     }

@@ -8,10 +8,12 @@ fn bindgen() {
         .clang_arg("-x")
         .clang_arg("c++")
         // .clang_arg("--target=x86_64-w64-mingw32")
+        // .clang_arg("--target=x86_64-unknown-linux-gnu") // default
         .clang_arg("-nobuiltininc")
         // .clang_arg(r"-IC:\Octave\Octave-5.1.0.0\mingw64\include\octave-5.1.0")
         // .clang_arg("-I/home/ctaggart/.local/share/flatpak/app/org.octave.Octave/x86_64/stable/active/files/include/octave-5.1.0")
-        .clang_arg("-I/app/include/octave-5.1.0/octave/oct.h")
+        .clang_arg("-I/app/include/octave-5.1.0")
+        .clang_arg("-I/usr/lib/gcc/x86_64-unknown-linux-gnu/8.3.0/include")
         .enable_cxx_namespaces()
         .whitelist_type("octave.*")
         .whitelist_function("octave.*")
