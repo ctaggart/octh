@@ -7,9 +7,11 @@ fn bindgen() {
         .clang_arg("-v")
         .clang_arg("-x")
         .clang_arg("c++")
-        .clang_arg("--target=x86_64-w64-mingw32")
+        // .clang_arg("--target=x86_64-w64-mingw32")
         .clang_arg("-nobuiltininc")
-        .clang_arg(r"-IC:\Octave\Octave-5.1.0.0\mingw64\include\octave-5.1.0")
+        // .clang_arg(r"-IC:\Octave\Octave-5.1.0.0\mingw64\include\octave-5.1.0")
+        // .clang_arg("-I/home/ctaggart/.local/share/flatpak/app/org.octave.Octave/x86_64/stable/active/files/include/octave-5.1.0")
+        .clang_arg("-I/app/include/octave-5.1.0/octave/oct.h")
         .enable_cxx_namespaces()
         .whitelist_type("octave.*")
         .whitelist_function("octave.*")
@@ -30,15 +32,26 @@ fn bindgen() {
 }
 
 fn main() {
+
+    // let out_dir = env::var("HOME").unwrap();
+    // let dest_path = Path::new(&out_dir).join("hello.rs");
+
     cc::Build::new()
         .cpp(true)
-        .include(r"C:\Octave\Octave-5.1.0.0\mingw64\include\octave-5.1.0")
+        // .include(r"C:\Octave\Octave-5.1.0.0\mingw64\include\octave-5.1.0")
+        // .include("/home/ctaggart/.local/share/flatpak/app/org.octave.Octave/x86_64/stable/active/files/include/octave-5.1.0")
+        .include("/app/include/octave-5.1.0")
         .file("src/octhelp.cc")
         .compile("octhelp");
 
     // bindgen();
 
-    println!(r"cargo:rustc-link-search=C:\Octave\Octave-5.1.0.0\mingw64\bin");
-    println!("cargo:rustc-link-lib=octave-7");
-    println!("cargo:rustc-link-lib=octinterp-7");
+    // println!(r"cargo:rustc-link-search=C:\Octave\Octave-5.1.0.0\mingw64\bin");
+    // println!("cargo:rustc-link-lib=octave-7");
+    // println!("cargo:rustc-link-lib=octinterp-7");
+
+    // println!("cargo:rustc-link-search=/home/ctaggart/.local/share/flatpak/runtime/org.kde.Sdk/x86_64/5.12/active/files/lib/x86_64-linux-gnu");
+    // println!("cargo:rustc-link-search=/home/ctaggart/.local/share/flatpak/app/org.octave.Octave/x86_64/stable/active/files/lib/octave/5.1.0");
+    println!("cargo:rustc-link-lib=octave");
+    println!("cargo:rustc-link-lib=octinterp");
 }
