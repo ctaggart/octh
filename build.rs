@@ -17,6 +17,7 @@ fn bindgen() {
         .enable_cxx_namespaces()
         .whitelist_type("octave.*")
         .whitelist_function("octave.*")
+        .opaque_type("octave.refcount")
         .use_core()
         .raw_line("#![allow(warnings)]")
         // .raw_line("#![no_std]")
@@ -46,7 +47,7 @@ fn main() {
         .file("src/octhelp.cc")
         .compile("octhelp");
 
-    // bindgen();
+    bindgen();
 
     // println!(r"cargo:rustc-link-search=C:\Octave\Octave-5.1.0.0\mingw64\bin");
     // println!("cargo:rustc-link-lib=octave-7");

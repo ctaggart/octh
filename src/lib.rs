@@ -131,7 +131,7 @@ pub mod root {
         pub struct enable_shared_from_this {
             pub _address: u8,
         }
-        // pub use self::super::super::u32 as ios_base_openmode;
+        pub use self::super::super::u32 as ios_base_openmode;
         #[repr(C)]
         #[derive(Debug, Copy, Clone)]
         pub struct complex {
@@ -6295,8 +6295,7 @@ pub mod root {
             _unused: [u8; 0],
         }
     }
-    // https://github.com/ctaggart/octh/issues/33
-    // pub type octave_refcount = root::octave::refcount<T>;
+    pub type octave_refcount = u8;
     #[doc = "! Vector representing the dimensions (size) of an Array."]
     #[doc = "!"]
     #[doc = "! A dim_vector is used to represent dimensions of an Array.  It is used"]
