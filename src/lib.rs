@@ -131,7 +131,9 @@ pub mod root {
         pub struct enable_shared_from_this {
             pub _address: u8,
         }
-        pub use self::super::super::u32 as ios_base_openmode;
+        // https://github.com/ctaggart/octh/issues/15
+        // pub use self::super::super::u32 as ios_base_openmode;
+        pub type ios_base_openmode = u32;
         #[repr(C)]
         #[derive(Debug, Copy, Clone)]
         pub struct complex {
