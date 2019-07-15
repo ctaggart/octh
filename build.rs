@@ -28,8 +28,9 @@ fn bindgen(target: &str) {
         },
         "x86_64-unknown-linux-gnu" => {
             builder = builder
-                .clang_arg("-I/app/include/octave-5.1.0")
-                .clang_arg("-I/usr/lib/gcc/x86_64-unknown-linux-gnu/8.3.0/include");
+                .clang_arg("-I/app/include/octave-5.1.0") // flatpak
+                .clang_arg("-I/usr/lib/gcc/x86_64-unknown-linux-gnu/8.3.0/include") // flatpak
+                .clang_arg("-I/snap/octave/5/usr/include/octave-5.1.0");
         },
         _ => (),
     }
@@ -57,7 +58,8 @@ fn main() {
             build.include(r"C:\Octave\Octave-5.1.0.0\mingw64\include\octave-5.1.0");
         },
         "x86_64-unknown-linux-gnu" => {
-            build.include("/app/include/octave-5.1.0");
+            build.include("/app/include/octave-5.1.0"); // flatpak
+            build.include("/snap/octave/5/usr/include/octave-5.1.0");
         },
         _ => (),
     }
@@ -75,6 +77,7 @@ fn main() {
             println!("cargo:rustc-link-lib=octinterp-7");
         },
         "x86_64-unknown-linux-gnu" => {
+            println!("cargo:rustc-link-search=/snap/octave/5/usr/lib/x86_64-linux-gnu");
             println!("cargo:rustc-link-lib=octave");
             println!("cargo:rustc-link-lib=octinterp");
         },
