@@ -1,3 +1,3 @@
 #include "octave/oct.h"
 
-extern "C" octave_value_list octave_value_list_create(int n); 
+extern "C" int octave_value_list_create(octave_value_list* list, int n); 
