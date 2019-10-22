@@ -8,7 +8,6 @@ fn bindgen(target: &str) {
         .clang_arg("-v")
         .clang_arg("-x")
         .clang_arg("c++")
-        .clang_arg("-nobuiltininc")
         .enable_cxx_namespaces()
         .whitelist_type("octave.*")
         .whitelist_function("octave.*")
@@ -16,8 +15,6 @@ fn bindgen(target: &str) {
         .use_core()
         .raw_line("#![allow(warnings)]")
         .raw_line("extern crate core;")
-        // .opaque_type("io_base::.*")
-        // .opaque_type("ios_base_openmode")
         .opaque_type("std::.*");
 
     match target {
@@ -28,8 +25,9 @@ fn bindgen(target: &str) {
         },
         "x86_64-unknown-linux-gnu" => {
             builder = builder
-                .clang_arg("-I/app/include/octave-5.1.0")
-                .clang_arg("-I/usr/lib/gcc/x86_64-unknown-linux-gnu/8.3.0/include");
+                // .clang_arg("-I/app/include/octave-5.1.0")
+                // .clang_arg("-I/usr/lib/gcc/x86_64-unknown-linux-gnu/8.3.0/include");
+                .clang_arg("-I/usr/local/include/octave-6.0.0");
         },
         _ => (),
     }
@@ -57,7 +55,8 @@ fn main() {
             build.include(r"C:\Octave\Octave-5.1.0.0\mingw64\include\octave-5.1.0");
         },
         "x86_64-unknown-linux-gnu" => {
-            build.include("/app/include/octave-5.1.0");
+            // build.include("/app/include/octave-5.1.0");
+            build.include("/usr/local/include/octave-6.0.0");
         },
         _ => (),
     }
@@ -75,6 +74,7 @@ fn main() {
             println!("cargo:rustc-link-lib=octinterp-7");
         },
         "x86_64-unknown-linux-gnu" => {
+            println!("cargo:rustc-link-search=/usr/local/lib/octave/6.0.0");
             println!("cargo:rustc-link-lib=octave");
             println!("cargo:rustc-link-lib=octinterp");
         },

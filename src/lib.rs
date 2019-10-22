@@ -268,24 +268,59 @@ pub mod root {
     pub type octave_f77_int_type = i32;
     pub type off_t = root::__off_t;
     pub type time_t = root::__time_t;
-    pub type __gnuc_va_list = root::__builtin_va_list;
+    pub type va_list = root::__builtin_va_list;
     pub type FILE = root::_IO_FILE;
+    pub type _IO_lock_t = ::std::os::raw::c_void;
     #[repr(C)]
     #[derive(Debug, Copy, Clone)]
     pub struct _IO_marker {
-        _unused: [u8; 0],
+        pub _next: *mut root::_IO_marker,
+        pub _sbuf: *mut root::_IO_FILE,
+        pub _pos: ::std::os::raw::c_int,
     }
-    #[repr(C)]
-    #[derive(Debug, Copy, Clone)]
-    pub struct _IO_codecvt {
-        _unused: [u8; 0],
+    #[test]
+    fn bindgen_test_layout__IO_marker() {
+        assert_eq!(
+            ::core::mem::size_of::<_IO_marker>(),
+            24usize,
+            concat!("Size of: ", stringify!(_IO_marker))
+        );
+        assert_eq!(
+            ::core::mem::align_of::<_IO_marker>(),
+            8usize,
+            concat!("Alignment of ", stringify!(_IO_marker))
+        );
+        assert_eq!(
+            unsafe { &(*(::core::ptr::null::<_IO_marker>()))._next as *const _ as usize },
+            0usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(_IO_marker),
+                "::",
+                stringify!(_next)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::core::ptr::null::<_IO_marker>()))._sbuf as *const _ as usize },
+            8usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(_IO_marker),
+                "::",
+                stringify!(_sbuf)
+            )
+        );
+        assert_eq!(
+            unsafe { &(*(::core::ptr::null::<_IO_marker>()))._pos as *const _ as usize },
+            16usize,
+            concat!(
+                "Offset of field: ",
+                stringify!(_IO_marker),
+                "::",
+                stringify!(_pos)
+            )
+        );
     }
-    #[repr(C)]
-    #[derive(Debug, Copy, Clone)]
-    pub struct _IO_wide_data {
-        _unused: [u8; 0],
-    }
-    pub type _IO_lock_t = ::std::os::raw::c_void;
     #[repr(C)]
     #[derive(Debug, Copy, Clone)]
     pub struct _IO_FILE {
@@ -311,10 +346,10 @@ pub mod root {
         pub _shortbuf: [::std::os::raw::c_char; 1usize],
         pub _lock: *mut root::_IO_lock_t,
         pub _offset: root::__off64_t,
-        pub _codecvt: *mut root::_IO_codecvt,
-        pub _wide_data: *mut root::_IO_wide_data,
-        pub _freeres_list: *mut root::_IO_FILE,
-        pub _freeres_buf: *mut ::std::os::raw::c_void,
+        pub __pad1: *mut ::std::os::raw::c_void,
+        pub __pad2: *mut ::std::os::raw::c_void,
+        pub __pad3: *mut ::std::os::raw::c_void,
+        pub __pad4: *mut ::std::os::raw::c_void,
         pub __pad5: usize,
         pub _mode: ::std::os::raw::c_int,
         pub _unused2: [::std::os::raw::c_char; 20usize],
@@ -552,43 +587,43 @@ pub mod root {
             )
         );
         assert_eq!(
-            unsafe { &(*(::core::ptr::null::<_IO_FILE>()))._codecvt as *const _ as usize },
+            unsafe { &(*(::core::ptr::null::<_IO_FILE>())).__pad1 as *const _ as usize },
             152usize,
             concat!(
                 "Offset of field: ",
                 stringify!(_IO_FILE),
                 "::",
-                stringify!(_codecvt)
+                stringify!(__pad1)
             )
         );
         assert_eq!(
-            unsafe { &(*(::core::ptr::null::<_IO_FILE>()))._wide_data as *const _ as usize },
+            unsafe { &(*(::core::ptr::null::<_IO_FILE>())).__pad2 as *const _ as usize },
             160usize,
             concat!(
                 "Offset of field: ",
                 stringify!(_IO_FILE),
                 "::",
-                stringify!(_wide_data)
+                stringify!(__pad2)
             )
         );
         assert_eq!(
-            unsafe { &(*(::core::ptr::null::<_IO_FILE>()))._freeres_list as *const _ as usize },
+            unsafe { &(*(::core::ptr::null::<_IO_FILE>())).__pad3 as *const _ as usize },
             168usize,
             concat!(
                 "Offset of field: ",
                 stringify!(_IO_FILE),
                 "::",
-                stringify!(_freeres_list)
+                stringify!(__pad3)
             )
         );
         assert_eq!(
-            unsafe { &(*(::core::ptr::null::<_IO_FILE>()))._freeres_buf as *const _ as usize },
+            unsafe { &(*(::core::ptr::null::<_IO_FILE>())).__pad4 as *const _ as usize },
             176usize,
             concat!(
                 "Offset of field: ",
                 stringify!(_IO_FILE),
                 "::",
-                stringify!(_freeres_buf)
+                stringify!(__pad4)
             )
         );
         assert_eq!(
@@ -622,14 +657,13 @@ pub mod root {
             )
         );
     }
-    pub type va_list = root::__gnuc_va_list;
     pub mod octave {
         #[allow(unused_imports)]
         use self::super::super::root;
         #[repr(C)]
         #[derive(Debug, Copy, Clone)]
         pub struct refcount<T> {
-            pub count: root::octave::refcount_count_type<T>,
+            pub m_count: root::octave::refcount_count_type<T>,
             pub _phantom_0: ::core::marker::PhantomData<::core::cell::UnsafeCell<T>>,
         }
         pub type refcount_count_type<T> = T;
@@ -2086,18 +2120,19 @@ pub mod root {
         #[derive(Debug)]
         pub struct base_stream {
             pub vtable_: *const base_stream__bindgen_vtable,
-            pub count: root::octave::refcount<root::octave_idx_type>,
-            pub md: ::std::os::raw::c_int,
-            pub flt_fmt: root::octave::mach_info::float_format,
-            pub fail: bool,
-            pub open_state: bool,
-            pub errmsg: root::std::string,
+            pub m_count: root::octave::refcount<root::octave_idx_type>,
+            pub m_mode: ::std::os::raw::c_int,
+            pub m_flt_fmt: root::octave::mach_info::float_format,
+            pub m_encoding: root::std::string,
+            pub m_fail: bool,
+            pub m_open_state: bool,
+            pub m_errmsg: root::std::string,
         }
         #[test]
         fn bindgen_test_layout_base_stream() {
             assert_eq!(
                 ::core::mem::size_of::<base_stream>(),
-                64usize,
+                96usize,
                 concat!("Size of: ", stringify!(base_stream))
             );
             assert_eq!(
@@ -2106,63 +2141,75 @@ pub mod root {
                 concat!("Alignment of ", stringify!(base_stream))
             );
             assert_eq!(
-                unsafe { &(*(::core::ptr::null::<base_stream>())).count as *const _ as usize },
+                unsafe { &(*(::core::ptr::null::<base_stream>())).m_count as *const _ as usize },
                 8usize,
                 concat!(
                     "Offset of field: ",
                     stringify!(base_stream),
                     "::",
-                    stringify!(count)
+                    stringify!(m_count)
                 )
             );
             assert_eq!(
-                unsafe { &(*(::core::ptr::null::<base_stream>())).md as *const _ as usize },
+                unsafe { &(*(::core::ptr::null::<base_stream>())).m_mode as *const _ as usize },
                 16usize,
                 concat!(
                     "Offset of field: ",
                     stringify!(base_stream),
                     "::",
-                    stringify!(md)
+                    stringify!(m_mode)
                 )
             );
             assert_eq!(
-                unsafe { &(*(::core::ptr::null::<base_stream>())).flt_fmt as *const _ as usize },
+                unsafe { &(*(::core::ptr::null::<base_stream>())).m_flt_fmt as *const _ as usize },
                 20usize,
                 concat!(
                     "Offset of field: ",
                     stringify!(base_stream),
                     "::",
-                    stringify!(flt_fmt)
+                    stringify!(m_flt_fmt)
                 )
             );
             assert_eq!(
-                unsafe { &(*(::core::ptr::null::<base_stream>())).fail as *const _ as usize },
+                unsafe { &(*(::core::ptr::null::<base_stream>())).m_encoding as *const _ as usize },
                 24usize,
                 concat!(
                     "Offset of field: ",
                     stringify!(base_stream),
                     "::",
-                    stringify!(fail)
+                    stringify!(m_encoding)
                 )
             );
             assert_eq!(
-                unsafe { &(*(::core::ptr::null::<base_stream>())).open_state as *const _ as usize },
-                25usize,
+                unsafe { &(*(::core::ptr::null::<base_stream>())).m_fail as *const _ as usize },
+                56usize,
                 concat!(
                     "Offset of field: ",
                     stringify!(base_stream),
                     "::",
-                    stringify!(open_state)
+                    stringify!(m_fail)
                 )
             );
             assert_eq!(
-                unsafe { &(*(::core::ptr::null::<base_stream>())).errmsg as *const _ as usize },
-                32usize,
+                unsafe {
+                    &(*(::core::ptr::null::<base_stream>())).m_open_state as *const _ as usize
+                },
+                57usize,
                 concat!(
                     "Offset of field: ",
                     stringify!(base_stream),
                     "::",
-                    stringify!(errmsg)
+                    stringify!(m_open_state)
+                )
+            );
+            assert_eq!(
+                unsafe { &(*(::core::ptr::null::<base_stream>())).m_errmsg as *const _ as usize },
+                64usize,
+                concat!(
+                    "Offset of field: ",
+                    stringify!(base_stream),
+                    "::",
+                    stringify!(m_errmsg)
                 )
             );
         }
@@ -2230,7 +2277,7 @@ pub mod root {
         #[repr(C)]
         #[derive(Debug)]
         pub struct stream {
-            pub rep: *mut root::octave::base_stream,
+            pub m_rep: *mut root::octave::base_stream,
         }
         #[test]
         fn bindgen_test_layout_stream() {
@@ -2245,13 +2292,13 @@ pub mod root {
                 concat!("Alignment of ", stringify!(stream))
             );
             assert_eq!(
-                unsafe { &(*(::core::ptr::null::<stream>())).rep as *const _ as usize },
+                unsafe { &(*(::core::ptr::null::<stream>())).m_rep as *const _ as usize },
                 0usize,
                 concat!(
                     "Offset of field: ",
                     stringify!(stream),
                     "::",
-                    stringify!(rep)
+                    stringify!(m_rep)
                 )
             );
         }
@@ -2775,8 +2822,8 @@ pub mod root {
         #[repr(C)]
         #[derive(Debug)]
         pub struct stream_list {
-            pub list: root::octave::stream_list_ostrl_map,
-            pub lookup_cache: u64,
+            pub m_list: root::octave::stream_list_ostrl_map,
+            pub m_lookup_cache: u64,
             pub m_stdin_file: ::std::os::raw::c_int,
             pub m_stdout_file: ::std::os::raw::c_int,
             pub m_stderr_file: ::std::os::raw::c_int,
@@ -2795,25 +2842,25 @@ pub mod root {
                 concat!("Alignment of ", stringify!(stream_list))
             );
             assert_eq!(
-                unsafe { &(*(::core::ptr::null::<stream_list>())).list as *const _ as usize },
+                unsafe { &(*(::core::ptr::null::<stream_list>())).m_list as *const _ as usize },
                 0usize,
                 concat!(
                     "Offset of field: ",
                     stringify!(stream_list),
                     "::",
-                    stringify!(list)
+                    stringify!(m_list)
                 )
             );
             assert_eq!(
                 unsafe {
-                    &(*(::core::ptr::null::<stream_list>())).lookup_cache as *const _ as usize
+                    &(*(::core::ptr::null::<stream_list>())).m_lookup_cache as *const _ as usize
                 },
                 48usize,
                 concat!(
                     "Offset of field: ",
                     stringify!(stream_list),
                     "::",
-                    stringify!(lookup_cache)
+                    stringify!(m_lookup_cache)
                 )
             );
             assert_eq!(
@@ -3047,140 +3094,6 @@ pub mod root {
             pub unsafe fn destruct(&mut self) {
                 stream_list_stream_list_destructor(self)
             }
-        }
-        #[repr(C)]
-        pub struct action_container__bindgen_vtable(::std::os::raw::c_void);
-        #[repr(C)]
-        #[derive(Debug)]
-        pub struct action_container {
-            pub vtable_: *const action_container__bindgen_vtable,
-        }
-        #[repr(C)]
-        pub struct action_container_elem__bindgen_vtable(::std::os::raw::c_void);
-        #[repr(C)]
-        #[derive(Debug)]
-        pub struct action_container_elem {
-            pub vtable_: *const action_container_elem__bindgen_vtable,
-        }
-        #[test]
-        fn bindgen_test_layout_action_container_elem() {
-            assert_eq!(
-                ::core::mem::size_of::<action_container_elem>(),
-                8usize,
-                concat!("Size of: ", stringify!(action_container_elem))
-            );
-            assert_eq!(
-                ::core::mem::align_of::<action_container_elem>(),
-                8usize,
-                concat!("Alignment of ", stringify!(action_container_elem))
-            );
-        }
-        #[repr(C)]
-        #[derive(Debug)]
-        pub struct action_container_fcn_elem {
-            pub _base: root::octave::action_container_elem,
-            pub m_fcn: [u64; 4usize],
-        }
-        #[test]
-        fn bindgen_test_layout_action_container_fcn_elem() {
-            assert_eq!(
-                ::core::mem::size_of::<action_container_fcn_elem>(),
-                40usize,
-                concat!("Size of: ", stringify!(action_container_fcn_elem))
-            );
-            assert_eq!(
-                ::core::mem::align_of::<action_container_fcn_elem>(),
-                8usize,
-                concat!("Alignment of ", stringify!(action_container_fcn_elem))
-            );
-            assert_eq!(
-                unsafe {
-                    &(*(::core::ptr::null::<action_container_fcn_elem>())).m_fcn as *const _
-                        as usize
-                },
-                8usize,
-                concat!(
-                    "Offset of field: ",
-                    stringify!(action_container_fcn_elem),
-                    "::",
-                    stringify!(m_fcn)
-                )
-            );
-        }
-        #[repr(C)]
-        #[derive(Debug)]
-        pub struct action_container_restore_var_elem<T> {
-            pub _base: root::octave::action_container_elem,
-            pub e_ptr: *mut T,
-            pub e_val: T,
-            pub _phantom_0: ::core::marker::PhantomData<::core::cell::UnsafeCell<T>>,
-        }
-        #[repr(C)]
-        #[derive(Debug)]
-        pub struct action_container_delete_ptr_elem<T> {
-            pub _base: root::octave::action_container_elem,
-            pub e_ptr: *mut T,
-            pub _phantom_0: ::core::marker::PhantomData<::core::cell::UnsafeCell<T>>,
-        }
-        #[test]
-        fn bindgen_test_layout_action_container() {
-            assert_eq!(
-                ::core::mem::size_of::<action_container>(),
-                8usize,
-                concat!("Size of: ", stringify!(action_container))
-            );
-            assert_eq!(
-                ::core::mem::align_of::<action_container>(),
-                8usize,
-                concat!("Alignment of ", stringify!(action_container))
-            );
-        }
-        #[repr(C)]
-        #[derive(Debug)]
-        pub struct unwind_protect {
-            pub _base: root::octave::action_container,
-            pub lifo: [u64; 10usize],
-        }
-        #[test]
-        fn bindgen_test_layout_unwind_protect() {
-            assert_eq!(
-                ::core::mem::size_of::<unwind_protect>(),
-                88usize,
-                concat!("Size of: ", stringify!(unwind_protect))
-            );
-            assert_eq!(
-                ::core::mem::align_of::<unwind_protect>(),
-                8usize,
-                concat!("Alignment of ", stringify!(unwind_protect))
-            );
-            assert_eq!(
-                unsafe { &(*(::core::ptr::null::<unwind_protect>())).lifo as *const _ as usize },
-                8usize,
-                concat!(
-                    "Offset of field: ",
-                    stringify!(unwind_protect),
-                    "::",
-                    stringify!(lifo)
-                )
-            );
-        }
-        #[repr(C)]
-        #[derive(Debug)]
-        pub struct unwind_protect_safe {
-            pub _base: root::octave::unwind_protect,
-        }
-        #[test]
-        fn bindgen_test_layout_unwind_protect_safe() {
-            assert_eq!(
-                ::core::mem::size_of::<unwind_protect_safe>(),
-                88usize,
-                concat!("Size of: ", stringify!(unwind_protect_safe))
-            );
-            assert_eq!(
-                ::core::mem::align_of::<unwind_protect_safe>(),
-                8usize,
-                concat!("Alignment of ", stringify!(unwind_protect_safe))
-            );
         }
         extern "C" {
             #[link_name = "\u{1}_ZN6octave17__get_type_info__ERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE"]
@@ -4387,17 +4300,16 @@ pub mod root {
         #[repr(C)]
         #[derive(Debug)]
         pub struct symbol_record_symbol_record_rep {
+            pub m_frame_offset: usize,
+            pub m_data_offset: usize,
             pub m_storage_class: ::std::os::raw::c_uint,
             pub m_name: root::std::string,
-            pub m_fwd_scope: [u64; 2usize],
-            pub m_fwd_rep: [u64; 2usize],
-            pub m_value_stack: [u64; 10usize],
         }
         #[test]
         fn bindgen_test_layout_symbol_record_symbol_record_rep() {
             assert_eq!(
                 ::core::mem::size_of::<symbol_record_symbol_record_rep>(),
-                152usize,
+                56usize,
                 concat!("Size of: ", stringify!(symbol_record_symbol_record_rep))
             );
             assert_eq!(
@@ -4407,10 +4319,36 @@ pub mod root {
             );
             assert_eq!(
                 unsafe {
-                    &(*(::core::ptr::null::<symbol_record_symbol_record_rep>())).m_storage_class
+                    &(*(::core::ptr::null::<symbol_record_symbol_record_rep>())).m_frame_offset
                         as *const _ as usize
                 },
                 0usize,
+                concat!(
+                    "Offset of field: ",
+                    stringify!(symbol_record_symbol_record_rep),
+                    "::",
+                    stringify!(m_frame_offset)
+                )
+            );
+            assert_eq!(
+                unsafe {
+                    &(*(::core::ptr::null::<symbol_record_symbol_record_rep>())).m_data_offset
+                        as *const _ as usize
+                },
+                8usize,
+                concat!(
+                    "Offset of field: ",
+                    stringify!(symbol_record_symbol_record_rep),
+                    "::",
+                    stringify!(m_data_offset)
+                )
+            );
+            assert_eq!(
+                unsafe {
+                    &(*(::core::ptr::null::<symbol_record_symbol_record_rep>())).m_storage_class
+                        as *const _ as usize
+                },
+                16usize,
                 concat!(
                     "Offset of field: ",
                     stringify!(symbol_record_symbol_record_rep),
@@ -4423,7 +4361,7 @@ pub mod root {
                     &(*(::core::ptr::null::<symbol_record_symbol_record_rep>())).m_name as *const _
                         as usize
                 },
-                8usize,
+                24usize,
                 concat!(
                     "Offset of field: ",
                     stringify!(symbol_record_symbol_record_rep),
@@ -4431,105 +4369,32 @@ pub mod root {
                     stringify!(m_name)
                 )
             );
-            assert_eq!(
-                unsafe {
-                    &(*(::core::ptr::null::<symbol_record_symbol_record_rep>())).m_fwd_scope
-                        as *const _ as usize
-                },
-                40usize,
-                concat!(
-                    "Offset of field: ",
-                    stringify!(symbol_record_symbol_record_rep),
-                    "::",
-                    stringify!(m_fwd_scope)
-                )
-            );
-            assert_eq!(
-                unsafe {
-                    &(*(::core::ptr::null::<symbol_record_symbol_record_rep>())).m_fwd_rep
-                        as *const _ as usize
-                },
-                56usize,
-                concat!(
-                    "Offset of field: ",
-                    stringify!(symbol_record_symbol_record_rep),
-                    "::",
-                    stringify!(m_fwd_rep)
-                )
-            );
-            assert_eq!(
-                unsafe {
-                    &(*(::core::ptr::null::<symbol_record_symbol_record_rep>())).m_value_stack
-                        as *const _ as usize
-                },
-                72usize,
-                concat!(
-                    "Offset of field: ",
-                    stringify!(symbol_record_symbol_record_rep),
-                    "::",
-                    stringify!(m_value_stack)
-                )
-            );
         }
         extern "C" {
-            #[link_name = "\u{1}_ZNK6octave13symbol_record17symbol_record_rep21get_fwd_scope_contextEv"]
-            pub fn symbol_record_symbol_record_rep_get_fwd_scope_context(
-                this: *const root::octave::symbol_record_symbol_record_rep,
-            ) -> root::octave::symbol_record_context_id;
-        }
-        extern "C" {
-            #[link_name = "\u{1}_ZN6octave13symbol_record17symbol_record_rep15init_persistentEv"]
-            pub fn symbol_record_symbol_record_rep_init_persistent(
-                this: *mut root::octave::symbol_record_symbol_record_rep,
-            );
-        }
-        extern "C" {
-            #[link_name = "\u{1}_ZNK6octave13symbol_record17symbol_record_rep3dupERKSt10shared_ptrINS_16symbol_scope_repEE"]
+            #[link_name = "\u{1}_ZNK6octave13symbol_record17symbol_record_rep3dupEv"]
             pub fn symbol_record_symbol_record_rep_dup(
                 this: *const root::octave::symbol_record_symbol_record_rep,
-                new_scope: *const [u64; 2usize],
             ) -> [u64; 2usize];
         }
         extern "C" {
-            #[link_name = "\u{1}_ZNK6octave13symbol_record17symbol_record_rep4dumpEm"]
+            #[link_name = "\u{1}_ZNK6octave13symbol_record17symbol_record_rep4dumpEv"]
             pub fn symbol_record_symbol_record_rep_dump(
                 this: *const root::octave::symbol_record_symbol_record_rep,
-                context: root::octave::symbol_record_context_id,
             ) -> root::octave_value;
         }
         impl symbol_record_symbol_record_rep {
             #[inline]
-            pub unsafe fn get_fwd_scope_context(&self) -> root::octave::symbol_record_context_id {
-                symbol_record_symbol_record_rep_get_fwd_scope_context(self)
+            pub unsafe fn dup(&self) -> [u64; 2usize] {
+                symbol_record_symbol_record_rep_dup(self)
             }
             #[inline]
-            pub unsafe fn init_persistent(&mut self) {
-                symbol_record_symbol_record_rep_init_persistent(self)
-            }
-            #[inline]
-            pub unsafe fn dup(&self, new_scope: *const [u64; 2usize]) -> [u64; 2usize] {
-                symbol_record_symbol_record_rep_dup(self, new_scope)
-            }
-            #[inline]
-            pub unsafe fn dump(
-                &self,
-                context: root::octave::symbol_record_context_id,
-            ) -> root::octave_value {
-                symbol_record_symbol_record_rep_dump(self, context)
+            pub unsafe fn dump(&self) -> root::octave_value {
+                symbol_record_symbol_record_rep_dump(self)
             }
         }
         pub const symbol_record_local: ::std::os::raw::c_uint = 1;
-        pub const symbol_record_automatic: ::std::os::raw::c_uint = 2;
-        pub const symbol_record_formal: ::std::os::raw::c_uint = 4;
-        pub const symbol_record_hidden: ::std::os::raw::c_uint = 8;
-        pub const symbol_record_inherited: ::std::os::raw::c_uint = 16;
-        pub const symbol_record_global: ::std::os::raw::c_uint = 32;
-        pub const symbol_record_persistent: ::std::os::raw::c_uint = 64;
-        pub const symbol_record_added_static: ::std::os::raw::c_uint = 128;
-        extern "C" {
-            #[link_name = "\u{1}_ZN6octave13symbol_record18dummy_octave_valueE"]
-            pub static mut symbol_record_dummy_octave_value: root::octave_value;
-        }
+        pub const symbol_record_formal: ::std::os::raw::c_uint = 2;
+        pub const symbol_record_added_static: ::std::os::raw::c_uint = 4;
         #[test]
         fn bindgen_test_layout_symbol_record() {
             assert_eq!(
@@ -4564,6 +4429,8 @@ pub mod root {
             pub m_symbols: [u64; 6usize],
             #[doc = "! Map from symbol names to subfunctions."]
             pub m_subfunctions: [u64; 6usize],
+            #[doc = "! Map from data offset to persistent values in this scope."]
+            pub m_persistent_values: [u64; 6usize],
             #[doc = "! The list of subfunctions (if any) in the order they appear in"]
             #[doc = "! the function file."]
             pub m_subfunction_names: [u64; 3usize],
@@ -4580,7 +4447,6 @@ pub mod root {
             pub m_nesting_depth: usize,
             #[doc = "! If true then no variables can be added."]
             pub m_is_static: bool,
-            pub m_context: root::octave::symbol_record_context_id,
         }
         pub type symbol_scope_rep_table_const_iterator = u64;
         pub type symbol_scope_rep_table_iterator = u64;
@@ -4590,7 +4456,7 @@ pub mod root {
         fn bindgen_test_layout_symbol_scope_rep() {
             assert_eq!(
                 ::core::mem::size_of::<symbol_scope_rep>(),
-                256usize,
+                296usize,
                 concat!("Size of: ", stringify!(symbol_scope_rep))
             );
             assert_eq!(
@@ -4637,10 +4503,23 @@ pub mod root {
             );
             assert_eq!(
                 unsafe {
-                    &(*(::core::ptr::null::<symbol_scope_rep>())).m_subfunction_names as *const _
+                    &(*(::core::ptr::null::<symbol_scope_rep>())).m_persistent_values as *const _
                         as usize
                 },
                 144usize,
+                concat!(
+                    "Offset of field: ",
+                    stringify!(symbol_scope_rep),
+                    "::",
+                    stringify!(m_persistent_values)
+                )
+            );
+            assert_eq!(
+                unsafe {
+                    &(*(::core::ptr::null::<symbol_scope_rep>())).m_subfunction_names as *const _
+                        as usize
+                },
+                192usize,
                 concat!(
                     "Offset of field: ",
                     stringify!(symbol_scope_rep),
@@ -4650,7 +4529,7 @@ pub mod root {
             );
             assert_eq!(
                 unsafe { &(*(::core::ptr::null::<symbol_scope_rep>())).m_fcn as *const _ as usize },
-                168usize,
+                216usize,
                 concat!(
                     "Offset of field: ",
                     stringify!(symbol_scope_rep),
@@ -4662,7 +4541,7 @@ pub mod root {
                 unsafe {
                     &(*(::core::ptr::null::<symbol_scope_rep>())).m_parent as *const _ as usize
                 },
-                176usize,
+                224usize,
                 concat!(
                     "Offset of field: ",
                     stringify!(symbol_scope_rep),
@@ -4675,7 +4554,7 @@ pub mod root {
                     &(*(::core::ptr::null::<symbol_scope_rep>())).m_primary_parent as *const _
                         as usize
                 },
-                192usize,
+                240usize,
                 concat!(
                     "Offset of field: ",
                     stringify!(symbol_scope_rep),
@@ -4687,7 +4566,7 @@ pub mod root {
                 unsafe {
                     &(*(::core::ptr::null::<symbol_scope_rep>())).m_children as *const _ as usize
                 },
-                208usize,
+                256usize,
                 concat!(
                     "Offset of field: ",
                     stringify!(symbol_scope_rep),
@@ -4700,7 +4579,7 @@ pub mod root {
                     &(*(::core::ptr::null::<symbol_scope_rep>())).m_nesting_depth as *const _
                         as usize
                 },
-                232usize,
+                280usize,
                 concat!(
                     "Offset of field: ",
                     stringify!(symbol_scope_rep),
@@ -4712,7 +4591,7 @@ pub mod root {
                 unsafe {
                     &(*(::core::ptr::null::<symbol_scope_rep>())).m_is_static as *const _ as usize
                 },
-                240usize,
+                288usize,
                 concat!(
                     "Offset of field: ",
                     stringify!(symbol_scope_rep),
@@ -4720,46 +4599,27 @@ pub mod root {
                     stringify!(m_is_static)
                 )
             );
-            assert_eq!(
-                unsafe {
-                    &(*(::core::ptr::null::<symbol_scope_rep>())).m_context as *const _ as usize
-                },
-                248usize,
-                concat!(
-                    "Offset of field: ",
-                    stringify!(symbol_scope_rep),
-                    "::",
-                    stringify!(m_context)
-                )
-            );
         }
         extern "C" {
-            #[link_name = "\u{1}_ZN6octave16symbol_scope_rep21install_auto_fcn_varsEv"]
-            pub fn symbol_scope_rep_install_auto_fcn_vars(
-                this: *mut root::octave::symbol_scope_rep,
-            );
-        }
-        extern "C" {
-            #[link_name = "\u{1}_ZN6octave16symbol_scope_rep20install_auto_fcn_varERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE"]
-            pub fn symbol_scope_rep_install_auto_fcn_var(
+            #[link_name = "\u{1}_ZN6octave16symbol_scope_rep12insert_localERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE"]
+            pub fn symbol_scope_rep_insert_local(
                 this: *mut root::octave::symbol_scope_rep,
                 name: *const root::std::string,
+            ) -> root::octave::symbol_record;
+        }
+        extern "C" {
+            #[link_name = "\u{1}_ZN6octave16symbol_scope_rep20insert_symbol_recordERNS_13symbol_recordE"]
+            pub fn symbol_scope_rep_insert_symbol_record(
+                this: *mut root::octave::symbol_scope_rep,
+                sr: *mut root::octave::symbol_record,
             );
         }
         extern "C" {
-            #[link_name = "\u{1}_ZN6octave16symbol_scope_rep4findERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE"]
-            pub fn symbol_scope_rep_find(
-                this: *mut root::octave::symbol_scope_rep,
-                name: *const root::std::string,
-            ) -> root::octave_value;
-        }
-        extern "C" {
-            #[link_name = "\u{1}_ZN6octave16symbol_scope_rep6insertERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEb"]
+            #[link_name = "\u{1}_ZN6octave16symbol_scope_rep6insertERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE"]
             pub fn symbol_scope_rep_insert(
                 this: *mut root::octave::symbol_scope_rep,
                 name: *const root::std::string,
-                force_add: bool,
-            ) -> *mut root::octave::symbol_record;
+            ) -> root::octave::symbol_record;
         }
         extern "C" {
             #[link_name = "\u{1}_ZNK6octave16symbol_scope_rep16find_subfunctionERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE"]
@@ -4807,25 +4667,13 @@ pub mod root {
             pub fn symbol_scope_rep_update_nest(this: *mut root::octave::symbol_scope_rep);
         }
         extern "C" {
-            #[link_name = "\u{1}_ZN6octave16symbol_scope_rep13look_nonlocalERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERNS_13symbol_recordE"]
+            #[link_name = "\u{1}_ZN6octave16symbol_scope_rep13look_nonlocalERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEmRNS_13symbol_recordE"]
             pub fn symbol_scope_rep_look_nonlocal(
                 this: *mut root::octave::symbol_scope_rep,
                 name: *const root::std::string,
+                offset: usize,
                 result: *mut root::octave::symbol_record,
             ) -> bool;
-        }
-        extern "C" {
-            #[link_name = "\u{1}_ZN6octave16symbol_scope_rep19bind_script_symbolsERKSt10shared_ptrIS0_E"]
-            pub fn symbol_scope_rep_bind_script_symbols(
-                this: *mut root::octave::symbol_scope_rep,
-                curr_scope: *const [u64; 2usize],
-            );
-        }
-        extern "C" {
-            #[link_name = "\u{1}_ZN6octave16symbol_scope_rep21unbind_script_symbolsEv"]
-            pub fn symbol_scope_rep_unbind_script_symbols(
-                this: *mut root::octave::symbol_scope_rep,
-            );
         }
         extern "C" {
             #[link_name = "\u{1}_ZNK6octave16symbol_scope_rep16dump_symbols_mapEv"]
@@ -4833,26 +4681,30 @@ pub mod root {
                 this: *const root::octave::symbol_scope_rep,
             ) -> root::octave_value;
         }
+        extern "C" {
+            #[link_name = "\u{1}_ZNK6octave16symbol_scope_rep11symbol_listB5cxx11Ev"]
+            pub fn symbol_scope_rep_symbol_list(
+                this: *const root::octave::symbol_scope_rep,
+            ) -> [u64; 3usize];
+        }
         impl symbol_scope_rep {
             #[inline]
-            pub unsafe fn install_auto_fcn_vars(&mut self) {
-                symbol_scope_rep_install_auto_fcn_vars(self)
+            pub unsafe fn insert_local(
+                &mut self,
+                name: *const root::std::string,
+            ) -> root::octave::symbol_record {
+                symbol_scope_rep_insert_local(self, name)
             }
             #[inline]
-            pub unsafe fn install_auto_fcn_var(&mut self, name: *const root::std::string) {
-                symbol_scope_rep_install_auto_fcn_var(self, name)
-            }
-            #[inline]
-            pub unsafe fn find(&mut self, name: *const root::std::string) -> root::octave_value {
-                symbol_scope_rep_find(self, name)
+            pub unsafe fn insert_symbol_record(&mut self, sr: *mut root::octave::symbol_record) {
+                symbol_scope_rep_insert_symbol_record(self, sr)
             }
             #[inline]
             pub unsafe fn insert(
                 &mut self,
                 name: *const root::std::string,
-                force_add: bool,
-            ) -> *mut root::octave::symbol_record {
-                symbol_scope_rep_insert(self, name, force_add)
+            ) -> root::octave::symbol_record {
+                symbol_scope_rep_insert(self, name)
             }
             #[inline]
             pub unsafe fn find_subfunction(
@@ -4892,21 +4744,18 @@ pub mod root {
             pub unsafe fn look_nonlocal(
                 &mut self,
                 name: *const root::std::string,
+                offset: usize,
                 result: *mut root::octave::symbol_record,
             ) -> bool {
-                symbol_scope_rep_look_nonlocal(self, name, result)
-            }
-            #[inline]
-            pub unsafe fn bind_script_symbols(&mut self, curr_scope: *const [u64; 2usize]) {
-                symbol_scope_rep_bind_script_symbols(self, curr_scope)
-            }
-            #[inline]
-            pub unsafe fn unbind_script_symbols(&mut self) {
-                symbol_scope_rep_unbind_script_symbols(self)
+                symbol_scope_rep_look_nonlocal(self, name, offset, result)
             }
             #[inline]
             pub unsafe fn dump_symbols_map(&self) -> root::octave_value {
                 symbol_scope_rep_dump_symbols_map(self)
+            }
+            #[inline]
+            pub unsafe fn symbol_list(&self) -> [u64; 3usize] {
+                symbol_scope_rep_symbol_list(self)
             }
         }
         #[repr(C)]
@@ -4936,6 +4785,11 @@ pub mod root {
                     stringify!(m_rep)
                 )
             );
+        }
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct stack_frame {
+            _unused: [u8; 0],
         }
         #[repr(C)]
         #[derive(Debug, Copy, Clone)]
@@ -5193,6 +5047,971 @@ pub mod root {
                 8usize,
                 concat!("Alignment of ", stringify!(auto_shlib))
             );
+        }
+        #[repr(C)]
+        pub struct action_container__bindgen_vtable(::std::os::raw::c_void);
+        #[repr(C)]
+        #[derive(Debug)]
+        pub struct action_container {
+            pub vtable_: *const action_container__bindgen_vtable,
+        }
+        #[repr(C)]
+        pub struct action_container_elem__bindgen_vtable(::std::os::raw::c_void);
+        #[repr(C)]
+        #[derive(Debug)]
+        pub struct action_container_elem {
+            pub vtable_: *const action_container_elem__bindgen_vtable,
+        }
+        #[test]
+        fn bindgen_test_layout_action_container_elem() {
+            assert_eq!(
+                ::core::mem::size_of::<action_container_elem>(),
+                8usize,
+                concat!("Size of: ", stringify!(action_container_elem))
+            );
+            assert_eq!(
+                ::core::mem::align_of::<action_container_elem>(),
+                8usize,
+                concat!("Alignment of ", stringify!(action_container_elem))
+            );
+        }
+        #[repr(C)]
+        #[derive(Debug)]
+        pub struct action_container_fcn_elem {
+            pub _base: root::octave::action_container_elem,
+            pub m_fcn: [u64; 4usize],
+        }
+        #[test]
+        fn bindgen_test_layout_action_container_fcn_elem() {
+            assert_eq!(
+                ::core::mem::size_of::<action_container_fcn_elem>(),
+                40usize,
+                concat!("Size of: ", stringify!(action_container_fcn_elem))
+            );
+            assert_eq!(
+                ::core::mem::align_of::<action_container_fcn_elem>(),
+                8usize,
+                concat!("Alignment of ", stringify!(action_container_fcn_elem))
+            );
+            assert_eq!(
+                unsafe {
+                    &(*(::core::ptr::null::<action_container_fcn_elem>())).m_fcn as *const _
+                        as usize
+                },
+                8usize,
+                concat!(
+                    "Offset of field: ",
+                    stringify!(action_container_fcn_elem),
+                    "::",
+                    stringify!(m_fcn)
+                )
+            );
+        }
+        #[repr(C)]
+        #[derive(Debug)]
+        pub struct action_container_restore_var_elem<T> {
+            pub _base: root::octave::action_container_elem,
+            pub m_ptr: *mut T,
+            pub m_val: T,
+            pub _phantom_0: ::core::marker::PhantomData<::core::cell::UnsafeCell<T>>,
+        }
+        #[repr(C)]
+        #[derive(Debug)]
+        pub struct action_container_delete_ptr_elem<T> {
+            pub _base: root::octave::action_container_elem,
+            pub m_ptr: *mut T,
+            pub _phantom_0: ::core::marker::PhantomData<::core::cell::UnsafeCell<T>>,
+        }
+        #[test]
+        fn bindgen_test_layout_action_container() {
+            assert_eq!(
+                ::core::mem::size_of::<action_container>(),
+                8usize,
+                concat!("Size of: ", stringify!(action_container))
+            );
+            assert_eq!(
+                ::core::mem::align_of::<action_container>(),
+                8usize,
+                concat!("Alignment of ", stringify!(action_container))
+            );
+        }
+        #[repr(C)]
+        #[derive(Debug)]
+        pub struct unwind_protect {
+            pub _base: root::octave::action_container,
+            pub m_lifo: [u64; 10usize],
+        }
+        #[test]
+        fn bindgen_test_layout_unwind_protect() {
+            assert_eq!(
+                ::core::mem::size_of::<unwind_protect>(),
+                88usize,
+                concat!("Size of: ", stringify!(unwind_protect))
+            );
+            assert_eq!(
+                ::core::mem::align_of::<unwind_protect>(),
+                8usize,
+                concat!("Alignment of ", stringify!(unwind_protect))
+            );
+            assert_eq!(
+                unsafe { &(*(::core::ptr::null::<unwind_protect>())).m_lifo as *const _ as usize },
+                8usize,
+                concat!(
+                    "Offset of field: ",
+                    stringify!(unwind_protect),
+                    "::",
+                    stringify!(m_lifo)
+                )
+            );
+        }
+        #[repr(C)]
+        #[derive(Debug)]
+        pub struct unwind_protect_safe {
+            pub _base: root::octave::unwind_protect,
+        }
+        #[test]
+        fn bindgen_test_layout_unwind_protect_safe() {
+            assert_eq!(
+                ::core::mem::size_of::<unwind_protect_safe>(),
+                88usize,
+                concat!("Size of: ", stringify!(unwind_protect_safe))
+            );
+            assert_eq!(
+                ::core::mem::align_of::<unwind_protect_safe>(),
+                8usize,
+                concat!("Alignment of ", stringify!(unwind_protect_safe))
+            );
+        }
+        #[repr(C)]
+        #[derive(Debug)]
+        pub struct error_system {
+            pub m_interpreter: *mut root::octave::interpreter,
+            #[doc = "! TRUE means that Octave will try to enter the debugger when an error"]
+            #[doc = "! is encountered.  This will also inhibit printing of the normal"]
+            #[doc = "! traceback message (you will only see the top-level error message)."]
+            pub m_debug_on_error: bool,
+            #[doc = "! TRUE means that Octave will try to enter the debugger when an error"]
+            #[doc = "! is encountered within the 'try' section of a 'try' / 'catch' block."]
+            pub m_debug_on_caught: bool,
+            #[doc = "! TRUE means that Octave will try to enter the debugger when a warning"]
+            #[doc = "! is encountered."]
+            pub m_debug_on_warning: bool,
+            #[doc = "! Tell the error handler whether to print messages, or just store"]
+            #[doc = "! them for later.  Used for handling errors in eval() and"]
+            #[doc = "! the 'unwind_protect' statement."]
+            pub m_buffer_error_messages: ::std::os::raw::c_int,
+            #[doc = "! The number of layers of try / catch blocks we're in.  Used to print"]
+            #[doc = "! \"caught error\" instead of \"error\" when \"dbstop if caught error\" is on."]
+            pub m_in_try_catch: ::std::os::raw::c_int,
+            #[doc = "! TRUE means error messages are turned off."]
+            pub m_discard_error_messages: bool,
+            #[doc = "! TRUE means warning messages are turned off."]
+            pub m_discard_warning_messages: bool,
+            #[doc = "! TRUE means that Octave will try to beep obnoxiously before"]
+            #[doc = "! printing error messages."]
+            pub m_beep_on_error: bool,
+            #[doc = "! TRUE means that Octave will try to display a stack trace when a"]
+            #[doc = "! warning is encountered."]
+            pub m_backtrace_on_warning: bool,
+            #[doc = "! TRUE means that Octave will print a verbose warning.  Currently"]
+            #[doc = "! unused."]
+            pub m_verbose_warning: bool,
+            #[doc = "! TRUE means that Octave will print no warnings, but lastwarn will"]
+            #[doc = "! be updated"]
+            pub m_quiet_warning: bool,
+            #[doc = "! A structure containing (most of) the current state of warnings."]
+            pub m_warning_options: root::octave_map,
+            #[doc = "! The text of the last error message."]
+            pub m_last_error_message: root::std::string,
+            #[doc = "! The text of the last warning message."]
+            pub m_last_warning_message: root::std::string,
+            #[doc = "! The last warning message id."]
+            pub m_last_warning_id: root::std::string,
+            #[doc = "! The last error message id."]
+            pub m_last_error_id: root::std::string,
+            #[doc = "! The last file in which an error occurred."]
+            pub m_last_error_stack: root::octave_map,
+        }
+        pub const error_system_try_option_buffer: root::octave::error_system_try_option = 1;
+        pub const error_system_try_option_discard: root::octave::error_system_try_option = 2;
+        pub type error_system_try_option = u32;
+        #[test]
+        fn bindgen_test_layout_error_system() {
+            assert_eq!(
+                ::core::mem::size_of::<error_system>(),
+                240usize,
+                concat!("Size of: ", stringify!(error_system))
+            );
+            assert_eq!(
+                ::core::mem::align_of::<error_system>(),
+                8usize,
+                concat!("Alignment of ", stringify!(error_system))
+            );
+            assert_eq!(
+                unsafe {
+                    &(*(::core::ptr::null::<error_system>())).m_interpreter as *const _ as usize
+                },
+                0usize,
+                concat!(
+                    "Offset of field: ",
+                    stringify!(error_system),
+                    "::",
+                    stringify!(m_interpreter)
+                )
+            );
+            assert_eq!(
+                unsafe {
+                    &(*(::core::ptr::null::<error_system>())).m_debug_on_error as *const _ as usize
+                },
+                8usize,
+                concat!(
+                    "Offset of field: ",
+                    stringify!(error_system),
+                    "::",
+                    stringify!(m_debug_on_error)
+                )
+            );
+            assert_eq!(
+                unsafe {
+                    &(*(::core::ptr::null::<error_system>())).m_debug_on_caught as *const _ as usize
+                },
+                9usize,
+                concat!(
+                    "Offset of field: ",
+                    stringify!(error_system),
+                    "::",
+                    stringify!(m_debug_on_caught)
+                )
+            );
+            assert_eq!(
+                unsafe {
+                    &(*(::core::ptr::null::<error_system>())).m_debug_on_warning as *const _
+                        as usize
+                },
+                10usize,
+                concat!(
+                    "Offset of field: ",
+                    stringify!(error_system),
+                    "::",
+                    stringify!(m_debug_on_warning)
+                )
+            );
+            assert_eq!(
+                unsafe {
+                    &(*(::core::ptr::null::<error_system>())).m_buffer_error_messages as *const _
+                        as usize
+                },
+                12usize,
+                concat!(
+                    "Offset of field: ",
+                    stringify!(error_system),
+                    "::",
+                    stringify!(m_buffer_error_messages)
+                )
+            );
+            assert_eq!(
+                unsafe {
+                    &(*(::core::ptr::null::<error_system>())).m_in_try_catch as *const _ as usize
+                },
+                16usize,
+                concat!(
+                    "Offset of field: ",
+                    stringify!(error_system),
+                    "::",
+                    stringify!(m_in_try_catch)
+                )
+            );
+            assert_eq!(
+                unsafe {
+                    &(*(::core::ptr::null::<error_system>())).m_discard_error_messages as *const _
+                        as usize
+                },
+                20usize,
+                concat!(
+                    "Offset of field: ",
+                    stringify!(error_system),
+                    "::",
+                    stringify!(m_discard_error_messages)
+                )
+            );
+            assert_eq!(
+                unsafe {
+                    &(*(::core::ptr::null::<error_system>())).m_discard_warning_messages as *const _
+                        as usize
+                },
+                21usize,
+                concat!(
+                    "Offset of field: ",
+                    stringify!(error_system),
+                    "::",
+                    stringify!(m_discard_warning_messages)
+                )
+            );
+            assert_eq!(
+                unsafe {
+                    &(*(::core::ptr::null::<error_system>())).m_beep_on_error as *const _ as usize
+                },
+                22usize,
+                concat!(
+                    "Offset of field: ",
+                    stringify!(error_system),
+                    "::",
+                    stringify!(m_beep_on_error)
+                )
+            );
+            assert_eq!(
+                unsafe {
+                    &(*(::core::ptr::null::<error_system>())).m_backtrace_on_warning as *const _
+                        as usize
+                },
+                23usize,
+                concat!(
+                    "Offset of field: ",
+                    stringify!(error_system),
+                    "::",
+                    stringify!(m_backtrace_on_warning)
+                )
+            );
+            assert_eq!(
+                unsafe {
+                    &(*(::core::ptr::null::<error_system>())).m_verbose_warning as *const _ as usize
+                },
+                24usize,
+                concat!(
+                    "Offset of field: ",
+                    stringify!(error_system),
+                    "::",
+                    stringify!(m_verbose_warning)
+                )
+            );
+            assert_eq!(
+                unsafe {
+                    &(*(::core::ptr::null::<error_system>())).m_quiet_warning as *const _ as usize
+                },
+                25usize,
+                concat!(
+                    "Offset of field: ",
+                    stringify!(error_system),
+                    "::",
+                    stringify!(m_quiet_warning)
+                )
+            );
+            assert_eq!(
+                unsafe {
+                    &(*(::core::ptr::null::<error_system>())).m_warning_options as *const _ as usize
+                },
+                32usize,
+                concat!(
+                    "Offset of field: ",
+                    stringify!(error_system),
+                    "::",
+                    stringify!(m_warning_options)
+                )
+            );
+            assert_eq!(
+                unsafe {
+                    &(*(::core::ptr::null::<error_system>())).m_last_error_message as *const _
+                        as usize
+                },
+                72usize,
+                concat!(
+                    "Offset of field: ",
+                    stringify!(error_system),
+                    "::",
+                    stringify!(m_last_error_message)
+                )
+            );
+            assert_eq!(
+                unsafe {
+                    &(*(::core::ptr::null::<error_system>())).m_last_warning_message as *const _
+                        as usize
+                },
+                104usize,
+                concat!(
+                    "Offset of field: ",
+                    stringify!(error_system),
+                    "::",
+                    stringify!(m_last_warning_message)
+                )
+            );
+            assert_eq!(
+                unsafe {
+                    &(*(::core::ptr::null::<error_system>())).m_last_warning_id as *const _ as usize
+                },
+                136usize,
+                concat!(
+                    "Offset of field: ",
+                    stringify!(error_system),
+                    "::",
+                    stringify!(m_last_warning_id)
+                )
+            );
+            assert_eq!(
+                unsafe {
+                    &(*(::core::ptr::null::<error_system>())).m_last_error_id as *const _ as usize
+                },
+                168usize,
+                concat!(
+                    "Offset of field: ",
+                    stringify!(error_system),
+                    "::",
+                    stringify!(m_last_error_id)
+                )
+            );
+            assert_eq!(
+                unsafe {
+                    &(*(::core::ptr::null::<error_system>())).m_last_error_stack as *const _
+                        as usize
+                },
+                200usize,
+                concat!(
+                    "Offset of field: ",
+                    stringify!(error_system),
+                    "::",
+                    stringify!(m_last_error_stack)
+                )
+            );
+        }
+        extern "C" {
+            #[link_name = "\u{1}_ZN6octave12error_system14debug_on_errorERK17octave_value_listi"]
+            pub fn error_system_debug_on_error(
+                this: *mut root::octave::error_system,
+                args: *const root::octave_value_list,
+                nargout: ::std::os::raw::c_int,
+            ) -> root::octave_value;
+        }
+        extern "C" {
+            #[link_name = "\u{1}_ZN6octave12error_system15debug_on_caughtERK17octave_value_listi"]
+            pub fn error_system_debug_on_caught(
+                this: *mut root::octave::error_system,
+                args: *const root::octave_value_list,
+                nargout: ::std::os::raw::c_int,
+            ) -> root::octave_value;
+        }
+        extern "C" {
+            #[link_name = "\u{1}_ZN6octave12error_system16debug_on_warningERK17octave_value_listi"]
+            pub fn error_system_debug_on_warning(
+                this: *mut root::octave::error_system,
+                args: *const root::octave_value_list,
+                nargout: ::std::os::raw::c_int,
+            ) -> root::octave_value;
+        }
+        extern "C" {
+            #[link_name = "\u{1}_ZN6octave12error_system21buffer_error_messagesERK17octave_value_listi"]
+            pub fn error_system_buffer_error_messages(
+                this: *mut root::octave::error_system,
+                args: *const root::octave_value_list,
+                nargout: ::std::os::raw::c_int,
+            ) -> root::octave_value;
+        }
+        extern "C" {
+            #[link_name = "\u{1}_ZN6octave12error_system12in_try_catchERK17octave_value_listi"]
+            pub fn error_system_in_try_catch(
+                this: *mut root::octave::error_system,
+                args: *const root::octave_value_list,
+                nargout: ::std::os::raw::c_int,
+            ) -> root::octave_value;
+        }
+        extern "C" {
+            #[link_name = "\u{1}_ZN6octave12error_system22discard_error_messagesERK17octave_value_listi"]
+            pub fn error_system_discard_error_messages(
+                this: *mut root::octave::error_system,
+                args: *const root::octave_value_list,
+                nargout: ::std::os::raw::c_int,
+            ) -> root::octave_value;
+        }
+        extern "C" {
+            #[link_name = "\u{1}_ZN6octave12error_system24discard_warning_messagesERK17octave_value_listi"]
+            pub fn error_system_discard_warning_messages(
+                this: *mut root::octave::error_system,
+                args: *const root::octave_value_list,
+                nargout: ::std::os::raw::c_int,
+            ) -> root::octave_value;
+        }
+        extern "C" {
+            #[link_name = "\u{1}_ZN6octave12error_system13beep_on_errorERK17octave_value_listi"]
+            pub fn error_system_beep_on_error(
+                this: *mut root::octave::error_system,
+                args: *const root::octave_value_list,
+                nargout: ::std::os::raw::c_int,
+            ) -> root::octave_value;
+        }
+        extern "C" {
+            #[link_name = "\u{1}_ZN6octave12error_system20backtrace_on_warningERK17octave_value_listi"]
+            pub fn error_system_backtrace_on_warning(
+                this: *mut root::octave::error_system,
+                args: *const root::octave_value_list,
+                nargout: ::std::os::raw::c_int,
+            ) -> root::octave_value;
+        }
+        extern "C" {
+            #[link_name = "\u{1}_ZN6octave12error_system15verbose_warningERK17octave_value_listi"]
+            pub fn error_system_verbose_warning(
+                this: *mut root::octave::error_system,
+                args: *const root::octave_value_list,
+                nargout: ::std::os::raw::c_int,
+            ) -> root::octave_value;
+        }
+        extern "C" {
+            #[link_name = "\u{1}_ZN6octave12error_system13quiet_warningERK17octave_value_listi"]
+            pub fn error_system_quiet_warning(
+                this: *mut root::octave::error_system,
+                args: *const root::octave_value_list,
+                nargout: ::std::os::raw::c_int,
+            ) -> root::octave_value;
+        }
+        extern "C" {
+            #[link_name = "\u{1}_ZN6octave12error_system18last_error_messageERK17octave_value_listi"]
+            pub fn error_system_last_error_message(
+                this: *mut root::octave::error_system,
+                args: *const root::octave_value_list,
+                nargout: ::std::os::raw::c_int,
+            ) -> root::octave_value;
+        }
+        extern "C" {
+            #[link_name = "\u{1}_ZN6octave12error_system20last_warning_messageERK17octave_value_listi"]
+            pub fn error_system_last_warning_message(
+                this: *mut root::octave::error_system,
+                args: *const root::octave_value_list,
+                nargout: ::std::os::raw::c_int,
+            ) -> root::octave_value;
+        }
+        extern "C" {
+            #[link_name = "\u{1}_ZN6octave12error_system15last_warning_idERK17octave_value_listi"]
+            pub fn error_system_last_warning_id(
+                this: *mut root::octave::error_system,
+                args: *const root::octave_value_list,
+                nargout: ::std::os::raw::c_int,
+            ) -> root::octave_value;
+        }
+        extern "C" {
+            #[link_name = "\u{1}_ZN6octave12error_system13last_error_idERK17octave_value_listi"]
+            pub fn error_system_last_error_id(
+                this: *mut root::octave::error_system,
+                args: *const root::octave_value_list,
+                nargout: ::std::os::raw::c_int,
+            ) -> root::octave_value;
+        }
+        extern "C" {
+            #[doc = "! For given warning ID, return 0 if warnings are disabled, 1 if"]
+            #[doc = "! enabled, and 2 if the given ID should be an error instead of a"]
+            #[doc = "! warning."]
+            #[link_name = "\u{1}_ZN6octave12error_system15warning_enabledERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE"]
+            pub fn error_system_warning_enabled(
+                this: *mut root::octave::error_system,
+                id: *const root::std::string,
+            ) -> ::std::os::raw::c_int;
+        }
+        extern "C" {
+            #[link_name = "\u{1}_ZN6octave12error_system6verrorEbRSoPKcS3_S3_P13__va_list_tagb"]
+            pub fn error_system_verror(
+                this: *mut root::octave::error_system,
+                save_last_error: bool,
+                os: *mut root::std::ostream,
+                name: *const ::std::os::raw::c_char,
+                id: *const ::std::os::raw::c_char,
+                fmt: *const ::std::os::raw::c_char,
+                args: *mut root::__va_list_tag,
+                with_cfn: bool,
+            );
+        }
+        extern "C" {
+            #[link_name = "\u{1}_ZN6octave12error_system20maybe_enter_debuggerERNS_19execution_exceptionEb"]
+            pub fn error_system_maybe_enter_debugger(
+                this: *mut root::octave::error_system,
+                e: *mut root::octave::execution_exception,
+                show_stack_trace: bool,
+            );
+        }
+        extern "C" {
+            #[link_name = "\u{1}_ZN6octave12error_system8vwarningEPKcS2_S2_P13__va_list_tag"]
+            pub fn error_system_vwarning(
+                this: *mut root::octave::error_system,
+                name: *const ::std::os::raw::c_char,
+                id: *const ::std::os::raw::c_char,
+                fmt: *const ::std::os::raw::c_char,
+                args: *mut root::__va_list_tag,
+            );
+        }
+        extern "C" {
+            #[link_name = "\u{1}_ZN6octave12error_system7error_1ERNS_19execution_exceptionERSoPKcS5_S5_P13__va_list_tagb"]
+            pub fn error_system_error_1(
+                this: *mut root::octave::error_system,
+                e: *mut root::octave::execution_exception,
+                os: *mut root::std::ostream,
+                name: *const ::std::os::raw::c_char,
+                id: *const ::std::os::raw::c_char,
+                fmt: *const ::std::os::raw::c_char,
+                args: *mut root::__va_list_tag,
+                with_cfn: bool,
+            );
+        }
+        extern "C" {
+            #[link_name = "\u{1}_ZN6octave12error_system7error_1ERSoPKcS3_S3_P13__va_list_tagb"]
+            pub fn error_system_error_11(
+                this: *mut root::octave::error_system,
+                os: *mut root::std::ostream,
+                name: *const ::std::os::raw::c_char,
+                id: *const ::std::os::raw::c_char,
+                fmt: *const ::std::os::raw::c_char,
+                args: *mut root::__va_list_tag,
+                with_cfn: bool,
+            );
+        }
+        extern "C" {
+            #[link_name = "\u{1}_ZN6octave12error_system8vwarningEPKcS2_P13__va_list_tag"]
+            pub fn error_system_vwarning1(
+                this: *mut root::octave::error_system,
+                id: *const ::std::os::raw::c_char,
+                fmt: *const ::std::os::raw::c_char,
+                args: *mut root::__va_list_tag,
+            );
+        }
+        extern "C" {
+            #[link_name = "\u{1}_ZN6octave12error_system13rethrow_errorEPKcS2_z"]
+            pub fn error_system_rethrow_error(
+                this: *mut root::octave::error_system,
+                id: *const ::std::os::raw::c_char,
+                fmt: *const ::std::os::raw::c_char,
+                ...
+            );
+        }
+        extern "C" {
+            #[link_name = "\u{1}_ZN6octave12error_system13rethrow_errorERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEES8_RK10octave_map"]
+            pub fn error_system_rethrow_error1(
+                this: *mut root::octave::error_system,
+                id: *const root::std::string,
+                msg: *const root::std::string,
+                stack: *const root::octave_map,
+            );
+        }
+        extern "C" {
+            #[link_name = "\u{1}_ZN6octave12error_system6vpanicEPKcP13__va_list_tag"]
+            pub fn error_system_vpanic(
+                this: *mut root::octave::error_system,
+                fmt: *const ::std::os::raw::c_char,
+                args: *mut root::__va_list_tag,
+            );
+        }
+        extern "C" {
+            #[link_name = "\u{1}_ZN6octave12error_system5panicEPKcz"]
+            pub fn error_system_panic(
+                this: *mut root::octave::error_system,
+                fmt: *const ::std::os::raw::c_char,
+                ...
+            );
+        }
+        extern "C" {
+            #[link_name = "\u{1}_ZN6octave12error_system13warning_queryERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE"]
+            pub fn error_system_warning_query(
+                this: *mut root::octave::error_system,
+                id_arg: *const root::std::string,
+            ) -> root::octave_scalar_map;
+        }
+        extern "C" {
+            #[link_name = "\u{1}_ZN6octave12error_system21default_warning_stateB5cxx11Ev"]
+            pub fn error_system_default_warning_state(
+                this: *mut root::octave::error_system,
+            ) -> root::std::string;
+        }
+        extern "C" {
+            #[link_name = "\u{1}_ZN6octave12error_system23display_warning_optionsERSo"]
+            pub fn error_system_display_warning_options(
+                this: *mut root::octave::error_system,
+                os: *mut root::std::ostream,
+            );
+        }
+        extern "C" {
+            #[link_name = "\u{1}_ZN6octave12error_system18set_warning_optionERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEES8_"]
+            pub fn error_system_set_warning_option(
+                this: *mut root::octave::error_system,
+                state: *const root::std::string,
+                id: *const root::std::string,
+            );
+        }
+        extern "C" {
+            #[link_name = "\u{1}_ZN6octave12error_system15disable_warningERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE"]
+            pub fn error_system_disable_warning(
+                this: *mut root::octave::error_system,
+                id: *const root::std::string,
+            );
+        }
+        extern "C" {
+            #[link_name = "\u{1}_ZN6octave12error_system32initialize_default_warning_stateEv"]
+            pub fn error_system_initialize_default_warning_state(
+                this: *mut root::octave::error_system,
+            );
+        }
+        extern "C" {
+            #[link_name = "\u{1}_ZN6octave12error_system15interpreter_tryERNS_14unwind_protectENS0_10try_optionE"]
+            pub fn error_system_interpreter_try(
+                this: *mut root::octave::error_system,
+                frame: *mut root::octave::unwind_protect,
+                arg1: root::octave::error_system_try_option,
+            );
+        }
+        extern "C" {
+            #[link_name = "\u{1}_ZN6octave12error_systemC1ERNS_11interpreterE"]
+            pub fn error_system_error_system(
+                this: *mut root::octave::error_system,
+                interp: *mut root::octave::interpreter,
+            );
+        }
+        impl error_system {
+            #[inline]
+            pub unsafe fn debug_on_error(
+                &mut self,
+                args: *const root::octave_value_list,
+                nargout: ::std::os::raw::c_int,
+            ) -> root::octave_value {
+                error_system_debug_on_error(self, args, nargout)
+            }
+            #[inline]
+            pub unsafe fn debug_on_caught(
+                &mut self,
+                args: *const root::octave_value_list,
+                nargout: ::std::os::raw::c_int,
+            ) -> root::octave_value {
+                error_system_debug_on_caught(self, args, nargout)
+            }
+            #[inline]
+            pub unsafe fn debug_on_warning(
+                &mut self,
+                args: *const root::octave_value_list,
+                nargout: ::std::os::raw::c_int,
+            ) -> root::octave_value {
+                error_system_debug_on_warning(self, args, nargout)
+            }
+            #[inline]
+            pub unsafe fn buffer_error_messages(
+                &mut self,
+                args: *const root::octave_value_list,
+                nargout: ::std::os::raw::c_int,
+            ) -> root::octave_value {
+                error_system_buffer_error_messages(self, args, nargout)
+            }
+            #[inline]
+            pub unsafe fn in_try_catch(
+                &mut self,
+                args: *const root::octave_value_list,
+                nargout: ::std::os::raw::c_int,
+            ) -> root::octave_value {
+                error_system_in_try_catch(self, args, nargout)
+            }
+            #[inline]
+            pub unsafe fn discard_error_messages(
+                &mut self,
+                args: *const root::octave_value_list,
+                nargout: ::std::os::raw::c_int,
+            ) -> root::octave_value {
+                error_system_discard_error_messages(self, args, nargout)
+            }
+            #[inline]
+            pub unsafe fn discard_warning_messages(
+                &mut self,
+                args: *const root::octave_value_list,
+                nargout: ::std::os::raw::c_int,
+            ) -> root::octave_value {
+                error_system_discard_warning_messages(self, args, nargout)
+            }
+            #[inline]
+            pub unsafe fn beep_on_error(
+                &mut self,
+                args: *const root::octave_value_list,
+                nargout: ::std::os::raw::c_int,
+            ) -> root::octave_value {
+                error_system_beep_on_error(self, args, nargout)
+            }
+            #[inline]
+            pub unsafe fn backtrace_on_warning(
+                &mut self,
+                args: *const root::octave_value_list,
+                nargout: ::std::os::raw::c_int,
+            ) -> root::octave_value {
+                error_system_backtrace_on_warning(self, args, nargout)
+            }
+            #[inline]
+            pub unsafe fn verbose_warning(
+                &mut self,
+                args: *const root::octave_value_list,
+                nargout: ::std::os::raw::c_int,
+            ) -> root::octave_value {
+                error_system_verbose_warning(self, args, nargout)
+            }
+            #[inline]
+            pub unsafe fn quiet_warning(
+                &mut self,
+                args: *const root::octave_value_list,
+                nargout: ::std::os::raw::c_int,
+            ) -> root::octave_value {
+                error_system_quiet_warning(self, args, nargout)
+            }
+            #[inline]
+            pub unsafe fn last_error_message(
+                &mut self,
+                args: *const root::octave_value_list,
+                nargout: ::std::os::raw::c_int,
+            ) -> root::octave_value {
+                error_system_last_error_message(self, args, nargout)
+            }
+            #[inline]
+            pub unsafe fn last_warning_message(
+                &mut self,
+                args: *const root::octave_value_list,
+                nargout: ::std::os::raw::c_int,
+            ) -> root::octave_value {
+                error_system_last_warning_message(self, args, nargout)
+            }
+            #[inline]
+            pub unsafe fn last_warning_id(
+                &mut self,
+                args: *const root::octave_value_list,
+                nargout: ::std::os::raw::c_int,
+            ) -> root::octave_value {
+                error_system_last_warning_id(self, args, nargout)
+            }
+            #[inline]
+            pub unsafe fn last_error_id(
+                &mut self,
+                args: *const root::octave_value_list,
+                nargout: ::std::os::raw::c_int,
+            ) -> root::octave_value {
+                error_system_last_error_id(self, args, nargout)
+            }
+            #[inline]
+            pub unsafe fn warning_enabled(
+                &mut self,
+                id: *const root::std::string,
+            ) -> ::std::os::raw::c_int {
+                error_system_warning_enabled(self, id)
+            }
+            #[inline]
+            pub unsafe fn verror(
+                &mut self,
+                save_last_error: bool,
+                os: *mut root::std::ostream,
+                name: *const ::std::os::raw::c_char,
+                id: *const ::std::os::raw::c_char,
+                fmt: *const ::std::os::raw::c_char,
+                args: *mut root::__va_list_tag,
+                with_cfn: bool,
+            ) {
+                error_system_verror(self, save_last_error, os, name, id, fmt, args, with_cfn)
+            }
+            #[inline]
+            pub unsafe fn maybe_enter_debugger(
+                &mut self,
+                e: *mut root::octave::execution_exception,
+                show_stack_trace: bool,
+            ) {
+                error_system_maybe_enter_debugger(self, e, show_stack_trace)
+            }
+            #[inline]
+            pub unsafe fn vwarning(
+                &mut self,
+                name: *const ::std::os::raw::c_char,
+                id: *const ::std::os::raw::c_char,
+                fmt: *const ::std::os::raw::c_char,
+                args: *mut root::__va_list_tag,
+            ) {
+                error_system_vwarning(self, name, id, fmt, args)
+            }
+            #[inline]
+            pub unsafe fn error_1(
+                &mut self,
+                e: *mut root::octave::execution_exception,
+                os: *mut root::std::ostream,
+                name: *const ::std::os::raw::c_char,
+                id: *const ::std::os::raw::c_char,
+                fmt: *const ::std::os::raw::c_char,
+                args: *mut root::__va_list_tag,
+                with_cfn: bool,
+            ) {
+                error_system_error_1(self, e, os, name, id, fmt, args, with_cfn)
+            }
+            #[inline]
+            pub unsafe fn error_11(
+                &mut self,
+                os: *mut root::std::ostream,
+                name: *const ::std::os::raw::c_char,
+                id: *const ::std::os::raw::c_char,
+                fmt: *const ::std::os::raw::c_char,
+                args: *mut root::__va_list_tag,
+                with_cfn: bool,
+            ) {
+                error_system_error_11(self, os, name, id, fmt, args, with_cfn)
+            }
+            #[inline]
+            pub unsafe fn vwarning1(
+                &mut self,
+                id: *const ::std::os::raw::c_char,
+                fmt: *const ::std::os::raw::c_char,
+                args: *mut root::__va_list_tag,
+            ) {
+                error_system_vwarning1(self, id, fmt, args)
+            }
+            #[inline]
+            pub unsafe fn rethrow_error(
+                &mut self,
+                id: *const root::std::string,
+                msg: *const root::std::string,
+                stack: *const root::octave_map,
+            ) {
+                error_system_rethrow_error1(self, id, msg, stack)
+            }
+            #[inline]
+            pub unsafe fn vpanic(
+                &mut self,
+                fmt: *const ::std::os::raw::c_char,
+                args: *mut root::__va_list_tag,
+            ) {
+                error_system_vpanic(self, fmt, args)
+            }
+            #[inline]
+            pub unsafe fn warning_query(
+                &mut self,
+                id_arg: *const root::std::string,
+            ) -> root::octave_scalar_map {
+                error_system_warning_query(self, id_arg)
+            }
+            #[inline]
+            pub unsafe fn default_warning_state(&mut self) -> root::std::string {
+                error_system_default_warning_state(self)
+            }
+            #[inline]
+            pub unsafe fn display_warning_options(&mut self, os: *mut root::std::ostream) {
+                error_system_display_warning_options(self, os)
+            }
+            #[inline]
+            pub unsafe fn set_warning_option(
+                &mut self,
+                state: *const root::std::string,
+                id: *const root::std::string,
+            ) {
+                error_system_set_warning_option(self, state, id)
+            }
+            #[inline]
+            pub unsafe fn disable_warning(&mut self, id: *const root::std::string) {
+                error_system_disable_warning(self, id)
+            }
+            #[inline]
+            pub unsafe fn initialize_default_warning_state(&mut self) {
+                error_system_initialize_default_warning_state(self)
+            }
+            #[inline]
+            pub unsafe fn interpreter_try(
+                &mut self,
+                frame: *mut root::octave::unwind_protect,
+                arg1: root::octave::error_system_try_option,
+            ) {
+                error_system_interpreter_try(self, frame, arg1)
+            }
+            #[inline]
+            pub unsafe fn new(interp: *mut root::octave::interpreter) -> Self {
+                let mut __bindgen_tmp = ::core::mem::uninitialized();
+                error_system_error_system(&mut __bindgen_tmp, interp);
+                __bindgen_tmp
+            }
         }
         #[repr(C)]
         #[derive(Debug, Copy, Clone)]
@@ -6242,9 +7061,27 @@ pub mod root {
             ) -> usize;
         }
         extern "C" {
+            #[link_name = "\u{1}_ZN6octave6formatERSoRKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEPKcz"]
+            pub fn format1(
+                os: *mut root::std::ostream,
+                enc: *const root::std::string,
+                fmt: *const ::std::os::raw::c_char,
+                ...
+            ) -> usize;
+        }
+        extern "C" {
             #[link_name = "\u{1}_ZN6octave7vformatERSoPKcP13__va_list_tag"]
             pub fn vformat(
                 os: *mut root::std::ostream,
+                fmt: *const ::std::os::raw::c_char,
+                args: *mut root::__va_list_tag,
+            ) -> usize;
+        }
+        extern "C" {
+            #[link_name = "\u{1}_ZN6octave7vformatERSoRKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEPKcP13__va_list_tag"]
+            pub fn vformat1(
+                os: *mut root::std::ostream,
+                enc: *const root::std::string,
                 fmt: *const ::std::os::raw::c_char,
                 args: *mut root::__va_list_tag,
             ) -> usize;
@@ -6297,7 +7134,6 @@ pub mod root {
             _unused: [u8; 0],
         }
     }
-    pub type octave_refcount = u8;
     #[doc = "! Vector representing the dimensions (size) of an Array."]
     #[doc = "!"]
     #[doc = "! A dim_vector is used to represent dimensions of an Array.  It is used"]
@@ -7647,8 +8483,8 @@ pub mod root {
     #[doc = "!"]
     #[doc = "! ### size_type"]
     #[doc = "!"]
-    #[doc = "! Array::size_type is `octave_idx_type` which is a typedef for `int`"]
-    #[doc = "! or `long int`, depending whether Octave was configured for 64-bit"]
+    #[doc = "! Array::size_type is 'octave_idx_type' which is a typedef for 'int'"]
+    #[doc = "! or 'long int', depending whether Octave was configured for 64-bit"]
     #[doc = "! indexing."]
     #[doc = "!"]
     #[doc = "! This is a signed integer which may cause problems when mixed with"]
@@ -8374,20 +9210,6 @@ pub mod root {
         ) -> root::boolNDArray;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZNK11boolNDArray3sumEi"]
-        pub fn boolNDArray_sum(
-            this: *const root::boolNDArray,
-            dim: ::std::os::raw::c_int,
-        ) -> root::NDArray;
-    }
-    extern "C" {
-        #[link_name = "\u{1}_ZNK11boolNDArray6cumsumEi"]
-        pub fn boolNDArray_cumsum(
-            this: *const root::boolNDArray,
-            dim: ::std::os::raw::c_int,
-        ) -> root::NDArray;
-    }
-    extern "C" {
         #[link_name = "\u{1}_ZN11boolNDArray6concatERKS_RK5ArrayIlE"]
         pub fn boolNDArray_concat(
             this: *mut root::boolNDArray,
@@ -8454,14 +9276,6 @@ pub mod root {
         #[inline]
         pub unsafe fn any(&self, dim: ::std::os::raw::c_int) -> root::boolNDArray {
             boolNDArray_any(self, dim)
-        }
-        #[inline]
-        pub unsafe fn sum(&self, dim: ::std::os::raw::c_int) -> root::NDArray {
-            boolNDArray_sum(self, dim)
-        }
-        #[inline]
-        pub unsafe fn cumsum(&self, dim: ::std::os::raw::c_int) -> root::NDArray {
-            boolNDArray_cumsum(self, dim)
         }
         #[inline]
         pub unsafe fn concat(
@@ -24624,9 +25438,6 @@ pub mod root {
     pub struct octave_fcn_inline {
         _unused: [u8; 0],
     }
-    pub type octave_base_stream = root::octave::base_stream;
-    pub type octave_stream = root::octave::stream;
-    pub type octave_stream_list = root::octave::stream_list;
     pub type octave_hdf5_id = i64;
     pub type octave_hdf5_err = ::std::os::raw::c_int;
     #[repr(C)]
@@ -25060,8 +25871,8 @@ pub mod root {
         pub fn octave_base_value_size(this: *mut ::std::os::raw::c_void) -> root::Matrix;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN17octave_base_value5numelERK17octave_value_list"]
-        pub fn octave_base_value_numel(
+        #[link_name = "\u{1}_ZN17octave_base_value6xnumelERK17octave_value_list"]
+        pub fn octave_base_value_xnumel(
             this: *mut ::std::os::raw::c_void,
             arg1: *const root::octave_value_list,
         ) -> root::octave_idx_type;
@@ -25725,11 +26536,11 @@ pub mod root {
         ) -> bool;
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN17octave_base_value11save_binaryERSoRb"]
+        #[link_name = "\u{1}_ZN17octave_base_value11save_binaryERSob"]
         pub fn octave_base_value_save_binary(
             this: *mut ::std::os::raw::c_void,
             os: *mut root::std::ostream,
-            save_as_floats: *mut bool,
+            save_as_floats: bool,
         ) -> bool;
     }
     extern "C" {
@@ -27692,30 +28503,22 @@ pub mod root {
         );
     }
     extern "C" {
-        #[link_name = "\u{1}_ZN12octave_valueC1ERK17octave_value_listb"]
-        pub fn octave_value_octave_value95(
-            this: *mut root::octave_value,
-            m: *const root::octave_value_list,
-            arg1: bool,
-        );
-    }
-    extern "C" {
         #[link_name = "\u{1}_ZN12octave_valueC1ERK17octave_value_list"]
-        pub fn octave_value_octave_value96(
+        pub fn octave_value_octave_value95(
             this: *mut root::octave_value,
             m: *const root::octave_value_list,
         );
     }
     extern "C" {
         #[link_name = "\u{1}_ZN12octave_valueC1ENS_11magic_colonE"]
-        pub fn octave_value_octave_value97(
+        pub fn octave_value_octave_value96(
             this: *mut root::octave_value,
             arg1: root::octave_value_magic_colon,
         );
     }
     extern "C" {
         #[link_name = "\u{1}_ZN12octave_valueC1EP17octave_base_valueb"]
-        pub fn octave_value_octave_value98(
+        pub fn octave_value_octave_value97(
             this: *mut root::octave_value,
             new_rep: *mut root::octave_base_value,
             borrow: bool,
@@ -28683,27 +29486,21 @@ pub mod root {
             __bindgen_tmp
         }
         #[inline]
-        pub unsafe fn new95(m: *const root::octave_value_list, arg1: bool) -> Self {
+        pub unsafe fn new95(m: *const root::octave_value_list) -> Self {
             let mut __bindgen_tmp = ::core::mem::uninitialized();
-            octave_value_octave_value95(&mut __bindgen_tmp, m, arg1);
+            octave_value_octave_value95(&mut __bindgen_tmp, m);
             __bindgen_tmp
         }
         #[inline]
-        pub unsafe fn new96(m: *const root::octave_value_list) -> Self {
+        pub unsafe fn new96(arg1: root::octave_value_magic_colon) -> Self {
             let mut __bindgen_tmp = ::core::mem::uninitialized();
-            octave_value_octave_value96(&mut __bindgen_tmp, m);
+            octave_value_octave_value96(&mut __bindgen_tmp, arg1);
             __bindgen_tmp
         }
         #[inline]
-        pub unsafe fn new97(arg1: root::octave_value_magic_colon) -> Self {
+        pub unsafe fn new97(new_rep: *mut root::octave_base_value, borrow: bool) -> Self {
             let mut __bindgen_tmp = ::core::mem::uninitialized();
-            octave_value_octave_value97(&mut __bindgen_tmp, arg1);
-            __bindgen_tmp
-        }
-        #[inline]
-        pub unsafe fn new98(new_rep: *mut root::octave_base_value, borrow: bool) -> Self {
-            let mut __bindgen_tmp = ::core::mem::uninitialized();
-            octave_value_octave_value98(&mut __bindgen_tmp, new_rep, borrow);
+            octave_value_octave_value97(&mut __bindgen_tmp, new_rep, borrow);
             __bindgen_tmp
         }
     }
@@ -30023,102 +30820,6 @@ pub mod root {
             ) -> ::std::os::raw::c_int;
         }
         extern "C" {
-            #[link_name = "\u{1}_ZN21octave_value_typeinfo23register_unary_class_opEN12octave_value8unary_opEPFS0_RKS0_E"]
-            pub fn register_unary_class_op(
-                op: root::octave_value_unary_op,
-                f: root::octave_value_typeinfo::unary_class_op_fcn,
-            ) -> bool;
-        }
-        extern "C" {
-            #[link_name = "\u{1}_ZN21octave_value_typeinfo17register_unary_opEN12octave_value8unary_opEiPFS0_RK17octave_base_valueE"]
-            pub fn register_unary_op(
-                op: root::octave_value_unary_op,
-                t: ::std::os::raw::c_int,
-                f: root::octave_value_typeinfo::unary_op_fcn,
-            ) -> bool;
-        }
-        extern "C" {
-            #[link_name = "\u{1}_ZN21octave_value_typeinfo27register_non_const_unary_opEN12octave_value8unary_opEiPFvR17octave_base_valueE"]
-            pub fn register_non_const_unary_op(
-                op: root::octave_value_unary_op,
-                t: ::std::os::raw::c_int,
-                f: root::octave_value_typeinfo::non_const_unary_op_fcn,
-            ) -> bool;
-        }
-        extern "C" {
-            #[link_name = "\u{1}_ZN21octave_value_typeinfo24register_binary_class_opEN12octave_value9binary_opEPFS0_RKS0_S3_E"]
-            pub fn register_binary_class_op(
-                op: root::octave_value_binary_op,
-                f: root::octave_value_typeinfo::binary_class_op_fcn,
-            ) -> bool;
-        }
-        extern "C" {
-            #[link_name = "\u{1}_ZN21octave_value_typeinfo18register_binary_opEN12octave_value9binary_opEiiPFS0_RK17octave_base_valueS4_E"]
-            pub fn register_binary_op(
-                op: root::octave_value_binary_op,
-                t1: ::std::os::raw::c_int,
-                t2: ::std::os::raw::c_int,
-                f: root::octave_value_typeinfo::binary_op_fcn,
-            ) -> bool;
-        }
-        extern "C" {
-            #[link_name = "\u{1}_ZN21octave_value_typeinfo24register_binary_class_opEN12octave_value18compound_binary_opEPFS0_RKS0_S3_E"]
-            pub fn register_binary_class_op1(
-                op: root::octave_value_compound_binary_op,
-                f: root::octave_value_typeinfo::binary_class_op_fcn,
-            ) -> bool;
-        }
-        extern "C" {
-            #[link_name = "\u{1}_ZN21octave_value_typeinfo18register_binary_opEN12octave_value18compound_binary_opEiiPFS0_RK17octave_base_valueS4_E"]
-            pub fn register_binary_op1(
-                op: root::octave_value_compound_binary_op,
-                t1: ::std::os::raw::c_int,
-                t2: ::std::os::raw::c_int,
-                f: root::octave_value_typeinfo::binary_op_fcn,
-            ) -> bool;
-        }
-        extern "C" {
-            #[link_name = "\u{1}_ZN21octave_value_typeinfo15register_cat_opEiiPF12octave_valueR17octave_base_valueRKS1_RK5ArrayIlEE"]
-            pub fn register_cat_op(
-                t1: ::std::os::raw::c_int,
-                t2: ::std::os::raw::c_int,
-                f: root::octave_value_typeinfo::cat_op_fcn,
-            ) -> bool;
-        }
-        extern "C" {
-            #[link_name = "\u{1}_ZN21octave_value_typeinfo18register_assign_opEN12octave_value9assign_opEiiPFS0_R17octave_base_valueRK17octave_value_listRKS2_E"]
-            pub fn register_assign_op(
-                op: root::octave_value_assign_op,
-                t_lhs: ::std::os::raw::c_int,
-                t_rhs: ::std::os::raw::c_int,
-                f: root::octave_value_typeinfo::assign_op_fcn,
-            ) -> bool;
-        }
-        extern "C" {
-            #[link_name = "\u{1}_ZN21octave_value_typeinfo21register_assignany_opEN12octave_value9assign_opEiPFS0_R17octave_base_valueRK17octave_value_listRKS0_E"]
-            pub fn register_assignany_op(
-                op: root::octave_value_assign_op,
-                t_lhs: ::std::os::raw::c_int,
-                f: root::octave_value_typeinfo::assignany_op_fcn,
-            ) -> bool;
-        }
-        extern "C" {
-            #[link_name = "\u{1}_ZN21octave_value_typeinfo25register_pref_assign_convEiii"]
-            pub fn register_pref_assign_conv(
-                t_lhs: ::std::os::raw::c_int,
-                t_rhs: ::std::os::raw::c_int,
-                t_result: ::std::os::raw::c_int,
-            ) -> bool;
-        }
-        extern "C" {
-            #[link_name = "\u{1}_ZN21octave_value_typeinfo20register_widening_opEiiPFP17octave_base_valueRKS0_E"]
-            pub fn register_widening_op(
-                t: ::std::os::raw::c_int,
-                t_result: ::std::os::raw::c_int,
-                f: root::octave_base_value_type_conv_fcn,
-            ) -> bool;
-        }
-        extern "C" {
             #[link_name = "\u{1}_ZN21octave_value_typeinfo11lookup_typeERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE"]
             pub fn lookup_type(nm: *const root::std::string) -> root::octave_value;
         }
@@ -30340,6 +31041,16 @@ pub mod root {
         pub fn octave_function_empty_clone(
             this: *mut ::std::os::raw::c_void,
         ) -> *mut root::octave_base_value;
+    }
+    extern "C" {
+        #[link_name = "\u{1}_ZN15octave_function4callERN6octave14tree_evaluatorEiRK17octave_value_listPNS0_11stack_frameE"]
+        pub fn octave_function_call1(
+            this: *mut ::std::os::raw::c_void,
+            tw: *mut root::octave::tree_evaluator,
+            nargout: ::std::os::raw::c_int,
+            args: *const root::octave_value_list,
+            closure_context: *mut root::octave::stack_frame,
+        ) -> root::octave_value_list;
     }
     #[repr(C)]
     #[derive(Debug)]
@@ -30739,7 +31450,6 @@ pub mod root {
         #[link_name = "\u{1}_Z22octave_startup_messageB5cxx11b"]
         pub fn octave_startup_message(html: bool) -> root::std::string;
     }
-    pub type octave_auto_shlib = root::octave::auto_shlib;
     pub type octave_dld_fcn_installer = ::core::option::Option<
         unsafe extern "C" fn(arg1: *const root::octave::dynamic_library, relative: bool) -> bool,
     >;
@@ -30754,10 +31464,6 @@ pub mod root {
     pub struct oprocstream {
         _unused: [u8; 0],
     }
-    pub type octave_diary_buf = root::octave::diary_buf;
-    pub type octave_diary_stream = root::octave::diary_stream;
-    pub type octave_pager_buf = root::octave::pager_buf;
-    pub type octave_pager_stream = root::octave::pager_stream;
     extern "C" {
         #[link_name = "\u{1}_Z14octave_vformatRSoPKcP13__va_list_tag"]
         pub fn octave_vformat(
@@ -30778,7 +31484,10 @@ pub mod root {
         pub fn octave_sleep(seconds: f64);
     }
     extern "C" {
-        pub fn octave_value_list_create(n: ::std::os::raw::c_int) -> root::octave_value_list;
+        pub fn octave_value_list_create(
+            list: *mut root::octave_value_list,
+            n: ::std::os::raw::c_int,
+        ) -> ::std::os::raw::c_int;
     }
     pub type __builtin_va_list = [root::__va_list_tag; 1usize];
     #[repr(C)]
