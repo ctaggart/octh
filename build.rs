@@ -51,7 +51,10 @@ fn bindgen(target: &str, header: &str) {
 
     let bindings = builder.generate()
         .expect("Unable to generate bindings");
-    bindings.write_to_file("src/lib.rs")
+
+    bindings.write_to_file("src/bindings.rs")
+    // let out_path = std::path::PathBuf::from(env::var("OUT_DIR").unwrap());
+    // bindings.write_to_file(out_path.join("bindings.rs"))
         .expect("Couldn't write bindings!");
 }
 
