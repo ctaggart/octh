@@ -2,7 +2,17 @@ extern crate bindgen;
 use std::env;
 
 #[allow(dead_code)]
-fn bindgen(target: &str, header: &str) {
+fn bindgen(target: &str) {
+
+    let bindgen_header = &env::var("BINDGEN_HEADER");
+    let header =
+        match bindgen_header {
+            Ok(x) => x,
+            Err(_) => "src/octhelp.h"
+        };
+    // let default_header = "src/octhelp.h";
+    // let header = &bindgen_header.as_ref().unwrap_or(default_header.to_owned());
+
     let mut builder = bindgen::Builder::default()
         .header(header)
         .clang_arg("-v") // verbose
@@ -14,8 +24,8 @@ fn bindgen(target: &str, header: &str) {
         .whitelist_function("octave.*")
         .opaque_type("octave.refcount")
         .use_core()
-        .raw_line("#![allow(warnings)]")
-        .raw_line("extern crate core;")
+        // .raw_line("#![allow(warnings)]")
+        // .raw_line("extern crate core;")
         .opaque_type("std::.*");
 
     match target {
@@ -45,9 +55,11 @@ fn bindgen(target: &str, header: &str) {
         _ => (),
     }
 
-    // creates a __bingen.ii file
-    builder.dump_preprocessed_input()
-        .expect("unable to dump input");
+    if bindgen_header.is_err() {
+        // creates a __bingen.ii file
+        builder.dump_preprocessed_input()
+            .expect("unable to dump input");
+    }
 
     let bindings = builder.generate()
         .expect("Unable to generate bindings");
@@ -61,10 +73,9 @@ fn bindgen(target: &str, header: &str) {
 fn main() {
     let target = &env::var("TARGET").unwrap();
     // println!("{}", target);
-    let header = &env::var("BINDGEN_HEADER").unwrap_or("src/octhelp.h".to_owned());
 
     // generate binding
-    bindgen(target, header);
+    bindgen(target);
 
     // compile helper
     // https://github.com/alexcrichton/cc-rs
