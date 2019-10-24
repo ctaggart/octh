@@ -2,12 +2,13 @@ extern crate bindgen;
 use std::env;
 
 #[allow(dead_code)]
-fn bindgen(target: &str) {
+fn bindgen(target: &str, header: &str) {
     let mut builder = bindgen::Builder::default()
-        .header("src/octhelp.h")
-        .clang_arg("-v")
-        .clang_arg("-x")
+        .header(header)
+        .clang_arg("-v") // verbose
+        .clang_arg("-x") // -x c++
         .clang_arg("c++")
+        .clang_arg("-std=gnu++11")
         .enable_cxx_namespaces()
         .whitelist_type("octave.*")
         .whitelist_function("octave.*")
@@ -29,12 +30,24 @@ fn bindgen(target: &str) {
                 // .clang_arg("-I/usr/lib/gcc/x86_64-unknown-linux-gnu/8.3.0/include");
                 .clang_arg("-I/usr/local/include/octave-6.0.0");
         },
+        "x86_64-apple-darwin" => {
+            // brew install octave
+            builder = builder
+                // failing tests on macOS https://github.com/rust-lang/rust-bindgen/issues/1619
+                .layout_tests(false)
+                .clang_arg("-isysroot")
+                .clang_arg("/Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk")
+                // .clang_arg("/Library/Developer/CommandLineTools/SDKs/MacOSX10.14.sdk")
+                // .clang_arg("-I/usr/local/opt/llvm/include")
+                .clang_arg("-I/usr/local/opt/octave/include/octave-5.1.0")
+                // .clang_arg("-I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include");
+        },
         _ => (),
     }
 
     // creates a __bingen.ii file
-    // builder.dump_preprocessed_input()
-    //     .expect("unable to dump input");
+    builder.dump_preprocessed_input()
+        .expect("unable to dump input");
 
     let bindings = builder.generate()
         .expect("Unable to generate bindings");
@@ -44,10 +57,22 @@ fn bindgen(target: &str) {
 
 fn main() {
     let target = &env::var("TARGET").unwrap();
+    // println!("{}", target);
+    let header = &env::var("BINDGEN_HEADER").unwrap_or("src/octhelp.h".to_owned());
+
+    // generate binding
+    bindgen(target, header);
 
     // compile helper
+    // https://github.com/alexcrichton/cc-rs
+    // https://docs.rs/cc/1.0.46/cc/struct.Build.html#method.cpp_link_stdlib
+    // Which stdlib is octave built with?
     let mut build = cc::Build::new();
     build.cpp(true)
+        .flag("-std=gnu++11")
+        .flag("-isysroot")
+        .flag("/Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk")
+        // .flag("/Library/Developer/CommandLineTools/SDKs/MacOSX10.14.sdk")
         .file("src/octhelp.cc");
     
     match target.as_str() {
@@ -58,13 +83,15 @@ fn main() {
             // build.include("/app/include/octave-5.1.0");
             build.include("/usr/local/include/octave-6.0.0");
         },
+        "x86_64-apple-darwin" => {
+            // build.include("/usr/local/opt/llvm/include");
+            build.include("/usr/local/opt/octave/include/octave-5.1.0");
+            // build.include("/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include");
+        },
         _ => (),
     }
 
     build.compile("octhelp");
-
-    // generate binding
-    // bindgen(target);
 
     // add libraries for linking
     match target.as_str() {
@@ -75,6 +102,13 @@ fn main() {
         },
         "x86_64-unknown-linux-gnu" => {
             println!("cargo:rustc-link-search=/usr/local/lib/octave/6.0.0");
+            println!("cargo:rustc-link-lib=octave");
+            println!("cargo:rustc-link-lib=octinterp");
+        },
+        "x86_64-apple-darwin" => {
+            // brew install llvm octave
+            // export PATH=/usr/local/opt/llvm/bin:$PATH
+            println!("cargo:rustc-link-search=/usr/local/opt/octave/lib/octave/5.1.0");
             println!("cargo:rustc-link-lib=octave");
             println!("cargo:rustc-link-lib=octinterp");
         },

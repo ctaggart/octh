@@ -14,5 +14,7 @@ edition = "2018"
 # crate-type = ["dylib"]
 
 [build-dependencies]
-bindgen = "*"
+# bindgen = "*"
+# need https://github.com/rust-lang/rust-bindgen/commit/fa6a68d7c768cd9d4efc418f5d8d9ceb104704ad
+bindgen = { branch = "master", git = "https://github.com/rust-lang/rust-bindgen" }
 cc = "*"
