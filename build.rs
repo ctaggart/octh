@@ -84,9 +84,6 @@ fn main() {
     let mut build = cc::Build::new();
     build.cpp(true)
         .flag("-std=gnu++11")
-        .flag("-isysroot")
-        .flag("/Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk")
-        // .flag("/Library/Developer/CommandLineTools/SDKs/MacOSX10.14.sdk")
         .file("src/octhelp.cc");
     
     match target.as_str() {
@@ -94,13 +91,12 @@ fn main() {
             build.include(r"C:\Octave\Octave-5.1.0.0\mingw64\include\octave-5.1.0");
         },
         "x86_64-unknown-linux-gnu" => {
-            // build.include("/app/include/octave-5.1.0");
             build.include("/usr/local/include/octave-6.0.0");
         },
         "x86_64-apple-darwin" => {
-            // build.include("/usr/local/opt/llvm/include");
+            build.flag("-isysroot");
+            build.flag("/Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk");
             build.include("/usr/local/opt/octave/include/octave-5.1.0");
-            // build.include("/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include");
         },
         _ => (),
     }
@@ -116,8 +112,8 @@ fn main() {
         },
         "x86_64-unknown-linux-gnu" => {
             println!("cargo:rustc-link-search=/usr/local/lib/octave/6.0.0");
-            println!("cargo:rustc-link-lib=octave");
-            println!("cargo:rustc-link-lib=octinterp");
+            // println!("cargo:rustc-link-lib=octave");
+            // println!("cargo:rustc-link-lib=octinterp");
         },
         "x86_64-apple-darwin" => {
             // brew install llvm octave
