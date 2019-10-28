@@ -8,3 +8,5 @@ bindgen-help.txt
 bindgen.txt
 *.dylib
 src/bindings.rs
+creduce_bug_*
+!__bindgen.ii
