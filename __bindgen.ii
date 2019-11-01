@@ -1,144 +1,78 @@
-       typedef long unsigned int __darwin_size_t;
-             typedef __darwin_size_t size_t;
-             typedef long int ptrdiff_t;
-             namespace std {
-          inline namespace __1 {
-       template <class _T1, class _T2> struct __attribute__ ((__type_visibility__("default"))) pair;
-       template <class _Tp, _Tp __v> struct __attribute__ ((__type_visibility__("default"))) integral_constant {
-        static constexpr const _Tp value = __v;
-    };
-       typedef integral_constant<bool,(false)> false_type;
-       template <class _Tp> struct __attribute__ ((__type_visibility__("default"))) remove_reference {
-   typedef _Tp type;
-   };
-       template <class _Tp> struct __attribute__ ((__type_visibility__("default"))) __libcpp_is_final : public integral_constant<bool, __is_final(_Tp)> {
-   };
-       template <class _Tp> struct __attribute__ ((__type_visibility__("default"))) is_empty     : public integral_constant<bool, __is_empty(_Tp)> {
-    };
-       template <class _Arg1, class _Arg2, class _Result> struct __attribute__ ((__type_visibility__("default"))) binary_function {
-    };
-       template <class _Tp> struct __attribute__ ((__type_visibility__("default"))) less : binary_function<_Tp, _Tp, bool> {
-   };
-       template <class _Tp, class = void> struct __has_difference_type : false_type {
-    };
-       template <class _Tp, class _Up> struct __has_rebind {
-        template <class _Xp> static char __test(typename _Xp::template rebind<_Up>* = 0);
-    public:     static const bool value = sizeof(__test<_Tp>(0)) == 1;
-    };
-       template <class _Ptr> struct __attribute__ ((__type_visibility__("default"))) pointer_traits {
-    public:      };
-       template <class _Tp> struct __attribute__ ((__type_visibility__("default"))) pointer_traits<_Tp*> {
-        typedef _Tp element_type;
-        typedef ptrdiff_t difference_type;
-        template <class _Up> using rebind = _Up*;
-    public:      };
-       template <class _From, class _To> struct __rebind_pointer {
-        typedef typename pointer_traits<_From>::template rebind<_To> type;
-    };
-       template <class _Tp, class = void> struct __has_pointer_type : false_type {
-   };
-       namespace __pointer_type_imp {
-    template <class _Tp, class _Dp, bool = __has_pointer_type<_Dp>::value> struct __pointer_type {
-   };
-    template <class _Tp, class _Dp> struct __pointer_type<_Tp, _Dp, false> {
-       typedef _Tp* type;
-   };
-    }
-       template <class _Tp, class _Dp> struct __pointer_type {
-        typedef typename __pointer_type_imp::__pointer_type<_Tp, typename remove_reference<_Dp>::type>::type type;
-    };
-       template <class _Tp, class = void> struct __has_void_pointer : false_type {
-   };
-       template <class _Ptr, class _Alloc, bool = __has_void_pointer<_Alloc>::value> struct __void_pointer {
-        typedef typename pointer_traits<_Ptr>::template rebind<void> type;
-    };
-       template <class _Tp, class _Up, bool = __has_rebind<_Tp, _Up>::value> struct __has_rebind_other {
-        template <class _Xp> static char __test(typename _Xp::template rebind<_Up>::other* = 0);
-    public:     static const bool value = sizeof(__test<_Tp>(0)) == 1;
-    };
-       template <class _Tp, class _Up, bool = __has_rebind_other<_Tp, _Up>::value> struct __allocator_traits_rebind {
-        typedef typename _Tp::template rebind<_Up>::other type;
-    };
-       template <class _Alloc, class _Ptr, bool = __has_difference_type<_Alloc>::value> struct __alloc_traits_difference_type {
-        typedef typename pointer_traits<_Ptr>::difference_type type;
-    };
-       template <class _Alloc> struct __attribute__ ((__type_visibility__("default"))) allocator_traits {
-        typedef _Alloc allocator_type;
-        typedef typename allocator_type::value_type value_type;
-        typedef typename __pointer_type<value_type, allocator_type>::type pointer;
-        typedef typename __void_pointer<pointer, allocator_type>::type void_pointer;
-        typedef typename __alloc_traits_difference_type<allocator_type, pointer>::type difference_type;
-        template <class _Tp> using rebind_alloc =                   typename __allocator_traits_rebind<allocator_type, _Tp>::type;
-                        };
-       template <class _Traits, class _Tp> struct __rebind_alloc_helper {
-        typedef typename _Traits::template rebind_alloc<_Tp> type;
-    };
-       template <class _Tp> class __attribute__ ((__type_visibility__("default"))) allocator {
-    public:     typedef size_t size_type;
-        typedef _Tp value_type;
-        template <class _Up> struct rebind {
-  typedef allocator<_Up> other;
-  };
-         };
-       }
-          }
-             typedef enum : unsigned int {
-          QOS_CLASS_USER_INTERACTIVE __attribute__((availability(macos,introduced=10.10))) __attribute__((availability(ios,introduced=8.0))) = 0x21, QOS_CLASS_USER_INITIATED __attribute__((availability(macos,introduced=10.10))) __attribute__((availability(ios,introduced=8.0))) = 0x19, QOS_CLASS_DEFAULT __attribute__((availability(macos,introduced=10.10))) __attribute__((availability(ios,introduced=8.0))) = 0x15, QOS_CLASS_UTILITY __attribute__((availability(macos,introduced=10.10))) __attribute__((availability(ios,introduced=8.0))) = 0x11, QOS_CLASS_BACKGROUND __attribute__((availability(macos,introduced=10.10))) __attribute__((availability(ios,introduced=8.0))) = 0x09, QOS_CLASS_UNSPECIFIED __attribute__((availability(macos,introduced=10.10))) __attribute__((availability(ios,introduced=8.0))) = 0x00, }
-             qos_class_t;
-             namespace std {
-          inline namespace __1 {
-       template <class _Tp, class _VoidPtr> class __tree_node;
-       template <class _Key, class _Value> struct __value_type;
-       template <class _Tp> struct __tree_key_value_types {
-      static const bool __is_map = true;
-    };
-       template <class _VoidPtr> struct __tree_node_base_types {
-      typedef _VoidPtr __void_pointer;
-    };
-       template <class _Tp, class _AllocPtr, class _KVTypes = __tree_key_value_types<_Tp>,          bool = _KVTypes::__is_map> struct __tree_map_pointer_types {
-    };
-       template <class _NodePtr, class _NodeT = typename pointer_traits<_NodePtr>::element_type> struct __tree_node_types;
-       template <class _NodePtr, class _Tp, class _VoidPtr> struct __tree_node_types<_NodePtr, __tree_node<_Tp, _VoidPtr> >     : public __tree_node_base_types<_VoidPtr>,              __tree_key_value_types<_Tp>,              __tree_map_pointer_types<_Tp, _VoidPtr> {
-      typedef _NodePtr __node_pointer;
-    };
-       template <class _ValueTp, class _VoidPtr> struct __make_tree_node_types {
-      typedef typename __rebind_pointer<_VoidPtr, __tree_node<_ValueTp, _VoidPtr> >::type                                                                         _NodePtr;
-      typedef __tree_node_types<_NodePtr> type;
-    };
-       template <class _Tp, class _NodePtr, class _DiffType> class __attribute__ ((__type_visibility__("default"))) __tree_const_iterator {
-    };
-       template <class _Tp, class _Compare, class _Allocator> class __tree {
-    public:     typedef _Tp value_type;
-        typedef _Allocator allocator_type;
-    private:     typedef allocator_traits<allocator_type> __alloc_traits;
-        typedef typename __make_tree_node_types<value_type,         typename __alloc_traits::void_pointer>::type                                                     _NodeTypes;
-        typedef typename __alloc_traits::difference_type difference_type;
-    public:     typedef typename _NodeTypes::__void_pointer __void_pointer;
-        typedef typename _NodeTypes::__node_pointer __node_pointer;
-        typedef __tree_const_iterator<value_type, __node_pointer, difference_type> const_iterator;
-    };
-       template <class _Key, class _CP, class _Compare,           bool = is_empty<_Compare>::value && !__libcpp_is_final<_Compare>::value> class __map_value_compare     : private _Compare {
-    };
-       template <class _TreeIterator> class __attribute__ ((__type_visibility__("default"))) __map_const_iterator {
-    };
-       template <class _Key, class _Tp, class _Compare = less<_Key>,           class _Allocator = allocator<pair<const _Key, _Tp> > > class __attribute__ ((__type_visibility__("default"))) map {
-    public:     typedef _Key key_type;
-        typedef _Tp mapped_type;
-        typedef _Compare key_compare;
-        typedef _Allocator allocator_type;
-    private:     typedef std::__1::__value_type<key_type, mapped_type> __value_type;
-        typedef __map_value_compare<key_type, __value_type, key_compare> __vc;
-        typedef typename __rebind_alloc_helper<allocator_traits<allocator_type>,                                                  __value_type>::type __allocator_type;
-        typedef __tree<__value_type, __vc, __allocator_type> __base;
-        typedef allocator_traits<allocator_type> __alloc_traits;
-    public:     typedef typename __alloc_traits::pointer pointer;
-        typedef __map_const_iterator<typename __base::const_iterator> const_iterator;
-    };
-       }
-          }
-             namespace octave {
-            class   stream   {
-         public:   private:     typedef std::map<int, stream> ostrl_map;
-           mutable ostrl_map::const_iterator lookup_cache;
-         };
-          }
+inline namespace __1 {
+template < int __v > struct __attribute__(()) integral_constant {
+  static const int value = __v;
+};
+template < class > struct __attribute__(()) pointer_traits;
+template < class _Tp > struct __attribute__(()) pointer_traits< _Tp * > {
+  typedef _Tp element_type;
+  template < class _Up > using rebind = _Up *;
+
+};
+template < class _From, class _To > struct __rebind_pointer {
+  typedef typename pointer_traits< _From >::template rebind< _To > type;
+};
+namespace __pointer_type_imp {
+template < class , class , bool = integral_constant< 0 >::value >
+struct __pointer_type;
+template < class _Tp, class _Dp > struct __pointer_type< _Tp, _Dp> {
+  typedef _Tp *type;
+};
+} struct __pointer_type {
+  typedef __pointer_type_imp::__pointer_type< int, int >::type type;
+};
+template < class _Ptr > struct __void_pointer { typedef _Ptr type; };
+template < class > struct __attribute__(()) allocator_traits {
+  typedef __pointer_type::type pointer;
+  typedef __void_pointer< pointer >::type void_pointer;
+};
+class allocator;
+struct __rebind_alloc_helper {
+  typedef allocator_traits< allocator > type;
+};
+template < class , class > class __tree_node;
+template < class > struct __tree_key_value_types {};
+struct __tree_node_base_types {
+  typedef ;
+};
+template < class _NodePtr,
+           class = typename pointer_traits< _NodePtr >::element_type >
+struct __tree_node_types;
+template < class _NodePtr, class _Tp, class _VoidPtr >
+struct __tree_node_types< _NodePtr, __tree_node< _Tp, _VoidPtr > >
+    : __tree_key_value_types< _Tp > {
+  typedef _NodePtr __node_pointer;
+};
+template < class _VoidPtr > struct __make_tree_node_types {
+  typedef __tree_node_types< typename __rebind_pointer<
+      _VoidPtr, __tree_node< int, _VoidPtr > >::type >
+      type;
+};
+template < class > class __attribute__(()) __tree_const_iterator;
+template < class , class _Allocator > class __tree {
+typedef allocator_traits< _Allocator > __alloc_traits;
+  typedef typename __make_tree_node_types<
+      typename __alloc_traits::void_pointer >::type _NodeTypes;
+
+public:
+  typename _NodeTypes::__void_pointer;
+  typedef typename _NodeTypes::__node_pointer __node_pointer;
+  typedef __tree_const_iterator< __node_pointer > const_iterator;
+};
+template < class >
+class __attribute__(()) __map_const_iterator {};
+class __attribute__(()) map {
+  typedef allocator allocator_type;
+  typedef __tree< int, __rebind_alloc_helper::type > __base;
+  typedef allocator_traits< allocator_type > __alloc_traits;
+
+public:
+  __alloc_traits::pointer pointer;
+  typedef __map_const_iterator< __base::const_iterator >
+      const_iterator;
+};
+} // __1
+namespace octave {
+class stream {
+map::const_iterator lookup_cache;
+};
+} 
