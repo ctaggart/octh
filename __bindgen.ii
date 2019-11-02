@@ -302,30 +302,6 @@ namespace __ops
   template<typename _Iterator1>
     struct _Iter_equals_iter
     {
-      _Iterator1 _M_it1;
- ;
-    };
-    ;
-  template<typename _Predicate>
-    struct _Iter_pred
-    {
-      _Predicate _M_pred;
- ;
-    };
-    ;
-  template<typename _Compare, typename _Value>
-    struct _Iter_comp_to_val
-    {
-      _Compare _M_comp;
-      _Value& _M_value;
- ;
-    };
-    ;
-  template<typename _Compare, typename _Iterator1>
-    struct _Iter_comp_to_iter
-    {
-      _Compare _M_comp;
-      _Iterator1 _M_it1;
  ;
     };
     ;
@@ -374,30 +350,6 @@ namespace std __attribute__ ((__visibility__ ("default")))
    *  This is the simple classic generic implementation.  It will work on
    *  temporary expressions, since they are only evaluated once, unlike a
    *  preprocessor macro.
-  */
-    ;
-  /**
-   *  @brief This does what you think it does.
-   *  @ingroup sorting_algorithms
-   *  @param  __a  A thing of arbitrary type.
-   *  @param  __b  Another thing of arbitrary type.
-   *  @return   The greater of the parameters.
-   *
-   *  This is the simple classic generic implementation.  It will work on
-   *  temporary expressions, since they are only evaluated once, unlike a
-   *  preprocessor macro.
-  */
-    ;
-  /**
-   *  @brief This does what you think it does.
-   *  @ingroup sorting_algorithms
-   *  @param  __a  A thing of arbitrary type.
-   *  @param  __b  Another thing of arbitrary type.
-   *  @param  __comp  A @link comparison_functors comparison functor@endlink.
-   *  @return   The lesser of the parameters.
-   *
-   *  This will work on temporary expressions, since they are only evaluated
-   *  once, unlike a preprocessor macro.
   */
     ;
   /**
@@ -551,30 +503,6 @@ extern "C" {
 typedef enum {   P_ALL,    P_PID,    P_PGID  } idtype_t; typedef float _Float32; typedef double _Float64; typedef double _Float32x; typedef long double _Float64x; typedef struct   {     int quot;      int rem;    } div_t; typedef struct   {     long int quot;      long int rem;    } ldiv_t; __extension__ typedef struct   {     long long int quot;      long long int rem;    } lldiv_t;  ;  ;  ;  ;  ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; struct __locale_struct {   struct __locale_data *__locales[13];    const unsigned short int *__ctype_b;   const int *__ctype_tolower;   const int *__ctype_toupper;   const char *__names[13]; }; typedef struct __locale_struct *__locale_t; typedef __locale_t locale_t; ; ; ; ; ; ; ; ; ; ; ;  ;  ; extern "C" { typedef __u_char u_char; typedef __u_short u_short; typedef __u_int u_int; typedef __u_long u_long; typedef __quad_t quad_t; typedef __u_quad_t u_quad_t; typedef __fsid_t fsid_t; typedef __loff_t loff_t; typedef __ino_t ino_t; typedef __ino64_t ino64_t; typedef __dev_t dev_t; typedef __gid_t gid_t; typedef __mode_t mode_t; typedef __nlink_t nlink_t; typedef __uid_t uid_t; typedef __off_t off_t; typedef __off64_t off64_t; typedef __pid_t pid_t; typedef __id_t id_t; typedef __ssize_t ssize_t; typedef __daddr_t daddr_t; typedef __caddr_t caddr_t; typedef __key_t key_t; typedef __clock_t clock_t; typedef __clockid_t clockid_t; typedef __time_t time_t; typedef __timer_t timer_t; typedef __useconds_t useconds_t; typedef __suseconds_t suseconds_t; typedef unsigned long int ulong; typedef unsigned short int ushort; typedef unsigned int uint; typedef __uint8_t u_int8_t; typedef __uint16_t u_int16_t; typedef __uint32_t u_int32_t; typedef __uint64_t u_int64_t; typedef int register_t __attribute__ ((__mode__ (__word__)));  ;  ;  ;  ;  ;  ; typedef struct {   unsigned long int __val[(1024 / (8 * sizeof (unsigned long int)))]; } __sigset_t; typedef __sigset_t sigset_t; struct timeval {   __time_t tv_sec;    __suseconds_t tv_usec;  }; struct timespec {   __time_t tv_sec;    __syscall_slong_t tv_nsec;  }; typedef long int __fd_mask; typedef struct   {     __fd_mask fds_bits[1024 / (8 * (int) sizeof (__fd_mask))];   } fd_set; typedef __fd_mask fd_mask; extern "C" { ; ; } typedef __blksize_t blksize_t; typedef __blkcnt_t blkcnt_t;  typedef __fsblkcnt_t fsblkcnt_t;  typedef __fsfilcnt_t fsfilcnt_t;  typedef __blkcnt64_t blkcnt64_t;  typedef __fsblkcnt64_t fsblkcnt64_t;  typedef __fsfilcnt64_t fsfilcnt64_t;  struct __pthread_rwlock_arch_t {   unsigned int __readers;   unsigned int __writers;   unsigned int __wrphase_futex;   unsigned int __writers_futex;   unsigned int __pad3;   unsigned int __pad4;   int __cur_writer;   int __shared;   signed char __rwelision;   unsigned char __pad1[7];   unsigned long int __pad2;   unsigned int __flags; }; typedef struct __pthread_internal_list {   struct __pthread_internal_list *__prev;   struct __pthread_internal_list *__next; } __pthread_list_t; struct __pthread_mutex_s {   int __lock ;   unsigned int __count;   int __owner;   unsigned int __nusers;   int __kind;   short __spins; short __elision;   __pthread_list_t __list; }; struct __pthread_cond_s {   __extension__ union   {     __extension__ unsigned long long int __wseq;     struct     {       unsigned int __low;       unsigned int __high;     } __wseq32;   };   __extension__ union   {     __extension__ unsigned long long int __g1_start;     struct     {       unsigned int __low;       unsigned int __high;     } __g1_start32;   };   unsigned int __g_refs[2] ;   unsigned int __g_size[2];   unsigned int __g1_orig_size;   unsigned int __wrefs;   unsigned int __g_signals[2]; }; typedef unsigned long int pthread_t; typedef union {   char __size[4];   int __align; } pthread_mutexattr_t; typedef union {   char __size[4];   int __align; } pthread_condattr_t; typedef unsigned int pthread_key_t; typedef int pthread_once_t; union pthread_attr_t {   char __size[56];   long int __align; }; typedef union pthread_attr_t pthread_attr_t; typedef union {   struct __pthread_mutex_s __data;   char __size[40];   long int __align; } pthread_mutex_t; typedef union {   struct __pthread_cond_s __data;   char __size[48];   __extension__ long long int __align; } pthread_cond_t; typedef union {   struct __pthread_rwlock_arch_t __data;   char __size[56];   long int __align; } pthread_rwlock_t; typedef union {   char __size[8];   long int __align; } pthread_rwlockattr_t; typedef volatile int pthread_spinlock_t; typedef union {   char __size[32];   long int __align; } pthread_barrier_t; typedef union {   char __size[4];   int __align; } pthread_barrierattr_t; } ; ; ; ; struct random_data   {     int32_t *fptr;      int32_t *rptr;      int32_t *state;      int rand_type;      int rand_deg;      int rand_sep;      int32_t *end_ptr;    }; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; struct drand48_data   {     unsigned short int __x[3];      unsigned short int __old_x[3];      unsigned short int __c;      unsigned short int __init;      __extension__ unsigned long long int __a;    }; ; ; ; ; ; ; ; ; ;                                           ;  ;  ;                                        ; ; extern "C" { ; }                                           ;  ;  ; ; ; ; ; ; ; ;  ;  ; ; ; ; ; ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ; typedef int (*__compar_fn_t) (const void *, const void *); typedef __compar_fn_t comparison_fn_t; typedef int (*__compar_d_fn_t) (const void *, const void *, void *);  ; ; ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ; ; ; ; ; ; ; ; ; ;  ;  ;  ; ; ;  ; ; ; ; } extern "C++" { namespace std __attribute__ ((__visibility__ ("default"))) {                                }  }  extern "C++" { namespace std __attribute__ ((__visibility__ ("default"))) {   using ::div_t;   using ::ldiv_t;                                                                                            }  namespace __gnu_cxx __attribute__ ((__visibility__ ("default"))) {   using ::lldiv_t;                             }  namespace std {   using ::__gnu_cxx::lldiv_t;                            }  }  /** @file bits/algorithmfwd.h  *  This is an internal header file, included by other library headers.  *  Do not attempt to use it directly. @headername{algorithm}  */namespace std __attribute__ ((__visibility__ ("default"))) {   /*     adjacent_find     all_of (C++11)     any_of (C++11)     binary_search     clamp (C++17)     copy     copy_backward     copy_if (C++11)     copy_n (C++11)     count     count_if     equal     equal_range     fill     fill_n     find     find_end     find_first_of     find_if     find_if_not (C++11)     for_each     generate     generate_n     includes     inplace_merge     is_heap (C++11)     is_heap_until (C++11)     is_partitioned (C++11)     is_sorted (C++11)     is_sorted_until (C++11)     iter_swap     lexicographical_compare     lower_bound     make_heap     max     max_element     merge     min     min_element     minmax (C++11)     minmax_element (C++11)     mismatch     next_permutation     none_of (C++11)     nth_element     partial_sort     partial_sort_copy     partition     partition_copy (C++11)     partition_point (C++11)     pop_heap     prev_permutation     push_heap     random_shuffle     remove     remove_copy     remove_copy_if     remove_if     replace     replace_copy     replace_copy_if     replace_if     reverse     reverse_copy     rotate     rotate_copy     search     search_n     set_difference     set_intersection     set_symmetric_difference     set_union     shuffle (C++11)     sort     sort_heap     stable_partition     stable_sort     swap     swap_ranges     transform     unique     unique_copy     upper_bound   */  /**    * @defgroup algorithms Algorithms    *    * Components for performing algorithmic operations. Includes    * non-modifying sequence, modifying (mutating) sequence, sorting,    * searching, merge, partition, heap, set, minima, maxima, and    * permutation operations.    */  /**    * @defgroup mutating_algorithms Mutating    * @ingroup algorithms    */  /**    * @defgroup non_mutating_algorithms Non-Mutating    * @ingroup algorithms    */  /**    * @defgroup sorting_algorithms Sorting    * @ingroup algorithms    */  /**    * @defgroup set_algorithms Set Operations    * @ingroup sorting_algorithms    *    * These algorithms are common set operations performed on sequences    * that are already sorted. The number of comparisons will be    * linear.    */  /**    * @defgroup binary_search_algorithms Binary Search    * @ingroup sorting_algorithms    *    * These algorithms are variations of a classic binary search, and    * all assume that the sequence being searched is already sorted.    *    * The number of comparisons will be logarithmic (and as few as    * possible).  The number of steps through the sequence will be    * logarithmic for random-access iterators (e.g., pointers), and    * linear otherwise.    *    * The LWG has passed Defect Report 270, which notes: <em>The    * proposed resolution reinterprets binary search. Instead of    * thinking about searching for a value in a sorted range, we view    * that as an important special case of a more general algorithm:    * searching for the partition point in a partitioned range.  We    * also add a guarantee that the old wording did not: we ensure that    * the upper bound is no earlier than the lower bound, that the pair    * returned by equal_range is a valid range, and that the first part    * of that pair is the lower bound.</em>    *    * The actual effect of the first sentence is that a comparison    * functor passed by the user doesn't necessarily need to induce a
    * strict weak ordering relation.  Rather, it partitions the range.
    */
-  ;
-  ;
-  ;
-  ;
-  ;
-  ;
-  ;
-  ;
-  ;
-  ;
-  ;
-  ;
-  ;
-  ;
-  ;
-  ;
-  ;
-  ;
-  ;
-  ;
-  ;
-  ;
-  ;
-  ;
   ;
   ;
   ;
@@ -1286,30 +1214,6 @@ namespace std __attribute__ ((__visibility__ ("default")))
       typedef ptrdiff_t difference_type;
       typedef _Tp* pointer;
       typedef const _Tp* const_pointer;
-      typedef _Tp& reference;
-      typedef const _Tp& const_reference;
-      typedef _Tp value_type;
-      template<typename _Tp1>
- struct rebind
- { typedef allocator<_Tp1> other; };
-      typedef true_type propagate_on_container_move_assignment;
-      typedef true_type is_always_equal;
-       ;
-    };
-    ;
-    ;
-  template<typename _Tp>
-    class allocator<const _Tp>
-    {
-    public:
-      typedef _Tp value_type;
-       ;
-    };
-  template<typename _Tp>
-    class allocator<volatile _Tp>
-    {
-    public:
-      typedef _Tp value_type;
        ;
     };
   template<typename _Tp>
@@ -1358,30 +1262,6 @@ namespace std __attribute__ ((__visibility__ ("default")))
  *  This is a Standard C++ Library file.  You should @c \#include this file
  *  in your programs, rather than any of the @a *.h implementation files.
  *
- *  This is the C++ version of the Standard C Library header @c locale.h,
- *  and its contents are (mostly) the same as that header, but are all
- *  contained in the namespace @c std (except for names which are defined
- *  as macros in C).
- */
-/* Copyright (C) 1991-2019 Free Software Foundation, Inc.
-   This file is part of the GNU C Library.
-   The GNU C Library is free software; you can redistribute it and/or
-   modify it under the terms of the GNU Lesser General Public
-   License as published by the Free Software Foundation; either
-   version 2.1 of the License, or (at your option) any later version.
-   The GNU C Library is distributed in the hope that it will be useful,
-   but WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-   Lesser General Public License for more details.
-   You should have received a copy of the GNU Lesser General Public
-   License along with the GNU C Library; if not, see
-   <http:
-/*
- *	ISO C99 Standard: 7.11 Localization	<locale.h>
- */
-/*===---- stddef.h - Basic type definitions --------------------------------===
- *
- * Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
  * See https:
  * SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
  *
@@ -1502,30 +1382,6 @@ typedef int _Atomic_word;
     ;
     ;
     ;
-    ;
-    ;
-    ;
-    ;
-    ;
-    ;
-    ;
-    ;
-    ;
-    ;
-    ;
-    ;
-    ;
-    ;
-    ;
-    ;
-    ;
-    ;
-    ;
-  template<typename _CharT, typename _Traits, typename _Alloc>
-     bool
-    operator<=(const _CharT* __lhs,
-        const basic_string<_CharT, _Traits, _Alloc>& __rhs)
-    ;
   template<typename _CharT, typename _Traits, typename _Alloc>
      bool
     operator>=(const basic_string<_CharT, _Traits, _Alloc>& __lhs,
@@ -1598,30 +1454,6 @@ struct _IO_wide_data;
 typedef void _IO_lock_t;
 struct _IO_FILE
 {
-  int _flags; 
-  char *_IO_read_ptr; 
-  char *_IO_read_end; 
-  char *_IO_read_base; 
-  char *_IO_write_base; 
-  char *_IO_write_ptr; 
-  char *_IO_write_end; 
-  char *_IO_buf_base; 
-  char *_IO_buf_end; 
-  char *_IO_save_base; 
-  char *_IO_backup_base; 
-  char *_IO_save_end; 
-  struct _IO_marker *_markers;
-  struct _IO_FILE *_chain;
-  int _fileno;
-  int _flags2;
-  __off_t _old_offset; 
-  unsigned short _cur_column;
-  signed char _vtable_offset;
-  char _shortbuf[1];
-  _IO_lock_t *_lock;
-  __off64_t _offset;
-  struct _IO_codecvt *_codecvt;
-  struct _IO_wide_data *_wide_data;
   struct _IO_FILE *_freeres_list;
   void *_freeres_buf;
   size_t __pad5;
@@ -1646,30 +1478,6 @@ typedef __fpos_t fpos_t;
 typedef __fpos64_t fpos64_t;
 extern FILE *stdin; 
 extern FILE *stdout; 
-;
-extern int sys_nerr;
-extern const char *const sys_errlist[];
-extern int _sys_nerr;
-extern const char *const _sys_errlist[];
- ;
- ;
- ;
-;
-;
-;
-struct obstack; 
-;
-;
-;
- ;
-;
-;
-;
-}
-namespace std
-{
-  using ::FILE;
-  using ::fpos_t;
 } 
 namespace __gnu_cxx
 {
@@ -1862,30 +1670,6 @@ Copyirght (C) 2009, 2010 VZLU Prague
 This file is part of Octave.
 Octave is free software: you can redistribute it and/or modify it
 under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-Octave is distributed in the hope that it will be useful, but
-WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with Octave; see the file COPYING.  If not, see
-<https:
-*/
-/** @file cassert
- *  This is a Standard C++ Library file.  You should @c \#include this file
- *  in your programs, rather than any of the @a *.h implementation files.
- *
- *  This is the C++ version of the Standard C Library header @c assert.h,
- *  and its contents are (mostly) the same as that header, but are all
- *  contained in the namespace @c std (except for names which are defined
- *  as macros in C).
- */
-/* Copyright (C) 1991-2019 Free Software Foundation, Inc.
-   This file is part of the GNU C Library.
-   The GNU C Library is free software; you can redistribute it and/or
-   modify it under the terms of the GNU Lesser General Public
-   License as published by the Free Software Foundation; either
    version 2.1 of the License, or (at your option) any later version.
    The GNU C Library is distributed in the hope that it will be useful,
    but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -2006,30 +1790,6 @@ namespace std __attribute__ ((__visibility__ ("default")))
         ;
     };
     ;
-  template<bool _TrivialValueType>
-    struct __uninitialized_fill_n
-    {
-        ;
-    };
-  template<>
-    struct __uninitialized_fill_n<true>
-    {
-        ;
-    };
-    ;
-    ;
-    ;
-    ;
-    ;
-    ;
-    ;
-    ;
-    ;
-    ;
-    ;
-    ;
-    ;
-  template<bool _TrivialValueType>
     ;
     ;
     ;
@@ -2054,30 +1814,6 @@ namespace std __attribute__ ((__visibility__ ("default")))
 } 
 /*
  *
- * Copyright (c) 1994
- * Hewlett-Packard Company
- *
- * Permission to use, copy, modify, distribute and sell this software
- * and its documentation for any purpose is hereby granted without fee,
- * provided that the above copyright notice appear in all copies and
- * that both that copyright notice and this permission notice appear
- * in supporting documentation.  Hewlett-Packard Company makes no
- * representations about the suitability of this software for any
- * purpose.  It is provided "as is" without express or implied warranty.
- *
- *
- * Copyright (c) 1996
- * Silicon Graphics Computer Systems, Inc.
- *
- * Permission to use, copy, modify, distribute and sell this software
- * and its documentation for any purpose is hereby granted without fee,
- * provided that the above copyright notice appear in all copies and
- * that both that copyright notice and this permission notice appear
- * in supporting documentation.  Silicon Graphics makes no
- * representations about the suitability of this software for any
- * purpose.  It is provided "as is" without express or implied warranty.
- */
-/** @file bits/stl_raw_storage_iter.h
  *  This is an internal header file, included by other library headers.
  *  Do not attempt to use it directly. @headername{memory}
  */
@@ -2198,30 +1934,6 @@ namespace std __attribute__ ((__visibility__ ("default")))
   template<typename _Tp, typename _Alloc, typename... _Args>
     using __uses_alloc_t =
       __uses_alloc<uses_allocator<_Tp, _Alloc>::value, _Tp, _Alloc, _Args...>;
-    ;
-  template<typename _Tp, typename _Alloc, typename... _Args>
-    void
-    __use_alloc(const _Alloc&&) = delete;
-  template<template<typename...> class _Predicate,
-    typename _Tp, typename _Alloc, typename... _Args>
-    struct __is_uses_allocator_predicate
-    : conditional<uses_allocator<_Tp, _Alloc>::value,
-      __or_<_Predicate<_Tp, allocator_arg_t, _Alloc, _Args...>,
-     _Predicate<_Tp, _Args..., _Alloc>>,
-      _Predicate<_Tp, _Args...>>::type { };
-  template<typename _Tp, typename _Alloc, typename... _Args>
-    struct __is_uses_allocator_constructible
-    : __is_uses_allocator_predicate<is_constructible, _Tp, _Alloc, _Args...>
-    { };
-  template<typename _Tp, typename _Alloc, typename... _Args>
-    struct __is_nothrow_uses_allocator_constructible
-    : __is_uses_allocator_predicate<is_nothrow_constructible,
-        _Tp, _Alloc, _Args...>
-    { };
-  template<typename _Tp, typename... _Args>
-    void __uses_allocator_construct_impl(__uses_alloc0 __a, _Tp* __ptr,
-      _Args&&... __args)
-    ;
   template<typename _Tp, typename _Alloc, typename... _Args>
     void __uses_allocator_construct_impl(__uses_alloc1<_Alloc> __a, _Tp* __ptr,
       _Args&&... __args)
@@ -2414,30 +2126,6 @@ namespace std __attribute__ ((__visibility__ ("default")))
   template<std::size_t _Idx, typename _Head,
     bool = __empty_not_final<_Head>::value>
     struct _Head_base;
-  template<std::size_t _Idx, typename _Head>
-    struct _Head_base<_Idx, _Head, true>
-    : public _Head
-    {
-      constexpr _Head_base()  ;
-      constexpr _Head_base(const _Head& __h)  ;
-        ;
-        ;
-        ;
-        ;
-        ;
-        ;
-    };
-  template<std::size_t _Idx, typename _Head>
-    struct _Head_base<_Idx, _Head, false>
-    {
-        ;
-        ;
-        ;
-        ;
- ;
-        ;
-      _Head _M_head_impl;
-    };
   template<std::size_t _Idx, typename... _Elements>
     struct _Tuple_impl;
   template<std::size_t _Idx, typename _Head, typename... _Tail>
@@ -2486,54 +2174,6 @@ namespace std __attribute__ ((__visibility__ ("default")))
   struct _TC
   {
     ;
-    ;
-    ;
-    ;
-    ;
-    ;
-  };
-  template<typename... _Elements>
-  struct _TC<false, _Elements...>
-  {
-    ;
-    ;
-    ;
-    ;
-    ;
-    ;
-  };
-  template<typename... _Elements>
-    class tuple : public _Tuple_impl<0, _Elements...>
-    {
-      typedef _Tuple_impl<0, _Elements...> _Inherited;
-      template<typename _Dummy>
-      struct _TC2
-      {
-      };
-       ;
-    };
-  template<typename _T1, typename _T2>
-    class tuple<_T1, _T2> : public _Tuple_impl<0, _T1, _T2>
-    {
-      typedef _Tuple_impl<0, _T1, _T2> _Inherited;
- ;
- ;
-    public:
-        ;
-        ;
-      template<typename _Dummy> using _TCC =
-        _TC<is_same<_Dummy, void>::value, _T1, _T2>;
-        ;
-        ;
-      using _TMC = _TC<true, _T1, _T2>;
-        ;
-        ;
-        ;
-        ;
-        ;
-        ;
-        ;
-        ;
         ;
         ;
         ;
@@ -2858,30 +2498,6 @@ namespace std __attribute__ ((__visibility__ ("default")))
       typedef typename _Traits::off_type off_type;
       typedef _Traits traits_type;
       typedef basic_streambuf<_CharT, _Traits> __streambuf_type;
-      typedef basic_ios<_CharT, _Traits> __ios_type;
-      typedef basic_istream<_CharT, _Traits> __istream_type;
-      typedef num_get<_CharT, istreambuf_iterator<_CharT, _Traits> >
-        __num_get_type;
-      typedef ctype<_CharT> __ctype_type;
-    protected:
-      streamsize _M_gcount;
-    public:
-      class sentry;
-      friend class sentry;
-    protected:
-      ;
-    };
-  template<typename _CharT, typename _Traits>
-    class basic_istream<_CharT, _Traits>::sentry
-    {
-      bool _M_ok;
-    public:
-      typedef _Traits traits_type;
-      typedef basic_streambuf<_CharT, _Traits> __streambuf_type;
-      typedef basic_istream<_CharT, _Traits> __istream_type;
-      typedef typename __istream_type::__ctype_type __ctype_type;
-      typedef typename _Traits::int_type __int_type;
-      explicit
       operator bool() const
       ;
     };
@@ -3014,18 +2630,6 @@ namespace __cxx11 {
     class basic_istringstream : public basic_istream<_CharT, _Traits>
     {
     public:
-      typedef _CharT char_type;
-      typedef _Traits traits_type;
-      typedef _Alloc allocator_type;
-      typedef typename traits_type::int_type int_type;
-      typedef typename traits_type::pos_type pos_type;
-      typedef typename traits_type::off_type off_type;
-      typedef basic_string<_CharT, _Traits, _Alloc> __string_type;
-      typedef basic_stringbuf<_CharT, _Traits, _Alloc> __stringbuf_type;
-      typedef basic_istream<char_type, traits_type> __istream_type;
-    private:
-      __stringbuf_type _M_stringbuf;
-    public:
       /**
        *  @brief  Default constructor starts with an empty string buffer.
        *
@@ -3100,18 +2704,6 @@ namespace octave
     ;
     ;
     ;
-    ;
-    ;
-    ;
-    ;
-    ;
-    ;
-    ;
-    ;
-    ;
-    ;
-    ;
-    ;
   }
 }
 ;
@@ -3122,18 +2714,6 @@ typedef octave_int<int32_t> octave_int32;
 typedef octave_int<int64_t> octave_int64;
 typedef octave_int<uint8_t> octave_uint8;
 typedef octave_int<uint16_t> octave_uint16;
-typedef octave_int<uint32_t> octave_uint32;
-typedef octave_int<uint64_t> octave_uint64;
-;
-template <int qsize, bool qsigned>
-struct query_integer_type
-{
-public:
-  static const bool registered = false;
-  typedef void type;
-};
-template <> class query_integer_type<sizeof (int8_t), std::numeric_limits<int8_t>::is_signed> { public: static const bool registered = true; typedef int8_t type; };
-template <> class query_integer_type<sizeof (uint8_t), std::numeric_limits<uint8_t>::is_signed> { public: static const bool registered = true; typedef uint8_t type; };
 ;
 ;
 ;
@@ -3146,30 +2726,6 @@ protected:
 public:
     ;
 };
-/*
-Copyright (C) 2004-2019 David Bateman
-Copyright (C) 1998-2004 Andy Adler
-Copyright (C) 2010 VZLU Prague
-This file is part of Octave.
-Octave is free software: you can redistribute it and/or modify it
-under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-Octave is distributed in the hope that it will be useful, but
-WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-   You should have received a copy of the GNU Lesser General Public
-   License along with the GNU C Library; if not, see
-   <http:
-/*
- *	ISO C99 Standard: 7.2 Diagnostics	<assert.h>
- */
-/* void assert (int expression);
-   If NDEBUG is defined, do nothing.
-   If not, and EXPRESSION is zero, print an error message and abort.  */
-/* When possible, define assert so that it does not add extra
-   parentheses around EXPR.  Otherwise, those added parentheses would
-   suppress warnings we'd expect to be detected by gcc's -Wparentheses.  */
 /* Version 2.4 and later of GCC define a magical variable `__PRETTY_FUNCTION__'    which contains the name of the function currently being defined.    This is broken in G++ before version 2.6.    C9x has a similar variable called __func__, but prefer the GCC one since    it demangles C++ function names.  */class idx_vector; class PermMatrix; template <typename T> class Sparse { public:   typedef T element_type; protected:   class SparseRep   {   public:     T *d;     octave_idx_type *r;     octave_idx_type *c;     octave_idx_type nzmx;     octave_idx_type nrows;     octave_idx_type ncols;     octave::refcount<int> count;                                                                                                  private:        };    public:   typename Sparse<T>::SparseRep *rep;   dim_vector dimensions; private:    public:                            ;    public:                                                                                                                                                                                                                                                                                                                           ;      ;      ;                  ;      ;      ;       }; ; template <typename T> class MSparse : public Sparse<T> { public:                       ;                                                ;      ; };  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ; class Matrix; class ComplexMatrix; class FloatMatrix; class FloatComplexMatrix; class SparseMatrix; class SparseComplexMatrix; class MatrixType { public:   enum matrix_type   {     Unknown = 0,     Full,     Diagonal,     Permuted_Diagonal,     Upper,     Lower,     Permuted_Upper,     Permuted_Lower,     Banded,     Hermitian,     Banded_Hermitian,     Tridiagonal,     Tridiagonal_Hermitian,     Rectangular   };                     ;                                                                                                                                                 private:      matrix_type typ;   double sp_bandden;   double bandden;   octave_idx_type upper_band;   octave_idx_type lower_band;   bool dense;   bool full;   octave_idx_type nperm;   octave_idx_type *perm; }; class Matrix; class ComplexMatrix; class FloatMatrix; class FloatComplexMatrix; class boolMatrix; class charMatrix; class NDArray; class ComplexNDArray; class FloatNDArray; class FloatComplexNDArray; class boolNDArray; class charNDArray; class ColumnVector; class ComplexColumnVector; class FloatColumnVector; class FloatComplexColumnVector; class RowVector; class ComplexRowVector; class FloatRowVector; class FloatComplexRowVector; class DiagMatrix; class ComplexDiagMatrix; class FloatDiagMatrix; class FloatComplexDiagMatrix; class PermMatrix; template <typename T> class aepbalance; template <typename T> class gepbalance; template <typename T> class chol; class EIG; template <typename T> class gsvd; template <typename T> class hess; template <typename T> class schur; template <typename T> class svd; template <typename T> class lu; template <typename T> class qr; template <typename T> class qrp; typedef bool (*b_d_Mapper)(double); typedef bool (*b_c_Mapper)(const Complex&); typedef double (*d_d_Mapper)(double); typedef double (*d_c_Mapper)(const Complex&); typedef Complex (*c_c_Mapper)(const Complex&); typedef bool (*b_f_Mapper)(float); typedef bool (*b_fc_Mapper)(const FloatComplex&); typedef float (*f_f_Mapper)(float); typedef float (*f_fc_Mapper)(const FloatComplex&); typedef FloatComplex (*fc_fc_Mapper)(const FloatComplex&); enum blas_trans_type {   blas_no_trans = 'N',   blas_trans = 'T',   blas_conj_trans = 'C' };   /* Copyright (C) 1996-2019 John W. Eaton Copyright (C) 2008-2009 Jaroslav Hajek Copyright (C) 2009 VZLU Prague, a.s. This file is part of Octave. Octave is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. Octave is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details. You should have received a copy of the GNU General Public License along with Octave; see the file COPYING.  If not, see <https: */class boolMatrix; class boolNDArray; class boolNDArray : public Array<bool> { public:   typedef boolMatrix matrix_type;                                                                };                                   ; ; class boolMatrix : public boolNDArray { public:                                           };             /* Copyright (C) 1995-2019 John W. Eaton Copyright (C) 2010 VZLU Prague This file is part of Octave. Octave is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. Octave is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details. You should have received a copy of the GNU General Public License along with Octave; see the file COPYING.  If not, see <https: *//* Copyright (C) 2003-2019 John W. Eaton This file is part of Octave. Octave is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. Octave is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details. You should have received a copy of the GNU General Public License along with Octave; see the file COPYING.  If not, see <https: *//* Copyright (C) 1996-2019 John W. Eaton This file is part of Octave. Octave is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. Octave is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details. You should have received a copy of the GNU General Public License along with Octave; see the file COPYING.  If not, see <https: *//*  *  * Copyright (c) 1994  * Hewlett-Packard Company  *  * Permission to use, copy, modify, distribute and sell this software  * and its documentation for any purpose is hereby granted without fee,  * provided that the above copyright notice appear in all copies and  * that both that copyright notice and this permission notice appear  * in supporting documentation.  Hewlett-Packard Company makes no  * representations about the suitability of this software for any  * purpose.  It is provided "as is" without express or implied warranty.  *  *  * Copyright (c) 1996,1997  * Silicon Graphics Computer Systems, Inc.  *  * Permission to use, copy, modify, distribute and sell this software  * and its documentation for any purpose is hereby granted without fee,  * provided that the above copyright notice appear in all copies and  * that both that copyright notice and this permission notice appear  * in supporting documentation.  Silicon Graphics makes no  * representations about the suitability of this software for any  * purpose.  It is provided "as is" without express or implied warranty.  *//** @file include/list  *  This is a Standard C++ Library header.  *//*  *  * Copyright (c) 1994  * Hewlett-Packard Company  *  * Permission to use, copy, modify, distribute and sell this software  * and its documentation for any purpose is hereby granted without fee,  * provided that the above copyright notice appear in all copies and  * that both that copyright notice and this permission notice appear  * in supporting documentation.  Hewlett-Packard Company makes no  * representations about the suitability of this software for any  * purpose.  It is provided "as is" without express or implied warranty.  *  *  * Copyright (c) 1996,1997  * Silicon Graphics Computer Systems, Inc.  *  * Permission to use, copy, modify, distribute and sell this software  * and its documentation for any purpose is hereby granted without fee,  * provided that the above copyright notice appear in all copies and  * that both that copyright notice and this permission notice appear  * in supporting documentation.  Silicon Graphics makes no  * representations about the suitability of this software for any  * purpose.  It is provided "as is" without express or implied warranty.  *//** @file bits/stl_list.h  *  This is an internal header file, included by other library headers.  *  Do not attempt to use it directly. @headername{list}  */namespace std __attribute__ ((__visibility__ ("default"))) {   namespace __detail   {     struct _List_node_base     {       _List_node_base* _M_next;       _List_node_base* _M_prev;                                        };     struct _List_node_header : public _List_node_base     {       std::size_t _M_size;                                 private:            };   }    template<typename _Tp>     struct _List_node : public __detail::_List_node_base     {       __gnu_cxx::__aligned_membuf<_Tp> _M_storage;                   };   /**    *  @brief A list::iterator.    *    *  All the functions are op overloads.   */  template<typename _Tp>     struct _List_iterator     {       typedef _List_iterator<_Tp> _Self;       typedef _List_node<_Tp> _Node;       typedef ptrdiff_t difference_type;       typedef std::bidirectional_iterator_tag iterator_category;       typedef _Tp value_type;       typedef _Tp* pointer;       typedef _Tp& reference;                                                                                    __detail::_List_node_base* _M_node;     };   /**    *  @brief A list::const_iterator.    *    *  All the functions are op overloads.   */  template<typename _Tp>     struct _List_const_iterator     {       typedef _List_const_iterator<_Tp> _Self;       typedef const _List_node<_Tp> _Node;       typedef _List_iterator<_Tp> iterator;       typedef ptrdiff_t difference_type;       typedef std::bidirectional_iterator_tag iterator_category;       typedef _Tp value_type;       typedef const _Tp* pointer;       typedef const _Tp& reference;                                                                                           const __detail::_List_node_base* _M_node;     }; namespace __cxx11 {   template<typename _Tp, typename _Alloc>     class _List_base     {     protected:       typedef typename __gnu_cxx::__alloc_traits<_Alloc>::template  rebind<_Tp>::other _Tp_alloc_type;       typedef __gnu_cxx::__alloc_traits<_Tp_alloc_type> _Tp_alloc_traits;       typedef typename _Tp_alloc_traits::template  rebind<_List_node<_Tp> >::other _Node_alloc_type;       typedef __gnu_cxx::__alloc_traits<_Node_alloc_type> _Node_alloc_traits;              struct _List_impl       : public _Node_alloc_type       {  __detail::_List_node_header _M_node;                 };       _List_impl _M_impl;                                          size_t _M_node_count() const ;       typename _Node_alloc_traits::pointer       _M_get_node()       ;       void       _M_put_node(typename _Node_alloc_traits::pointer __p) noexcept       ;   public:       typedef _Alloc allocator_type;       _Node_alloc_type&       _M_get_Node_allocator() noexcept       ;       const _Node_alloc_type&       _M_get_Node_allocator() const noexcept       ;       _List_base() = default;       _List_base(const _Node_alloc_type& __a)        ;                                                             };   template<typename _Tp, typename _Alloc = std::allocator<_Tp> >     class list : protected _List_base<_Tp, _Alloc>     {       static_assert(is_same<typename remove_cv<_Tp>::type, _Tp>::value,    "std::list must have a non-const, non-volatile value_type");       typedef _List_base<_Tp, _Alloc> _Base;       typedef typename _Base::_Tp_alloc_type _Tp_alloc_type;       typedef typename _Base::_Tp_alloc_traits _Tp_alloc_traits;       typedef typename _Base::_Node_alloc_type _Node_alloc_type;       typedef typename _Base::_Node_alloc_traits _Node_alloc_traits;     public:       typedef _Tp value_type;       typedef typename _Tp_alloc_traits::pointer pointer;       typedef typename _Tp_alloc_traits::const_pointer const_pointer;       typedef typename _Tp_alloc_traits::reference reference;       typedef typename _Tp_alloc_traits::const_reference const_reference;       typedef _List_iterator<_Tp> iterator;       typedef _List_const_iterator<_Tp> const_iterator;       typedef std::reverse_iterator<const_iterator> const_reverse_iterator;       typedef std::reverse_iterator<iterator> reverse_iterator;       typedef size_t size_type;       typedef ptrdiff_t difference_type;       typedef _Alloc allocator_type;     protected:       typedef _List_node<_Tp> _Node;       using _Base::_M_impl;       using _Base::_M_put_node;       using _Base::_M_get_node;       using _Base::_M_get_Node_allocator;       /**        *  @param  __args  An instance of user data.        *        *  Allocates space for a new node and constructs a copy of        *  @a __args in it.        */        ;                   public:       /**        *  @brief  Creates a %list with no elements.        */             /**        *  @brief  Creates a %list with no elements.        *  @param  __a  An allocator object.        */             /**        *  @brief  Creates a %list with default constructed elements.        *  @param  __n  The number of elements to initially create.        *  @param  __a  An allocator object.        *        *  This constructor fills the %list with @a __n default        *  constructed elements.        */             /**        *  @brief  Creates a %list with copies of an exemplar element.        *  @param  __n  The number of elements to initially create.        *  @param  __value  An element to copy.        *  @param  __a  An allocator object.        *        *  This constructor fills the %list with @a __n copies of @a __value.        */             /**        *  @brief  %List copy constructor.        *  @param  __x  A %list of identical element and allocator types.        *        *  The newly-created %list uses a copy of the allocation object used        *  by @a __x (unless the allocator traits dictate a different object).        */             /**        *  @brief  %List move constructor.        *        *  The newly-created %list contains the exact contents of the moved        *  instance. The contents of the moved instance are a valid, but        *  unspecified %list.        */             /**        *  @brief  Builds a %list from an initializer_list        *  @param  __l  An initializer_list of value_type.        *  @param  __a  An allocator object.        *        *  Create a %list consisting of copies of the elements in the        *  initializer_list @a __l.  This is linear in __l.size().        */                  private:              list(list&& __x, const allocator_type& __a, false_type)        ;     public:       list(list&& __x, const allocator_type& __a)       noexcept(_Node_alloc_traits::_S_always_equal())        ;       /**        *  @brief  Builds a %list from a range.        *  @param  __first  An input iterator.        *  @param  __last  An input iterator.        *  @param  __a  An allocator object.        *        *  Create a %list consisting of copies of the elements from        *  [@a __first,@a __last).  This is linear in N (where N is        *  distance(@a __first,@a __last)).        */         ;       /**        *  No explicit dtor needed as the _Base dtor takes care of        *  things.  The _Base dtor only erases the elements, and note        *  that if the elements themselves are pointers, the pointed-to        *  memory is not touched in any way.  Managing the pointer is        *  the user's responsibility.
        */
  ;
@@ -3194,18 +2750,6 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     };
 }
   /**
-   *  @brief  List equality comparison.
-   *  @param  __x  A %list.
-   *  @param  __y  A %list of the same type as @a __x.
-   *  @return  True iff the size and elements of the lists are equal.
-   *
-   *  This is an equivalence relation.  It is linear in the size of
-   *  the lists.  Lists are considered equivalent if their sizes are
-   *  equal, and if corresponding elements compare equal.
-  */
-    ;
-  /**
-   *  @brief  List ordering relation.
    *  @param  __x  A %list.
    *  @param  __y  A %list of the same type as @a __x.
    *  @return  True iff @a __x is lexicographically less than @a __y.
@@ -3228,18 +2772,6 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *
  * Copyright (c) 1994
  * Hewlett-Packard Company
- *
- * Permission to use, copy, modify, distribute and sell this software
- * and its documentation for any purpose is hereby granted without fee,
- * provided that the above copyright notice appear in all copies and
- * that both that copyright notice and this permission notice appear
- * in supporting documentation.  Hewlett-Packard Company makes no
- * representations about the suitability of this software for any
- * purpose.  It is provided "as is" without express or implied warranty.
- *
- *
- * Copyright (c) 1996,1997
- * Silicon Graphics Computer Systems, Inc.
  *
  * Permission to use, copy, modify, distribute and sell this software
  * and its documentation for any purpose is hereby granted without fee,
@@ -3278,18 +2810,6 @@ public:
 Copyright (C) 1994-2019 John W. Eaton
 This file is part of Octave.
 Octave is free software: you can redistribute it and/or modify it
-   The GNU C Library is distributed in the hope that it will be useful,
-   but WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-   Lesser General Public License for more details.
-   You should have received a copy of the GNU Lesser General Public
-   License along with the GNU C Library; if not, see
-   <http:
-/*
- *	ISO C99 Standard: 7.2 Diagnostics	<assert.h>
- */
-/* void assert (int expression);
-   If NDEBUG is defined, do nothing.
    If not, and EXPRESSION is zero, print an error message and abort.  */
 /* When possible, define assert so that it does not add extra
    parentheses around EXPR.  Otherwise, those added parentheses would
@@ -3302,18 +2822,6 @@ Octave is free software: you can redistribute it and/or modify it
       ;
       ;
     };
-    ;
-    ;
-    ;
-    ;
-    ;
-    ;
-    ;
-} 
-namespace std __attribute__ ((__visibility__ ("default")))
-{
-  template<typename _Key, typename _Compare, typename _Alloc>
-    class set;
   template <typename _Key, typename _Compare = std::less<_Key>,
      typename _Alloc = std::allocator<_Key> >
     class multiset
@@ -3373,18 +2881,6 @@ namespace octave
       int m_isdst;
       long m_gmtoff;
       std::string m_zone;
-    };
-    class
-    localtime : public base_tm
-    {
-    public:
-    private:
-    };
-    class
-    gmtime : public base_tm
-    {
-    public:
-    private:
     };
     class
     strptime : public base_tm
@@ -3494,18 +2990,6 @@ namespace std __attribute__ ((__visibility__ ("default")))
  rebind<value_type>::other _Pair_alloc_type;
       typedef _Rb_tree<key_type, value_type, _Select1st<value_type>,
          key_compare, _Pair_alloc_type> _Rep_type;
-      _Rep_type _M_t;
-      typedef __gnu_cxx::__alloc_traits<_Pair_alloc_type> _Alloc_traits;
-    public:
-      typedef typename _Alloc_traits::pointer pointer;
-      typedef typename _Alloc_traits::const_pointer const_pointer;
-      typedef typename _Alloc_traits::reference reference;
-      typedef typename _Alloc_traits::const_reference const_reference;
-      typedef typename _Rep_type::iterator iterator;
-      typedef typename _Rep_type::const_iterator const_iterator;
-      typedef typename _Rep_type::size_type size_type;
-      typedef typename _Rep_type::difference_type difference_type;
-      typedef typename _Rep_type::reverse_iterator reverse_iterator;
       typedef typename _Rep_type::const_reverse_iterator const_reverse_iterator;
  ;
  ;
@@ -3566,18 +3050,6 @@ public:
     dt_int16 = 2,
     dt_uint16 = 3,
     dt_int32 = 4,
-    dt_uint32 = 5,
-    dt_int64 = 6,
-    dt_uint64 = 7,
-    dt_single = 8,
-    dt_double = 9,
-    dt_char = 10,
-    dt_schar = 11,
-    dt_uchar = 12,
-    dt_logical = 13,
-    dt_short = 14,
-    dt_ushort = 15,
-    dt_int = 16,
     dt_uint = 17,
     dt_long = 18,
     dt_ulong = 19,
@@ -3614,66 +3086,6 @@ class octave_function;
 class octave_user_function;
 class octave_fcn_handle;
 class octave_fcn_inline;
-class octave_value_list;
-/*
-Copyright (C) 1996-2019 John W. Eaton
-This file is part of Octave.
-Octave is free software: you can redistribute it and/or modify it
-under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-Octave is distributed in the hope that it will be useful, but
-WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with Octave; see the file COPYING.  If not, see
-<https:
-*/
-template <typename T> class Array;
-class Cell;
-class octave_value;
-class octave_value_list;
-class string_vector;
-namespace octave
-{
-  class interpreter;
-  using ::va_list;
-} 
-/** @file include/cinttypes
- *  This is a Standard C++ Library header.
- */
-/*===---- inttypes.h - Standard header for integer printf macros ----------===*\
- *
- * Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
- * See https:
- * SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
- *
-\*===----------------------------------------------------------------------===*/
-/* Copyright (C) 1997-2019 Free Software Foundation, Inc.
-   This file is part of the GNU C Library.
-   The GNU C Library is free software; you can redistribute it and/or
-   modify it under the terms of the GNU Lesser General Public
-   License as published by the Free Software Foundation; either
-   version 2.1 of the License, or (at your option) any later version.
-   The GNU C Library is distributed in the hope that it will be useful,
-   but WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-   Lesser General Public License for more details.
-   You should have received a copy of the GNU Lesser General Public
-   License along with the GNU C Library; if not, see
-   <http:
-/*
- *	ISO C99: 7.8 Format conversion of integer types	<inttypes.h>
- */
-/* Get the type definitions.  */
-/* Get a definition for wchar_t.  But we must not define wchar_t itself.  */
-/* Macros for printing format specifiers.  */
-/* Decimal notation.  */
-/* Octal notation.  */
-/* Unsigned integers.  */
-/* lowercase hexadecimal notation.  */
-/* UPPERCASE hexadecimal notation.  */
 /* Macros for printing `intmax_t' and `uintmax_t'.  */
 /* Macros for printing `intptr_t' and `uintptr_t'.  */
 /* Macros for scanning format specifiers.  */
@@ -3698,30 +3110,6 @@ typedef struct
    */
     extern const _Placeholder<1> _1;
     extern const _Placeholder<2> _2;
-    extern const _Placeholder<3> _3;
-    extern const _Placeholder<4> _4;
-    extern const _Placeholder<5> _5;
-    extern const _Placeholder<6> _6;
-    extern const _Placeholder<7> _7;
-    extern const _Placeholder<8> _8;
-    extern const _Placeholder<9> _9;
-    extern const _Placeholder<10> _10;
-    extern const _Placeholder<11> _11;
-    extern const _Placeholder<12> _12;
-    extern const _Placeholder<13> _13;
-    extern const _Placeholder<14> _14;
-    extern const _Placeholder<15> _15;
-    extern const _Placeholder<16> _16;
-    extern const _Placeholder<17> _17;
-    extern const _Placeholder<18> _18;
-    extern const _Placeholder<19> _19;
-    extern const _Placeholder<20> _20;
-    extern const _Placeholder<21> _21;
-    extern const _Placeholder<22> _22;
-    extern const _Placeholder<23> _23;
-    extern const _Placeholder<24> _24;
-    extern const _Placeholder<25> _25;
-    extern const _Placeholder<26> _26;
     extern const _Placeholder<27> _27;
     extern const _Placeholder<28> _28;
     extern const _Placeholder<29> _29;
@@ -3818,18 +3206,6 @@ typedef struct
       _Functor _M_f;
       tuple<_Bound_args...> _M_bound_args;
       template<typename _Res>
- using __enable_if_void
-   = typename enable_if<is_void<_Res>{}>::type;
-      template<typename _Res>
- using __disable_if_void
-   = typename enable_if<!is_void<_Res>{}, _Result>::type;
- ;
- ;
- ;
- ;
- ;
- ;
- ;
  ;
     public:
       typedef _Result result_type;
@@ -3843,18 +3219,6 @@ typedef struct
   template<typename _Signature>
     struct is_bind_expression<_Bind<_Signature> >
     : public true_type { };
-  template<typename _Signature>
-    struct is_bind_expression<const _Bind<_Signature> >
-    : public true_type { };
-  template<typename _Signature>
-    struct is_bind_expression<volatile _Bind<_Signature> >
-    : public true_type { };
-  template<typename _Signature>
-    struct is_bind_expression<const volatile _Bind<_Signature>>
-    : public true_type { };
-  template<typename _Result, typename _Signature>
-    struct is_bind_expression<_Bind_result<_Result, _Signature>>
-    : public true_type { };
   template<typename _Result, typename _Signature>
     struct is_bind_expression<const _Bind_result<_Result, _Signature>>
     : public true_type { };
@@ -3866,30 +3230,6 @@ typedef struct
     : public true_type { };
   template<typename _Func, typename... _BoundArgs>
     struct _Bind_check_arity { };
-  template<typename _Ret, typename... _Args, typename... _BoundArgs>
-    struct _Bind_check_arity<_Ret (*)(_Args...), _BoundArgs...>
-    {
-      static_assert(sizeof...(_BoundArgs) == sizeof...(_Args),
-                   "Wrong number of arguments for function");
-    };
-  template<typename _Ret, typename... _Args, typename... _BoundArgs>
-    struct _Bind_check_arity<_Ret (*)(_Args......), _BoundArgs...>
-    {
-      static_assert(sizeof...(_BoundArgs) >= sizeof...(_Args),
-                   "Wrong number of arguments for function");
-    };
-  template<typename _Tp, typename _Class, typename... _BoundArgs>
-    struct _Bind_check_arity<_Tp _Class::*, _BoundArgs...>
-    {
-      using _Arity = typename _Mem_fn<_Tp _Class::*>::_Arity;
-      using _Varargs = typename _Mem_fn<_Tp _Class::*>::_Varargs;
-      static_assert(_Varargs::value
-      ? sizeof...(_BoundArgs) >= _Arity::value + 1
-      : sizeof...(_BoundArgs) == _Arity::value + 1,
-      "Wrong number of arguments for pointer-to-member");
-    };
-  template<typename _Tp, typename _Tp2 = typename decay<_Tp>::type>
-    using __is_socketlike = __or_<is_integral<_Tp2>, is_enum<_Tp2>>;
   template<bool _SocketLike, typename _Func, typename... _BoundArgs>
     struct _Bind_helper
     : _Bind_check_arity<typename decay<_Func>::type, _BoundArgs...>
@@ -3986,30 +3326,6 @@ extern int buffer_error_messages;
 extern int in_try_catch;
 extern bool discard_error_messages;
 extern bool discard_warning_messages;
-typedef int64_t octave_hdf5_id;
-typedef int octave_hdf5_err;
-extern "C" {
-extern const octave_hdf5_id octave_H5E_DEFAULT;
-extern const octave_hdf5_id octave_H5P_DEFAULT;
-extern const octave_hdf5_id octave_H5S_ALL;
-}
-namespace octave
-{
-  class type_info;
-}
-class Cell;
-class float_display_format;
-class mxArray;
-class octave_map;
-class octave_scalar_map;
-class octave_value;
-class octave_value_list;
-class octave_classdef;
-class octave_function;
-class octave_user_function;
-class octave_user_script;
-class octave_user_code;
-class octave_fcn_handle;
 class octave_fcn_inline;
 class octave_value_list;
 enum builtin_type_t
@@ -4070,18 +3386,6 @@ public:
   friend class octave_value;
   enum unary_mapper_t
   {
-    umap_xiscntrl,
-    umap_xisdigit,
-    umap_xisgraph,
-    umap_xislower,
-    umap_xisprint,
-    umap_xispunct,
-    umap_xisspace,
-    umap_xisupper,
-    umap_xisxdigit,
-    umap_xsignbit,
-    umap_xtolower,
-    umap_xtoupper,
     umap_unknown,
     num_unary_mappers = umap_unknown
   };
@@ -4106,30 +3410,6 @@ public:
     op_hermitian, 
     op_incr,
     op_decr,
-    num_unary_ops,
-    unknown_unary_op
-  };
-  enum binary_op
-  {
-    op_add, 
-    op_sub, 
-    op_mul, 
-    op_div, 
-    op_pow, 
-    op_ldiv, 
-    op_lt, 
-    op_el_not_or,
-    op_el_and_not,
-    op_el_or_not,
-    num_compound_binary_ops,
-    unknown_compound_binary_op
-  };
-  enum assign_op
-  {
-    op_asn_eq,
-    op_add_eq,
-    op_sub_eq,
-    op_mul_eq,
     op_div_eq,
     op_ldiv_eq,
     op_pow_eq,
@@ -4165,18 +3445,6 @@ class
 octave_scalar_map
 {
 public:
-  typedef octave_fields::const_iterator const_iterator;
-  typedef const_iterator iterator;
-  friend class octave_map;
-private:
-  octave_fields xkeys;
-  std::vector<octave_value> xvals;
-};
-class
-octave_map
-{
-public:
-  typedef octave_scalar_map element_type;
   typedef octave_fields::const_iterator const_iterator;
   typedef const_iterator iterator;
 private:
