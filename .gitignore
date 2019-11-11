@@ -9,3 +9,5 @@ bindgen.txt
 src/bindings.rs
 creduce_bug_*
 !__bindgen.ii
+*.log
+
