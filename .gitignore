@@ -8,6 +8,5 @@ bindgen.txt
 *.dylib
 src/bindings.rs
 creduce_bug_*
-!__bindgen.ii
+# !__bindgen.ii
 *.log
-
