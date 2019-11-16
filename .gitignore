@@ -1,8 +1,13 @@
 .vscode/
 target/
-Cargo.lock
 build.txt
 __bindgen*
 bindgen-help.txt
 *.bk
 bindgen.txt
+*.dylib
+src/bindings.rs
+creduce_bug_*
+!__bindgen.ii
+*.log
+
