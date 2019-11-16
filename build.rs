@@ -99,6 +99,7 @@ fn main() {
             build.flag("-isysroot");
             build.flag("/Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk");
             build.include("/usr/local/opt/octave/include/octave-5.1.0");
+            // build.include("/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include");
         },
         _ => (),
     }
