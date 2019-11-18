@@ -3,7 +3,6 @@
 typedef void* stdstring;
 
 extern "C" stdstring stdstring_new(const char* a);
-// extern "C" void stdstring_new(stdstring* s, const char* a);
 
 extern "C" void octave_value_list_new(octave_value_list* list, int n); 
 extern "C" void octave_value_list_set_value(octave_value_list* list, int n, octave_value* value);
