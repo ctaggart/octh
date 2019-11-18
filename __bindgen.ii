@@ -1,36 +1,20 @@
-inline namespace __1 {
-template < int __v > struct integral_constant {
-  static const int value = __v;
-};
+inline namespace {
 template < class > struct pointer_traits;
 template < class _Tp > struct pointer_traits< _Tp * > {
   typedef _Tp element_type;
   template < class _Up > using rebind = _Up *;
-
 };
 template < class _From, class _To > struct __rebind_pointer {
   typedef typename pointer_traits< _From >::template rebind< _To > type;
 };
 namespace __pointer_type_imp {
-template < class , class , bool = integral_constant< 0 >::value >
-struct __pointer_type;
-template < class _Tp, class _Dp > struct __pointer_type< _Tp, _Dp> {
-  typedef _Tp *type;
-};
-} struct __pointer_type {
-  typedef __pointer_type_imp::__pointer_type< int, int >::type type;
-};
-template < class _Ptr > struct __void_pointer { typedef _Ptr type; };
+template < class _Tp, class > struct __pointer_type { typedef _Tp *type; };
+} template < class _Ptr > struct __void_pointer { typedef _Ptr type; };
 template < class > struct allocator_traits {
-  typedef __pointer_type::type pointer;
-  typedef __void_pointer< pointer >::type void_pointer;
+  typedef __void_pointer<
+      __pointer_type_imp::__pointer_type< int, int >::type >::type void_pointer;
 };
-class allocator;
-struct __rebind_alloc_helper {
-  typedef ;
-};
-template < class , class > class __tree_node{};
-struct __tree_node_base_types ;
+template < class, class > class __tree_node;
 template < class _NodePtr,
            class = typename pointer_traits< _NodePtr >::element_type >
 struct __tree_node_types;
@@ -44,30 +28,17 @@ template < class _VoidPtr > struct __make_tree_node_types {
       type;
 };
 template < class > class __tree_const_iterator;
-template < class , class _Allocator > class __tree {
-typedef allocator_traits< _Allocator > __alloc_traits;
+template < class _Allocator > class __tree {
   typedef typename __make_tree_node_types<
-      typename __alloc_traits::void_pointer >::type _NodeTypes;
+      typename allocator_traits< _Allocator >::void_pointer >::type _NodeTypes;
 
 public:
-  ;
   typedef typename _NodeTypes::__node_pointer __node_pointer;
   typedef __tree_const_iterator< __node_pointer > const_iterator;
 };
-template < class >
-class __map_const_iterator {};
-class map {
-  typedef allocator allocator_type;
-  typedef __tree< int, __rebind_alloc_helper> __base;
-  typedef allocator_traits< allocator_type > __alloc_traits;
-
-public:
-  __alloc_traits;
-  typedef __map_const_iterator< __base::const_iterator >
-      const_iterator;
-};
+template < class > class __map_const_iterator {};
 } namespace octave {
 class stream {
-map::const_iterator lookup_cache;
+  __map_const_iterator< __tree< int >::const_iterator > lookup_cache;
 };
 } 

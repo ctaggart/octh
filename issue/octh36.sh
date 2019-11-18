@@ -12,4 +12,4 @@ BINDGEN_HEADER="__bindgen.ii" cargo build \
 # https://github.com/rust-lang-nursery/rust-bindgen/issues
 # export LLVM_CONFIG_PATH=/usr/local/opt/llvm/bin/llvm-config
 # time creduce ./issue/octh36.sh __bindgen.ii
-# time ~/gitshub/creduce/creduce/creduce ./issue/octh36.sh __bindgen.ii
+# time ~/github/creduce/creduce/creduce ./issue/octh36.sh __bindgen.ii
