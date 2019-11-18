@@ -22,6 +22,7 @@ fn bindgen(target: &str) {
         .enable_cxx_namespaces()
         .whitelist_type("octave.*")
         .whitelist_function("octave.*")
+        .whitelist_function("stdstring.*")
         .opaque_type("octave.refcount")
         .use_core()
         // .raw_line("#![allow(warnings)]")
