@@ -1,44 +1,35 @@
-inline namespace {
-template < class > struct pointer_traits;
-template < class _Tp > struct pointer_traits< _Tp * > {
-  typedef _Tp element_type;
-  template < class _Up > using rebind = _Up *;
+template < class > struct a;
+template < class b > struct a< b * > {
+  typedef b c;
+  template < class _Up > using d = _Up *;
 };
-template < class _From, class _To > struct __rebind_pointer {
-  typedef typename pointer_traits< _From >::template rebind< _To > type;
+template < class e, class f > struct g {
+  typedef typename a< e >::template d< f > h;
 };
-namespace __pointer_type_imp {
-template < class _Tp, class > struct __pointer_type { typedef _Tp *type; };
-} template < class _Ptr > struct __void_pointer { typedef _Ptr type; };
-template < class > struct allocator_traits {
-  typedef __void_pointer<
-      __pointer_type_imp::__pointer_type< int, int >::type >::type void_pointer;
+struct j {
+  typedef int *h;
 };
+template < class k > struct l { typedef k h; };
+template < class > struct m { typedef l< j::h >::h n; };
 template < class, class > class __tree_node;
-template < class _NodePtr,
-           class = typename pointer_traits< _NodePtr >::element_type >
-struct __tree_node_types;
-template < class _NodePtr, class _Tp, class _VoidPtr >
-struct __tree_node_types< _NodePtr, __tree_node< _Tp, _VoidPtr > > {
-  typedef _NodePtr __node_pointer;
+template < class o, class = typename a< o >::c > struct p;
+template < class o, class b, class q > struct p< o, __tree_node< b, q > > {
+  typedef o __node_pointer;
 };
-template < class _VoidPtr > struct __make_tree_node_types {
-  typedef __tree_node_types< typename __rebind_pointer<
-      _VoidPtr, __tree_node< int, _VoidPtr > >::type >
-      type;
+template < class q > struct r {
+  typedef p< typename g< q, __tree_node< int, q > >::h > h;
 };
-template < class > class __tree_const_iterator;
-template < class _Allocator > class __tree {
-  typedef typename __make_tree_node_types<
-      typename allocator_traits< _Allocator >::void_pointer >::type _NodeTypes;
+template < class > class s;
+template < class t > class __tree {
+  typedef typename r< typename m< t >::n >::h _NodeTypes;
 
 public:
   typedef typename _NodeTypes::__node_pointer __node_pointer;
-  typedef __tree_const_iterator< __node_pointer > const_iterator;
+  typedef s< __node_pointer > u;
 };
 template < class > class __map_const_iterator {};
-} namespace octave {
+namespace octave {
 class stream {
-  __map_const_iterator< __tree< int >::const_iterator > lookup_cache;
+  __map_const_iterator< __tree< int >::u > v;
 };
-} 
+} // 
