@@ -10,3 +10,4 @@ src/bindings.rs
 creduce_bug_*
 # !__bindgen.ii
 *.log
+*.oct
