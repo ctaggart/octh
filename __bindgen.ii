@@ -90,8 +90,6 @@ namespace std {
    template<typename _Tp>     struct __success_type     {
  typedef _Tp type;
  };
-   struct __failure_type   {
- };
    template<typename>     struct remove_cv;
    template<typename>     struct __is_void_helper     : public false_type {
  };
@@ -122,8 +120,6 @@ namespace std {
    template<>     struct __is_integral_helper<unsigned int>     : public true_type {
  };
    template<>     struct __is_integral_helper<long>     : public true_type {
- };
-   template<>     struct __is_integral_helper<unsigned long>     : public true_type {
  };
    template<>     struct __is_integral_helper<long long>     : public true_type {
  };
@@ -180,10 +176,6 @@ namespace std {
  };
    template<typename _Tp>     struct is_enum     : public integral_constant<bool, __is_enum(_Tp)>     {
  };
-   template<typename _Tp>     struct is_union     : public integral_constant<bool, __is_union(_Tp)>     {
- };
-   template<typename _Tp>     struct is_class     : public integral_constant<bool, __is_class(_Tp)>     {
- };
    template<typename>     struct is_function     : public false_type {
  };
    template<typename _Res, typename... _ArgTypes >     struct is_function<_Res(_ArgTypes...) >     : public true_type {
@@ -193,8 +185,6 @@ namespace std {
    template<typename _Res, typename... _ArgTypes >     struct is_function<_Res(_ArgTypes...) && >     : public true_type {
  };
    template<typename _Res, typename... _ArgTypes >     struct is_function<_Res(_ArgTypes......) >     : public true_type {
- };
-   template<typename _Res, typename... _ArgTypes >     struct is_function<_Res(_ArgTypes......) & >     : public true_type {
  };
    template<typename _Res, typename... _ArgTypes >     struct is_function<_Res(_ArgTypes......) && >     : public true_type {
  };
@@ -234,8 +224,6 @@ namespace std {
  };
    template<typename>     struct __is_null_pointer_helper     : public false_type {
  };
-   template<>     struct __is_null_pointer_helper<std::nullptr_t>     : public true_type {
- };
    template<typename _Tp>     struct is_null_pointer     : public __is_null_pointer_helper<typename remove_cv<_Tp>::type>::type     {
  };
    template<typename _Tp>     struct is_reference     : public __or_<is_lvalue_reference<_Tp>,                    is_rvalue_reference<_Tp>>::type     {
@@ -264,8 +252,6 @@ namespace std {
    template<typename _Res, typename... _Args >     struct __is_referenceable<_Res(_Args......) >     : public true_type     {
  };
    template<typename>     struct is_const     : public false_type {
- };
-   template<typename _Tp>     struct is_const<_Tp const>     : public true_type {
  };
    template<typename>     struct is_volatile     : public false_type {
  };
@@ -301,8 +287,6 @@ namespace std {
    template<typename _Tp,            bool = __or_<is_void<_Tp>,                         __is_array_unknown_bounds<_Tp>,                         is_function<_Tp>>::value,            bool = __or_<is_reference<_Tp>, is_scalar<_Tp>>::value>     struct __is_destructible_safe;
    template<typename _Tp>     struct __is_destructible_safe<_Tp, false, false>     : public __is_destructible_impl<typename                remove_all_extents<_Tp>::type>::type     {
  };
-   template<typename _Tp>     struct __is_destructible_safe<_Tp, true, false>     : public false_type {
- };
    template<typename _Tp>     struct __is_destructible_safe<_Tp, false, true>     : public true_type {
  };
    template<typename _Tp>     struct is_destructible     : public __is_destructible_safe<_Tp>::type     {
@@ -337,8 +321,6 @@ namespace std {
    template<typename _Tp, bool = __is_referenceable<_Tp>::value>     struct __is_move_constructible_impl;
    template<typename _Tp>     struct __is_move_constructible_impl<_Tp, false>     : public false_type {
  };
-   template<typename _Tp>     struct __is_move_constructible_impl<_Tp, true>     : public is_constructible<_Tp, _Tp&&>     {
- };
    template<typename _Tp>     struct is_move_constructible     : public __is_move_constructible_impl<_Tp>     {
  };
    template<typename _Tp>     struct __is_nt_default_constructible_atom     : public integral_constant<bool, noexcept(_Tp())>     {
@@ -366,8 +348,6 @@ namespace std {
    template<typename _Tp>     struct is_nothrow_copy_constructible     : public __is_nothrow_copy_constructible_impl<_Tp>     {
  };
    template<typename _Tp, bool = __is_referenceable<_Tp>::value>     struct __is_nothrow_move_constructible_impl;
-   template<typename _Tp>     struct __is_nothrow_move_constructible_impl<_Tp, false>     : public false_type {
- };
    template<typename _Tp>     struct __is_nothrow_move_constructible_impl<_Tp, true>     : public is_nothrow_constructible<_Tp, _Tp&&>     {
  };
    template<typename _Tp>     struct is_nothrow_move_constructible     : public __is_nothrow_move_constructible_impl<_Tp>     {
@@ -398,8 +378,6 @@ namespace std {
    template<typename _Tp, typename... _Args>     struct is_trivially_constructible     : public __bool_constant<__is_trivially_constructible(_Tp, _Args...)>     {
  };
    template<typename _Tp>     struct is_trivially_default_constructible     : public is_trivially_constructible<_Tp>::type     {
- };
-   struct __do_is_implicitly_default_constructible_impl   {
      ;
  };
    template<typename _Tp, bool = __is_referenceable<_Tp>::value>     struct __is_trivially_copy_assignable_impl;
@@ -411,10 +389,6 @@ namespace std {
  };
    template<typename _Tp, bool = __is_referenceable<_Tp>::value>     struct __is_trivially_move_assignable_impl;
    template<typename _Tp>     struct __is_trivially_move_assignable_impl<_Tp, false>     : public false_type {
- };
-   template<typename _Tp>     struct __is_trivially_move_assignable_impl<_Tp, true>     : public __bool_constant<__is_trivially_assignable(_Tp&, _Tp&&)>     {
- };
-   template<typename _Tp>     struct is_trivially_move_assignable     : public __is_trivially_move_assignable_impl<_Tp>     {
  };
    template<typename _Tp>     struct is_trivially_destructible     : public __and_<is_destructible<_Tp>,       __bool_constant<__has_trivial_destructor(_Tp)>>     {
  };
@@ -742,8 +716,6 @@ namespace std {
      };
    template<typename _Tp>     struct __underlying_type_impl<_Tp, false>     {
  };
-   template<typename _Tp>     struct underlying_type     : public __underlying_type_impl<_Tp>     {
- };
    template<typename _Tp>     struct __declval_protector     {
        static const bool __stop = false;
      };
@@ -910,8 +882,6 @@ namespace std {
      __nonesuch(__nonesuch const&) = delete;
      void operator=(__nonesuch const&) = delete;
    };
- }
-    namespace std __attribute__ ((__visibility__ ("default"))) {
    template<typename _Tp>     constexpr _Tp&&     forward(typename std::remove_reference<_Tp>::type& __t) noexcept     ;
    template<typename _Tp>     constexpr _Tp&&     forward(typename std::remove_reference<_Tp>::type&& __t) noexcept     ;
    template<typename _Tp>     constexpr typename std::remove_reference<_Tp>::type&&     move(_Tp&& __t) noexcept     ;
@@ -946,8 +916,6 @@ namespace std {
        typedef __false_type __type;
      };
    template<typename _Tp>     struct __are_same<_Tp, _Tp>     {
-       enum {
- __value = 1 };
        typedef __true_type __type;
      };
    template<typename _Tp>     struct __is_void     {
@@ -984,8 +952,6 @@ namespace std {
  __value = 1 };
      };
    template<>     struct __is_integer<wchar_t>     {
-       enum {
- __value = 1 };
        typedef __true_type __type;
      };
    template<>     struct __is_integer<char32_t>     {
@@ -1096,8 +1062,6 @@ namespace std {
        typedef __true_type __type;
      };
    template<>     struct __is_byte<signed char>     {
-       enum {
- __value = 1 };
        typedef __true_type __type;
      };
    template<>     struct __is_byte<unsigned char>     {
@@ -1134,8 +1098,6 @@ namespace std {
    template<typename _Iterator, typename = __void_t<>>     struct __iterator_traits {
        typedef typename _Iterator::value_type value_type;
        typedef typename _Iterator::difference_type difference_type;
-       typedef typename _Iterator::pointer pointer;
-       typedef typename _Iterator::reference reference;
      };
    template<typename _Iterator>     struct iterator_traits     : public __iterator_traits<_Iterator> {
  };
@@ -1208,8 +1170,6 @@ namespace std {
    template<typename _Iterator>     struct __is_move_iterator<reverse_iterator<_Iterator> >       : __is_move_iterator<_Iterator>     {
  };
    template<typename _Container>     class back_insert_iterator     : public iterator<output_iterator_tag, void, void, void, void>     {
-     protected:       _Container* container;
-     public:       typedef _Container container_type;
                                                };
         ;
    template<typename _Container>     class front_insert_iterator     : public iterator<output_iterator_tag, void, void, void, void>     {
@@ -1286,8 +1246,6 @@ namespace std {
  ;
  ;
  ;
- ;
- ;
  struct __locale_struct {
    const int *__ctype_tolower;
    const int *__ctype_toupper;
@@ -1318,8 +1276,6 @@ namespace std {
  typedef __uid_t uid_t;
  typedef __off_t off_t;
  typedef __off64_t off64_t;
- typedef __pid_t pid_t;
- typedef __id_t id_t;
  typedef __ssize_t ssize_t;
  typedef __daddr_t daddr_t;
  typedef __caddr_t caddr_t;
@@ -1350,8 +1306,6 @@ namespace std {
    unsigned int __flags;
  };
  typedef struct __pthread_internal_list {
-   struct __pthread_internal_list *__prev;
-   struct __pthread_internal_list *__next;
  }
  __pthread_list_t;
  struct __pthread_mutex_s {
@@ -1422,8 +1376,6 @@ namespace std {
  ;
  ;
  ;
- ;
- ;
  struct drand48_data   {
      unsigned short int __x[3];
       unsigned short int __old_x[3];
@@ -1451,8 +1403,6 @@ namespace std {
  ;
  ;
  ;
-  ;
-  ;
   ;
   ;
   ;
@@ -1568,8 +1518,6 @@ namespace std {
      ;
    template<typename _Alloc, typename _Tp,     typename _ValueT = __remove_cvref_t<typename _Alloc::value_type>,     typename = void>     struct __is_alloc_insertable_impl     : false_type     {
  };
-   template<typename _Alloc, typename _Tp, typename _ValueT>     struct __is_alloc_insertable_impl<_Alloc, _Tp, _ValueT,       __void_t<decltype(allocator_traits<_Alloc>::construct(      std::declval<_Alloc&>(), std::declval<_ValueT*>(),      std::declval<_Tp>()))>>     : true_type     {
- };
    template<typename _Alloc>     struct __is_copy_insertable     : __is_alloc_insertable_impl<_Alloc,      typename _Alloc::value_type const&>::type     {
  };
    template<typename _Tp>     struct __is_copy_insertable<allocator<_Tp>>     : is_copy_constructible<_Tp>     {
@@ -1584,7 +1532,6 @@ namespace std {
 }
 ))>>     : true_type {
  };
-   template<typename _Alloc>     using _RequireAllocator       = typename enable_if<__is_allocator<_Alloc>::value, _Alloc>::type;
    template<typename _Alloc>     using _RequireNotAllocator       = typename enable_if<!__is_allocator<_Alloc>::value, _Alloc>::type;
  }
    namespace __gnu_cxx __attribute__ ((__visibility__ ("default"))) {
@@ -1614,7 +1561,6 @@ namespace std {
  }
   typedef unsigned int wint_t;
   typedef struct {
-   int __count;
    union   {
      unsigned int __wch;
      char __wchb[4];
@@ -1680,7 +1626,6 @@ namespace std {
    typedef basic_stringbuf<wchar_t> wstringbuf;
    typedef basic_stringstream<wchar_t> wstringstream;
    typedef basic_filebuf<wchar_t> wfilebuf;
-   typedef basic_ifstream<wchar_t> wifstream;
    typedef basic_ofstream<wchar_t> wofstream;
    }
    namespace __gnu_cxx __attribute__ ((__visibility__ ("default"))) {
@@ -1722,8 +1667,6 @@ namespace std {
    template<typename _Tp>     class new_allocator     {
      public:       typedef size_t size_type;
        typedef ptrdiff_t difference_type;
-       typedef _Tp* pointer;
-       typedef const _Tp* const_pointer;
        typedef _Tp& reference;
        typedef const _Tp& const_reference;
        typedef _Tp value_type;
@@ -1732,7 +1675,6 @@ namespace std {
  };
        typedef std::true_type propagate_on_container_move_assignment;
         ;
-  ;
   ;
         ;
      };
@@ -1750,7 +1692,6 @@ namespace std {
        template<typename _Tp1>  struct rebind  {
  typedef allocator<_Tp1> other;
  };
-       typedef true_type propagate_on_container_move_assignment;
   ;
   ;
      };
@@ -1762,8 +1703,6 @@ namespace std {
         ;
      };
    template<typename _Tp>     class allocator<const volatile _Tp>     {
-     public:       typedef _Tp value_type;
-        ;
      };
    extern template class allocator<char>;
    extern template class allocator<wchar_t>;
@@ -1797,16 +1736,12 @@ namespace std {
    ;
    ;
    ;
-   ;
    class ctype_base;
    template<typename _CharT>     class ctype;
-   template<> class ctype<char>;
-   template<> class ctype<wchar_t>;
    template<typename _CharT>     class ctype_byname;
    template<typename _InternT, typename _ExternT, typename _StateT>     class codecvt;
    template<> class codecvt<char, char, mbstate_t>;
    template<> class codecvt<wchar_t, char, mbstate_t>;
-   template<> class codecvt<char16_t, char, mbstate_t>;
    template<> class codecvt<char32_t, char, mbstate_t>;
    template<typename _InternT, typename _ExternT, typename _StateT>     class codecvt_byname;
    template<typename _CharT, typename _InIter = istreambuf_iterator<_CharT> >     class num_get;
@@ -1864,7 +1799,6 @@ namespace std {
  _S_local_capacity = 15 / sizeof(_CharT) };
        union       {
   _CharT _M_local_buf[_S_local_capacity + 1];
-  size_type _M_allocated_capacity;
        };
          ;
                 ;
@@ -1872,8 +1806,6 @@ namespace std {
        ;
                           private:                                                                 ;
                                                              public:                                                                                                                                                                             ;
-     private:         ;
-       ;
      public:       template<typename, typename, typename> friend class basic_stringbuf;
      };
  }
@@ -1884,7 +1816,6 @@ namespace std {
      ;
    template<typename _CharT, typename _Traits, typename _Alloc>      bool     operator>=(const basic_string<_CharT, _Traits, _Alloc>& __lhs,         const basic_string<_CharT, _Traits, _Alloc>& __rhs)     noexcept     ;
    template<typename _CharT, typename _Traits, typename _Alloc>      bool     operator>=(const basic_string<_CharT, _Traits, _Alloc>& __lhs,         const _CharT* __rhs)     ;
-   template<typename _CharT, typename _Traits, typename _Alloc>      bool     operator>=(const _CharT* __lhs,       const basic_string<_CharT, _Traits, _Alloc>& __rhs)     ;
    template<typename _CharT, typename _Traits, typename _Alloc>      void     swap(basic_string<_CharT, _Traits, _Alloc>& __lhs,   basic_string<_CharT, _Traits, _Alloc>& __rhs)     noexcept(noexcept(__lhs.swap(__rhs)))     ;
    template<typename _CharT, typename _Traits, typename _Alloc>     basic_istream<_CharT, _Traits>&     operator>>(basic_istream<_CharT, _Traits>& __is,         basic_string<_CharT, _Traits, _Alloc>& __str);
    template<>     basic_istream<char>&     operator>>(basic_istream<char>& __is, basic_string<char>& __str);
@@ -1902,7 +1833,6 @@ namespace std {
        char _M_bytes[sizeof(const char*)];
      };
         };
-   typedef basic_string<char> __sso_string;
    class logic_error : public exception   {
    public:   };
    class domain_error : public logic_error   {
@@ -1934,7 +1864,6 @@ namespace std {
      template<typename _Cache>       friend struct __use_cache;
      static const category none = 0;
      static const category ctype = 1L << 0;
-     static _Impl* _S_classic;
      static _Impl* _S_global;
                               static const id* const _S_twinned_facets[];
    };
@@ -1948,11 +1877,8 @@ namespace std {
     };
    class locale::id   {
    private:     friend class locale;
-     friend class locale::_Impl;
-     ;
      ;
      mutable size_t _M_index;
-     static _Atomic_word _S_refcount;
                public:     id() ;
         };
    class locale::_Impl   {
@@ -1966,7 +1892,6 @@ namespace std {
      const facet** _M_caches;
      char** _M_names;
      static const locale::id* const _S_id_ctype[];
-     static const locale::id* const _S_id_numeric[];
      static const locale::id* const _S_id_collate[];
      static const locale::id* const _S_id_time[];
      static const locale::id* const _S_id_monetary[];
@@ -1984,11 +1909,8 @@ namespace std {
    struct error_code   {
                       ;
                       ;
-                            private:     friend class hash<error_code>;
-     int _M_value;
      const error_category* _M_cat;
    };
-                ;
       struct error_condition   {
                  ;
                             private:     int _M_value;
@@ -2018,15 +1940,12 @@ namespace std {
      static const fmtflags dec = _S_dec;
      static const fmtflags fixed = _S_fixed;
      static const fmtflags hex = _S_hex;
-     static const fmtflags internal = _S_internal;
-     static const fmtflags left = _S_left;
      static const fmtflags oct = _S_oct;
      static const fmtflags right = _S_right;
      static const fmtflags scientific = _S_scientific;
      static const fmtflags showbase = _S_showbase;
      static const fmtflags showpoint = _S_showpoint;
      static const fmtflags skipws = _S_skipws;
-     static const fmtflags unitbuf = _S_unitbuf;
      static const fmtflags uppercase = _S_uppercase;
      static const fmtflags adjustfield = _S_adjustfield;
      static const fmtflags basefield = _S_basefield;
@@ -2042,12 +1961,9 @@ namespace std {
      static const openmode binary = _S_bin;
      static const openmode in = _S_in;
      typedef _Ios_Seekdir seekdir;
-     static const seekdir beg = _S_beg;
      static const seekdir cur = _S_cur;
      typedef int io_state;
      typedef int open_mode;
-     typedef int seek_dir;
-     typedef std::streampos streampos;
      typedef std::streamoff streamoff;
      enum event     {
        erase_event,       imbue_event,       copyfmt_event     };
@@ -2062,7 +1978,6 @@ namespace std {
        ios_base::event_callback _M_fn;
        int _M_index;
                            };
-      _Callback_list* _M_callbacks;
           locale _M_ios_locale;
         public:     class Init     {
        friend class ios_base;
@@ -2080,7 +1995,6 @@ namespace std {
        typedef typename traits_type::pos_type pos_type;
        typedef typename traits_type::off_type off_type;
        typedef basic_streambuf<char_type, traits_type> __streambuf_type;
-       friend class basic_ios<char_type, traits_type>;
        friend class basic_istream<char_type, traits_type>;
        friend class basic_ostream<char_type, traits_type>;
         char_type* _M_in_cur;
@@ -2096,7 +2010,6 @@ namespace std {
        }
        void       __safe_gbump(streamsize __n) {
  _M_in_cur += __n;
- _M_out_cur += __n;
  }
      protected:       basic_streambuf(const basic_streambuf&);
                    };
@@ -2132,9 +2045,6 @@ namespace std {
         ;
         ;
           ;
-   ;
-        ;
-        ;
           ;
           ;
         ;
@@ -2170,10 +2080,7 @@ namespace std {
        typedef basic_streambuf<char_type, traits_type> __streambuf_type;
        typedef basic_string<char_type, _Traits, _Alloc> __string_type;
        typedef typename __string_type::size_type __size_type;
-       __string_type _M_string;
      public:     protected:     private:       struct __xfer_bufptrs       {
-  basic_stringbuf* _M_to;
-  off_type _M_goff[3];
   off_type _M_poff[3];
        };
      };
@@ -2206,8 +2113,6 @@ namespace std {
         ;
         ;
  }
- }
-   namespace std __attribute__ ((__visibility__ ("default"))) {
    typedef __gthread_mutex_t __c_lock;
    typedef FILE __c_file;
  }
@@ -2244,10 +2149,7 @@ namespace std {
        char_type _M_pback;
        char_type* _M_pback_cur_save;
        char_type* _M_pback_end_save;
-       bool _M_pback_init;
-       const __codecvt_type* _M_codecvt;
        char* _M_ext_buf;
-       streamsize _M_ext_buf_size;
        char* _M_ext_end;
                    public:                                                                                  protected:                                                                                                                                   };
    template<typename _CharT, typename _Traits>     class basic_ifstream : public basic_istream<_CharT, _Traits>     {
@@ -2265,7 +2167,6 @@ namespace std {
        typedef typename traits_type::pos_type pos_type;
        typedef typename traits_type::off_type off_type;
        typedef basic_filebuf<char_type, traits_type> __filebuf_type;
-     private:       __filebuf_type _M_filebuf;
      public:                                                                                                              };
    template<typename _CharT, typename _Traits>     class basic_fstream : public basic_iostream<_CharT, _Traits>     {
      public:       typedef _CharT char_type;
@@ -2301,7 +2202,6 @@ namespace std {
      std::ofstream m_external_diary_file;
      std::string m_diary_file_name;
      std::string m_PAGER_FLAGS;
-     bool m_page_output_immediately;
      bool m_page_screen_output;
      bool m_write_to_diary_file;
      bool m_really_flush_to_pager;
