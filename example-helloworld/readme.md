@@ -33,3 +33,5 @@ You can build this example by doing:
 cargo build
 cp target/debug/libhelloworld.so helloworld.oct
 ```
+
+Start Octave with `octave`. Then run `helloworld (1, 2, 3)` within Octave.

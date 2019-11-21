@@ -1,5 +1,7 @@
 #include "octave/oct.h"
 
+extern "C" void octave_dld_function_mark_relative(octave_dld_function* fcn);
+
 
 // std::string
 

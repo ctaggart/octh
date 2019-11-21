@@ -30762,6 +30762,9 @@ pub mod root {
         #[link_name = "\u{1}_Z12octave_sleepd"]
         pub fn octave_sleep(seconds: f64);
     }
+    extern "C" {
+        pub fn octave_dld_function_mark_relative(fcn: *mut root::octave_dld_function);
+    }
     pub type stdstring = *mut ::core::ffi::c_void;
     extern "C" {
         pub fn stdstring_new(a: *const ::std::os::raw::c_char) -> root::stdstring;
