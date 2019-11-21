@@ -1,16 +1,13 @@
 template < class > struct a;
 template < class b > struct a< b * > {
   typedef b c;
-  template < class _Up > using d = _Up *;
+  template < class i > using d = i *;
 };
 template < class e, class f > struct g {
   typedef typename a< e >::template d< f > h;
 };
-struct j {
-  typedef int *h;
-};
 template < class k > struct l { typedef k h; };
-template < class > struct m { typedef l< j::h >::h n; };
+template < class > struct m { typedef l< int * >::h n; };
 template < class, class > class __tree_node;
 template < class o, class = typename a< o >::c > struct p;
 template < class o, class b, class q > struct p< o, __tree_node< b, q > > {
@@ -20,16 +17,16 @@ template < class q > struct r {
   typedef p< typename g< q, __tree_node< int, q > >::h > h;
 };
 template < class > class s;
-template < class t > class __tree {
-  typedef typename r< typename m< t >::n >::h _NodeTypes;
+template < class t > class w {
+  typedef typename r< typename m< t >::n >::h x;
 
 public:
-  typedef typename _NodeTypes::__node_pointer __node_pointer;
+  typedef typename x::__node_pointer __node_pointer;
   typedef s< __node_pointer > u;
 };
-template < class > class __map_const_iterator {};
+template < class > class y {};
 namespace octave {
 class stream {
-  __map_const_iterator< __tree< int >::u > v;
+  y< w< int >::u > v;
 };
-} // 
+} 
