@@ -2,15 +2,31 @@
 include!("bindings.rs");
 
 use std::ffi::CStr;
+use std::ffi::CString;
 use std::mem::MaybeUninit;
 
 pub struct StdString(pub *mut root::std::string);
 
 impl StdString {
-    pub fn from_bytes_with_nul(bytes: &[u8]) -> Self {
+    /// bytes nust be terminated with the NUL character `\0`
+    pub fn from_bytes(bytes: &[u8]) -> Self {
         let name = CStr::from_bytes_with_nul(bytes).unwrap();
         let pmname = unsafe { root::stdstring_new(name.as_ptr()) };
         Self(pmname as *mut root::std::string)
+    }
+    
+    pub fn from_string(s: &str) -> Self {
+        unsafe {
+            let c = CString::new(s).unwrap();
+            let s = root::stdstring_new(c.as_ptr());
+            Self(s as *mut root::std::string)
+        }
+    }
+}
+
+impl From<&str> for StdString {
+    fn from(s: &str) -> Self {
+        StdString::from_string(s)
     }
 }
 

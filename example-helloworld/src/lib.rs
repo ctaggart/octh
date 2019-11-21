@@ -2,13 +2,16 @@ use octh::*;
 
 #[no_mangle]
 pub extern "C" fn Ghelloworld (library: *const dynamic_library, relative: bool) -> *mut dld_function {
-    let name = StdString::from_bytes_with_nul(b"helloworld\0");
-    let help = StdString::from_bytes_with_nul(b"Hello World Help String\0");
-    dld_function_create(helloworld, library, name, help, relative)
+    let help = "Hello World Help String";
+    dld_function_create(helloworld, library, "helloworld".into(), help.into(), relative)
 }
 
-extern "C" fn helloworld (args: *const value_list, nargout: i32) -> value_list {
-    let nargin = value_list_length(args);
+extern "C" fn helloworld (argin: *const value_list, nargout: i32) -> value_list {
+    let nargin = value_list_length(argin);
     println!("Hello World has {} input arguments and {} output arguments.", nargin, nargout);
-    value_list_new(0)
+    let argout = value_list_new(0); // TODO use nargout
+    // for i in 0..nargout {
+    //     // TODO set to Matrix
+    // }
+    argout
 }
