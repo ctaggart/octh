@@ -1,18 +1,13 @@
 # Rust bindings for GNU Octave oct.h
 
-The goal is to be able to [extend](https://www.gnu.org/software/octave/doc/interpreter/External-Code-Interface.html) [GNU Octave](https://www.gnu.org/software/octave/) with functions built with Rust instead of C++. Octave functions can be built using the C++ oct.h. A great milestone will be to be able to build and run this [hello world](https://www.gnu.org/software/octave/doc/interpreter/Getting-Started-with-Oct_002dFiles.html#Getting-Started-with-Oct_002dFiles) in Rust instead.
+[GNU Octave](https://www.gnu.org/software/octave/) has an [external code interface](https://www.gnu.org/software/octave/doc/interpreter/External-Code-Interface.html), allowing you to add functionality. Octave functions can be built using the C++ `oct.h`. They get packaged into a library with the name of the new function and an `.oct` extension. See [Getting Started with Oct-Files](https://octave.org/doc/interpreter/Getting-Started-with-Oct_002dFiles.html#Getting-Started-with-Oct_002dFiles). This Rust crate exposes binding to `oct.h`, so that you may build the Octave functions using Rust instead of C++.
 
-``` cpp
-#include <octave/oct.h>
+## Examples
+- [helloworld](example-helloworld) - A port of the C++ helloworld
 
-DEFUN_DLD (helloworld, args, nargout,
-           "Hello World Help String")
-{
-  octave_stdout << "Hello World has "
-                << args.length () << " input arguments and "
-                << nargout << " output arguments.\n";
+## Building
+- Run `cargo build`. Octave must be installed. For development, I'm using [Octave from Homebrew](https://formulae.brew.sh/formula/octave) on both Mac and Linux. I installed it by running `brew install octave`. [build.rs](octh/build.rs) will probably need some adjustments if you are using other locations.
 
-  return octave_value_list ();
-}
-```
-I could use some help with taming bindgen. See [the issues](https://github.com/ctaggart/octh/issues) for a current list.
+## Issues
+- [#10](https://github.com/ctaggart/octh/issues/10) build.rs is too platform specific
+- [#36](https://github.com/ctaggart/octh/issues/36) macOS Catalina failing with __node_pointer defined multiple times
