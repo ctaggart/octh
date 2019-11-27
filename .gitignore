@@ -6,8 +6,9 @@ bindgen-help.txt
 *.bk
 bindgen.txt
 *.dylib
-src/bindings.rs
+octh/src/bindings.rs
 creduce_bug_*
 # !__bindgen.ii
 *.log
 *.oct
+*.cc

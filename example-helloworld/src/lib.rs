@@ -9,9 +9,9 @@ pub extern "C" fn Ghelloworld (library: *const dynamic_library, relative: bool) 
 extern "C" fn helloworld (argin: *const value_list, nargout: i32) -> value_list {
     let nargin = value_list_length(argin);
     println!("Hello World has {} input arguments and {} output arguments.", nargin, nargout);
-    let argout = value_list_new(0); // TODO use nargout
-    // for i in 0..nargout {
-    //     // TODO set to Matrix
-    // }
-    argout
+    let mut argout = OctaveValueList::new(nargout);
+    for i in 0..nargout {
+        argout.set_value(i, Matrix::new().to_value());
+    }
+    argout.unwrap()
 }
