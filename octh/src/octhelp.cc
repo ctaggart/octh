@@ -23,7 +23,7 @@ extern "C" int octave_value_list_length(const octave_value_list* list){
     return (*list).length();
 }
 
-extern "C" void octave_value_list_set_value(octave_value_list* list, int n, octave_value* value){
+extern "C" void octave_value_list_set_value(octave_value_list* list, int n, const octave_value* value){
     (*list)(n) = *value;
 }
 
@@ -39,7 +39,7 @@ extern "C" void octave_value_new_bool(octave_value* value, const bool b){
 }
 
 extern "C" void octave_value_new_Matrix(octave_value* value, const Matrix* matrix){
-    new (value) octave_value(matrix);
+    new (value) octave_value(*matrix);
 }
 
 extern "C" bool octave_value_is_matrix_type(const octave_value* value){

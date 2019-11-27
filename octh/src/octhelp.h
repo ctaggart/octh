@@ -13,7 +13,7 @@ extern "C" stdstring stdstring_new(const char* a);
 
 extern "C" void octave_value_list_new(octave_value_list* list, int n);
 extern "C" int octave_value_list_length(const octave_value_list* list);
-extern "C" void octave_value_list_set_value(octave_value_list* list, int n, octave_value* value);
+extern "C" void octave_value_list_set_value(octave_value_list* list, int n, const octave_value* value);
 extern "C" void octave_value_list_get_value(octave_value* value, const octave_value_list* list, int n);
 
 

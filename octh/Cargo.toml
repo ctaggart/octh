@@ -1,6 +1,6 @@
 [package]
 name = "octh"
-version = "0.1.0"
+version = "0.2.0"
 authors = ["Cameron Taggart <cameron.taggart@gmail.com>"]
 build = "build.rs"
 description = "A bindgen generated Rust wrapper around oct.h for creating Oct-Files for GNU Octave"
@@ -11,10 +11,9 @@ repository = "https://github.com/ctaggart/octh"
 edition = "2018"
 
 [lib]
-# crate-type = ["dylib"]
+crate-type = ["dylib"]
 
 [build-dependencies]
-# bindgen = "*"
-# need https://github.com/rust-lang/rust-bindgen/commit/fa6a68d7c768cd9d4efc418f5d8d9ceb104704ad
-bindgen = { branch = "master", git = "https://github.com/rust-lang/rust-bindgen" }
+bindgen = "*"
+# bindgen = { branch = "master", git = "https://github.com/rust-lang/rust-bindgen" }
 cc = "*"
