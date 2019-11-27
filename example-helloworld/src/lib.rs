@@ -15,15 +15,3 @@ extern "C" fn helloworld (argin: *const value_list, nargout: i32) -> value_list 
     // }
     argout
 }
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn test_list_length() {
-        let argout = value_list_new(0);
-        assert_eq!(value_list_length(&argout),0);
-    }
-
-}

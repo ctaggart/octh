@@ -23,6 +23,7 @@ fn bindgen(target: &str) {
         .whitelist_type("octave.*")
         .whitelist_function("octave.*")
         .whitelist_function("stdstring.*")
+        .whitelist_function("Matrix.*")
         .opaque_type("octave.refcount")
         .use_core()
         // .raw_line("#![allow(warnings)]")

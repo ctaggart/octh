@@ -30792,6 +30792,15 @@ pub mod root {
         );
     }
     extern "C" {
+        pub fn octave_value_new_bool(value: *mut root::octave_value, b: bool);
+    }
+    extern "C" {
+        pub fn octave_value_new_Matrix(value: *mut root::octave_value, matrix: *const root::Matrix);
+    }
+    extern "C" {
+        pub fn octave_value_is_matrix_type(value: *const root::octave_value) -> bool;
+    }
+    extern "C" {
         pub fn octave_value_is_scalar_type(value: *const root::octave_value) -> bool;
     }
     extern "C" {
@@ -30816,6 +30825,9 @@ pub mod root {
         pub fn octave_value_isinteger(value: *const root::octave_value) -> bool;
     }
     extern "C" {
+        pub fn octave_value_islogical(value: *const root::octave_value) -> bool;
+    }
+    extern "C" {
         pub fn octave_value_isnull(value: *const root::octave_value) -> bool;
     }
     extern "C" {
@@ -30823,6 +30835,12 @@ pub mod root {
     }
     extern "C" {
         pub fn octave_value_isreal(value: *const root::octave_value) -> bool;
+    }
+    extern "C" {
+        pub fn Matrix_new(matrix: *mut root::Matrix);
+    }
+    extern "C" {
+        pub fn Matrix_isempty(matrix: *const root::Matrix) -> bool;
     }
     pub type __builtin_va_list = [root::__va_list_tag; 1usize];
     #[repr(C)]
