@@ -26,7 +26,12 @@ extern "C" fn helloworld (argin: *const value_list, nargout: i32) -> value_list 
 ```
 
 ## Building
-- Run `cargo build`. Octave must be installed. For development, I'm using [Octave from Homebrew](https://formulae.brew.sh/formula/octave) on both Mac and Linux. I installed it by running `brew install octave`. [build.rs](octh/build.rs) will probably need some adjustments if you are using other locations.
+- Run `cargo build`. Octave must be installed. For development, I'm using [Octave from Homebrew](https://formulae.brew.sh/formula/octave) on both Mac and Linux. I installed it by running `brew install octave`. You will need to add these two environment variables, adjusted to your environment:
+
+``` sh
+export OCTAVE_INCLUDE=/home/linuxbrew/.linuxbrew/Cellar/octave/5.1.0_8/include/octave-5.1.0
+export OCTAVE_LIB=/home/linuxbrew/.linuxbrew/Cellar/octave/5.1.0_8/lib/octave/5.1.0
+```
 
 ## Issues
 - [#10](https://github.com/ctaggart/octh/issues/10) build.rs is too platform specific

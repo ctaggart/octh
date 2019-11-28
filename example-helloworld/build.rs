@@ -1,5 +1,7 @@
 fn main() {
-    println!("/home/linuxbrew/.linuxbrew/Cellar/octave/5.1.0_6/lib/octave/5.1.0");
+    if let Ok(lib) = std::env::var("OCTAVE_LIB") {
+        println!("cargo:rustc-link-search={}", lib);
+    }
     println!("cargo:rustc-link-lib=octave");
     println!("cargo:rustc-link-lib=octinterp");
 }
