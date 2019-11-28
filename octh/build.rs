@@ -1,20 +1,10 @@
 extern crate bindgen;
 use std::env;
 
-#[allow(dead_code)]
-fn bindgen(target: &str) {
-
-    let bindgen_header = &env::var("BINDGEN_HEADER");
-    let header =
-        match bindgen_header {
-            Ok(x) => x,
-            Err(_) => "src/octhelp.h"
-        };
-    // let default_header = "src/octhelp.h";
-    // let header = &bindgen_header.as_ref().unwrap_or(default_header.to_owned());
+fn bindgen(target: &str, bindgen_header: &str, octave_include: Option<&str>) {
 
     let mut builder = bindgen::Builder::default()
-        .header(header)
+        .header(bindgen_header)
         .clang_arg("-v") // verbose
         .clang_arg("-x") // -x c++
         .clang_arg("c++")
@@ -26,40 +16,34 @@ fn bindgen(target: &str) {
         .whitelist_function("Matrix.*")
         .opaque_type("octave.refcount")
         .use_core()
-        // .raw_line("#![allow(warnings)]")
-        // .raw_line("extern crate core;")
         .opaque_type("std::.*");
+
+    if let Some(include) = octave_include {
+        builder = builder.clang_arg(format!("-I{}", include));
+    }
 
     match target {
         "x86_64-pc-windows-gnu" => {
             builder = builder
-                .clang_arg("--target=x86_64-w64-mingw32")
-                .clang_arg(r"-IC:\Octave\Octave-5.1.0.0\mingw64\include\octave-5.1.0");
+                .clang_arg("--target=x86_64-w64-mingw32");
         },
         "x86_64-unknown-linux-gnu" => {
-            builder = builder
-                .clang_arg("-I/home/linuxbrew/.linuxbrew/Cellar/octave/5.1.0_6/include/octave-5.1.0")
         },
         "x86_64-apple-darwin" => {
-            // brew install octave
             builder = builder
                 // failing tests on macOS https://github.com/rust-lang/rust-bindgen/issues/1619
                 .layout_tests(false)
                 .clang_arg("-isysroot")
-                .clang_arg("/Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk")
-                // .clang_arg("/Library/Developer/CommandLineTools/SDKs/MacOSX10.14.sdk")
-                // .clang_arg("-I/usr/local/opt/llvm/include")
-                .clang_arg("-I/usr/local/opt/octave/include/octave-5.1.0")
-                // .clang_arg("-I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include");
+                .clang_arg("/Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk");
         },
         _ => (),
     }
 
-    if bindgen_header.is_err() {
-        // creates a __bingen.ii file
-        builder.dump_preprocessed_input()
-            .expect("unable to dump input");
-    }
+    // create a __bingen.ii file
+    // if bindgen_header.is_err() {
+    //     builder.dump_preprocessed_input()
+    //         .expect("unable to dump input");
+    // }
 
     let bindings = builder.generate()
         .expect("Unable to generate bindings");
@@ -72,32 +56,31 @@ fn bindgen(target: &str) {
 
 fn main() {
     let target = &env::var("TARGET").unwrap();
-    // println!("{}", target);
+    let bindgen_header = env::var("BINDGEN_HEADER").unwrap_or("src/octhelp.h".to_owned());
+    let octave_include = env::var("OCTAVE_INCLUDE").ok();
+    let octave_lib = env::var("OCTAVE_LIB").ok();
 
-    // generate binding
-    bindgen(target);
+    // bindgen(target, &bindgen_header, octave_include.as_deref()); // as_deref is Rust 1.4.0
+    bindgen(target, &bindgen_header, octave_include.as_ref().map(String::as_ref));
 
-    // compile helper
-    // https://github.com/alexcrichton/cc-rs
-    // https://docs.rs/cc/1.0.46/cc/struct.Build.html#method.cpp_link_stdlib
-    // Which stdlib is octave built with?
+    // compile helper https://docs.rs/cc https://github.com/alexcrichton/cc-rs
     let mut build = cc::Build::new();
     build.cpp(true)
         .flag("-std=gnu++11")
         .file("src/octhelp.cc");
     
+    if let Some(include) = octave_include {
+        build.include(include);
+    }
+
     match target.as_str() {
         "x86_64-pc-windows-gnu" => {
-            build.include(r"C:\Octave\Octave-5.1.0.0\mingw64\include\octave-5.1.0");
         },
         "x86_64-unknown-linux-gnu" => {
-            build.include("/home/linuxbrew/.linuxbrew/Cellar/octave/5.1.0_6/include/octave-5.1.0");
         },
         "x86_64-apple-darwin" => {
             build.flag("-isysroot");
             build.flag("/Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk");
-            build.include("/usr/local/opt/octave/include/octave-5.1.0");
-            // build.include("/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include");
         },
         _ => (),
     }
@@ -105,21 +88,22 @@ fn main() {
     build.compile("octhelp");
 
     // add libraries for linking
+    // needed for cargo test
+    if let Some(lib) = octave_lib {
+        println!("cargo:rustc-link-search={}", lib);
+    }
     match target.as_str() {
         "x86_64-pc-windows-gnu" => {
-            println!(r"cargo:rustc-link-search=C:\Octave\Octave-5.1.0.0\mingw64\bin");
             println!("cargo:rustc-link-lib=octave-7");
             println!("cargo:rustc-link-lib=octinterp-7");
         },
         "x86_64-unknown-linux-gnu" => {
-            println!("cargo:rustc-link-search=native=/home/linuxbrew/.linuxbrew/Cellar/octave/5.1.0_6/lib/octave/5.1.0");
-            println!("cargo:rustc-link-lib=octave"); // for cargo test
+            println!("cargo:rustc-link-lib=octave");
             println!("cargo:rustc-link-lib=octinterp");
         },
         "x86_64-apple-darwin" => {
             // brew install llvm octave
             // export PATH=/usr/local/opt/llvm/bin:$PATH
-            println!("cargo:rustc-link-search=/usr/local/opt/octave/lib/octave/5.1.0");
             println!("cargo:rustc-link-lib=octave");
             println!("cargo:rustc-link-lib=octinterp");
         },
