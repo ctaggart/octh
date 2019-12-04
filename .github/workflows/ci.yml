@@ -1,15 +1,9 @@
-name: Rust
-
-on: [push]
-
+on: [push, pull_request]
 env:
   OCTAVE_INCLUDE: /usr/include/octave-5.1.0
-
 jobs:
   build:
-
-    runs-on: ubuntu-latest
-
+    runs-on: ubuntu-18.04
     steps:
     - name: download octave
       run: curl -LO https://github.com/ctaggart/octave-deb/releases/download/5.1.0-1/octave-dev_5.1.0-1_amd64.deb
@@ -17,6 +11,6 @@ jobs:
       run: sudo apt-get install -y --no-install-recommends ./octave-dev_5.1.0-1_amd64.deb
     - uses: actions/checkout@v1
     - name: build
-      run: cargo build --verbose
+      run: cargo build
     - name: test
-      run: cargo test --verbose
+      run: cargo test tests
