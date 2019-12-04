@@ -14,3 +14,8 @@ jobs:
       run: cargo build
     - name: test
       run: cargo test tests
+    - name: test helloworld.oct
+      run: |
+        cp target/debug/libhelloworld.so helloworld.oct
+        octave-cli --eval "helloworld"
+        octave-cli --eval "[a,b] = helloworld(1,2,3)"
