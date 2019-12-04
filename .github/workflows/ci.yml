@@ -11,7 +11,7 @@ jobs:
     - name: download octave
       run: curl -LO https://github.com/ctaggart/octave-deb/releases/download/5.1.0-1/octave-dev_5.1.0-1_amd64.deb
     - name: install octave
-      run: apt-get install -y --no-install-recommends ./octave-dev_5.1.0-1_amd64.deb
+      run: sudo apt-get install -y --no-install-recommends ./octave-dev_5.1.0-1_amd64.deb
     - uses: actions/checkout@v1
     - name: build
       run: cargo build --verbose
