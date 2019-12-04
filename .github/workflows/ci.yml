@@ -1,0 +1,21 @@
+on: [push, pull_request]
+env:
+  OCTAVE_INCLUDE: /usr/include/octave-5.1.0
+jobs:
+  build:
+    runs-on: ubuntu-18.04
+    steps:
+    - name: download octave
+      run: curl -LO https://github.com/ctaggart/octave-deb/releases/download/5.1.0-1/octave-dev_5.1.0-1_amd64.deb
+    - name: install octave
+      run: sudo apt-get install -y --no-install-recommends ./octave-dev_5.1.0-1_amd64.deb
+    - uses: actions/checkout@v1
+    - name: build
+      run: cargo build
+    - name: test
+      run: cargo test tests
+    - name: test helloworld.oct
+      run: |
+        cp target/debug/libhelloworld.so helloworld.oct
+        octave-cli --eval "helloworld"
+        octave-cli --eval "[a,b] = helloworld(1,2,3)"
