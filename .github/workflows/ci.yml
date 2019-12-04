@@ -2,6 +2,9 @@ name: Rust
 
 on: [push]
 
+env:
+  OCTAVE_INCLUDE: /usr/include/octave-5.1.0
+
 jobs:
   build:
 
