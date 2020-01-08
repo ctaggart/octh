@@ -98,8 +98,6 @@ fn main() {
             println!("cargo:rustc-link-lib=octinterp-7");
         },
         "x86_64-unknown-linux-gnu" => {
-            println!("cargo:rustc-link-lib=octave");
-            println!("cargo:rustc-link-lib=octinterp");
         },
         "x86_64-apple-darwin" => {
             // brew install llvm octave
